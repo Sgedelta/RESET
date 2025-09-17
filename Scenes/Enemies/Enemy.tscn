@@ -1,3 +1,15 @@
-[gd_scene format=3 uid="uid://bxdhdw8570td6"]
+[gd_scene load_steps=4 format=3 uid="uid://bxdhdw8570td6"]
+
+[ext_resource type="Script" uid="uid://nxhrep7cp0pq" path="res://Scripts/Gameplay/Enemies/Enemy.cs" id="1_7kucs"]
+[ext_resource type="Texture2D" uid="uid://cxo8emmrc8nnp" path="res://Enderman.webp" id="2_7kucs"]
+[ext_resource type="Script" uid="uid://3mqrwalndg0s" path="res://Scripts/Gameplay/Enemies/PathFollower.cs" id="3_35yb6"]
 
 [node name="Enemy" type="Node2D"]
+script = ExtResource("1_7kucs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.203842, 0.203842)
+texture = ExtResource("2_7kucs")
+
+[node name="PathFollower" type="Node2D" parent="."]
+script = ExtResource("3_35yb6")

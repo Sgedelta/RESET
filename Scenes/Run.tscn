@@ -1,3 +1,49 @@
-[gd_scene format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=7 format=3 uid="uid://cqogid51gx2q8"]
+
+[ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
+[ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
+[ext_resource type="Script" uid="uid://bvtxvt18atr23" path="res://Load/WaveDirector.cs" id="2_38uoo"]
+[ext_resource type="Script" uid="uid://6ls4nxdmluu3" path="res://Scenes/Map/PathVisualizer.cs" id="4_ixfg1"]
+[ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
+[ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
 
 [node name="Run" type="Node2D"]
+
+[node name="WaveDirector" type="Node2D" parent="."]
+script = ExtResource("2_38uoo")
+EnemyScene = ExtResource("2_0j08j")
+MapEnemiesPath = NodePath("../Map/Enemies")
+Path2DPath = NodePath("../Map/Path2D")
+SpawnEvery = 5.0
+
+[node name="Map" parent="." instance=ExtResource("1_wyxvx")]
+
+[node name="Path2D" parent="Map" index="0"]
+position = Vector2(0, 0)
+
+[node name="Line2D" type="Line2D" parent="Map/Path2D" index="0"]
+points = PackedVector2Array(-263, -242)
+default_color = Color(0.870353, 0.000283033, 0.000153441, 1)
+
+[node name="Node" type="Node" parent="Map/Path2D/Line2D"]
+script = ExtResource("4_ixfg1")
+Path2DPath = NodePath("../..")
+Line2DPath = NodePath("..")
+
+[node name="Towers" parent="Map" index="1"]
+position = Vector2(572, 135)
+
+[node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
+position = Vector2(-428, 205)
+
+[node name="TargetingComponent" parent="Map/Towers/Tower" index="0"]
+EnemiesRootPath = NodePath("../../../Enemies")
+
+[node name="ShooterComponent" parent="Map/Towers/Tower" index="1"]
+ProjectileScene = ExtResource("5_ixfg1")
+
+[node name="Sprite2D" parent="Map/Towers/Tower" index="2"]
+position = Vector2(1.99994, -6.00003)
+
+[editable path="Map"]
+[editable path="Map/Towers/Tower"]
