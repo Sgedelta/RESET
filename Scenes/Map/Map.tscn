@@ -1,19 +1,3 @@
-[gd_scene load_steps=2 format=3 uid="uid://b54ks2lks65pw"]
-
-[sub_resource type="Curve2D" id="Curve2D_edo5e"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1119, 41, 0, 0, 0, 0, 514, 92, 0, 0, 0, 0, 341, 107, 0, 0, 0, 0, 43, 199, 0, 0, 0, 0, 63, 491, 0, 0, 0, 0, 141, 597, 0, 0, 0, 0, 307, 569, 0, 0, 0, 0, 359, 604, 0, 0, 0, 0, 624, 562, 0, 0, 0, 0, 1039, 574)
-}
-point_count = 10
+[gd_scene format=3 uid="uid://b54ks2lks65pw"]
 
 [node name="Map" type="Node2D"]
-
-[node name="Path2D" type="Path2D" parent="."]
-position = Vector2(405, 357)
-curve = SubResource("Curve2D_edo5e")
-
-[node name="Towers" type="Node2D" parent="."]
-position = Vector2(591, 130)
-
-[node name="Enemies" type="Node2D" parent="."]
-position = Vector2(1146, 84)
