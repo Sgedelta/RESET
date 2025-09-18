@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://j5wmq3a35vox"]
+
+[ext_resource type="PackedScene" uid="uid://3chy0d62ici0" path="res://Enemy.tscn" id="1_ig7tw"]
+
+[sub_resource type="Curve2D" id="Curve2D_0xm2m"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 90, 169, -432.69, -286.671, 432.69, 286.671, 765, 75, -931.949, -142.799, 931.949, 142.799, 795, 395, -598.036, 259.829, 598.036, -259.829, 285, 557, -572.268, 365.049, 572.268, -365.049, 277, -110, 0, 0, 0, 0, 1415, -187)
+}
+point_count = 6
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+size = Vector3(1.945, 1.44, 1)
+
+[node name="MainBase" type="Node2D"]
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-117, -258)
+curve = SubResource("Curve2D_0xm2m")
+
+[node name="EnemyFollow" parent="Path2D" instance=ExtResource("1_ig7tw")]
+position = Vector2(393.027, 660.287)
+rotation = 3.07611
+progress = 2660.48
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.384736, 0.318784, 0)
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.511839, 3.72309)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="Button" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Progress"
+
+[connection signal="pressed" from="Button" to="Path2D/EnemyFollow" method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="Path2D/EnemyFollow" method="Progress"]

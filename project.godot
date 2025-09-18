@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="RESET"
+config/name="RESET
 run/main_scene="uid://bme2sw3vgy65"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
