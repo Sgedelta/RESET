@@ -4,6 +4,7 @@ using System;
 public partial class Enemy : Node2D
 {
 	[Export] public float MaxHp = 30f;
+	[Export] public PathFollower Follower;
 	public float HP;
 
 	public override void _Ready()
@@ -20,7 +21,8 @@ public partial class Enemy : Node2D
 	
 	public void SetPath(Path2D path)
 	{
-		var follower = GetNode<PathFollower>("PathFollower");
-		follower.SetPath(path);
+		Follower.SetPath(path);
 	}
+
+
 }

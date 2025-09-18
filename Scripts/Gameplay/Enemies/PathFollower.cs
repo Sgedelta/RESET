@@ -33,4 +33,20 @@ public partial class PathFollower : Node2D
 		var enemy = (Node2D)GetParent();
 		enemy.GlobalPosition = _path.GlobalPosition + local;
 	}
+
+	/// <summary>
+	/// Method to read ahead the follow's position by timeAhead milliseconds.
+	/// </summary>
+	/// <param name="timeAhead">milliseconds to read ahead</param>
+	/// <returns></returns>
+    public Vector2 GetFuturePosition(float timeAhead)
+    {
+		Vector2 pos = GetParent<Node2D>().GlobalPosition;
+
+		
+
+		pos += _curve.SampleBaked(_distance + Speed * timeAhead);
+
+		return pos;
+    }
 }
