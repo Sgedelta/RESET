@@ -45,11 +45,9 @@ public partial class PathFollower : Node2D
 	/// <returns></returns>
     public Vector2 GetFuturePosition(float timeAhead)
     {
-		Vector2 pos = GetParent<Node2D>().GlobalPosition;
+		Vector2 pos = new Vector2();
 
-		
-
-		pos += _curve.SampleBaked(_distance + Speed * timeAhead);
+		pos += _curve.SampleBaked(_distance + (Speed * timeAhead));
 
 		return pos;
     }

@@ -15,14 +15,22 @@ public partial class Projectile : Area2D
 		_target = target;
 		_damage = damage;
 
-		//do a basic readahead based on distance to target - this could cause issues if the target is very far away and fast moving, and we might need to revisit
+		GD.Print((_target.GlobalPosition - from).Length());
+		GD.Print((_target.GlobalPosition - from));
+
+		//do a basic readahead based on distance to target - this could cause issues if the target is very far away/fast moving/on switchbacks/changing how close they are to the tower drastically, and we might need to revisit
 		float timeToTarget = ((_target.GlobalPosition - from).Length()) / Speed;
-		dir = (target.Follower.GetFuturePosition(timeToTarget / 1000) - from).Normalized();
+
+		GD.Print(timeToTarget);
+
+        dir = (target.Follower.GetFuturePosition(timeToTarget) - from).Normalized();
 
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		//Note: we will likely want to change this to check for anything on the proper layer, instead of the specific enemy instance - that'll future proof us for "spray" weapons.
+
 		if (_target == null || !IsInstanceValid(_target))
 		{
 			QueueFree();
@@ -40,5 +48,7 @@ public partial class Projectile : Area2D
 			_target.TakeDamage(_damage);
 			QueueFree();
 		}
+
+
 	}
 }
