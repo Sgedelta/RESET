@@ -1,3 +1,13 @@
-[gd_scene format=3 uid="uid://beq0wrl3nh46k"]
+[gd_scene load_steps=3 format=3 uid="uid://beq0wrl3nh46k"]
+
+[ext_resource type="Script" uid="uid://dxpf4dvc50si" path="res://Scripts/Gameplay/Projectiles/Projectile.cs" id="1_hwlbg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pe8r6"]
 
 [node name="Projectile" type="Area2D"]
+script = ExtResource("1_hwlbg")
+Speed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pe8r6")
+debug_color = Color(0.32956, 0.488727, 1, 0.42)
