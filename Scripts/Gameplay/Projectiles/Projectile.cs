@@ -24,7 +24,8 @@ public partial class Projectile : Area2D
 
 		// Fly straight at current target position (no prediction)
 		Vector2 dir = (_target.GlobalPosition - GlobalPosition).Normalized();
-		GlobalPosition += dir * Speed * (float)delta;
+		
+		SetGlobalPosition(GlobalPosition + dir * Speed * (float)delta);
 
 		// Cheap hit test – good enough to prove the loop
 		if (GlobalPosition.DistanceTo(_target.GlobalPosition) < 8f)
