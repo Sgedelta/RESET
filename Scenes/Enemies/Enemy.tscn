@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cxo8emmrc8nnp" path="res://Enderman.webp" id="2_7kucs"]
 [ext_resource type="Script" uid="uid://3mqrwalndg0s" path="res://Scripts/Gameplay/Enemies/PathFollower.cs" id="3_35yb6"]
 
-[node name="Enemy" type="Node2D"]
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("Follower")]
 script = ExtResource("1_7kucs")
+Follower = NodePath("PathFollower")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.203842, 0.203842)
