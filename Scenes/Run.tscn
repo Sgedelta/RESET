@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=8 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://6ls4nxdmluu3" path="res://Scenes/Map/PathVisualizer.cs" id="4_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
+[ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
 
 [node name="Run" type="Node2D"]
 
@@ -44,6 +45,11 @@ ProjectileScene = ExtResource("5_ixfg1")
 
 [node name="Sprite2D" parent="Map/Towers/Tower" index="2"]
 position = Vector2(1.99994, -6.00003)
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("7_xu74l")
+WaveDirectorPath = NodePath("../WaveDirector")
+EnemiesRootPath = NodePath("../Map/Path2D")
 
 [editable path="Map"]
 [editable path="Map/Towers/Tower"]

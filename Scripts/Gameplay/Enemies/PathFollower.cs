@@ -43,12 +43,12 @@ public partial class PathFollower : Node2D
 	/// </summary>
 	/// <param name="timeAhead">milliseconds to read ahead</param>
 	/// <returns></returns>
-    public Vector2 GetFuturePosition(float timeAhead)
-    {
+	public Vector2 GetFuturePosition(float timeAhead)
+	{
 		Vector2 pos = new Vector2();
 
 		pos += _curve.SampleBaked(_distance + (Speed * timeAhead));
 
 		return pos;
-    }
+	}
 }
