@@ -7,8 +7,8 @@ public partial class Tower : Node2D
 
 
 
-	[Export] public float BaseDamage = 5f;
-	[Export] public float BaseFireRate = 1.5f; // shots per second
+	[Export] private TowerStats baseStats;
+	private TowerStats modifiedStats;
 
 
 	public TargetingComponent Targeting { get; private set; }
@@ -16,19 +16,41 @@ public partial class Tower : Node2D
 
 	public override void _Ready()
 	{
+		UpdateModifiedStats(); 
+
 		Targeting = GetNode<TargetingComponent>("TargetingComponent");
 		Shooter   = GetNode<ShooterComponent>("ShooterComponent");
-		Shooter.SetStats(BaseFireRate, BaseDamage);
+		Shooter.SetStats(modifiedStats); 
 	}
+
+	/// <summary>
+	/// A method that uses the aspects slotted into this tower to calculate what it's modified stats should be.
+	/// </summary>
+	/// <returns></returns>
+	public TowerStats CalculateModifiedStats()
+	{
+		//TODO: IMPLEMENT
+		return baseStats;
+
+	}
+	
+	/// <summary>
+	/// Runs CalculateModifiedStats and sets modifiedStats to the result.
+	/// </summary>
+	public void UpdateModifiedStats()
+	{
+		modifiedStats = CalculateModifiedStats();
+	}
+
 }
 
 
 public struct TowerStats {
 
 	//Basic Stats
-	public int AspectSlots = 3;
+	public int AspectSlots = 3; //how many aspects this tower can hold
 	public float FireRate = 1.5f; //fire rate in shots per second
-	public float Damage = 5f;
+	public float Damage = 5f; //the damage each projectile produces
 	public float Range = 500; //range in pixels of distance
 	public float ProjectileSpeed = 100; //speed in pixels per second
 	
