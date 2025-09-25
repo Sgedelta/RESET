@@ -5,6 +5,7 @@ public partial class GameManager : Node
 {
 	[Export] public NodePath WaveDirectorPath;
 	[Export] public int StartingWaveSize = 3;
+	[Export] public NodePath EnemiesRoot;
 
 	private WaveDirector _waveDirector;
 	private int _currentWave = 0;
@@ -15,7 +16,6 @@ public partial class GameManager : Node
 	public override void _Ready()
 	{
 		_waveDirector = GetNode<WaveDirector>(WaveDirectorPath);
-		_enemiesRoot = GetNode<Node2D>(EnemiesRootPath);
 		
 		Inventory = new AspectInventory();
 		_waveDirector.SetGameManager(this);

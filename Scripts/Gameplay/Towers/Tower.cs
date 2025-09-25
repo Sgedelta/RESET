@@ -142,7 +142,7 @@ public partial class Tower : Node2D
 
 	}
 	
-			static float ApplyOne(float current, Aspect a)
+	static float ApplyOne(float current, Aspect a)
 		{
 			return a.Modifier switch
 			{
@@ -153,6 +153,6 @@ public partial class Tower : Node2D
 			};
 		}
 
-		static float Clamp01(float v) => v < 0f ? 0f : (v > 1f ? 1f : v);
+	static float Clamp01(float v) => v < 0f ? 0f : (v > 1f ? 1f : v);
 
 }
