@@ -38,7 +38,7 @@ public partial class Projectile : Area2D
 		}
 
 		// Fly straight at current target position (no prediction)
-		Vector2 dir = (_target.GlobalPosition - GlobalPosition).Normalized();
+		//Vector2 dir = (_target.GlobalPosition - GlobalPosition).Normalized();
 		
 		SetGlobalPosition(GlobalPosition + dir * Speed * (float)delta);
 

@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ctnoimwe1gaeu"]
+
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplate.cs" id="1_a4yo7"]
+
+[resource]
+script = ExtResource("1_a4yo7")
