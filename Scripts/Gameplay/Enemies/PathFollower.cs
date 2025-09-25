@@ -11,6 +11,7 @@ public partial class PathFollower : Node2D
 	private Path2D _path;
 	private Curve2D _curve;
 	private float _distance; //distance along the curve in pixels
+	public bool ReachedEnd { get; private set; } = false;
 
 
 	public void SetPath(Path2D path)
@@ -18,18 +19,22 @@ public partial class PathFollower : Node2D
 		_path = path;
 		_curve = _path?.Curve;
 		_distance = 0f;
+		ReachedEnd = false;
 	}
 
 	public override void _Process(double delta)
 	{
-		if (_curve == null || _curve.PointCount < 2) return;
+		if (_curve == null || _curve.PointCount < 2 || ReachedEnd) return;
 
 		_distance += Speed * (float)delta;
 		float total = _curve.GetBakedLength();
 
 		if (_distance >= total)
 		{
-			GetParent<Node2D>().QueueFree();
+			_distance = total;
+			ReachedEnd = true;
+
+			GetParent<Enemy>()?.OnReachedPathEnd();
 			return;
 		}
 
