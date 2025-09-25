@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://j5wmq3a35vox"]
 
-[ext_resource type="PackedScene" uid="uid://3chy0d62ici0" path="res://Enemy.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cqpx4bh25t7yf" path="res://Enemy.tscn" id="1_ig7tw"]
 
 [sub_resource type="Curve2D" id="Curve2D_0xm2m"]
 _data = {
@@ -39,5 +39,5 @@ offset_right = 8.0
 offset_bottom = 8.0
 text = "Progress"
 
-[connection signal="pressed" from="Button" to="Path2D/EnemyFollow" method="_on_button_pressed"]
 [connection signal="pressed" from="Button" to="Path2D/EnemyFollow" method="Progress"]
+[connection signal="pressed" from="Button" to="Path2D/EnemyFollow" method="_on_button_pressed"]

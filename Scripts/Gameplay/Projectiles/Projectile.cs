@@ -23,7 +23,7 @@ public partial class Projectile : Area2D
 
 		GD.Print(timeToTarget);
 
-        dir = (target.Follower.GetFuturePosition(timeToTarget) - from).Normalized();
+		dir = (target.Follower.GetFuturePosition(timeToTarget) - from).Normalized();
 
 	}
 

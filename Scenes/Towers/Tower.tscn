@@ -10,6 +10,7 @@ script = ExtResource("1_8ivuq")
 
 [node name="TargetingComponent" type="Node2D" parent="."]
 script = ExtResource("2_g00a7")
+Range = 400.0
 
 [node name="ShooterComponent" type="Node2D" parent="."]
 script = ExtResource("3_j4r41")
