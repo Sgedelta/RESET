@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckc33onu063q5"]
+
+[ext_resource type="Script" uid="uid://cwwd53dv0qf0q" path="res://Scripts/Aspects/AspectBar.cs" id="1_kk8ba"]
+[ext_resource type="PackedScene" uid="uid://db6afg827k3yo" path="res://Scenes/Towers/AspectToken.tscn" id="2_16sq4"]
+
+[node name="AspectBar" type="Control"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -94.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_kk8ba")
+TokenScene = ExtResource("2_16sq4")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(29.0643, 2.32224)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.76, 2.24)
+
+[node name="Scroll" type="ScrollContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Row" type="HBoxContainer" parent="Margin/Scroll"]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/separation = 8

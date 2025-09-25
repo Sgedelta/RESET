@@ -6,8 +6,8 @@ public partial class WaveDirector : Node2D
 	[Export] public PackedScene EnemyScene;
 	[Export] public NodePath MapEnemiesPath;
 	[Export] public NodePath Path2DPath;
-	[Export] public float SpawnEvery = 1.0f;    // Seconds between spawns
-	[Export] public int SpawnNumber = 5;        // Number of enemies to spawn
+	[Export] public float SpawnEvery = 1.0f;
+	[Export] public int SpawnNumber = 5;
 	
 	private float _timer;
 	private int _count;

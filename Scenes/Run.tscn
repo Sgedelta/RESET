@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=10 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" uid="uid://6ls4nxdmluu3" path="res://Scenes/Map/PathVisualizer.cs" id="4_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
+[ext_resource type="PackedScene" uid="uid://sgt7rxkujxr1" path="res://Scenes/Towers/TowerSlots.tscn" id="7_atavw"]
 [ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
+[ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
 
 [node name="Run" type="Node2D"]
 
@@ -46,10 +48,25 @@ ProjectileScene = ExtResource("5_ixfg1")
 [node name="Sprite2D" parent="Map/Towers/Tower" index="2"]
 position = Vector2(1.99994, -6.00003)
 
+[node name="TowerSlots" parent="Map/Towers/Tower" instance=ExtResource("7_atavw")]
+offset_left = -56.0
+offset_top = -143.0
+offset_right = 124.0
+offset_bottom = -83.0
+TowerPath = NodePath("..")
+GameManagerPath = NodePath("../../../../GameManager")
+
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRootPath = NodePath("../Map/Path2D")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
+RowPath = NodePath("Margin/Scroll/Row")
+
 [editable path="Map"]
 [editable path="Map/Towers/Tower"]
+[editable path="Map/Towers/Tower/TowerSlots"]
+[editable path="CanvasLayer/AspectBar"]

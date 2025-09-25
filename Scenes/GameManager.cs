@@ -10,11 +10,15 @@ public partial class GameManager : Node
 	private WaveDirector _waveDirector;
 	private Node2D _enemiesRoot;
 	private int _currentWave = 0;
+	
+	public AspectInventory Inventory { get; private set; }
 
 	public override void _Ready()
 	{
 		_waveDirector = GetNode<WaveDirector>(WaveDirectorPath);
 		_enemiesRoot = GetNode<Node2D>(EnemiesRootPath);
+		
+		Inventory = new AspectInventory();
 
 		StartNextWave();
 	}

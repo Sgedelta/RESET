@@ -1,74 +1,158 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+
+public struct TowerStats
+{
+	// Basic Stats
+	public int AspectSlots;
+	public float FireRate;
+	public float Damage;
+	public float Range;
+	public float ProjectileSpeed;
+
+	// Advanced Stats
+	public float CritChance;
+	public float CritMult; 
+	public float ShotSpread;
+	public float ShotSpreadFalloff;
+	public int ChainTargets;
+}
 
 public partial class Tower : Node2D
 {
 	//==========STATS============
+	[Export] public int BaseAspectSlots           = 3;
+	[Export] public float BaseFireRate            = 1.5f;
+	[Export] public float BaseDamage              = 5f;
+	[Export] public float BaseRange               = 500f;
+	[Export] public float BaseProjectileSpeed     = 100f;
+	[Export] public float BaseCritChance          = 0f;
+	[Export] public float BaseCritMult            = 2f;
+	[Export] public float BaseShotSpread          = 0f;
+	[Export] public float BaseShotSpreadFalloff   = 0f;
+	[Export] public int   BaseChainTargets        = 0;
 
 
-
-	[Export] private TowerStats baseStats;
+	private TowerStats baseStats;
 	private TowerStats modifiedStats;
-
+	public readonly List<Aspect> AttachedAspects = new List<Aspect>();
 
 	public TargetingComponent Targeting { get; private set; }
 	public ShooterComponent Shooter { get; private set; }
 
 	public override void _Ready()
 	{
-		UpdateModifiedStats(); 
-
 		Targeting = GetNode<TargetingComponent>("TargetingComponent");
 		Shooter   = GetNode<ShooterComponent>("ShooterComponent");
-		Shooter.SetStats(modifiedStats); 
+
+		baseStats = new TowerStats
+		{
+			AspectSlots        = BaseAspectSlots,
+			FireRate           = BaseFireRate,
+			Damage             = BaseDamage,
+			Range              = BaseRange,
+			ProjectileSpeed    = BaseProjectileSpeed,
+			CritChance         = BaseCritChance,
+			CritMult           = BaseCritMult,
+			ShotSpread         = BaseShotSpread,
+			ShotSpreadFalloff  = BaseShotSpreadFalloff,
+			ChainTargets       = BaseChainTargets
+		};
+
+		UpdateModifiedStats();
+		ApplyStatsToComponents();
+	}
+	
+	// add aspect and recompute stats
+	public bool AttachAspect(Aspect a, int slotIndex = -1)
+	{
+		//fail if it doesnt exist, count is full or its already attached
+		if (a == null) return false;
+		if (AttachedAspects.Count >= baseStats.AspectSlots) return false;
+		if (AttachedAspects.Contains(a)) return false;
+
+		if (slotIndex < 0 || slotIndex > AttachedAspects.Count)
+			AttachedAspects.Add(a);
+		else
+			AttachedAspects.Insert(slotIndex, a);
+
+		Recompute();
+		return true;
+	}
+	
+	public bool DetachAspect(Aspect a)
+	{
+		if (a == null) return false;
+		bool removed = AttachedAspects.Remove(a);
+		if (removed) Recompute();
+		return removed;
 	}
 
+ 	private void Recompute()
+	{
+		UpdateModifiedStats();
+		ApplyStatsToComponents();
+	}
+	/// <summary>
+	/// Runs CalculateModifiedStats and sets modifiedStats to the result.
+	/// </summary>
+	public void UpdateModifiedStats() => modifiedStats = CalculateModifiedStats();
+
+	private void ApplyStatsToComponents()
+	{
+		Shooter?.SetStats(modifiedStats);
+		if (Targeting != null) Targeting.Range = modifiedStats.Range;
+	}
+	
 	/// <summary>
 	/// A method that uses the aspects slotted into this tower to calculate what it's modified stats should be.
 	/// </summary>
 	/// <returns></returns>
 	public TowerStats CalculateModifiedStats()
 	{
-		//TODO: IMPLEMENT
-		return baseStats;
+		var result = baseStats;
+
+		// Apply in list order: this makes "add before multiply" vs "multiply before add" slot-dependent
+		foreach (var a in AttachedAspects)
+		{
+			if (a == null) continue;
+
+			switch (a.Stat)
+			{
+				case StatType.FireRate:
+					result.FireRate = ApplyOne(result.FireRate, a);
+					break;
+				case StatType.Damage:
+					result.Damage = ApplyOne(result.Damage, a);
+					break;
+				case StatType.Range:
+					result.Range = ApplyOne(result.Range, a);
+					break;
+				case StatType.Spread:
+					result.ShotSpread = Mathf.Max(0f, ApplyOne(result.ShotSpread, a));
+					break;
+			}
+		}
+
+		result.FireRate        = Mathf.Max(0.05f, result.FireRate);
+		result.ProjectileSpeed = Mathf.Max(0f, result.ProjectileSpeed);
+
+		return result;
 
 	}
 	
-	/// <summary>
-	/// Runs CalculateModifiedStats and sets modifiedStats to the result.
-	/// </summary>
-	public void UpdateModifiedStats()
-	{
-		modifiedStats = CalculateModifiedStats();
-	}
+			static float ApplyOne(float current, Aspect a)
+		{
+			return a.Modifier switch
+			{
+				ModifierType.Add      => current + a.Value,
+				ModifierType.Subtract => current - a.Value,
+				ModifierType.Multiply => current * a.Value,
+				_ => current
+			};
+		}
 
-}
-
-
-public struct TowerStats {
-
-	//Basic Stats
-	public int AspectSlots = 3; //how many aspects this tower can hold
-	public float FireRate = 1.5f; //fire rate in shots per second
-	public float Damage = 5f; //the damage each projectile produces
-	public float Range = 500; //range in pixels of distance
-	public float ProjectileSpeed = 100; //speed in pixels per second
-	
-	//Advanced Stats - these won't be relevant all of the time, but will be semi-frequently
-	public float CritChance = 0; //pure chance, so 1 is 100% and 0 is 0%
-	public float CritMult = 2; //what final damage will be multiplied by when the crit triggers
-	public float ShotSpread = 0; //angle, in degrees, from pure accuracy that shots can potentially spread
-	public float ShotSpreadFalloff = 0; //a falloff for spread. At 0, all shots will be evenly distributed around the potential range. Higher numbers tighten spread, lower numbers cause more shots to go wider
-
-	//Extra Stats - rarer, used in more specific use cases
-	public int ChainTargets = 0;
-	
-
-	public TowerStats()
-	{
-
-	}
-
-
+		static float Clamp01(float v) => v < 0f ? 0f : (v > 1f ? 1f : v);
 
 }

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://db6afg827k3yo"]
+
+[ext_resource type="Script" uid="uid://32igpbrn2o7m" path="res://Scripts/Aspects/AspectToken.cs" id="1_pjfdh"]
+
+[node name="AspectToken" type="Button"]
+modulate = Color(0, 0.34193, 0.609274, 1)
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_pjfdh")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(1, 1.00157)
+horizontal_alignment = 3
+vertical_alignment = 3
