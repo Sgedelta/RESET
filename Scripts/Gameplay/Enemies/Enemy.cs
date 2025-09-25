@@ -3,6 +3,8 @@ using System;
 
 public partial class Enemy : Node2D
 {
+	[Signal] public delegate void EnemyDiedEventHandler(Enemy enemy);
+	
 	[Export] public float MaxHp = 30f;
 	[Export] public PathFollower Follower;
 	public float HP;
@@ -15,14 +17,15 @@ public partial class Enemy : Node2D
 	public void TakeDamage(float dmg)
 	{
 		HP -= dmg;
-		if (HP <= 0f)
+		if (HP <= 0f) 
+		{
+			EmitSignal(SignalName.EnemyDied, this);
 			QueueFree();
+		}
 	}
 	
 	public void SetPath(Path2D path)
 	{
 		Follower.SetPath(path);
 	}
-
-
 }

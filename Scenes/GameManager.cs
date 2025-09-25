@@ -4,51 +4,44 @@ using System;
 public partial class GameManager : Node
 {
 	[Export] public NodePath WaveDirectorPath;
-	[Export] public NodePath EnemiesRootPath;
 	[Export] public int StartingWaveSize = 3;
 
 	private WaveDirector _waveDirector;
-	private Node2D _enemiesRoot;
 	private int _currentWave = 0;
+	private int _enemiesRemaining = 0;
 
 	public override void _Ready()
 	{
 		_waveDirector = GetNode<WaveDirector>(WaveDirectorPath);
-		_enemiesRoot = GetNode<Node2D>(EnemiesRootPath);
+		_waveDirector.SetGameManager(this);
 
 		StartNextWave();
-	}
-
-	public override void _Process(double delta)
-	{
-		if (_waveDirector == null || _enemiesRoot == null) return;
-		
-		// no more enemies AND WaveDirector finished spawning
-		if (_enemiesRoot.GetChildCount() == 0 && IsWaveFinished())
-		{
-			StartNextWave();
-		}
 	}
 
 	private void StartNextWave()
 	{
 		_currentWave++;
-		
-		// basic wave size scaling
-		int enemiesToSpawn = StartingWaveSize + (_currentWave * 2);
-		_waveDirector.StartWave(enemiesToSpawn);
+		_enemiesRemaining = StartingWaveSize + (_currentWave * 2);
+		_waveDirector.StartWave(_enemiesRemaining);
 
-		GD.Print($"start wave {_currentWave} : {enemiesToSpawn} enemies");
+		GD.Print($"start wave {_currentWave} : {_enemiesRemaining} enemies");
 	}
 
-	private bool IsWaveFinished()
+	public void OnEnemyDied(Enemy enemy)
 	{
-		return _waveDirector.SpawnNumber <= 0 || 
-			   _waveDirector.SpawnNumber == _waveDirector.GetSpawnedCount();
+		_enemiesRemaining--;
+
+		GD.Print($"enemy died, {_enemiesRemaining} left in wave");
+
+		if (_enemiesRemaining <= 0)
+		{
+			GD.Print($"WAVE {_currentWave} CLEAR");
+			StartNextWave();
+		}
 	}
 
 	public void OnPlayerDefeated()
 	{
-		GD.Print("game over");
+		GD.Print("GAME OVER");
 	}
 }
