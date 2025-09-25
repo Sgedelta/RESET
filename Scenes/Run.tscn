@@ -59,7 +59,6 @@ GameManagerPath = NodePath("../../../../GameManager")
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
-EnemiesRootPath = NodePath("../Map/Path2D")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
