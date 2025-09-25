@@ -9,19 +9,19 @@ public partial class Projectile : Area2D
 
 	private Vector2 dir;
 
-	public void Init(Vector2 from, Enemy target, float damage)
+	public void Init(Vector2 from, Enemy target, float damage, float speed, float critChance, float critMult, float shotSpread, float spreadFalloff)
 	{
 		GlobalPosition = from;
 		_target = target;
 		_damage = damage;
-
-		GD.Print((_target.GlobalPosition - from).Length());
-		GD.Print((_target.GlobalPosition - from));
+		Speed = speed;
+		
+		//TODO: implement crit chance and crit mult (Getting damage should be a function that is called and incorporates getting a potential crit)
+		//      and shot spread/falloff 
 
 		//do a basic readahead based on distance to target - this could cause issues if the target is very far away/fast moving/on switchbacks/changing how close they are to the tower drastically, and we might need to revisit
 		float timeToTarget = ((_target.GlobalPosition - from).Length()) / Speed;
 
-		GD.Print(timeToTarget);
 
 		dir = (target.Follower.GetFuturePosition(timeToTarget) - from).Normalized();
 
