@@ -34,4 +34,7 @@ public partial class AspectTemplate : Resource
 
     public AspectTemplate() { }
 
+
+
+
 }

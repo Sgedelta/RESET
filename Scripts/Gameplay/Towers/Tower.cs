@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public struct TowerStats
 {
 	// Basic Stats
-	public int AspectSlots;
+	public int   AspectSlots;
 	public float FireRate;
 	public float Damage;
 	public float Range;
@@ -16,12 +16,25 @@ public struct TowerStats
 	public float CritMult; 
 	public float ShotSpread;
 	public float ShotSpreadFalloff;
-	public int ChainTargets;
+
+
+	// Unique Stats
+	public int   ChainTargets;
+	public float ChainDistance;
+	public float SplashRadius;
+	public float SplashDamage;
+	public float PoisonDamage;
+	public int   PoisonTicks;
+	public int   PiercingAmount;
+	public float KnockbackAmount;
+	public float SlowdownPercent;
+	public float SlowdownLength;
+	public float HomingStrength;
 }
 
 public partial class Tower : Node2D
 {
-	//==========STATS============
+	//============STATS============
 	[Export] public int BaseAspectSlots           = 3;
 	[Export] public float BaseFireRate            = 1.5f;
 	[Export] public float BaseDamage              = 5f;
@@ -111,28 +124,14 @@ public partial class Tower : Node2D
 	/// <returns></returns>
 	public TowerStats CalculateModifiedStats()
 	{
-		var result = baseStats;
+		TowerStats result = baseStats;
 
 		// Apply in list order: this makes "add before multiply" vs "multiply before add" slot-dependent
 		foreach (var a in AttachedAspects)
 		{
 			if (a == null) continue;
 
-			switch (a.Stat)
-			{
-				case StatType.FireRate:
-					result.FireRate = ApplyOne(result.FireRate, a);
-					break;
-				case StatType.Damage:
-					result.Damage = ApplyOne(result.Damage, a);
-					break;
-				case StatType.Range:
-					result.Range = ApplyOne(result.Range, a);
-					break;
-				case StatType.Spread:
-					result.ShotSpread = Mathf.Max(0f, ApplyOne(result.ShotSpread, a));
-					break;
-			}
+			result = a.ModifyGivenStats(result);
 		}
 
 		result.FireRate        = Mathf.Max(0.05f, result.FireRate);
@@ -142,16 +141,7 @@ public partial class Tower : Node2D
 
 	}
 	
-	static float ApplyOne(float current, Aspect a)
-		{
-			return a.Modifier switch
-			{
-				ModifierType.Add      => current + a.Value,
-				ModifierType.Subtract => current - a.Value,
-				ModifierType.Multiply => current * a.Value,
-				_ => current
-			};
-		}
+	
 
 	static float Clamp01(float v) => v < 0f ? 0f : (v > 1f ? 1f : v);
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=13 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
@@ -9,8 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://sgt7rxkujxr1" path="res://Scenes/Towers/TowerSlots.tscn" id="7_atavw"]
 [ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
 [ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
+[ext_resource type="Script" uid="uid://bjlwqjh832hth" path="res://Scripts/Aspects/AspectLibrary.cs" id="10_j6cy0"]
+[ext_resource type="Resource" uid="uid://dhymdjlukdrx7" path="res://Resources/AspectTemplates/DamageMult.tres" id="11_7jyn4"]
+[ext_resource type="Resource" uid="uid://b6wahnncr2f5s" path="res://Resources/AspectTemplates/FireRateAdd.tres" id="12_81a2t"]
 
 [node name="Run" type="Node2D"]
+
+[node name="TempAspectLibrary" type="Node" parent="."]
+script = ExtResource("10_j6cy0")
+AspectTemplates = Array[Resource]([ExtResource("11_7jyn4"), ExtResource("12_81a2t")])
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")

@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\resources\\aspecttemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:resources\\aspecttemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\aspects\\aspectlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\aspectlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\resources\\floatmodifierinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:resources\\floatmodifierinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\aspects\\aspectbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\aspectbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\aspects\\aspect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,8 +19,28 @@
       "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\tower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\aspects\\modifiers\\firerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\modifiers\\firerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\resources\\floatmodifierinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:resources\\floatmodifierinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\aspects\\aspecttoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\aspecttoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\aspects\\modifierunit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\modifierunit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\gameplay\\towers\\towerslots.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\towerslots.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\resources\\aspecttemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:resources\\aspecttemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\gameplay\\towers\\targetingcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\targetingcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\gameplay\\projectiles\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,14 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\gameplay\\towers\\shootercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\shootercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\gameplay\\towers\\targetingcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\targetingcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\aspects\\aspectlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\aspectlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Github Projects\\RESET\\Scripts\\Aspects\\AspectBase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -48,9 +60,49 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 256,
-          "SelectedChildIndex": 8,
+          "DockedWidth": 235,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Aspect.cs",
+              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\Aspect.cs",
+              "RelativeDocumentMoniker": "Scripts\\Aspects\\Aspect.cs",
+              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\Aspect.cs",
+              "RelativeToolTip": "Scripts\\Aspects\\Aspect.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAAADAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T03:06:54.39Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AspectLibrary.cs",
+              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\AspectLibrary.cs",
+              "RelativeDocumentMoniker": "Scripts\\Aspects\\AspectLibrary.cs",
+              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\AspectLibrary.cs*",
+              "RelativeToolTip": "Scripts\\Aspects\\AspectLibrary.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-21T03:29:46.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AspectBar.cs",
+              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\AspectBar.cs",
+              "RelativeDocumentMoniker": "Scripts\\Aspects\\AspectBar.cs",
+              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\AspectBar.cs",
+              "RelativeToolTip": "Scripts\\Aspects\\AspectBar.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-27T23:12:16.499Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -85,20 +137,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AspectTemplate.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\AspectTemplate.cs",
-              "RelativeDocumentMoniker": "Resources\\AspectTemplate.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\AspectTemplate.cs*",
-              "RelativeToolTip": "Resources\\AspectTemplate.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAHAAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "TowerSlots.cs",
+              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\TowerSlots.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Towers\\TowerSlots.cs",
+              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\TowerSlots.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Towers\\TowerSlots.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAnwEcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-25T23:36:41.533Z",
+              "WhenOpened": "2025-09-27T22:38:55.679Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "AspectToken.cs",
+              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\AspectToken.cs",
+              "RelativeDocumentMoniker": "Scripts\\Aspects\\AspectToken.cs",
+              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\AspectToken.cs",
+              "RelativeToolTip": "Scripts\\Aspects\\AspectToken.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAnwCsAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-27T22:32:45.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TargetingComponent.cs",
+              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
+              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T03:08:16.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "Projectile.cs",
               "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Projectiles\\Projectile.cs",
               "RelativeDocumentMoniker": "Scripts\\Gameplay\\Projectiles\\Projectile.cs",
@@ -111,7 +189,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "ShooterComponent.cs",
               "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\ShooterComponent.cs",
               "RelativeDocumentMoniker": "Scripts\\Gameplay\\Towers\\ShooterComponent.cs",
@@ -123,57 +201,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "TargetingComponent.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
-              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
-              "RelativeToolTip": "Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T03:08:16.992Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Aspect.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\Aspect.cs",
-              "RelativeDocumentMoniker": "Scripts\\Aspects\\Aspect.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\Aspect.cs",
-              "RelativeToolTip": "Scripts\\Aspects\\Aspect.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAIwCwAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T03:06:54.39Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FireRate.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\Modifiers\\FireRate.cs",
-              "RelativeDocumentMoniker": "Scripts\\Aspects\\Modifiers\\FireRate.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\Modifiers\\FireRate.cs",
-              "RelativeToolTip": "Scripts\\Aspects\\Modifiers\\FireRate.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T03:04:43.837Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AspectLibrary.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\AspectLibrary.cs",
-              "RelativeDocumentMoniker": "Scripts\\Aspects\\AspectLibrary.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\AspectLibrary.cs",
-              "RelativeToolTip": "Scripts\\Aspects\\AspectLibrary.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T03:29:46.588Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "AspectBase.cs",
               "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Aspects\\AspectBase.cs",
               "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Aspects\\AspectBase.cs",
@@ -184,9 +212,35 @@
           ]
         },
         {
-          "DockedWidth": 144,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 165,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FloatModifierInfo.cs",
+              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\FloatModifierInfo.cs",
+              "RelativeDocumentMoniker": "Resources\\FloatModifierInfo.cs",
+              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\FloatModifierInfo.cs",
+              "RelativeToolTip": "Resources\\FloatModifierInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-26T00:09:10.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ModifierUnit.cs",
+              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\ModifierUnit.cs",
+              "RelativeDocumentMoniker": "Scripts\\Aspects\\ModifierUnit.cs",
+              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\ModifierUnit.cs",
+              "RelativeToolTip": "Scripts\\Aspects\\ModifierUnit.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-27T22:42:41.95Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -195,22 +249,22 @@
               "RelativeDocumentMoniker": "Scripts\\Gameplay\\Towers\\Tower.cs",
               "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\Tower.cs",
               "RelativeToolTip": "Scripts\\Gameplay\\Towers\\Tower.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAIwI8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-23T03:04:57.306Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FloatModifierInfo.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\FloatModifierInfo.cs",
-              "RelativeDocumentMoniker": "Resources\\FloatModifierInfo.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\FloatModifierInfo.cs",
-              "RelativeToolTip": "Resources\\FloatModifierInfo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAiAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "AspectTemplate.cs",
+              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\AspectTemplate.cs",
+              "RelativeDocumentMoniker": "Resources\\AspectTemplate.cs",
+              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\AspectTemplate.cs",
+              "RelativeToolTip": "Resources\\AspectTemplate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-26T00:09:10.557Z",
+              "WhenOpened": "2025-09-25T23:36:41.533Z",
               "EditorCaption": ""
             }
           ]

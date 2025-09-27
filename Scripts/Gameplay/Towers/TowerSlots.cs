@@ -31,7 +31,7 @@ public partial class TowerSlots : Control
 		var dict = (Godot.Collections.Dictionary)data;
 		var name = dict["name"].AsString();
 
-		var aspect = AspectLibrary.AllAspects.FirstOrDefault(a => a.Name == name);
+		var aspect = AspectLibrary.AllAspects.FirstOrDefault(a => a.Template.DisplayName == name);
 		if (aspect == null) return;
 
 		int slotIndex = GetSlotIndexFromPosition(position);
@@ -69,7 +69,7 @@ public partial class TowerSlots : Control
 			if (i < _tower.AttachedAspects.Count)
 			{
 				var a = _tower.AttachedAspects[i];
-				slot.Text = a.Name;
+				slot.Text = a.Template.DisplayName;
 			}
 			else
 			{
