@@ -18,7 +18,6 @@ EnemyScene = ExtResource("2_0j08j")
 MapEnemiesPath = NodePath("../Map/Enemies")
 Path2DPath = NodePath("../Map/Path2D")
 SpawnEvery = 0.02
-SpawnNumber = 785
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
 
@@ -39,7 +38,6 @@ position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
 position = Vector2(-428, 205)
-BaseProjectileSpeed = 900.0
 
 [node name="TargetingComponent" parent="Map/Towers/Tower" index="0"]
 EnemiesRootPath = NodePath("../../../Enemies")

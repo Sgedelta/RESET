@@ -49,4 +49,9 @@ public partial class Enemy : Node2D
 	{
 		Follower.SetPath(path);
 	}
+
+	public void ApplyDamageOverTime(float damagePerTick, float duration, float tickInterval)
+	{
+        AddChild(new PoisonEffect(this, damagePerTick, duration, tickInterval));
+    }
 }

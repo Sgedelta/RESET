@@ -1,45 +1,66 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\",
+  "WorkspaceRootPath": "D:\\Github Projects\\RESET\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\resources\\aspecttemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:resources\\aspecttemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\projectiles\\chainprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\projectiles\\chainprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\resources\\floatmodifierinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:resources\\floatmodifierinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\aspects\\aspect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\aspect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\gameplay\\towers\\tower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\tower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\aspects\\modifiers\\firerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\modifiers\\firerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\gameplay\\projectiles\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\projectiles\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\projectiles\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\gameplay\\towers\\shootercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\shootercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\aspects\\aspect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\aspect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\gameplay\\towers\\targetingcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\targetingcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\projectiles\\poisoneffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\projectiles\\poisoneffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|c:\\users\\sgeas\\onedrive\\documents\\school\\igme 580\\reset\\scripts\\aspects\\aspectlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\enemies\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\enemies\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\projectiles\\poisonprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\projectiles\\poisonprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\projectiles\\piercingprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\projectiles\\piercingprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\projectiles\\explosiveprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\projectiles\\explosiveprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\aspects\\aspectlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\aspectlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Github Projects\\RESET\\Scripts\\Aspects\\AspectBase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\projectiles\\homingprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\projectiles\\homingprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\towers\\targetingcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\targetingcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\aspects\\modifiers\\firerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\aspects\\modifiers\\firerate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\towers\\tower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\tower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\scripts\\gameplay\\towers\\shootercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:scripts\\gameplay\\towers\\shootercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|d:\\github projects\\reset\\resources\\aspecttemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A51BCFE-02AF-4B08-8A48-859F822B594E}|RESET.csproj|solutionrelative:resources\\aspecttemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -51,22 +72,6 @@
           "DockedWidth": 256,
           "SelectedChildIndex": 8,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -84,13 +89,146 @@
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ChainProjectile.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\ChainProjectile.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Projectiles\\ChainProjectile.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\ChainProjectile.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Projectiles\\ChainProjectile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T03:52:41.068Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PoisonEffect.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\PoisonEffect.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Projectiles\\PoisonEffect.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\PoisonEffect.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Projectiles\\PoisonEffect.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T03:49:32.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PoisonProjectile.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\PoisonProjectile.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Projectiles\\PoisonProjectile.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\PoisonProjectile.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Projectiles\\PoisonProjectile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T03:48:21.545Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Enemies\\Enemy.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Enemies\\Enemy.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Enemies\\Enemy.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Enemies\\Enemy.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwDYAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T03:46:41.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PiercingProjectile.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\PiercingProjectile.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Projectiles\\PiercingProjectile.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\PiercingProjectile.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Projectiles\\PiercingProjectile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T03:31:31.048Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ExplosiveProjectile.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\ExplosiveProjectile.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Projectiles\\ExplosiveProjectile.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\ExplosiveProjectile.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Projectiles\\ExplosiveProjectile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T03:19:48.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Tower.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Towers\\Tower.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Towers\\Tower.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Towers\\Tower.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Towers\\Tower.cs",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T03:07:16.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "HomingProjectile.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\HomingProjectile.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Projectiles\\HomingProjectile.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\HomingProjectile.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Projectiles\\HomingProjectile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T02:46:07.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Projectile.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\Projectile.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Projectiles\\Projectile.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Projectiles\\Projectile.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Projectiles\\Projectile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T03:08:34.379Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "AspectTemplate.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\AspectTemplate.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Resources\\AspectTemplate.cs",
               "RelativeDocumentMoniker": "Resources\\AspectTemplate.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\AspectTemplate.cs*",
-              "RelativeToolTip": "Resources\\AspectTemplate.cs*",
+              "ToolTip": "D:\\Github Projects\\RESET\\Resources\\AspectTemplate.cs",
+              "RelativeToolTip": "Resources\\AspectTemplate.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-25T23:36:41.533Z",
@@ -98,61 +236,50 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Projectile.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Projectiles\\Projectile.cs",
-              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Projectiles\\Projectile.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Projectiles\\Projectile.cs",
-              "RelativeToolTip": "Scripts\\Gameplay\\Projectiles\\Projectile.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 13,
+              "Title": "ShooterComponent.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Towers\\ShooterComponent.cs",
+              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Towers\\ShooterComponent.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Towers\\ShooterComponent.cs",
+              "RelativeToolTip": "Scripts\\Gameplay\\Towers\\ShooterComponent.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T03:08:34.379Z",
+              "WhenOpened": "2025-09-23T03:08:21.039Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ShooterComponent.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\ShooterComponent.cs",
-              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Towers\\ShooterComponent.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\ShooterComponent.cs",
-              "RelativeToolTip": "Scripts\\Gameplay\\Towers\\ShooterComponent.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T03:08:21.039Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "TargetingComponent.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
               "RelativeDocumentMoniker": "Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
               "RelativeToolTip": "Scripts\\Gameplay\\Towers\\TargetingComponent.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T03:08:16.992Z"
+              "WhenOpened": "2025-09-23T03:08:16.992Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Aspect.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\Aspect.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Aspects\\Aspect.cs",
               "RelativeDocumentMoniker": "Scripts\\Aspects\\Aspect.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\Aspect.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Aspects\\Aspect.cs",
               "RelativeToolTip": "Scripts\\Aspects\\Aspect.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAIwCwAAABKAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwDUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-23T03:06:54.39Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 11,
               "Title": "FireRate.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\Modifiers\\FireRate.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Aspects\\Modifiers\\FireRate.cs",
               "RelativeDocumentMoniker": "Scripts\\Aspects\\Modifiers\\FireRate.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\Modifiers\\FireRate.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Aspects\\Modifiers\\FireRate.cs",
               "RelativeToolTip": "Scripts\\Aspects\\Modifiers\\FireRate.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -163,54 +290,13 @@
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "AspectLibrary.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\AspectLibrary.cs",
+              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Aspects\\AspectLibrary.cs",
               "RelativeDocumentMoniker": "Scripts\\Aspects\\AspectLibrary.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Aspects\\AspectLibrary.cs",
+              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Aspects\\AspectLibrary.cs",
               "RelativeToolTip": "Scripts\\Aspects\\AspectLibrary.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T03:29:46.588Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "AspectBase.cs",
-              "DocumentMoniker": "D:\\Github Projects\\RESET\\Scripts\\Aspects\\AspectBase.cs",
-              "ToolTip": "D:\\Github Projects\\RESET\\Scripts\\Aspects\\AspectBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T01:53:17.087Z"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 144,
-          "SelectedChildIndex": 1,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Tower.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\Tower.cs",
-              "RelativeDocumentMoniker": "Scripts\\Gameplay\\Towers\\Tower.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Scripts\\Gameplay\\Towers\\Tower.cs",
-              "RelativeToolTip": "Scripts\\Gameplay\\Towers\\Tower.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T03:04:57.306Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FloatModifierInfo.cs",
-              "DocumentMoniker": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\FloatModifierInfo.cs",
-              "RelativeDocumentMoniker": "Resources\\FloatModifierInfo.cs",
-              "ToolTip": "C:\\Users\\sgeas\\OneDrive\\Documents\\School\\IGME 580\\RESET\\Resources\\FloatModifierInfo.cs",
-              "RelativeToolTip": "Resources\\FloatModifierInfo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-26T00:09:10.557Z",
+              "WhenOpened": "2025-09-21T03:29:46.588Z",
               "EditorCaption": ""
             }
           ]

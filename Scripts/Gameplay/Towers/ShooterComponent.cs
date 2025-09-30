@@ -4,7 +4,13 @@ using System;
 public partial class ShooterComponent : Node2D
 {
 	[Export] public PackedScene ProjectileScene; // Drag Projectile.tscn here
-	private float _cooldown;
+    [Export] public PackedScene HomingProjectileScene; // Drag HomingProjectile.tscn here
+    [Export] public PackedScene ExplosiveProjectileScene; // Drag Explosive Projectile.tscn here
+    [Export] public PackedScene PiercingProjectileScene; // Drag Piercing Projectile.tscn here
+    [Export] public PackedScene PoisonProjectileScene; // Drag Poison Projectile.tscn here
+	[Export] public PackedScene ChainProjectileScene; // Drag Chain Projectile.tscn here 
+
+    private float _cooldown;
 
 	//inherited stats - see TowerStats struct in Tower.cs
 	private float i_fireRate = 1.5f;
@@ -14,6 +20,8 @@ public partial class ShooterComponent : Node2D
 	private float i_critMult;
 	private float i_shotSpread;
 	private float i_shotSpreadFalloff;
+
+	private ProjectileType _projectileType;
 
 	public void SetStats(TowerStats stats)
 	{
@@ -27,6 +35,34 @@ public partial class ShooterComponent : Node2D
 
 	}
 
+	public void SetProjectileType(ProjectileType type)
+	{
+		_projectileType = type;
+	}
+
+	private PackedScene GetProjectileScene()
+	{
+		switch (_projectileType)
+		{
+			case ProjectileType.Regular:
+				return ProjectileScene;
+			case ProjectileType.Homing:
+				return HomingProjectileScene;
+            case ProjectileType.Explosive:
+                return ExplosiveProjectileScene;
+            case ProjectileType.Piercing:
+                return PiercingProjectileScene;
+            case ProjectileType.Poison:
+                return PoisonProjectileScene;
+            case ProjectileType.Chain:
+                return ChainProjectileScene;
+
+			default:
+				return ProjectileScene;
+
+        }
+    }
+
 	public override void _Process(double delta)
 	{
 		_cooldown -= (float)delta;
@@ -36,9 +72,10 @@ public partial class ShooterComponent : Node2D
 		var target = tower.Targeting.PickTarget(tower.GlobalPosition);
 		if (target == null) return;
 
-		if (ProjectileScene == null) return;
+		var projectileScene = GetProjectileScene();
+		if (projectileScene == null) return;
 
-		var p = (Projectile)ProjectileScene.Instantiate();
+		var p = (Projectile)projectileScene.Instantiate();
 		p.Init(tower.GlobalPosition, target, i_damage, i_projectileSpeed, i_critChance, i_critMult, i_shotSpread, i_shotSpreadFalloff);
 		GetTree().CurrentScene.AddChild(p);
 

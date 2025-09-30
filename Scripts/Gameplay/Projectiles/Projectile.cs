@@ -4,10 +4,10 @@ using System;
 public partial class Projectile : Area2D
 {
 	[Export] public float Speed = 420f; //speed, in pixels
-	private Enemy _target;
-	private float _damage;
+	protected Enemy _target;
+	protected float _damage;
 
-	private Vector2 dir;
+	protected Vector2 dir;
 
 	public void Init(Vector2 from, Enemy target, float damage, float speed, float critChance, float critMult, float shotSpread, float spreadFalloff)
 	{
