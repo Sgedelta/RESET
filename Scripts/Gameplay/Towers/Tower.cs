@@ -82,8 +82,6 @@ public partial class Tower : Node2D
 	{
 		//fail if it doesnt exist, count is full or its already attached
 		if (a == null) return false;
-		if (AttachedAspects.Count >= baseStats.AspectSlots) return false;
-		if (AttachedAspects.Contains(a)) return false;
 
 		if (slotIndex < 0 || slotIndex > AttachedAspects.Count)
 			AttachedAspects.Add(a);
@@ -102,9 +100,13 @@ public partial class Tower : Node2D
 		return removed;
 	}
 
- 	private void Recompute()
+	private void Recompute()
 	{
-		UpdateModifiedStats();
+		var s = baseStats;
+		foreach (var a in AttachedAspects)
+			s = a.ModifyGivenStats(s);
+
+		modifiedStats = s;
 		ApplyStatsToComponents();
 	}
 	/// <summary>

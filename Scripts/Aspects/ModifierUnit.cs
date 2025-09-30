@@ -3,8 +3,8 @@ using System;
 
 public abstract class ModifierUnit
 {
-    public ModifierType Type;
-    public StatType Stat;
+	public ModifierType Type;
+	public StatType Stat;
 
 
 
@@ -13,5 +13,5 @@ public abstract class ModifierUnit
 
 public class FloatModifierUnit : ModifierUnit
 {
-    public float Value;
+	public float Value;
 }

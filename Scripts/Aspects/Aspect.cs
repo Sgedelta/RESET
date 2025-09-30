@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public enum StatType
 {
-    //basic and advanced stats from 0 - 999
+	//basic and advanced stats from 0 - 999
 		FireRate,
 		Damage,
 		Range,
@@ -47,6 +47,10 @@ public class Aspect
 	[Export] public AspectTemplate Template { get; private set; }
 
 	public List<ModifierUnit> Modifiers;
+	
+	// prevent build from happening twice
+	private bool _initializedFromTemplate = false;
+
 
 
 
@@ -55,7 +59,35 @@ public class Aspect
 	//       can likely use ModifierInfo class (or slightly modified version
 	public Aspect( AspectTemplate template)
 	{
-		
+		 Template = template ?? throw new ArgumentNullException(nameof(template));
+		BuildFromTemplate();
+	}
+	
+	private void BuildFromTemplate()
+	{
+		if (_initializedFromTemplate || Template.Modifiers == null) return;
+
+		foreach (var info in Template.Modifiers)
+		{
+			switch (info)
+			{
+				case FloatModifierInfo fmi:
+					var unit = new FloatModifierUnit
+					{
+						Stat = fmi.StatType,
+						Type = fmi.ModifierType,
+						Value = (float)fmi.GetStat()
+					};
+					Modifiers.Add(unit);
+					break;
+
+				default:
+					GD.PushWarning($"ModifierInfo type not handled: {info?.GetType().Name}");
+					break;
+			}
+		}
+
+		_initializedFromTemplate = true;
 	}
 
 
@@ -70,98 +102,98 @@ public class Aspect
 			switch(unit.Stat)
 			{
 				case StatType.Damage:
-                    newStats.Damage = ApplyFloat(newStats.Damage, unit);
+					newStats.Damage = ApplyFloat(newStats.Damage, unit);
 					break;
 
 				case StatType.FireRate:
-                    newStats.FireRate = ApplyFloat(newStats.FireRate, unit);
+					newStats.FireRate = ApplyFloat(newStats.FireRate, unit);
 					break;
 
 				case StatType.Range:
-                    newStats.Range = ApplyFloat(newStats.Range, unit);
+					newStats.Range = ApplyFloat(newStats.Range, unit);
 					break;
 
 				case StatType.SpreadAngle:
-                    newStats.ShotSpread = ApplyFloat(newStats.ShotSpread, unit);
+					newStats.ShotSpread = ApplyFloat(newStats.ShotSpread, unit);
 					break;
 
-                case StatType.SpreadFalloff :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.SpreadFalloff :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.CritChance :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.CritChance :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.CritMult :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.CritMult :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.SplashDamage :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.SplashDamage :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.SplashRadius :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.SplashRadius :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.PoisonDamage :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.PoisonDamage :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.PoisonTicks :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.PoisonTicks :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.ChainTargets :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.ChainTargets :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.ChainDistance :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.ChainDistance :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.PiercingAmount :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.PiercingAmount :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.KnockbackAmount :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.KnockbackAmount :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.SlowdownPercent :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.SlowdownPercent :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.SlowdownLength :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.SlowdownLength :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
-                case StatType.HomingStrength :
-                    GD.PushWarning("Modification Not Implemented");
-                    break;
+				case StatType.HomingStrength :
+					GD.PushWarning("Modification Not Implemented");
+					break;
 
 				default:
-                    GD.PushWarning("Modification Not Recognized!");
+					GD.PushWarning("Modification Not Recognized!");
 					break;
 
-            }
-        }
+			}
+		}
 		return newStats;
-    }
+	}
 
-    static float ApplyFloat(float current, ModifierUnit unit)
-    {
-        //could put a check in here but it shouldn't ever be an issue - Sam
-        float modVal = ((FloatModifierUnit)unit).Value;
+	static float ApplyFloat(float current, ModifierUnit unit)
+	{
+		//could put a check in here but it shouldn't ever be an issue - Sam
+		float modVal = ((FloatModifierUnit)unit).Value;
 
-        return unit.Type switch
-        {
-            ModifierType.Add => current + modVal,
-            ModifierType.Multiply => current * modVal,
-            _ => current
-        };
-    }
+		return unit.Type switch
+		{
+			ModifierType.Add => current + modVal,
+			ModifierType.Multiply => current * modVal,
+			_ => current
+		};
+	}
 
 
 }

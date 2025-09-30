@@ -58,9 +58,9 @@ ProjectileScene = ExtResource("5_ixfg1")
 position = Vector2(1.99994, -6.00003)
 
 [node name="TowerSlots" parent="Map/Towers/Tower" instance=ExtResource("7_atavw")]
-offset_left = -56.0
+offset_left = -55.0
 offset_top = -143.0
-offset_right = 124.0
+offset_right = 125.0
 offset_bottom = -83.0
 TowerPath = NodePath("..")
 GameManagerPath = NodePath("../../../../GameManager")
