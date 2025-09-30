@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=12 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://sgt7rxkujxr1" path="res://Scenes/Towers/TowerSlots.tscn" id="7_atavw"]
 [ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
 [ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
+[ext_resource type="Script" uid="uid://cxpekmp87pqns" path="res://Scenes/PlayerManager.cs" id="9_x3f4s"]
+[ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
 
 [node name="Run" type="Node2D"]
 
@@ -39,7 +41,6 @@ position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
 position = Vector2(-428, 205)
-BaseProjectileSpeed = 900.0
 
 [node name="TargetingComponent" parent="Map/Towers/Tower" index="0"]
 EnemiesRootPath = NodePath("../../../Enemies")
@@ -62,11 +63,31 @@ GameManagerPath = NodePath("../../../../GameManager")
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/Enemies")
+gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
+
+[node name="PlayerManager" type="Node" parent="."]
+script = ExtResource("9_x3f4s")
+GameManagerPath = NodePath("../GameManager")
+EnemiesRootPath = NodePath("../Map/Enemies")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
 RowPath = NodePath("Margin/Scroll/Row")
+
+[node name="HealthUI" type="Label" parent="CanvasLayer"]
+offset_top = 554.0
+offset_right = 62.0
+offset_bottom = 577.0
+text = "HP: 100 / 100"
+script = ExtResource("11_x3f4s")
+PlayerManagerPath = NodePath("../../PlayerManager")
+
+[node name="GameOverText" type="Label" parent="CanvasLayer"]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "GAME OVER"
 
 [editable path="Map"]
 [editable path="Map/Towers/Tower"]
