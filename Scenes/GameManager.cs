@@ -4,17 +4,23 @@ using System;
 public partial class GameManager : Node
 {
 	[Export] public NodePath WaveDirectorPath;
-	[Export] public int StartingWaveSize = 3;
 	[Export] public NodePath EnemiesRoot;
-
-	private WaveDirector _waveDirector;
-	private int _currentWave = 0;
+	[Export] public int StartingWaveSize = 3;
 	
 	public AspectInventory Inventory { get; private set; }
+	
+	private WaveDirector _waveDirector;
+	private int _currentWave = 0;
 	private int _enemiesRemaining = 0;
+	
+	[Export] public NodePath gameOverTextPath;
+	private Label _gameOverText;
 
 	public override void _Ready()
 	{
+		_gameOverText = GetNode<Label>(gameOverTextPath);
+		_gameOverText.Visible = false;
+		
 		_waveDirector = GetNode<WaveDirector>(WaveDirectorPath);
 		
 		Inventory = new AspectInventory();
@@ -47,6 +53,7 @@ public partial class GameManager : Node
 
 	public void OnPlayerDefeated()
 	{
-		GD.Print("GAME OVER");
+		_gameOverText.Visible = true;
+		GetTree().Paused = true;
 	}
 }

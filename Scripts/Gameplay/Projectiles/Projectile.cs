@@ -34,11 +34,14 @@ public partial class Projectile : Area2D
         _damage = damage;
         Speed = speed;
 
+        
+        
         if (_target != null && IsInstanceValid(_target))
         {
             dir = (_target.GlobalPosition - GlobalPosition).Normalized();
         }
     }
+
 
 
     /* public override void _PhysicsProcess(double delta)
