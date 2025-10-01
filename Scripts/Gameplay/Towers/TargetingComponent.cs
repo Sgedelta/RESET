@@ -4,7 +4,7 @@ using System;
 public partial class TargetingComponent : Node2D
 {
 	[Export] public float Range = 160f;
-	[Export] public NodePath EnemiesRootPath; // Set to Run/Map/Enemies in Inspector
+	[Export] public NodePath EnemiesRootPath; 
 
 	public Enemy PickTarget(Vector2 origin)
 	{

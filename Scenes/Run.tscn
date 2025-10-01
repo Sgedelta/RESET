@@ -1,5 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://cqogid51gx2q8"]
 
+
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
 [ext_resource type="Script" uid="uid://bvtxvt18atr23" path="res://Load/WaveDirector.cs" id="2_38uoo"]
@@ -7,7 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://sgt7rxkujxr1" path="res://Scenes/Towers/TowerSlots.tscn" id="7_atavw"]
+[ext_resource type="PackedScene" uid="uid://b4tnp4tapoonn" path="res://Scripts/Gameplay/Projectiles/HomingProjectile.tscn" id="7_kl2rs"]
 [ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
+[ext_resource type="PackedScene" uid="uid://cl0og6r3uc6ax" path="res://Scripts/Gameplay/Projectiles/ExplodingProjectile.tscn" id="8_81a2t"]
+[ext_resource type="PackedScene" uid="uid://ciubnx7jia5kj" path="res://Scripts/Gameplay/Projectiles/PierceProjectile.tscn" id="8_j6cy0"]
+[ext_resource type="PackedScene" uid="uid://cbk7hy24lf5h8" path="res://Scripts/Gameplay/Projectiles/ChainProjectile.tscn" id="8_x3f4s"]
+[ext_resource type="PackedScene" uid="uid://beqx0g5b4mpis" path="res://Scripts/Gameplay/Projectiles/PoisonProjectile.tscn" id="9_7jyn4"]
 [ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
 [ext_resource type="Script" uid="uid://cxpekmp87pqns" path="res://Scenes/PlayerManager.cs" id="9_x3f4s"]
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
@@ -20,7 +26,6 @@ EnemyScene = ExtResource("2_0j08j")
 MapEnemiesPath = NodePath("../Map/Enemies")
 Path2DPath = NodePath("../Map/Path2D")
 SpawnEvery = 0.02
-SpawnNumber = 785
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
 
@@ -47,6 +52,11 @@ EnemiesRootPath = NodePath("../../../Enemies")
 
 [node name="ShooterComponent" parent="Map/Towers/Tower" index="1"]
 ProjectileScene = ExtResource("5_ixfg1")
+HomingProjectileScene = ExtResource("7_kl2rs")
+ExplosiveProjectileScene = ExtResource("8_81a2t")
+PiercingProjectileScene = ExtResource("8_j6cy0")
+PoisonProjectileScene = ExtResource("9_7jyn4")
+ChainProjectileScene = ExtResource("8_x3f4s")
 
 [node name="Sprite2D" parent="Map/Towers/Tower" index="2"]
 position = Vector2(1.99994, -6.00003)
