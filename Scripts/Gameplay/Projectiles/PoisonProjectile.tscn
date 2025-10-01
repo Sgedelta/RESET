@@ -1,15 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://beq0wrl3nh46k"]
+[gd_scene load_steps=4 format=3 uid="uid://beqx0g5b4mpis"]
 
-[ext_resource type="Script" uid="uid://dxpf4dvc50si" path="res://Scripts/Gameplay/Projectiles/Projectile.cs" id="1_hwlbg"]
+[ext_resource type="Script" uid="uid://cjy45wp5o2ufm" path="res://Scripts/Gameplay/Projectiles/PoisonProjectile.cs" id="1_xvwho"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pe8r6"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hwlbg"]
 size = Vector2(30, 30)
 
-[node name="Projectile" type="Area2D"]
-script = ExtResource("1_hwlbg")
-Speed = 500.0
+[node name="Poison Projectile" type="Area2D"]
+script = ExtResource("1_xvwho")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pe8r6")

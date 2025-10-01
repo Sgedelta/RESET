@@ -19,8 +19,7 @@ public partial class HomingProjectile : Projectile
 
         SetGlobalPosition(GlobalPosition + dir * Speed * (float)delta);
 
-        // Cheap hit test – good enough to prove the loop
-        if (GlobalPosition.DistanceTo(_target.GlobalPosition) < 8f)
+        if (GlobalPosition.DistanceTo(_target.GlobalPosition) < 32f)
         {
             _target.TakeDamage(_damage);
             QueueFree();

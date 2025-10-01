@@ -14,11 +14,12 @@ public partial class ExplosiveProjectile : Projectile
             return;
         }
 
-        // Move toward target like a regular projectile
-        SetGlobalPosition(GlobalPosition + dir * Speed * (float)delta);
+        GlobalPosition += dir * Speed * (float)delta;
 
-        // Check hit against target
-        if (GlobalPosition.DistanceTo(_target.GlobalPosition) < 8f)
+        float hitRadius = 32f;
+        float distToTarget = GlobalPosition.DistanceTo(_target.GlobalPosition);
+
+        if (distToTarget < hitRadius)
         {
             Explode();
             QueueFree();
@@ -27,9 +28,35 @@ public partial class ExplosiveProjectile : Projectile
 
     private void Explode()
     {
-        //Implement later 
 
-        //get a root of the nearest enemeies and put them in like a list or something 
-        //Loop through the list and deal half damage or something 
+        var enemiesRoot = GetTree().Root.FindChild("Enemies", true, false) as Node2D;
+        if (enemiesRoot == null)
+        {
+            return;
+        }
+
+        foreach (var child in enemiesRoot.GetChildren())
+        {
+            if (child is Enemy e && IsInstanceValid(e))
+            {
+                float dist = GlobalPosition.DistanceTo(e.GlobalPosition);
+
+                if (dist <= ExplosionRadius)
+                {
+                    float dmg = _damage;
+                    if (HasFalloff)
+                    {
+                        float factor = Mathf.Clamp(1f - (dist / ExplosionRadius), 0.5f, 1f);
+                        dmg *= factor;
+                    }
+                    else
+                    {
+                        GD.Print($"[ExplosiveProjectile] Applying damage {dmg} to {e.Name}");
+                    }
+
+                    e.TakeDamage(dmg);
+                }
+            }
+        }
     }
 }

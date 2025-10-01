@@ -17,7 +17,7 @@ public partial class PoisonProjectile : Projectile
 
         SetGlobalPosition(GlobalPosition + dir * Speed * (float)delta);
 
-        if (GlobalPosition.DistanceTo(_target.GlobalPosition) < 8f)
+        if (GlobalPosition.DistanceTo(_target.GlobalPosition) < 32f)
         {
             _target.TakeDamage(_damage);
 

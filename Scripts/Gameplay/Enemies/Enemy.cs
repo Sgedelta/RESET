@@ -22,6 +22,8 @@ public partial class Enemy : Node2D
 		attackTimer.OneShot = false;
 		attackTimer.Timeout += OnAttackTimeout;
 		AddChild(attackTimer);
+
+		AddToGroup("enemies");
 	}
 
 	public void TakeDamage(float dmg)
@@ -32,7 +34,9 @@ public partial class Enemy : Node2D
 			EmitSignal(SignalName.EnemyDied, this);
 			QueueFree();
 		}
-	}
+		GD.Print("Enemy has " + HP);
+
+    }
 	
 	public void OnReachedPathEnd()
 	{

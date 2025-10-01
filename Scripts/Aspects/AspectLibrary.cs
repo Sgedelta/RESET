@@ -9,6 +9,6 @@ public static class AspectLibrary
    {
 		//We just need to add aspects like this
 	   new Aspect("Rapid Fire", StatType.FireRate, ProjectileType.Regular, ModifierType.Multiply, 2f),
-	   new Aspect("Powerful", StatType.Damage, ProjectileType.Regular, ModifierType.Add, 5f)
+	   new Aspect("Powerful", StatType.Damage, ProjectileType.Homing, ModifierType.Add, 5f)
    };
 }
