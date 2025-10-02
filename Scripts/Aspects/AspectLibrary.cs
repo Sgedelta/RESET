@@ -3,12 +3,33 @@ using System;
 using System.Collections.Generic;
 using static Aspect;
 
-public static class AspectLibrary
+public partial class AspectLibrary : Node
 {
-	public static List<Aspect> AllAspects = new List<Aspect>
-   {
-		//We just need to add aspects like this
-	   new Aspect("Rapid Fire", StatType.FireRate, ProjectileType.Regular, ModifierType.Multiply, 2f),
-	   new Aspect("Powerful", StatType.Damage, ProjectileType.Homing, ModifierType.Add, 5f)
-   };
+	//TEMPORARY class for aspect storage!
+	[Export] Godot.Collections.Array<AspectTemplate> AspectTemplates;
+
+	public static List<Aspect> AllAspects = new List<Aspect>{};
+	public static readonly Dictionary<string, Aspect> ById = new();
+
+
+	 public override void _Ready()
+	{
+		AllAspects.Clear();
+		ById.Clear();
+
+		if (AspectTemplates == null) return;
+
+		foreach (var template in AspectTemplates)
+		{
+			if (template == null || string.IsNullOrWhiteSpace(template._id))
+			{
+				GD.PushWarning("AspectTemplate missing or has empty _id");
+				continue;
+			}
+
+			var a = new Aspect(template);
+			AllAspects.Add(a);
+			ById[template._id] = a;
+		}
+	}
 }

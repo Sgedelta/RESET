@@ -15,7 +15,7 @@ public partial class AspectToken : Control
 		_label = GetNodeOrNull<Label>("Label");
 
 		if (_icon != null && Icon != null) _icon.Texture = Icon;
-		if (_label != null && Aspect != null) _label.Text = Aspect.Name;
+		if (_label != null && Aspect != null) _label.Text = Aspect.Template.DisplayName;
 
 		MouseFilter = MouseFilterEnum.Pass;
 		
@@ -30,7 +30,7 @@ public partial class AspectToken : Control
 
 	public override Variant _GetDragData(Vector2 atPosition)
 	{
-		if (Aspect == null) return default;
+		if (Aspect == null || Aspect.Template == null) return default;
 
 		if (GetChildCount() > 0)
 		{
@@ -41,7 +41,7 @@ public partial class AspectToken : Control
 		var data = new Godot.Collections.Dictionary
 		{
 			{ "type", "aspect_token" },
-			{ "name", Aspect.Name } 
+			{ "aspect_id", Aspect.Template._id }  // <-- string is Variant-friendly
 		};
 		return data;
 	}

@@ -8,6 +8,11 @@ public partial class TowerSlots : Control
 
 	private Tower _tower;
 	private GameManager _gm;
+	
+	[Export] public int SlotIndex = -1;
+	private static AspectInventory _aspectInventory = new();
+
+
 
 	public override void _Ready()
 	{
@@ -17,28 +22,43 @@ public partial class TowerSlots : Control
 		MouseFilter = MouseFilterEnum.Pass;
 	}
 
-	public override bool _CanDropData(Vector2 position, Variant data)
+	public override bool _CanDropData(Vector2 atPos, Variant data)
 	{
-		if (data.VariantType != Variant.Type.Dictionary) return false;
+		if (data.VariantType != Variant.Type.Dictionary)
+		return false;
+		
 		var dict = (Godot.Collections.Dictionary)data;
-		return dict.ContainsKey("type")
-			&& dict["type"].AsStringName() == "aspect_token"
-			&& dict.ContainsKey("name");
+		return dict.TryGetValue("type", out var typeVar)
+			&& (string)typeVar == "aspect_token"
+			&& dict.ContainsKey("aspect_id");
 	}
 
-	public override void _DropData(Vector2 position, Variant data)
+public override void _DropData(Vector2 atPos, Variant data)
+{
+	if (data.VariantType != Variant.Type.Dictionary) return;
+
+	var dict = (Godot.Collections.Dictionary)data;
+	if (!dict.TryGetValue("aspect_id", out var idVar)) return;
+
+	string id = (string)idVar;
+
+	if (!AspectLibrary.ById.TryGetValue(id, out var aspect))
 	{
-		var dict = (Godot.Collections.Dictionary)data;
-		var name = dict["name"].AsString();
-
-		var aspect = AspectLibrary.AllAspects.FirstOrDefault(a => a.Name == name);
-		if (aspect == null) return;
-
-		int slotIndex = GetSlotIndexFromPosition(position);
-		_gm.Inventory.AttachTo(aspect, _tower, slotIndex);
-
-		RefreshIcons();
+		GD.PushWarning($"TowerSlots: Unknown aspect id '{id}'");
+		return;
 	}
+
+	if (_tower == null)
+	{
+		GD.PushWarning("TowerSlots: thisTower not set");
+		return;
+	}
+
+	_aspectInventory.AttachTo(aspect, _tower, SlotIndex);
+	RefreshIcons();
+}
+
+
 
 	private int GetSlotIndexFromPosition(Vector2 localPosInThis)
 	{
@@ -69,7 +89,7 @@ public partial class TowerSlots : Control
 			if (i < _tower.AttachedAspects.Count)
 			{
 				var a = _tower.AttachedAspects[i];
-				slot.Text = a.Name;
+				slot.Text = a.Template.DisplayName;
 			}
 			else
 			{
