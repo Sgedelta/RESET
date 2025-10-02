@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bqoq2pe5c84vh"]
+
+[ext_resource type="Resource" uid="uid://f253bqreiq3u" path="res://Resources/Modifiers/DamageDown.tres" id="1_2fvvk"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/Modifiers/AspectTemplate.cs" id="1_3c0p1"]
+
+[resource]
+script = ExtResource("1_3c0p1")
+_id = "explodeProjectile"
+DisplayName = "Big Bomb"
+Modifiers = Array[Resource]([ExtResource("1_2fvvk")])
+ProjectileType = 2
