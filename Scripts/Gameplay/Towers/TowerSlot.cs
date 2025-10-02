@@ -1,29 +1,38 @@
-﻿using Godot;
+using Godot;
 
 public partial class TowerSlot : Button
 {
-    [Signal] public delegate void PressedSlotEventHandler(int i);
+	[Signal] public delegate void PressedSlotEventHandler(int i);
 
-    private int slotIndex;
+	private int slotIndex;
 
-    public override void _Ready()
-    {
-        //calc slot index
-        CalculateSlotIndex();
+	public override void _Ready()
+	{
+		base._Ready();
 
-        //recalc slot index
-        if (GetParent() != null)
-        {
-            GetParent().ChildOrderChanged += CalculateSlotIndex;
-        }
+		//calc slot index
+		CalculateSlotIndex();
 
-        Pressed += () => { EmitSignal("PressedSlot", slotIndex); };
+		//recalc slot index
+		if (GetParent() != null)
+		{
+			GetParent().ChildOrderChanged += CalculateSlotIndex;
+		}
 
-    }
+		//Pressed += () => {GD.Print("Pressed, Re-emitting"); EmitSignal("PressedSlot", slotIndex); };
 
-    private void CalculateSlotIndex()
-    {
-        slotIndex = GetIndex();
-    }
+		this.Connect("pressed", Callable.From(() => { GD.Print("Pressed, Re-emitting"); EmitSignal("PressedSlot", slotIndex); }));
+
+	}
+
+	public void DebugPrint()
+	{
+		GD.Print("Pressed");
+	}
+
+	private void CalculateSlotIndex()
+	{
+		slotIndex = GetIndex();
+	}
 
 }
