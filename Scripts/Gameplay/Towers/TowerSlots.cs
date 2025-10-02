@@ -22,7 +22,7 @@ public partial class TowerSlots : Control
 
 		MouseFilter = MouseFilterEnum.Pass;
 
-		
+		RefreshIcons();
 	}
 
 	public override bool _CanDropData(Vector2 atPos, Variant data)
@@ -84,6 +84,7 @@ public partial class TowerSlots : Control
 	{
 		if (_tower == null) return;
 
+		GD.Print("removing aspect at " + slotIndex);
 		_tower.DetachAspect(_tower.AttachedAspects[slotIndex]);
 
 	}

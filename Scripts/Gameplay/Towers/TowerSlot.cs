@@ -19,7 +19,6 @@ public partial class TowerSlot : Button
 
         Pressed += () => { EmitSignal("PressedSlot", slotIndex); };
 
-
     }
 
     private void CalculateSlotIndex()

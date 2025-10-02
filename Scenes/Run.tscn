@@ -1,6 +1,5 @@
 [gd_scene load_steps=25 format=3 uid="uid://cqogid51gx2q8"]
 
-
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
 [ext_resource type="Script" uid="uid://bvtxvt18atr23" path="res://Load/WaveDirector.cs" id="2_38uoo"]
@@ -25,7 +24,6 @@
 [ext_resource type="Resource" uid="uid://bqoq2pe5c84vh" path="res://Resources/AspectTemplates/Explode.tres" id="17_q06an"]
 [ext_resource type="Resource" uid="uid://cc86osegkm3kv" path="res://Resources/AspectTemplates/Poison.tres" id="18_s2nua"]
 [ext_resource type="Resource" uid="uid://p285nqyd7up0" path="res://Resources/AspectTemplates/Piercing.tres" id="19_u4oo0"]
-
 
 [node name="Run" type="Node2D"]
 
