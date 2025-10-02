@@ -46,7 +46,7 @@ public class Aspect
 
 	[Export] public AspectTemplate Template { get; private set; }
 
-	public List<ModifierUnit> Modifiers;
+	public List<ModifierUnit> Modifiers = new();
 	
 	// prevent build from happening twice
 	private bool _initializedFromTemplate = false;
@@ -86,7 +86,6 @@ public class Aspect
 					break;
 			}
 		}
-
 		_initializedFromTemplate = true;
 	}
 
@@ -184,16 +183,13 @@ public class Aspect
 
 	static float ApplyFloat(float current, ModifierUnit unit)
 	{
-		//could put a check in here but it shouldn't ever be an issue - Sam
 		float modVal = ((FloatModifierUnit)unit).Value;
-
 		return unit.Type switch
 		{
 			ModifierType.Add => current + modVal,
 			ModifierType.Multiply => current * modVal,
+			ModifierType.Subtract => current - modVal,
 			_ => current
 		};
 	}
-
-
 }

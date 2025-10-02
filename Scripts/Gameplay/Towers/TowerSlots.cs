@@ -33,32 +33,31 @@ public partial class TowerSlots : Control
 			&& dict.ContainsKey("aspect_id");
 	}
 
-	public override void _DropData(Vector2 atPos, Variant data)
+public override void _DropData(Vector2 atPos, Variant data)
+{
+	if (data.VariantType != Variant.Type.Dictionary) return;
+
+	var dict = (Godot.Collections.Dictionary)data;
+	if (!dict.TryGetValue("aspect_id", out var idVar)) return;
+
+	string id = (string)idVar;
+
+	if (!AspectLibrary.ById.TryGetValue(id, out var aspect))
 	{
-		if (data.VariantType != Variant.Type.Dictionary)
-			return;
-
-		var dict = (Godot.Collections.Dictionary)data;
-
-		if (!dict.TryGetValue("aspect_id", out var idVar))
-			return;
-
-		string id = (string)idVar;
-
-		if (!AspectLibrary.ById.TryGetValue(id, out var aspect))
-		{
-			GD.PushWarning($"TowerSlots: Unknown aspect id '{id}'");
-			return;
-		}
-
-		if (_tower == null)
-		{
-			GD.PushWarning("TowerSlots: thisTower not set");
-			return;
-		}
-
-		_aspectInventory.AttachTo(aspect, _tower, SlotIndex);
+		GD.PushWarning($"TowerSlots: Unknown aspect id '{id}'");
+		return;
 	}
+
+	if (_tower == null)
+	{
+		GD.PushWarning("TowerSlots: thisTower not set");
+		return;
+	}
+
+	_aspectInventory.AttachTo(aspect, _tower, SlotIndex);
+	RefreshIcons();
+}
+
 
 
 	private int GetSlotIndexFromPosition(Vector2 localPosInThis)

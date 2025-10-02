@@ -31,6 +31,8 @@ public partial class AspectTemplate : Resource
 		//must be a Godot Array to be exported
 	[Export] public Godot.Collections.Array<ModifierInfo> Modifiers;
 
+	[Export] public ProjectileType ProjectileType = ProjectileType.Regular;
+
 
 	public AspectTemplate() { }
 

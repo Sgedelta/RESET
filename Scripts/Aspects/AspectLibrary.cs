@@ -12,14 +12,14 @@ public partial class AspectLibrary : Node
 	public static readonly Dictionary<string, Aspect> ById = new();
 
 
-	public override void _Ready()
+	 public override void _Ready()
 	{
 		AllAspects.Clear();
 		ById.Clear();
 
 		if (AspectTemplates == null) return;
 
-		foreach (AspectTemplate template in AspectTemplates)
+		foreach (var template in AspectTemplates)
 		{
 			if (template == null || string.IsNullOrWhiteSpace(template._id))
 			{

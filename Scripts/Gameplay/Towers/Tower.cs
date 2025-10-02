@@ -1,24 +1,22 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public struct TowerStats
 {
-	// Basic Stats
+	// Basic
 	public int   AspectSlots;
 	public float FireRate;
 	public float Damage;
 	public float Range;
 	public float ProjectileSpeed;
 
-	// Advanced Stats
+	// Advanced
 	public float CritChance;
-	public float CritMult; 
+	public float CritMult;
 	public float ShotSpread;
 	public float ShotSpreadFalloff;
 
-
-	// Unique Stats
+	// Unique
 	public int   ChainTargets;
 	public float ChainDistance;
 	public float SplashRadius;
@@ -34,8 +32,7 @@ public struct TowerStats
 
 public partial class Tower : Node2D
 {
-	//============STATS============
-	[Export] public int BaseAspectSlots           = 3;
+	[Export] public int   BaseAspectSlots         = 3;
 	[Export] public float BaseFireRate            = 1.5f;
 	[Export] public float BaseDamage              = 5f;
 	[Export] public float BaseRange               = 500f;
@@ -46,18 +43,17 @@ public partial class Tower : Node2D
 	[Export] public float BaseShotSpreadFalloff   = 0f;
 	[Export] public int   BaseChainTargets        = 0;
 
-
 	private TowerStats baseStats;
 	private TowerStats modifiedStats;
-	public readonly List<Aspect> AttachedAspects = new List<Aspect>();
+	public readonly List<Aspect> AttachedAspects = new();
 
 	public TargetingComponent Targeting { get; private set; }
-	public ShooterComponent Shooter { get; private set; }
+	public ShooterComponent   Shooter   { get; private set; }
 
 	public override void _Ready()
 	{
-		Targeting = GetNode<TargetingComponent>("TargetingComponent");
-		Shooter   = GetNode<ShooterComponent>("ShooterComponent");
+		Targeting = GetNodeOrNull<TargetingComponent>("TargetingComponent");
+		Shooter   = GetNodeOrNull<ShooterComponent>("ShooterComponent");
 
 		baseStats = new TowerStats
 		{
@@ -76,13 +72,10 @@ public partial class Tower : Node2D
 		UpdateModifiedStats();
 		ApplyStatsToComponents();
 	}
-	
-	// add aspect and recompute stats
+
 	public bool AttachAspect(Aspect a, int slotIndex = -1)
 	{
-		//fail if it doesnt exist, count is full or its already attached
 		if (a == null) return false;
-
 		if (slotIndex < 0 || slotIndex > AttachedAspects.Count)
 			AttachedAspects.Add(a);
 		else
@@ -91,7 +84,7 @@ public partial class Tower : Node2D
 		Recompute();
 		return true;
 	}
-	
+
 	public bool DetachAspect(Aspect a)
 	{
 		if (a == null) return false;
@@ -109,42 +102,42 @@ public partial class Tower : Node2D
 		modifiedStats = s;
 		ApplyStatsToComponents();
 	}
-	/// <summary>
-	/// Runs CalculateModifiedStats and sets modifiedStats to the result.
-	/// </summary>
+
 	public void UpdateModifiedStats() => modifiedStats = CalculateModifiedStats();
 
 	private void ApplyStatsToComponents()
 	{
 		Shooter?.SetStats(modifiedStats);
+
+		//preserve projectile logic via aspects’ templates
+		var type = GetProjectileTypeFromAspects();
+		Shooter?.SetProjectileType(type);
+
 		if (Targeting != null) Targeting.Range = modifiedStats.Range;
 	}
-	
-	/// <summary>
-	/// A method that uses the aspects slotted into this tower to calculate what it's modified stats should be.
-	/// </summary>
-	/// <returns></returns>
+
 	public TowerStats CalculateModifiedStats()
 	{
-		TowerStats result = baseStats;
-
-		// Apply in list order: this makes "add before multiply" vs "multiply before add" slot-dependent
+		var result = baseStats;
 		foreach (var a in AttachedAspects)
 		{
 			if (a == null) continue;
-
 			result = a.ModifyGivenStats(result);
 		}
 
 		result.FireRate        = Mathf.Max(0.05f, result.FireRate);
 		result.ProjectileSpeed = Mathf.Max(0f, result.ProjectileSpeed);
-
 		return result;
-
 	}
-	
-	
 
-	static float Clamp01(float v) => v < 0f ? 0f : (v > 1f ? 1f : v);
-
+	private ProjectileType GetProjectileTypeFromAspects()
+	{
+		foreach (var a in AttachedAspects)
+		{
+			if (a?.Template == null) continue;
+			if (a.Template.ProjectileType != ProjectileType.Regular)
+				return a.Template.ProjectileType;
+		}
+		return ProjectileType.Regular;
+	}
 }
