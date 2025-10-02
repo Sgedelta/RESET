@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=21 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
@@ -19,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://dhymdjlukdrx7" path="res://Resources/AspectTemplates/DamageMult.tres" id="11_7jyn4"]
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
 [ext_resource type="Resource" uid="uid://b6wahnncr2f5s" path="res://Resources/AspectTemplates/FireRateAdd.tres" id="12_81a2t"]
+[ext_resource type="Script" uid="uid://b8xdx78t4cuh8" path="res://Scripts/Gameplay/Towers/TowerSlot.cs" id="13_wyr6k"]
 
 [node name="Run" type="Node2D"]
 
@@ -72,6 +73,15 @@ offset_bottom = -83.0
 TowerPath = NodePath("..")
 GameManagerPath = NodePath("../../../../GameManager")
 
+[node name="Slot3" parent="Map/Towers/Tower/TowerSlots/Slots" index="0"]
+script = ExtResource("13_wyr6k")
+
+[node name="Slot2" parent="Map/Towers/Tower/TowerSlots/Slots" index="1"]
+script = ExtResource("13_wyr6k")
+
+[node name="Slot1" parent="Map/Towers/Tower/TowerSlots/Slots" index="2"]
+script = ExtResource("13_wyr6k")
+
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
 AspectTemplates = Array[Resource]([ExtResource("11_7jyn4"), ExtResource("12_81a2t")])
@@ -93,17 +103,20 @@ EnemiesRootPath = NodePath("../Map/Enemies")
 RowPath = NodePath("Margin/Scroll/Row")
 
 [node name="HealthUI" type="Label" parent="CanvasLayer"]
-offset_top = 554.0
-offset_right = 62.0
-offset_bottom = 577.0
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 103.0
+offset_bottom = 27.0
 text = "HP: 100 / 100"
 script = ExtResource("11_x3f4s")
 PlayerManagerPath = NodePath("../../PlayerManager")
 
 [node name="GameOverText" type="Label" parent="CanvasLayer"]
 visible = false
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 534.0
+offset_top = 282.0
+offset_right = 626.0
+offset_bottom = 305.0
 text = "GAME OVER"
 
 [editable path="Map"]

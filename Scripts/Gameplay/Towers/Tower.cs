@@ -77,10 +77,14 @@ public partial class Tower : Node2D
 	{
 		if (a == null) return false;
 		if (slotIndex < 0 || slotIndex > AttachedAspects.Count)
+		{
 			AttachedAspects.Add(a);
-		else
-			AttachedAspects.Insert(slotIndex, a);
 
+		}
+		else
+		{
+			AttachedAspects.Insert(slotIndex, a);
+		}
 		Recompute();
 		return true;
 	}

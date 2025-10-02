@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Linq;
 
 public partial class TowerSlots : Control
@@ -20,6 +21,8 @@ public partial class TowerSlots : Control
 		_gm    = GetNode<GameManager>(GameManagerPath);
 
 		MouseFilter = MouseFilterEnum.Pass;
+
+		
 	}
 
 	public override bool _CanDropData(Vector2 atPos, Variant data)
@@ -33,30 +36,30 @@ public partial class TowerSlots : Control
 			&& dict.ContainsKey("aspect_id");
 	}
 
-public override void _DropData(Vector2 atPos, Variant data)
-{
-	if (data.VariantType != Variant.Type.Dictionary) return;
-
-	var dict = (Godot.Collections.Dictionary)data;
-	if (!dict.TryGetValue("aspect_id", out var idVar)) return;
-
-	string id = (string)idVar;
-
-	if (!AspectLibrary.ById.TryGetValue(id, out var aspect))
+	public override void _DropData(Vector2 atPos, Variant data)
 	{
-		GD.PushWarning($"TowerSlots: Unknown aspect id '{id}'");
-		return;
+		if (data.VariantType != Variant.Type.Dictionary) return;
+	
+		var dict = (Godot.Collections.Dictionary)data;
+		if (!dict.TryGetValue("aspect_id", out var idVar)) return;
+	
+		string id = (string)idVar;
+	
+		if (!AspectLibrary.ById.TryGetValue(id, out var aspect))
+		{
+			GD.PushWarning($"TowerSlots: Unknown aspect id '{id}'");
+			return;
+		}
+	
+		if (_tower == null)
+		{
+			GD.PushWarning("TowerSlots: thisTower not set");
+			return;
+		}
+	
+		_aspectInventory.AttachTo(aspect, _tower, SlotIndex);
+		RefreshIcons();
 	}
-
-	if (_tower == null)
-	{
-		GD.PushWarning("TowerSlots: thisTower not set");
-		return;
-	}
-
-	_aspectInventory.AttachTo(aspect, _tower, SlotIndex);
-	RefreshIcons();
-}
 
 
 
@@ -64,7 +67,7 @@ public override void _DropData(Vector2 atPos, Variant data)
 	{
 		var hbox = GetNode<HBoxContainer>("Slots");
 		var globalMouse = GetGlobalMousePosition();
-
+	
 		for (int i = 0; i < hbox.GetChildCount(); i++)
 		{
 			if (hbox.GetChild(i) is Control c)
@@ -73,23 +76,45 @@ public override void _DropData(Vector2 atPos, Variant data)
 					return i;
 			}
 		}
-
+	
 		return _tower.AttachedAspects.Count;
 	}
 
+	private void DetachSlotFromTower(int slotIndex)
+	{
+		if (_tower == null) return;
+
+		_tower.DetachAspect(_tower.AttachedAspects[slotIndex]);
+
+	}
+	
 	private void RefreshIcons()
 	{
 		var hbox = GetNode<HBoxContainer>("Slots");
-
+	
 		for (int i = 0; i < hbox.GetChildCount(); i++)
 		{
-			if (hbox.GetChild(i) is not Button slot)
-				continue;
-
-			if (i < _tower.AttachedAspects.Count)
+	
+	           if (hbox.GetChild(i) is not Button slot)
+			{
+	               continue;
+	           }
+	
+			//detach button connections - we will reatach correctly later
+			var connections = slot.GetSignalConnectionList("pressed");
+			foreach (var connection in connections)
+			{
+				slot.Disconnect("pressed", ((Callable)connection["callable"]));
+			}
+	
+	
+	
+	
+	           if (i < _tower.AttachedAspects.Count)
 			{
 				var a = _tower.AttachedAspects[i];
 				slot.Text = a.Template.DisplayName;
+				((TowerSlot)slot).PressedSlot += DetachSlotFromTower;
 			}
 			else
 			{
