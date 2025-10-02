@@ -31,5 +31,8 @@ public partial class AspectLibrary : Node
 			AllAspects.Add(a);
 			ById[template._id] = a;
 		}
+		GD.Print($"AspectLibrary loaded {AllAspects.Count} aspects: ",
+	string.Join(", ", AllAspects.ConvertAll(a => a.Template?.DisplayName ?? "<null>")));
+
 	}
 }

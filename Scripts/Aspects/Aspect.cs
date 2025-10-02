@@ -37,22 +37,26 @@ public enum ModifierType
 	Multiply,
 	Subtract
 }
-
+public enum ProjectileType
+{
+	Regular,
+	Homing,
+	Explosive,
+	Piercing,
+	Poison,
+	Chain
+}
 
 
 
 public class Aspect
 {
 
-	[Export] public AspectTemplate Template { get; private set; }
-
-	public List<ModifierUnit> Modifiers = new();
+ 	public AspectTemplate Template { get; }
+	public List<ModifierUnit> Modifiers { get; } = new();
 	
 	// prevent build from happening twice
 	private bool _initializedFromTemplate = false;
-
-
-
 
 	//TODO: redefine to be able to effect multiple stats
 	//       and take an AspectTemplate and create self based on data within?
