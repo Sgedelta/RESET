@@ -26,7 +26,7 @@ public partial class Tower : Node2D
 	[Export] public float BaseFireRate            = 1.5f;
 	[Export] public float BaseDamage              = 5f;
 	[Export] public float BaseRange               = 500f;
-	[Export] public float BaseProjectileSpeed     = 100f;
+	[Export] public float BaseProjectileSpeed     = 500f;
 	[Export] public float BaseCritChance          = 0f;
 	[Export] public float BaseCritMult            = 2f;
 	[Export] public float BaseShotSpread          = 0f;
@@ -102,7 +102,12 @@ public partial class Tower : Node2D
 	private void ApplyStatsToComponents()
 	{
 		Shooter?.SetStats(modifiedStats);
-		if (Targeting != null) Targeting.Range = modifiedStats.Range;
+
+        var type = GetProjectileTypeFromAspects();
+        GD.Print("Tower applying projectile type: ", type);
+        Shooter?.SetProjectileType(GetProjectileTypeFromAspects());
+
+        if (Targeting != null) Targeting.Range = modifiedStats.Range;
 	}
 	
 	/// <summary>
@@ -155,4 +160,13 @@ public partial class Tower : Node2D
 
 	static float Clamp01(float v) => v < 0f ? 0f : (v > 1f ? 1f : v);
 
+    private ProjectileType GetProjectileTypeFromAspects()
+    {
+        foreach (var a in AttachedAspects)
+        {
+            if (a.ProjectileType != ProjectileType.Regular)
+                return a.ProjectileType;
+        }
+        return ProjectileType.Regular;
+    }
 }

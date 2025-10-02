@@ -37,12 +37,15 @@ public partial class ShooterComponent : Node2D
 
 	public void SetProjectileType(ProjectileType type)
 	{
-		_projectileType = type;
+        GD.Print("Shooter received projectile type: ", type);
+        _projectileType = type;
 	}
 
 	private PackedScene GetProjectileScene()
 	{
-		switch (_projectileType)
+        GD.Print("Shooter is spawning projectile type: ", _projectileType);
+
+        switch (_projectileType)
 		{
 			case ProjectileType.Regular:
 				return ProjectileScene;
@@ -76,7 +79,9 @@ public partial class ShooterComponent : Node2D
 		if (projectileScene == null) return;
 
 		var p = (Projectile)projectileScene.Instantiate();
-		p.Init(tower.GlobalPosition, target, i_damage, i_projectileSpeed, i_critChance, i_critMult, i_shotSpread, i_shotSpreadFalloff);
+        GD.Print("Spawned projectile of type: ", p.GetType().Name);
+
+        p.Init(tower.GlobalPosition, target, i_damage, i_projectileSpeed, i_critChance, i_critMult, i_shotSpread, i_shotSpreadFalloff);
 		GetTree().CurrentScene.AddChild(p);
 
 		_cooldown = 1f / Mathf.Max(0.05f, i_fireRate);

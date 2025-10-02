@@ -25,7 +25,7 @@ public partial class ChainProjectile : Projectile
 
         GlobalPosition += dir * Speed * (float)delta;
 
-        if (GlobalPosition.DistanceTo(_target.GlobalPosition) < 8f)
+        if (GlobalPosition.DistanceTo(_target.GlobalPosition) < 32f)
         {
             _target.TakeDamage(_damage);
             HandleChain();
