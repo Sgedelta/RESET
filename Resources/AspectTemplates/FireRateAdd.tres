@@ -7,3 +7,4 @@ script = ExtResource("1_cpjsk")
 _id = "commonFireRateAdd"
 DisplayName = "Fire Rate Addition"
 Modifiers = Array[Resource]([null])
+ProjectileType = 0
