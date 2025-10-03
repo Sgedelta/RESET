@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://j0mqmk6a8rri"]
 
-[ext_resource type="Script" uid="uid://cpfe6pao0v0kl" path="res://Resources/FloatModifierInfo.cs" id="1_xf66d"]
+[ext_resource type="Script" uid="uid://cpfe6pao0v0kl" path="res://Resources/Modifiers/FloatModifierInfo.cs" id="1_xf66d"]
 
 [resource]
 script = ExtResource("1_xf66d")

@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public struct TowerStats
 {
@@ -75,8 +76,10 @@ public partial class Tower : Node2D
 
 	public bool AttachAspect(Aspect a, int slotIndex = -1)
 	{
+		GD.Print("Trying to add Aspect");
 		if (a == null) return false;
-		if (slotIndex < 0 || slotIndex > AttachedAspects.Count)
+        GD.Print("Aspect Exists");
+        if (slotIndex < 0 || slotIndex > AttachedAspects.Count)
 		{
 			AttachedAspects.Add(a);
 
@@ -85,7 +88,8 @@ public partial class Tower : Node2D
 		{
 			AttachedAspects.Insert(slotIndex, a);
 		}
-		Recompute();
+        GD.Print("Aspect Added");
+        Recompute();
 		return true;
 	}
 

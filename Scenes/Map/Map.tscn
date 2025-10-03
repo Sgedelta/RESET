@@ -2,14 +2,14 @@
 
 [sub_resource type="Curve2D" id="Curve2D_edo5e"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1119, 41, 0, 0, 0, 0, 514, 92, 0, 0, 0, 0, 341, 107, 0, 0, 0, 0, 43, 199, 0, 0, 0, 0, 63, 491, 0, 0, 0, 0, 141, 597, 0, 0, 0, 0, 307, 569, 0, 0, 0, 0, 359, 604, 0, 0, 0, 0, 624, 562, 0, 0, 0, 0, 1039, 574)
+"points": PackedVector2Array(0, 0, 0, 0, 1119, 41, 0, 0, 0, 0, 343, 37, 0, 0, 0, 0, 338, 197, 0, 0, 0, 0, 43, 199, 0, 0, 0, 0, 47, 601, 0, 0, 0, 0, 314, 601, 0, 0, 0, 0, 312, 461, 0, 0, 0, 0, 577, 457, 0, 0, 0, 0, 575, 325, 0, 0, 0, 0, 1108, 319)
 }
 point_count = 10
 
 [node name="Map" type="Node2D"]
 
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2(405, 357)
+position = Vector2(1, 8)
 curve = SubResource("Curve2D_edo5e")
 
 [node name="Towers" type="Node2D" parent="."]

@@ -83,9 +83,13 @@ public partial class TowerSlots : Control
 	private void DetachSlotFromTower(int slotIndex)
 	{
 		if (_tower == null) return;
+		if (slotIndex >= _tower.AttachedAspects.Count) return;
 
 		GD.Print("removing aspect at " + slotIndex);
-		_tower.DetachAspect(_tower.AttachedAspects[slotIndex]);
+		_aspectInventory.DetachFrom(_tower.AttachedAspects[slotIndex], _tower);
+
+
+		RefreshIcons();
 
 	}
 	
@@ -96,32 +100,38 @@ public partial class TowerSlots : Control
 		for (int i = 0; i < hbox.GetChildCount(); i++)
 		{
 	
-	           if (hbox.GetChild(i) is not Button slot)
+	        if (hbox.GetChild(i) is not TowerSlot slot)
 			{
-	               continue;
-	           }
+				continue;
+	        }
 	
 			//detach button connections - we will reatach correctly later
-			var connections = slot.GetSignalConnectionList("pressed");
+			var connections = slot.GetSignalConnectionList("PressedSlot");
 			foreach (var connection in connections)
 			{
-				slot.Disconnect("pressed", ((Callable)connection["callable"]));
+				//slot.Disconnect("PressedSlot", ((Callable)connection["callable"]));
+				slot.PressedSlot -= DetachSlotFromTower;
 			}
+
 	
 	
-	
-	
-	           if (i < _tower.AttachedAspects.Count)
+	        if (i < _tower.AttachedAspects.Count)
 			{
 				var a = _tower.AttachedAspects[i];
 				slot.Text = a.Template.DisplayName;
-				((TowerSlot)slot).PressedSlot += DetachSlotFromTower;
+				//atach the detach signal to the slot
+				slot.PressedSlot += DetachSlotFromTower;
 			}
 			else
 			{
 				slot.Text = "+";
 			}
 		}
+	}
+
+	private void DebugPrint()
+	{
+		GD.Print("Print");
 	}
 
 }

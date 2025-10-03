@@ -19,15 +19,10 @@ public partial class TowerSlot : Button
 			GetParent().ChildOrderChanged += CalculateSlotIndex;
 		}
 
-		//Pressed += () => {GD.Print("Pressed, Re-emitting"); EmitSignal("PressedSlot", slotIndex); };
+		Pressed += () => { EmitSignal("PressedSlot", slotIndex); };
 
-		this.Connect("pressed", Callable.From(() => { GD.Print("Pressed, Re-emitting"); EmitSignal("PressedSlot", slotIndex); }));
+		
 
-	}
-
-	public void DebugPrint()
-	{
-		GD.Print("Pressed");
 	}
 
 	private void CalculateSlotIndex()

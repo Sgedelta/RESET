@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bwxyqoqb1pffm"]
+
+[ext_resource type="Resource" uid="uid://j0mqmk6a8rri" path="res://Resources/Modifiers/DamageUpCommon.tres" id="1_brym6"]
+[ext_resource type="Resource" uid="uid://djnmyuik0se05" path="res://Resources/Modifiers/RangeDownCommon.tres" id="2_mtn6f"]
+[ext_resource type="Resource" uid="uid://dl7ecb0xgl5nj" path="res://Resources/Modifiers/FireRateMultCommon.tres" id="3_x4a74"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_2fxi6"]
+
+[resource]
+script = ExtResource("4_2fxi6")
+_id = "commonMachineGun"
+DisplayName = "Rapid Fire"
+Modifiers = Array[Resource]([ExtResource("1_brym6"), ExtResource("2_mtn6f"), ExtResource("3_x4a74")])
+ProjectileType = 0

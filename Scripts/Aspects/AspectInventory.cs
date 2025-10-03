@@ -5,12 +5,14 @@ using System.Collections.Generic;
 
 public class AspectInventory
 {
+
 	// Who currently owns each aspect instance?
 	private readonly Dictionary<Aspect, Tower> _owner = new();
 	public bool IsOwned(Aspect a) => _owner.ContainsKey(a);
 	public Tower OwnerOf(Aspect a) => _owner.TryGetValue(a, out var t) ? t : null;
 
-	public bool AttachTo(Aspect a, Tower t, int slotIndex = -1)
+
+    public bool AttachTo(Aspect a, Tower t, int slotIndex = -1)
 	{
 		if (_owner.TryGetValue(a, out var current) && current != null)
 		{
