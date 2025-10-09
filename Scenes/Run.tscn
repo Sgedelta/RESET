@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=18 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
 [ext_resource type="Resource" uid="uid://bwxyqoqb1pffm" path="res://Resources/AspectTemplates/MachineGun.tres" id="12_5bwvv"]
 [ext_resource type="Resource" uid="uid://b6wahnncr2f5s" path="res://Resources/AspectTemplates/FireRateAdd.tres" id="12_81a2t"]
-[ext_resource type="Script" uid="uid://b8xdx78t4cuh8" path="res://Scripts/Gameplay/Towers/TowerSlot.cs" id="13_wyr6k"]
 [ext_resource type="Resource" uid="uid://daafua33ayfns" path="res://Resources/AspectTemplates/Farsight.tres" id="13_yq0a3"]
 [ext_resource type="Resource" uid="uid://bpfpm5krqyt7q" path="res://Resources/AspectTemplates/Brutalize.tres" id="14_wyr6k"]
 
@@ -46,16 +45,7 @@ position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
 position = Vector2(-428, 205)
-BaseAspectSlots = 3
-BaseFireRate = 1.5
-BaseDamage = 5.0
-BaseRange = 500.0
 BaseProjectileSpeed = 500.0
-BaseCritChance = 0.0
-BaseCritMult = 2.0
-BaseShotSpread = 0.0
-BaseShotSpreadFalloff = 0.0
-BaseChainTargets = 0
 
 [node name="TargetingComponent" parent="Map/Towers/Tower" index="0"]
 EnemiesRootPath = NodePath("../../../Enemies")
@@ -77,36 +67,21 @@ offset_bottom = -391.0
 mouse_filter = 1
 TowerPath = NodePath("../..")
 
-[node name="Slot3" parent="Map/Towers/Tower/TowerControl/TowerSlots/Slots" index="0"]
+[node name="Slot1" parent="Map/Towers/Tower/TowerControl/TowerSlots/Slots" index="0"]
 mouse_filter = 0
 mouse_default_cursor_shape = 7
-script = ExtResource("13_wyr6k")
-Index = 2
-TowerSlotsPath = NodePath("../..")
 
 [node name="Slot2" parent="Map/Towers/Tower/TowerControl/TowerSlots/Slots" index="1"]
 mouse_filter = 0
-script = ExtResource("13_wyr6k")
-Index = 1
-TowerSlotsPath = NodePath("../..")
+mouse_default_cursor_shape = 7
 
-[node name="Slot1" parent="Map/Towers/Tower/TowerControl/TowerSlots/Slots" index="2"]
+[node name="Slot3" parent="Map/Towers/Tower/TowerControl/TowerSlots/Slots" index="2"]
 mouse_filter = 0
-script = ExtResource("13_wyr6k")
-TowerSlotsPath = NodePath("../..")
+mouse_default_cursor_shape = 7
 
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
 position = Vector2(16, 93)
-BaseAspectSlots = 3
-BaseFireRate = 1.5
-BaseDamage = 5.0
-BaseRange = 500.0
 BaseProjectileSpeed = 500.0
-BaseCritChance = 0.0
-BaseCritMult = 2.0
-BaseShotSpread = 0.0
-BaseShotSpreadFalloff = 0.0
-BaseChainTargets = 0
 
 [node name="TargetingComponent" parent="Map/Towers/Tower2" index="0"]
 EnemiesRootPath = NodePath("../../../Enemies")
@@ -128,24 +103,16 @@ offset_bottom = -503.0
 mouse_filter = 1
 TowerPath = NodePath("../..")
 
-[node name="Slot3" parent="Map/Towers/Tower2/TowerControl/TowerSlots/Slots" index="0"]
+[node name="Slot1" parent="Map/Towers/Tower2/TowerControl/TowerSlots/Slots" index="0"]
 mouse_filter = 1
-mouse_default_cursor_shape = 7
-action_mode = 0
-script = ExtResource("13_wyr6k")
-Index = 2
-TowerSlotsPath = NodePath("../..")
 
 [node name="Slot2" parent="Map/Towers/Tower2/TowerControl/TowerSlots/Slots" index="1"]
 mouse_filter = 1
-script = ExtResource("13_wyr6k")
-Index = 1
-TowerSlotsPath = NodePath("../..")
 
-[node name="Slot1" parent="Map/Towers/Tower2/TowerControl/TowerSlots/Slots" index="2"]
+[node name="Slot3" parent="Map/Towers/Tower2/TowerControl/TowerSlots/Slots" index="2"]
 mouse_filter = 1
-script = ExtResource("13_wyr6k")
-TowerSlotsPath = NodePath("../..")
+mouse_default_cursor_shape = 7
+action_mode = 0
 
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")

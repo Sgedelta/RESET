@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://sgt7rxkujxr1"]
+[gd_scene load_steps=3 format=3 uid="uid://sgt7rxkujxr1"]
 
 [ext_resource type="Script" uid="uid://bj8cyt1e3flgs" path="res://Scripts/Gameplay/Towers/TowerSlots.cs" id="1_12tmg"]
+[ext_resource type="Script" uid="uid://b8xdx78t4cuh8" path="res://Scripts/Gameplay/Towers/TowerSlot.cs" id="2_yhvn8"]
 
 [node name="TowerSlots" type="Control"]
 custom_minimum_size = Vector2(180, 60)
@@ -18,20 +19,28 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[node name="Slot3" type="Button" parent="Slots"]
+[node name="Slot1" type="Button" parent="Slots"]
 clip_contents = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
+script = ExtResource("2_yhvn8")
+TowerSlotsPath = NodePath("../..")
 
 [node name="Slot2" type="Button" parent="Slots"]
 clip_contents = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
+script = ExtResource("2_yhvn8")
+Index = 1
+TowerSlotsPath = NodePath("../..")
 
-[node name="Slot1" type="Button" parent="Slots"]
+[node name="Slot3" type="Button" parent="Slots"]
 clip_contents = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
+script = ExtResource("2_yhvn8")
+Index = 2
+TowerSlotsPath = NodePath("../..")
