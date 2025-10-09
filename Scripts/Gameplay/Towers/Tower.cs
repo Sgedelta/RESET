@@ -78,8 +78,8 @@ public partial class Tower : Node2D
 	{
 		GD.Print("Trying to add Aspect");
 		if (a == null) return false;
-        GD.Print("Aspect Exists");
-        if (slotIndex < 0 || slotIndex > AttachedAspects.Count)
+		GD.Print("Aspect Exists");
+		if (slotIndex < 0 || slotIndex > AttachedAspects.Count)
 		{
 			AttachedAspects.Add(a);
 
@@ -88,8 +88,8 @@ public partial class Tower : Node2D
 		{
 			AttachedAspects.Insert(slotIndex, a);
 		}
-        GD.Print("Aspect Added");
-        Recompute();
+		GD.Print("Aspect Added");
+		Recompute();
 		return true;
 	}
 
@@ -101,11 +101,14 @@ public partial class Tower : Node2D
 		return removed;
 	}
 
-	private void Recompute()
+	public void Recompute()
 	{
 		var s = baseStats;
 		foreach (var a in AttachedAspects)
+		{
+			if (a == null) continue;
 			s = a.ModifyGivenStats(s);
+		}
 
 		modifiedStats = s;
 		ApplyStatsToComponents();
@@ -117,7 +120,6 @@ public partial class Tower : Node2D
 	{
 		Shooter?.SetStats(modifiedStats);
 
-		//preserve projectile logic via aspects’ templates
 		var type = GetProjectileTypeFromAspects();
 		Shooter?.SetProjectileType(type);
 
@@ -148,4 +150,33 @@ public partial class Tower : Node2D
 		}
 		return ProjectileType.Regular;
 	}
+	
+	public Aspect GetAspectInSlot(int index)
+	{
+		if (index < 0 || index >= AttachedAspects.Count) return null;
+		return AttachedAspects[index];
+	}
+
+	public int FirstEmptySlotIndex()
+	{
+		for (int i = 0; i < AttachedAspects.Count; i++)
+			if (AttachedAspects[i] == null) return i;
+		return -1;
+	}
+
+	public void SwapSlots(int i, int j)
+	{
+		if (i == j) return;
+		var tmp = AttachedAspects[i];
+		AttachedAspects[i] = AttachedAspects[j];
+		AttachedAspects[j] = tmp;
+	}
+	private void SetSlot(int index, Aspect a)
+	{
+		while (AttachedAspects.Count <= index)
+			AttachedAspects.Add(null);
+
+		AttachedAspects[index] = a;
+	}
+
 }

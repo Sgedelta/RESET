@@ -5,130 +5,131 @@ using System.Linq;
 public partial class TowerSlots : Control
 {
 	[Export] public NodePath TowerPath;
-	[Export] public NodePath GameManagerPath;
+	public Tower Tower { get; private set; }
 
-	private Tower _tower;
 	private GameManager _gm;
-	
-	[Export] public int SlotIndex = -1;
-	private static AspectInventory _aspectInventory = new();
-
-
+	private AspectBar _bar;
 
 	public override void _Ready()
 	{
-		_tower = GetNode<Tower>(TowerPath);
-		_gm    = GetNode<GameManager>(GameManagerPath);
+		AddToGroup("TowerSlotsUI");
 
-		MouseFilter = MouseFilterEnum.Pass;
+		Tower = GetParent()?.GetParent() as Tower;
+	if (Tower == null)
+	{
+		GD.PushError($"[TowerSlots {GetPath()}] Couldn't resolve Tower via ../..");
+		return;
+	}
+		_gm  = GetTree().Root.GetNode<GameManager>("/root/Run/GameManager");
+		_bar = GetTree().Root.GetNodeOrNull<AspectBar>("/root/Run/CanvasLayer/AspectBar");
 
 		RefreshIcons();
 	}
 
-	public override bool _CanDropData(Vector2 atPos, Variant data)
-	{
-		if (data.VariantType != Variant.Type.Dictionary)
-		return false;
-		
-		var dict = (Godot.Collections.Dictionary)data;
-		return dict.TryGetValue("type", out var typeVar)
-			&& (string)typeVar == "aspect_token"
-			&& dict.ContainsKey("aspect_id");
-	}
 
-	public override void _DropData(Vector2 atPos, Variant data)
+	public void AttachFromBarToTargetSlot(Godot.Collections.Dictionary data, int targetIndex)
 	{
-		if (data.VariantType != Variant.Type.Dictionary) return;
-	
-		var dict = (Godot.Collections.Dictionary)data;
-		if (!dict.TryGetValue("aspect_id", out var idVar)) return;
-	
-		string id = (string)idVar;
-	
-		if (!AspectLibrary.ById.TryGetValue(id, out var aspect))
+		var aspectId = (string)data["aspect_id"];
+		var aspect   = AspectLibrary.GetById(aspectId);
+		if (aspect == null) return;
+
+		int empty = Tower.FirstEmptySlotIndex();
+		if (empty >= 0)
 		{
-			GD.PushWarning($"TowerSlots: Unknown aspect id '{id}'");
+			if (_gm.Inventory.AttachTo(aspect, Tower, empty))
+			{
+				Tower.Recompute();
+				RefreshAllUIs();
+			}
 			return;
 		}
-	
-		if (_tower == null)
+
+		var displaced = Tower.GetAspectInSlot(targetIndex);
+		if (displaced == null)
 		{
-			GD.PushWarning("TowerSlots: thisTower not set");
+			if (_gm.Inventory.AttachTo(aspect, Tower, targetIndex))
+			{
+				Tower.Recompute();
+				RefreshAllUIs();
+			}
 			return;
 		}
-	
-		_aspectInventory.AttachTo(aspect, _tower, SlotIndex);
-		RefreshIcons();
-	}
-
-
-
-	private int GetSlotIndexFromPosition(Vector2 localPosInThis)
-	{
-		var hbox = GetNode<HBoxContainer>("Slots");
-		var globalMouse = GetGlobalMousePosition();
-	
-		for (int i = 0; i < hbox.GetChildCount(); i++)
+		if (_gm.Inventory.DetachFrom(displaced, Tower) &&
+			_gm.Inventory.AttachTo(aspect, Tower, targetIndex))
 		{
-			if (hbox.GetChild(i) is Control c)
-			{
-				if (c.GetGlobalRect().HasPoint(globalMouse))
-					return i;
-			}
-		}
-	
-		return _tower.AttachedAspects.Count;
-	}
-
-	private void DetachSlotFromTower(int slotIndex)
-	{
-		if (_tower == null) return;
-		if (slotIndex >= _tower.AttachedAspects.Count) return;
-
-		GD.Print("removing aspect at " + slotIndex);
-		_aspectInventory.DetachFrom(_tower.AttachedAspects[slotIndex], _tower);
-
-
-		RefreshIcons();
-
-	}
-	
-	private void RefreshIcons()
-	{
-		var hbox = GetNode<HBoxContainer>("Slots");
-	
-		for (int i = 0; i < hbox.GetChildCount(); i++)
-		{
-	
-	        if (hbox.GetChild(i) is not TowerSlot slot)
-			{
-				continue;
-	        }
-	
-			//detach button connections - we will reatach correctly later
-			var connections = slot.GetSignalConnectionList("PressedSlot");
-			foreach (var connection in connections)
-			{
-				//slot.Disconnect("PressedSlot", ((Callable)connection["callable"]));
-				slot.PressedSlot -= DetachSlotFromTower;
-			}
-
-	
-	
-	        if (i < _tower.AttachedAspects.Count)
-			{
-				var a = _tower.AttachedAspects[i];
-				slot.Text = a.Template.DisplayName;
-				//atach the detach signal to the slot
-				slot.PressedSlot += DetachSlotFromTower;
-			}
-			else
-			{
-				slot.Text = "+";
-			}
+			Tower.Recompute();
+			RefreshAllUIs();
 		}
 	}
 
+	public void AttachFromSlotToTargetSlot(Godot.Collections.Dictionary data, int targetIndex)
+	{
+		var srcTowerPath = (string)data["tower_path"];
+		var srcIndex     = (int)data["slot_index"];
+		var srcTower     = GetNode<Tower>(srcTowerPath);
+
+		if (srcTower == Tower && srcIndex == targetIndex)
+			return;
+
+		var srcAspect = srcTower.GetAspectInSlot(srcIndex);
+		var dstAspect = Tower.GetAspectInSlot(targetIndex);
+
+		if (srcTower == Tower)
+		{
+			Tower.SwapSlots(srcIndex, targetIndex);
+			Tower.Recompute();
+			RefreshAllUIs();
+			return;
+		}
+
+		if (dstAspect == null)
+		{
+			if (_gm.Inventory.DetachFrom(srcAspect, srcTower) &&
+				_gm.Inventory.AttachTo(srcAspect, Tower, targetIndex))
+			{
+				srcTower.Recompute();
+				Tower.Recompute();
+				RefreshAllUIs();
+			}
+			return;
+		}
+
+		if (_gm.Inventory.DetachFrom(srcAspect, srcTower) &&
+			_gm.Inventory.DetachFrom(dstAspect, Tower) &&
+			_gm.Inventory.AttachTo(srcAspect, Tower, targetIndex) &&
+			_gm.Inventory.AttachTo(dstAspect, srcTower, srcIndex))
+		{
+			srcTower.Recompute();
+			Tower.Recompute();
+			RefreshAllUIs();
+		}
+	}
+
+	private void RefreshAllUIs()
+	{
+		RefreshIcons();
+		_bar?.Refresh();
+
+		foreach (var node in GetTree().GetNodesInGroup("TowerSlotsUI"))
+			(node as TowerSlots)?.RefreshIcons();
+	}
+
+
+	
+	public void RefreshIcons()
+	{
+		var hbox = GetNode<HBoxContainer>("Slots");
+
+		foreach (Node child in hbox.GetChildren())
+		{
+			if (child is not TowerSlot slot) continue;
+			var aspect = Tower.GetAspectInSlot(slot.Index);
+			slot.Text = aspect != null ? aspect.Template.DisplayName : "+";
+		}
+	}
+
+	
+	
 	private void DebugPrint()
 	{
 		GD.Print("Print");

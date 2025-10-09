@@ -41,8 +41,10 @@ public partial class AspectToken : Control
 		var data = new Godot.Collections.Dictionary
 		{
 			{ "type", "aspect_token" },
-			{ "aspect_id", Aspect.Template._id }  // <-- string is Variant-friendly
+			{ "origin", "bar" },
+			{ "aspect_id", Aspect.Template._id }
 		};
 		return data;
 	}
+
 }

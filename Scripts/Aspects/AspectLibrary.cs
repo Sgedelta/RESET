@@ -32,7 +32,13 @@ public partial class AspectLibrary : Node
 			ById[template._id] = a;
 		}
 		GD.Print($"AspectLibrary loaded {AllAspects.Count} aspects: ",
-	string.Join(", ", AllAspects.ConvertAll(a => a.Template?.DisplayName ?? "<null>")));
+		string.Join(", ", AllAspects.ConvertAll(a => a.Template?.DisplayName ?? "<null>")));
 
 	}
+	public static Aspect GetById(string id)
+	{
+		if (string.IsNullOrEmpty(id)) return null;
+		return ById.TryGetValue(id, out var aspect) ? aspect : null;
+	}
+
 }
