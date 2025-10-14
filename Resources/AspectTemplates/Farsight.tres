@@ -9,4 +9,4 @@ script = ExtResource("3_vnkvn")
 _id = "farsight"
 DisplayName = "Far Sight"
 Modifiers = Array[Resource]([ExtResource("1_o2viw"), ExtResource("2_x0yvl")])
-ProjectileType = 0
+ProjectileType = 1

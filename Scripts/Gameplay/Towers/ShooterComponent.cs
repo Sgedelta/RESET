@@ -63,7 +63,10 @@ public partial class ShooterComponent : Node2D
 		var scene = GetProjectileScene();
 		if (scene == null) return;
 
-		var p = (Projectile)scene.Instantiate();
+        GD.Print($"[Tower] Shooting projectile of type: {_projectileType}");
+
+
+        var p = (Projectile)scene.Instantiate();
 		p.Init(tower.GlobalPosition, target, i_damage, i_projectileSpeed, i_critChance, i_critMult, i_shotSpread, i_shotSpreadFalloff);
 		GetTree().CurrentScene.AddChild(p);
 

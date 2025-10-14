@@ -10,4 +10,4 @@ script = ExtResource("4_0743q")
 _id = "brutalize"
 DisplayName = "Brutalize"
 Modifiers = Array[Resource]([ExtResource("1_65uck"), ExtResource("2_ky4mh"), ExtResource("3_4rii3")])
-ProjectileType = 0
+ProjectileType = 1
