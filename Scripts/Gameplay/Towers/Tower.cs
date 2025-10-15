@@ -5,8 +5,8 @@ using System.Diagnostics;
 public struct TowerStats
 {
 	// Basic
-	public int   AspectSlots;
-	public float FireRate;
+	public int   AspectSlots; 
+	public float FireRate; 
 	public float Damage;
 	public float Range;
 	public float ProjectileSpeed;
@@ -14,21 +14,21 @@ public struct TowerStats
 	// Advanced
 	public float CritChance;
 	public float CritMult;
-	public float ShotSpread;
-	public float ShotSpreadFalloff;
+	public float ShotSpread;	  // shot spread amount in degrees from 0 - represents the half arc, or as far away from perfect you can get. i.e. a 15 here can be 15 degrees from perfect, resulting in a 30 degree arc
+	public float ShotSpreadFalloff; //
 
 	// Unique
-	public int   ChainTargets;
-	public float ChainDistance;
-	public float SplashRadius;
-	public float SplashDamage;
-	public float PoisonDamage;
-	public int   PoisonTicks;
-	public int   PiercingAmount;
-	public float KnockbackAmount;
-	public float SlowdownPercent;
-	public float SlowdownLength;
-	public float HomingStrength;
+	public int   ChainTargets;	  // number of times the projectile will jump in a "chain lightning" style - hitting this many enemies within ChainDistance
+	public float ChainDistance;	  // Radius to attempt chaining to
+	public float SplashRadius;	  // radius of splash effects - when a projectile hits an enemy, it actually hits all enemies within SplashRadius
+	public float SplashCoef;	  // float Coeffecient to apply to other effects within 
+	public float PoisonDamage;	  // Amount of damage to do per poison tick.
+	public int   PoisonTicks;	  // times to tick poison damage each time a projectile hits.
+	public int   PiercingAmount;  // amount of enemies this projectile will go through before being destroyed
+	public float KnockbackAmount; // amount of "force" to apply to an enemy to knock them back - some enemies have heavier "mass"
+	public float SlowdownPercent; // a float from 0-1, 0 representing stopping completely and 1 representing full, normal speed
+	public float SlowdownLength;  // the length of the slowdown effect
+	public float HomingStrength;  // a float from 0-1, 0 representing no homing and 1 representing perfect homing
 }
 
 public partial class Tower : Node2D
@@ -72,7 +72,7 @@ public partial class Tower : Node2D
 
 		UpdateModifiedStats();
 		ApplyStatsToComponents();
-	}
+    }
 
 	public bool AttachAspect(Aspect a, int slotIndex = -1)
 	{
