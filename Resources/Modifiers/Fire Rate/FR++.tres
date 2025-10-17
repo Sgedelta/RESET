@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c0dvq8fexqcbn"]
+
+[ext_resource type="Script" uid="uid://cpfe6pao0v0kl" path="res://Resources/Modifiers/FloatModifierInfo.cs" id="1_8ui6b"]
+
+[resource]
+script = ExtResource("1_8ui6b")
+statMin = 0.0
+statMax = 0.0
+linearRandom = false
+meanVal = 0.0
+stdDev = 0.0
+StatType = 0
+ModifierType = 0

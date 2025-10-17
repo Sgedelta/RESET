@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=5 format=3 uid="uid://bpfpm5krqyt7q"]
 
-[ext_resource type="Resource" uid="uid://j0mqmk6a8rri" path="res://Resources/Modifiers/DamageUpCommon.tres" id="1_65uck"]
-[ext_resource type="Resource" uid="uid://dsa6t5ybah0js" path="res://Resources/Modifiers/DamageMultCommon.tres" id="2_ky4mh"]
-[ext_resource type="Resource" uid="uid://cvx1rdxr7obb0" path="res://Resources/Modifiers/RangeUpCommon.tres" id="3_4rii3"]
+[ext_resource type="Resource" uid="uid://j0mqmk6a8rri" path="res://Resources/Modifiers/Old/DamageUpCommon.tres" id="1_65uck"]
+[ext_resource type="Resource" uid="uid://dsa6t5ybah0js" path="res://Resources/Modifiers/Old/DamageMultCommon.tres" id="2_ky4mh"]
+[ext_resource type="Resource" uid="uid://cvx1rdxr7obb0" path="res://Resources/Modifiers/Old/RangeUpCommon.tres" id="3_4rii3"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_0743q"]
 
 [resource]

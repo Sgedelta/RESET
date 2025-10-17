@@ -16,12 +16,12 @@
 [ext_resource type="Script" uid="uid://bjlwqjh832hth" path="res://Scripts/Aspects/AspectLibrary.cs" id="10_j6cy0"]
 [ext_resource type="PackedScene" uid="uid://beqx0g5b4mpis" path="res://Scripts/Gameplay/Projectiles/PoisonProjectile.tscn" id="10_u4oo0"]
 [ext_resource type="PackedScene" uid="uid://cbk7hy24lf5h8" path="res://Scripts/Gameplay/Projectiles/ChainProjectile.tscn" id="11_6kpg7"]
-[ext_resource type="Resource" uid="uid://dhymdjlukdrx7" path="res://Resources/AspectTemplates/DamageMult.tres" id="11_7jyn4"]
+[ext_resource type="Resource" uid="uid://dhymdjlukdrx7" path="res://Resources/AspectTemplates/Old/DamageMult.tres" id="11_7jyn4"]
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
-[ext_resource type="Resource" uid="uid://bwxyqoqb1pffm" path="res://Resources/AspectTemplates/MachineGun.tres" id="12_5bwvv"]
-[ext_resource type="Resource" uid="uid://b6wahnncr2f5s" path="res://Resources/AspectTemplates/FireRateAdd.tres" id="12_81a2t"]
-[ext_resource type="Resource" uid="uid://daafua33ayfns" path="res://Resources/AspectTemplates/Farsight.tres" id="13_yq0a3"]
-[ext_resource type="Resource" uid="uid://bpfpm5krqyt7q" path="res://Resources/AspectTemplates/Brutalize.tres" id="14_wyr6k"]
+[ext_resource type="Resource" uid="uid://bwxyqoqb1pffm" path="res://Resources/AspectTemplates/Old/MachineGun.tres" id="12_5bwvv"]
+[ext_resource type="Resource" uid="uid://b6wahnncr2f5s" path="res://Resources/AspectTemplates/Old/FireRateAdd.tres" id="12_81a2t"]
+[ext_resource type="Resource" uid="uid://daafua33ayfns" path="res://Resources/AspectTemplates/Old/Farsight.tres" id="13_yq0a3"]
+[ext_resource type="Resource" uid="uid://bpfpm5krqyt7q" path="res://Resources/AspectTemplates/Old/Brutalize.tres" id="14_wyr6k"]
 
 [node name="Run" type="Node2D"]
 
@@ -67,6 +67,7 @@ position = Vector2(1.99994, -6.00003)
 
 [node name="TowerControl" type="CanvasLayer" parent="Map/Towers/Tower"]
 layer = 2
+visible = false
 
 [node name="TowerSlots" parent="Map/Towers/Tower/TowerControl" instance=ExtResource("7_atavw")]
 offset_left = 88.0
