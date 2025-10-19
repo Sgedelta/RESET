@@ -39,7 +39,7 @@ public partial class ShooterComponent : Node2D
 
 	private PackedScene GetProjectileScene()
 	{
-		return _projectileType switch
+		/*return _projectileType switch
 		{
 			ProjectileType.Regular  => ProjectileScene,
 			ProjectileType.Homing   => HomingProjectileScene,
@@ -48,7 +48,8 @@ public partial class ShooterComponent : Node2D
 			ProjectileType.Poison   => PoisonProjectileScene,
 			ProjectileType.Chain    => ChainProjectileScene,
 			_ => ProjectileScene
-		};
+		};*/
+		return ProjectileScene;
 	}
 
 	public override void _Process(double delta)
@@ -67,8 +68,9 @@ public partial class ShooterComponent : Node2D
 
 
         var p = (Projectile)scene.Instantiate();
-		p.Init(tower.GlobalPosition, target, i_damage, i_projectileSpeed, i_critChance, i_critMult, i_shotSpread, i_shotSpreadFalloff);
-		GetTree().CurrentScene.AddChild(p);
+        //p.Init(tower.GlobalPosition, target, i_damage, i_projectileSpeed, i_critChance, i_critMult, i_shotSpread, i_shotSpreadFalloff);
+        p.Init(tower.GlobalPosition, target, i_damage, i_projectileSpeed, i_critChance, i_critMult, i_shotSpread, i_shotSpreadFalloff, tower.CalculateModifiedStats());
+        GetTree().CurrentScene.AddChild(p);
 
 		_cooldown = 1f / Mathf.Max(0.05f, i_fireRate);
 	}
