@@ -80,26 +80,8 @@ public partial class ShooterComponent : Node2D
 		if (_cooldown > 0f) return;
 
 		
-		//TODO: Replace with Fire() once Init is fixed
 
-		var tower = GetParent<Tower>();
-		var target = tower?.Targeting?.PickTarget(tower.GlobalPosition);
-		if (target == null) return;
-
-		var scene = GetProjectileScene();
-		if (scene == null) return;
-
-        GD.Print($"[Tower] Shooting projectile of type: {_projectileType}");
-
-
-        var p = (Projectile)scene.Instantiate();
-        //p.Init(tower.GlobalPosition, target, i_damage, i_projectileSpeed, i_critChance, i_critMult, i_shotSpread, i_shotSpreadFalloff);
-        p.Init(tower.GlobalPosition, target, i_damage, i_projectileSpeed, i_critChance, i_critMult, i_shotSpread, i_shotSpreadFalloff, tower.CalculateModifiedStats());
-        GetTree().CurrentScene.AddChild(p);
-
-		_cooldown = 1f / Mathf.Max(0.05f, i_fireRate);
-		//END REPLACE
-		// Fire();
+		Fire();
 	}
 
 	public void Fire()
@@ -153,9 +135,7 @@ public partial class ShooterComponent : Node2D
 				rng.Randfn(0, ((i_shotSpread * FALLOFF_STDDEV_RATIO) / i_shotSpreadFalloff) % i_shotSpread)
             ));
 		
-		//TODO: Fix Init - this should point the projectile in a specific direction and set its relevant stats. 
-		
-		//projectile.Init();
+		projectile.Init(initialDirection, tower.ModifiedStats);
 
 		
 		GetTree().CurrentScene.AddChild(projectile);

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -10,8 +11,14 @@ public partial class Projectile : Area2D
 	protected Enemy _target;
 	protected float _damage;
 
+    // how frequently a projectile will retarget to find the nearest enemy, in seconds
+    private const float PROJ_RETARGET_SPEED = .05f;
+    private float _timeSinceRetarget = float.MaxValue;
+
 	protected Vector2 dir;
 
+    private float _critChance;
+    private float _critMult;
     private int _chainTargets;
     private float _chainDistance;
     private float _splashRadius;
@@ -29,32 +36,30 @@ public partial class Projectile : Area2D
     private bool _hasExploded = false;
     private float _homingTurnSpeed; 
 
-    public void Init(Vector2 from, Enemy target, float damage, float speed, float critChance, float critMult, float shotSpread, float spreadFalloff, TowerStats stats)
+    /// <summary>
+    /// Initializes a Projectile so that it fires correctly
+    /// </summary>
+    public void Init(Vector2 initialDir, TowerStats stats)
     {
-        GlobalPosition = from;
-        _target = target;
-        _damage = damage;
-        Speed = speed;
+        dir = initialDir;
 
+
+        _damage = stats.Damage;
+        Speed = stats.ProjectileSpeed;
+        
+        _critChance = stats.CritChance;
+        _critMult = stats.CritMult;
         _chainTargets = stats.ChainTargets;
         _chainDistance = stats.ChainDistance;
         _splashRadius = stats.SplashRadius;
-        _splashCoef = stats.SplashDamage;
+        _splashCoef = stats.SplashCoef;
         _poisonDamage = stats.PoisonDamage;
         _poisonTicks = stats.PoisonTicks;
         _piercingAmount = stats.PiercingAmount;
         _knockbackAmount = stats.KnockbackAmount;
         _slowdownLength = stats.SlowdownLength;
         _homingStrength = stats.HomingStrength;
-        
-        if (_target != null && IsInstanceValid(_target))
-        {
-            dir = (_target.GlobalPosition - GlobalPosition).Normalized();
-        }
-        else
-        {
-            dir = Vector2.Right;
-        }
+
 
         _homingTurnSpeed = Mathf.Clamp(_homingStrength / 50f, 0f, 1f);
     }
@@ -62,11 +67,15 @@ public partial class Projectile : Area2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_target == null || !IsInstanceValid(_target))
+        
+        //Located Nearest Enemy if we don't have a target or if time has passed
+        if(_target == null || !IsInstanceValid(_target) || _timeSinceRetarget > PROJ_RETARGET_SPEED)
         {
-            QueueFree();
-            return;
+            _target = GameManager.Instance.GetNearestEnemyToPoint(GlobalPosition);
+            _timeSinceRetarget = 0;
         }
+        _timeSinceRetarget += (float)delta;
+
         //Homing Logic 
         if(_homingStrength > 0f && _target != null && IsInstanceValid(_target))
         {
@@ -76,15 +85,21 @@ public partial class Projectile : Area2D
 
         GlobalPosition += dir * Speed * (float)delta;
 
-        float hitRadius = 32f; 
-        if (GlobalPosition.DistanceTo(_target.GlobalPosition) < hitRadius)
-        {
-            OnHit(_target);
-            //QueueFree();
-        }
+        
     }
 
-    private void OnHit(Enemy enemy)
+    private void OnAreaEntered(Area2D other)
+    {
+
+        if(other.GetParent<Enemy>() == null)
+        {
+            return;
+        }
+
+        OnHit(other.GetParent<Enemy>());
+    }
+
+    private void OnHit(Enemy enemy, bool allowDestroy = true, bool doChain = true, bool doSplash = true, bool doPierce = true)
     {
         if(enemy == null || !IsInstanceValid(enemy))
         {
@@ -102,22 +117,26 @@ public partial class Projectile : Area2D
         ApplySlow(enemy);
         ApplyPoison(enemy);
 
-        if(_splashRadius > 0 && !_hasExploded)
+        if(doSplash && _splashRadius > 0 && !_hasExploded)
         {
             ExplodeSplash();
             _hasExploded = true;
         }
 
-        if(_chainTargets > 0)
+        if(doChain && _chainTargets > 0)
         {
             ChainToNextTargets(enemy);
         }
 
-        _piercingAmount--;
-        if(_piercingAmount <= 0)
+        if(doPierce)
+        {
+            _piercingAmount--;
+        } 
+        if (allowDestroy && _piercingAmount <= 0)
         {
             QueueFree();
         }
+
     }
 
     private void ApplyKnockback(Enemy enemy)
@@ -145,7 +164,7 @@ public partial class Projectile : Area2D
 
     private void ExplodeSplash()
     {
-        var enemies = GetTree().GetNodesInGroup("enemies").OfType<Enemy>();
+        var enemies = GameManager.Instance.WaveDirector.ActiveEnemies;
         foreach (var e in enemies)
         {
             if (!IsInstanceValid(e)) continue;
@@ -158,33 +177,41 @@ public partial class Projectile : Area2D
                     coef = Mathf.Clamp(1f - (dist / _splashRadius) * _splashCoef, 0.2f, 1f);
 
                 e.TakeDamage(_damage * coef);
+                //TODO: Apply other effects (poison, knockback, slow)
             }
         }
     }
 
     private void ChainToNextTargets(Enemy firstHit)
     {
-        var enemies = GetTree().GetNodesInGroup("enemies").OfType<Enemy>().Where(e => e != firstHit);
-        Enemy closest = null;
-        float closestDist = _chainDistance;
+        var enemies = GameManager.Instance.WaveDirector.ActiveEnemies.Where(e => e != firstHit);
+        List<Enemy> chainedEnemies = new List<Enemy>();
+        chainedEnemies.Add(firstHit);
 
-        foreach (var e in enemies)
+        Enemy lastChained = firstHit;
+
+        //loop through enemies and grab chain targets
+        for(int i = 0; i < _chainTargets; i++ )
         {
-            if (!IsInstanceValid(e)) continue;
-            float dist = firstHit.GlobalPosition.DistanceTo(e.GlobalPosition);
-            if (dist < closestDist)
+            //get nearest
+            Enemy potentialTarget = GameManager.Instance.GetNearestEnemyToPoint(lastChained.GlobalPosition, chainedEnemies);
+
+            //check against distance
+            if(potentialTarget == null || lastChained.GlobalPosition.DistanceTo(potentialTarget.GlobalPosition) < _chainDistance)
             {
-                closest = e;
-                closestDist = dist;
+                break; //break, because if the nearest is too far, all are 
             }
+
+            chainedEnemies.Add(potentialTarget);
+            lastChained = potentialTarget;
         }
 
-        if (closest != null)
+
+
+        //chain to targets
+        foreach(Enemy enemy in chainedEnemies)
         {
-            var newProj = (Projectile)Duplicate();
-            newProj._target = closest;
-            newProj._chainTargets = _chainTargets - 1;
-            GetParent().AddChild(newProj);
+            OnHit(enemy, false, false, true, false);
         }
     }
 

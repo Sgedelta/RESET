@@ -46,6 +46,8 @@ public partial class Tower : Node2D
 
 	private TowerStats baseStats;
 	private TowerStats modifiedStats;
+	public TowerStats ModifiedStats { get { return modifiedStats; } }
+
 	public readonly List<Aspect> AttachedAspects = new();
 
 	public TargetingComponent Targeting { get; private set; }
@@ -103,14 +105,8 @@ public partial class Tower : Node2D
 
 	public void Recompute()
 	{
-		var s = baseStats;
-		foreach (var a in AttachedAspects)
-		{
-			if (a == null) continue;
-			s = a.ModifyGivenStats(s);
-		}
 
-		modifiedStats = s;
+		modifiedStats = CalculateModifiedStats();
 		ApplyStatsToComponents();
 	}
 
@@ -137,6 +133,8 @@ public partial class Tower : Node2D
 
 		result.FireRate        = Mathf.Max(0.05f, result.FireRate);
 		result.ProjectileSpeed = Mathf.Max(0f, result.ProjectileSpeed);
+		result.ShotSpread	   = Mathf.Max(0.5f, result.ShotSpread);
+		result.ShotSpreadFalloff = Mathf.Max(0.1f, result.ShotSpreadFalloff);
 		return result;
 	}
 

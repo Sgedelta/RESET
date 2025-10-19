@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=24 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
@@ -22,6 +22,7 @@
 [ext_resource type="Resource" uid="uid://b6wahnncr2f5s" path="res://Resources/AspectTemplates/FireRateAdd.tres" id="12_81a2t"]
 [ext_resource type="Resource" uid="uid://daafua33ayfns" path="res://Resources/AspectTemplates/Farsight.tres" id="13_yq0a3"]
 [ext_resource type="Resource" uid="uid://bpfpm5krqyt7q" path="res://Resources/AspectTemplates/Brutalize.tres" id="14_wyr6k"]
+[ext_resource type="Resource" uid="uid://bh1t1a6hoqaqt" path="res://Resources/AspectTemplates/ChainTest.tres" id="19_q06an"]
 
 [node name="Run" type="Node2D"]
 
@@ -50,6 +51,7 @@ position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
 position = Vector2(-428, 205)
+BaseProjectileSpeed = 750.0
 
 [node name="TargetingComponent" parent="Map/Towers/Tower" index="0"]
 EnemiesRootPath = NodePath("../../../Enemies")
@@ -90,6 +92,7 @@ mouse_default_cursor_shape = 7
 
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
 position = Vector2(16, 93)
+BaseProjectileSpeed = 750.0
 
 [node name="TargetingComponent" parent="Map/Towers/Tower2" index="0"]
 EnemiesRootPath = NodePath("../../../Enemies")
@@ -129,7 +132,7 @@ action_mode = 0
 
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
-AspectTemplates = Array[Resource]([ExtResource("11_7jyn4"), ExtResource("12_81a2t"), ExtResource("12_5bwvv"), ExtResource("13_yq0a3"), ExtResource("14_wyr6k")])
+AspectTemplates = Array[Resource]([ExtResource("11_7jyn4"), ExtResource("12_81a2t"), ExtResource("12_5bwvv"), ExtResource("13_yq0a3"), ExtResource("14_wyr6k"), ExtResource("19_q06an")])
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("7_xu74l")

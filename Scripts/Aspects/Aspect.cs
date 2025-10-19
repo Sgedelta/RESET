@@ -76,17 +76,32 @@ public class Aspect
 			switch (info)
 			{
 				case FloatModifierInfo fmi:
-					var unit = new FloatModifierUnit
+					var f_unit = new FloatModifierUnit
 					{
 						Stat = fmi.StatType,
 						Type = fmi.ModifierType,
 						Value = (float)fmi.GetStat()
 					};
-					Modifiers.Add(unit);
+					Modifiers.Add(f_unit);
+					break;
+
+				case IntModifierInfo imi:
+					var i_unit = new IntModifierUnit
+					{
+						Stat = imi.StatType,
+						Type = imi.ModifierType,
+						Value = (int)imi.GetStat()
+					};
+
+					Modifiers.Add(i_unit);
+					break;
+
+				case null:
+					GD.PushWarning($"ModifierInfo is null in {Template._id}");
 					break;
 
 				default:
-					GD.PushWarning($"ModifierInfo type not handled: {info?.GetType().Name}");
+					GD.PushWarning($"ModifierInfo type not handled: {info?.StatType}, {info?.GetType().Name}");
 					break;
 			}
 		}
