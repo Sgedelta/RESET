@@ -6,6 +6,9 @@ public partial class GameManager : Node
 	[Export] public NodePath WaveDirectorPath;
 	[Export] public NodePath EnemiesRoot;
 	[Export] public int StartingWaveSize = 3;
+
+	//Singleton
+	public static GameManager Instance;
 	
 	public AspectInventory Inventory { get; private set; }
 	
@@ -18,6 +21,14 @@ public partial class GameManager : Node
 
 	public override void _Ready()
 	{
+		//Singleton
+		if(Instance != null)
+		{
+			QueueFree();
+		}
+
+		Instance = this;
+
 		_gameOverText = GetNode<Label>(gameOverTextPath);
 		_gameOverText.Visible = false;
 		
