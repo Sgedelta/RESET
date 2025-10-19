@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class WaveDirector : Node2D
 {
@@ -15,14 +16,18 @@ public partial class WaveDirector : Node2D
 	
 	private Node2D _enemiesRoot;
 	private Path2D _path2D;
+	private List<Enemy> _activeEnemies;
+
+	public List<Enemy> ActiveEnemies { get { return _activeEnemies; } }
 	
 	private GameManager _gameManager;
 	
 	public override void _Ready()
 	{
-	   _enemiesRoot = GetNode<Node2D>(MapEnemiesPath);
-	   _path2D = GetNode<Path2D>(Path2DPath);
-	   _count = 0;
+		_enemiesRoot = GetNode<Node2D>(MapEnemiesPath);
+		_path2D = GetNode<Path2D>(Path2DPath);
+		_count = 0;
+		_activeEnemies = new List<Enemy>();
 	}
 
 	public override void _Process(double delta)
@@ -39,6 +44,7 @@ public partial class WaveDirector : Node2D
 		_enemiesRoot.AddChild(enemy);
 
 		enemy.SetPath(_path2D);
+		_activeEnemies.Add(enemy);
 		
 		if (_gameManager != null)
 		{
@@ -58,5 +64,10 @@ public partial class WaveDirector : Node2D
 	public void SetGameManager(GameManager manager)
 	{
 		_gameManager = manager;
+	}
+
+	public void RemoveActiveEnemy(Enemy enemy)
+	{
+		ActiveEnemies.Remove(enemy);
 	}
 }

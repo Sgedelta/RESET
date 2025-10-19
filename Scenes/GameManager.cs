@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class GameManager : Node
 {
@@ -60,11 +61,34 @@ public partial class GameManager : Node
 			GD.Print($"WAVE {_currentWave} CLEAR");
 			StartNextWave();
 		}
+
+		_waveDirector.RemoveActiveEnemy(enemy);
 	}
 
 	public void OnPlayerDefeated()
 	{
 		_gameOverText.Visible = true;
 		GetTree().Paused = true;
+	}
+
+	public Enemy GetNearestEnemyToPoint(Vector2 point)
+	{
+		//there are no enemies, get out
+		if (_enemiesRemaining <= 0) return null;
+
+		// unfortunely a little slow but this is the best way to do it for our purposes
+		// this can be better if we quad tree it but that's more overhead and work for us
+		// so. No! we'll stick with squared distance and then just retarget less frequently.
+		float closestSqDist = float.MaxValue;
+		Enemy nearest = null;
+		foreach (Enemy e in _waveDirector.ActiveEnemies)
+		{
+			if(closestSqDist > e.GlobalPosition.DistanceSquaredTo(point))
+			{
+				nearest = e;
+				closestSqDist = e.GlobalPosition.DistanceSquaredTo(point);
+			}
+		}
+		return nearest;
 	}
 }
