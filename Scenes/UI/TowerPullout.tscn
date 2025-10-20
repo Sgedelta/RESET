@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlr0bhxmskqsn"]
+[gd_scene load_steps=3 format=3 uid="uid://exhrotrwvk0x"]
 
 [ext_resource type="Script" uid="uid://dxxyryx1eej3r" path="res://Scenes/UI/UI_TowerPullout.cs" id="1_nqjej"]
 [ext_resource type="Theme" uid="uid://fjtkhwpkwdy1" path="res://Resources/Themes/Tower_UI_BG.tres" id="2_gr12i"]
@@ -9,13 +9,14 @@
 script = ExtResource("1_nqjej")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TowerPullout"]
-anchors_preset = -1
+anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -250.0
 grow_horizontal = 0
 grow_vertical = 2
+theme = ExtResource("2_gr12i")
 
 [node name="GridContainer" type="GridContainer" parent="TowerPullout/ScrollContainer"]
 layout_mode = 2
@@ -23,11 +24,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("2_gr12i")
 
-[node name="Label" type="Label" parent="TowerPullout/ScrollContainer/GridContainer"]
+[node name="Title" type="Label" parent="TowerPullout/ScrollContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Tower UI!"
 horizontal_alignment = 1
+
+[node name="HFlowContainer" type="HFlowContainer" parent="TowerPullout/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Button2" type="Button" parent="."]
 offset_right = 145.0

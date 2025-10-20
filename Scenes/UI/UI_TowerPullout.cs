@@ -31,7 +31,7 @@ public partial class UI_TowerPullout : CanvasLayer
 
         animating = true; //otherwise, lock until tween is over
         Tween slideAnim = CreateTween();
-        slideAnim.SetEase(Tween.EaseType.InOut);
+        slideAnim.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Cubic);
         slideAnim.TweenProperty(this, "offset", 
             new Vector2((_active ? i_ScrollContainer.Size.X : 0), 0), 
             SlideTime);

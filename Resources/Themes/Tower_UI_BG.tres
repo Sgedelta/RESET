@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://fjtkhwpkwdy1"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://fjtkhwpkwdy1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsqy0"]
 content_margin_left = 4.0
@@ -21,10 +21,8 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_88pb7"]
-
 [resource]
 GridContainer/constants/h_separation = 4
 GridContainer/constants/v_separation = 4
 ScrollContainer/styles/focus = SubResource("StyleBoxFlat_dsqy0")
-ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_88pb7")
+ScrollContainer/styles/panel = SubResource("StyleBoxFlat_dsqy0")

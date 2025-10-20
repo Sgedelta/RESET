@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dxpf4dvc50si" path="res://Scripts/Gameplay/Projectiles/Projectile.cs" id="1_hwlbg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pe8r6"]
+radius = 15.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hwlbg"]
 size = Vector2(30, 30)
