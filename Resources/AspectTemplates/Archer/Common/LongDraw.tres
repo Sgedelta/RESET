@@ -11,3 +11,4 @@ _id = "LongDraw"
 DisplayName = "LongDraw"
 Modifiers = Array[Resource]([ExtResource("1_qkdi6"), ExtResource("2_1pa8v"), ExtResource("3_cwuor")])
 ProjectileType = 0
+Rarity = 0

@@ -106,8 +106,14 @@ public partial class Projectile : Area2D
             return;
         }
 
+        GD.Print($"Hit {enemy} with flags {allowDestroy}, {doChain}, {doSplash}, {doPierce}");
+
         if (_hitEnemies.Contains(enemy))
+        {
+            GD.Print("Already hit this enemy");
             return;
+        }
+            
 
         _hitEnemies.Add(enemy);
 
@@ -186,9 +192,9 @@ public partial class Projectile : Area2D
     {
         var enemies = GameManager.Instance.WaveDirector.ActiveEnemies.Where(e => e != firstHit);
         List<Enemy> chainedEnemies = new List<Enemy>();
-        chainedEnemies.Add(firstHit);
 
         Enemy lastChained = firstHit;
+        chainedEnemies.Add(firstHit);
 
         //loop through enemies and grab chain targets
         for(int i = 0; i < _chainTargets; i++ )
@@ -196,8 +202,8 @@ public partial class Projectile : Area2D
             //get nearest
             Enemy potentialTarget = GameManager.Instance.GetNearestEnemyToPoint(lastChained.GlobalPosition, chainedEnemies);
 
-            //check against distance
-            if(potentialTarget == null || lastChained.GlobalPosition.DistanceTo(potentialTarget.GlobalPosition) < _chainDistance)
+            //check against distance and valid enemies
+            if(potentialTarget == null || lastChained.GlobalPosition.DistanceTo(potentialTarget.GlobalPosition) > _chainDistance)
             {
                 break; //break, because if the nearest is too far, all are 
             }
