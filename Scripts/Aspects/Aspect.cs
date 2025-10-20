@@ -18,7 +18,7 @@ public enum StatType
 
 		//TODO - detail better as specific stats
 		//unique stats and misc from 1000+ - there is almost no chance we need more than 1000 basic stats, and we can hardcode check value for < 1000 if needbe
-		SplashDamage = 1000,
+		SplashCoef = 1000,
 		SplashRadius,
 		PoisonDamage,
 		PoisonTicks,
@@ -76,17 +76,32 @@ public class Aspect
 			switch (info)
 			{
 				case FloatModifierInfo fmi:
-					var unit = new FloatModifierUnit
+					var f_unit = new FloatModifierUnit
 					{
 						Stat = fmi.StatType,
 						Type = fmi.ModifierType,
 						Value = (float)fmi.GetStat()
 					};
-					Modifiers.Add(unit);
+					Modifiers.Add(f_unit);
+					break;
+
+				case IntModifierInfo imi:
+					var i_unit = new IntModifierUnit
+					{
+						Stat = imi.StatType,
+						Type = imi.ModifierType,
+						Value = (int)imi.GetStat()
+					};
+
+					Modifiers.Add(i_unit);
+					break;
+
+				case null:
+					GD.PushWarning($"ModifierInfo is null in {Template._id}");
 					break;
 
 				default:
-					GD.PushWarning($"ModifierInfo type not handled: {info?.GetType().Name}");
+					GD.PushWarning($"ModifierInfo type not handled: {info?.StatType}, {info?.GetType().Name}");
 					break;
 			}
 		}
@@ -121,59 +136,59 @@ public class Aspect
 					break;
 
 				case StatType.SpreadFalloff :
-					GD.PushWarning("Modification Not Implemented");
+					newStats.ShotSpreadFalloff = ApplyFloat(newStats.ShotSpreadFalloff, unit);
 					break;
 
 				case StatType.CritChance :
-					GD.PushWarning("Modification Not Implemented");
+					newStats.CritChance = ApplyFloat(newStats.CritChance, unit);
 					break;
 
 				case StatType.CritMult :
-					GD.PushWarning("Modification Not Implemented");
+					newStats.CritMult = ApplyFloat(newStats.CritMult, unit);
 					break;
 
-				case StatType.SplashDamage :
-					GD.PushWarning("Modification Not Implemented");
+				case StatType.SplashCoef :
+					newStats.SplashCoef = ApplyFloat(newStats.SplashCoef, unit);
 					break;
 
 				case StatType.SplashRadius :
-					GD.PushWarning("Modification Not Implemented");
+					newStats.SplashRadius = ApplyFloat(newStats.SplashRadius, unit);
 					break;
 
 				case StatType.PoisonDamage :
-					GD.PushWarning("Modification Not Implemented");
+					newStats.PoisonDamage = ApplyFloat(newStats.PoisonDamage, unit);
 					break;
 
-				case StatType.PoisonTicks :
-					GD.PushWarning("Modification Not Implemented");
+				case StatType.PoisonTicks : //int
+					newStats.PoisonTicks = ApplyInt(newStats.PoisonTicks, unit);
 					break;
 
-				case StatType.ChainTargets :
-					GD.PushWarning("Modification Not Implemented");
+				case StatType.ChainTargets : //int
+					newStats.ChainTargets = ApplyInt(newStats.ChainTargets, unit);
 					break;
 
 				case StatType.ChainDistance :
-					GD.PushWarning("Modification Not Implemented");
+					newStats.ChainDistance = ApplyFloat(newStats.ChainDistance, unit);
 					break;
 
-				case StatType.PiercingAmount :
-					GD.PushWarning("Modification Not Implemented");
+				case StatType.PiercingAmount : //int
+					newStats.PiercingAmount = ApplyInt(newStats.PiercingAmount, unit);
 					break;
 
 				case StatType.KnockbackAmount :
-					GD.PushWarning("Modification Not Implemented");
+					newStats.KnockbackAmount = ApplyFloat(newStats.KnockbackAmount, unit);
 					break;
 
 				case StatType.SlowdownPercent :
-					GD.PushWarning("Modification Not Implemented");
+					newStats.SlowdownPercent = ApplyFloat(newStats.SlowdownPercent, unit);
 					break;
 
 				case StatType.SlowdownLength :
-					GD.PushWarning("Modification Not Implemented");
+					newStats.SlowdownLength = ApplyFloat(newStats.SlowdownLength, unit);
 					break;
 
 				case StatType.HomingStrength :
-					GD.PushWarning("Modification Not Implemented");
+					newStats.HomingStrength = ApplyFloat(newStats.HomingStrength, unit);
 					break;
 
 				default:
@@ -193,6 +208,16 @@ public class Aspect
 			ModifierType.Add => current + modVal,
 			ModifierType.Multiply => current * modVal,
 			ModifierType.Subtract => current - modVal,
+			_ => current
+		};
+	}
+
+	static int ApplyInt(int current, ModifierUnit unit) {
+		int modVal = ((IntModifierUnit)unit).Value;
+		return unit.Type switch
+		{
+			ModifierType.Add => current + modVal,
+			ModifierType.Multiply => current * modVal,
 			_ => current
 		};
 	}

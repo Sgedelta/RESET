@@ -66,6 +66,7 @@ position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
 position = Vector2(-428, 205)
+BaseProjectileSpeed = 750.0
 
 [node name="TargetingComponent" parent="Map/Towers/Tower" index="0"]
 EnemiesRootPath = NodePath("../../../Enemies")
@@ -106,6 +107,7 @@ mouse_default_cursor_shape = 7
 
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
 position = Vector2(16, 93)
+BaseProjectileSpeed = 750.0
 
 [node name="TargetingComponent" parent="Map/Towers/Tower2" index="0"]
 EnemiesRootPath = NodePath("../../../Enemies")
