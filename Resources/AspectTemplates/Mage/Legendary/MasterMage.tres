@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=9 format=3 uid="uid://beqxt0enu774u"]
+
+[ext_resource type="Resource" uid="uid://dp1qagv5n1v2f" path="res://Resources/Modifiers/Poison/PSD_M++.tres" id="1_wnipi"]
+[ext_resource type="Resource" uid="uid://b34bf0e65hh8u" path="res://Resources/Modifiers/Poison/PST_A+.tres" id="2_i0wbu"]
+[ext_resource type="Resource" uid="uid://s14coybcugf3" path="res://Resources/Modifiers/Range/RNG_M-.tres" id="3_hp4on"]
+[ext_resource type="Resource" uid="uid://ofhk8sk4krut" path="res://Resources/Modifiers/Splash/SLC_M+.tres" id="4_6q12t"]
+[ext_resource type="Resource" uid="uid://dchjoqrer3mq2" path="res://Resources/Modifiers/Splash/SLR_A+.tres" id="5_tqscn"]
+[ext_resource type="Resource" uid="uid://b1nkwqm4jxu8a" path="res://Resources/Modifiers/Chain/CHD_A+.tres" id="6_bpyi4"]
+[ext_resource type="Resource" uid="uid://ccveycihwo4yf" path="res://Resources/Modifiers/Chain/CHT_A++.tres" id="7_2ofoi"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="8_g0nrr"]
+
+[resource]
+script = ExtResource("8_g0nrr")
+_id = "MasterMage"
+DisplayName = "MasterMage"
+Modifiers = Array[Resource]([ExtResource("1_wnipi"), ExtResource("2_i0wbu"), ExtResource("3_hp4on"), ExtResource("4_6q12t"), ExtResource("5_tqscn"), ExtResource("6_bpyi4"), ExtResource("7_2ofoi")])
+ProjectileType = 0
+Rarity = 3

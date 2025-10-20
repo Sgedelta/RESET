@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ccveycihwo4yf"]
+
+[ext_resource type="Script" uid="uid://dnp64aumldx32" path="res://Resources/Modifiers/IntModifierInfo.cs" id="1_102gc"]
+
+[resource]
+script = ExtResource("1_102gc")
+statMin = 6
+statMax = 9
+linearRandom = false
+meanVal = 0
+stdDev = 0
+StatType = 1004
+ModifierType = 0
