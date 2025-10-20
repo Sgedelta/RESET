@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://cpyhgebemnmis"]
+
+[ext_resource type="Resource" uid="uid://dm8ju4v8o12dl" path="res://Resources/Modifiers/Damage/DMG_A++.tres" id="1_ppmah"]
+[ext_resource type="Resource" uid="uid://kucl2205xlxa" path="res://Resources/Modifiers/Fire Rate/FR_M+.tres" id="2_cyqh1"]
+[ext_resource type="Resource" uid="uid://s14coybcugf3" path="res://Resources/Modifiers/Range/RNG_M-.tres" id="3_vgi5a"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_khelr"]
+
+[resource]
+script = ExtResource("4_khelr")
+_id = "TunedGears"
+DisplayName = "TunedGears"
+Modifiers = Array[Resource]([ExtResource("1_ppmah"), ExtResource("2_cyqh1"), ExtResource("3_vgi5a")])
+ProjectileType = 0

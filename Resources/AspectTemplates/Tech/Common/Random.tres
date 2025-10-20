@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://baqxccb6ckhks"]
+
+[ext_resource type="Resource" uid="uid://hy4nn8iy45m1" path="res://Resources/Modifiers/Critical/CRC_M+.tres" id="1_ctgji"]
+[ext_resource type="Resource" uid="uid://ddaqurbop6hpx" path="res://Resources/Modifiers/Critical/CRM_M+.tres" id="2_6uscv"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="3_52slx"]
+
+[resource]
+script = ExtResource("3_52slx")
+_id = "Random"
+DisplayName = "Random"
+Modifiers = Array[Resource]([ExtResource("1_ctgji"), ExtResource("2_6uscv")])
+ProjectileType = 0

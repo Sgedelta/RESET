@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bn4i6ll7heiqu"]
+
+[ext_resource type="Resource" uid="uid://c5yfl7d1llaq7" path="res://Resources/Modifiers/Accuracy/SPA_A+.tres" id="1_j1rob"]
+[ext_resource type="Resource" uid="uid://doelnkb5tmgwi" path="res://Resources/Modifiers/Chain/CHD_M+.tres" id="2_x6ivj"]
+[ext_resource type="Resource" uid="uid://cdd3e4ekdylav" path="res://Resources/Modifiers/Chain/CHT_M++.tres" id="3_jepfx"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_rqjvm"]
+
+[resource]
+script = ExtResource("4_rqjvm")
+_id = "ThunderStorm"
+DisplayName = "ThunderStorm"
+Modifiers = Array[Resource]([ExtResource("1_j1rob"), ExtResource("2_x6ivj"), ExtResource("3_jepfx")])
+ProjectileType = 0

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://cd3hvo4bsqtmm"]
+
+[ext_resource type="Resource" uid="uid://cvqdyufx1poke" path="res://Resources/Modifiers/Poison/PSD_M+.tres" id="1_ylkms"]
+[ext_resource type="Resource" uid="uid://b34bf0e65hh8u" path="res://Resources/Modifiers/Poison/PST_M+.tres" id="2_gvkbn"]
+[ext_resource type="Resource" uid="uid://bs0a8d6usyoqg" path="res://Resources/Modifiers/Damage/DMG_M-.tres" id="3_d3bg1"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_s74ep"]
+
+[resource]
+script = ExtResource("4_s74ep")
+_id = "PoisonDart"
+DisplayName = "PoisonDart"
+Modifiers = Array[Resource]([ExtResource("1_ylkms"), ExtResource("2_gvkbn"), ExtResource("3_d3bg1")])
+ProjectileType = 0

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://drc6c8hgqqt2"]
+
+[ext_resource type="Resource" uid="uid://bwigsejsqqeqp" path="res://Resources/Modifiers/Accuracy/SPA_A-.tres" id="1_v05ld"]
+[ext_resource type="Resource" uid="uid://bsyefwk0d35x3" path="res://Resources/Modifiers/Range/RNG_M++.tres" id="2_icco6"]
+[ext_resource type="Resource" uid="uid://c2jy78kbdn5s" path="res://Resources/Modifiers/Fire Rate/FR_M-.tres" id="3_6h5ph"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_li0wt"]
+
+[resource]
+script = ExtResource("4_li0wt")
+_id = "EagleEye"
+DisplayName = "EagleEye"
+Modifiers = Array[Resource]([ExtResource("1_v05ld"), ExtResource("2_icco6"), ExtResource("3_6h5ph")])
+ProjectileType = 0

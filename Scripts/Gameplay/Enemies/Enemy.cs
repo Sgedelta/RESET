@@ -56,6 +56,6 @@ public partial class Enemy : Node2D
 
 	public void ApplyDamageOverTime(float damagePerTick, float duration, float tickInterval)
 	{
-        AddChild(new PoisonEffect(this, damagePerTick, duration, tickInterval));
+		AddChild(new PoisonEffect(this, damagePerTick, duration, tickInterval));
   }
 }

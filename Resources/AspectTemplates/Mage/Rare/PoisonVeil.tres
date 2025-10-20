@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://6bx5kjpt7lul"]
+
+[ext_resource type="Resource" uid="uid://cvqdyufx1poke" path="res://Resources/Modifiers/Poison/PSD_M+.tres" id="1_kv5ug"]
+[ext_resource type="Resource" uid="uid://b34bf0e65hh8u" path="res://Resources/Modifiers/Poison/PST_M+.tres" id="2_bayaj"]
+[ext_resource type="Resource" uid="uid://xw5vbu6tsim" path="res://Resources/Modifiers/Damage/DMG_A+.tres" id="3_o7ywu"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_431kn"]
+
+[resource]
+script = ExtResource("4_431kn")
+_id = "PoisonVeil"
+DisplayName = "PoisonVeil"
+Modifiers = Array[Resource]([ExtResource("1_kv5ug"), ExtResource("2_bayaj"), ExtResource("3_o7ywu")])
+ProjectileType = 0
