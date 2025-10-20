@@ -11,3 +11,4 @@ _id = "ThunderStorm"
 DisplayName = "ThunderStorm"
 Modifiers = Array[Resource]([ExtResource("1_j1rob"), ExtResource("2_x6ivj"), ExtResource("3_jepfx")])
 ProjectileType = 0
+Rarity = 1

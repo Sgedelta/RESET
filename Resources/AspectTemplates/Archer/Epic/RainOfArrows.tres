@@ -10,3 +10,4 @@ _id = "RainOfArrows"
 DisplayName = "RainOfArrows"
 Modifiers = Array[Resource]([ExtResource("1_5fxr8"), ExtResource("2_u7tqm")])
 ProjectileType = 0
+Rarity = 2

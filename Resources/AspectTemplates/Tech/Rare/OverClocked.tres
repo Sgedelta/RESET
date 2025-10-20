@@ -11,3 +11,4 @@ _id = "OverClocked"
 DisplayName = "OverClocked"
 Modifiers = Array[Resource]([ExtResource("1_16iuf"), ExtResource("2_5kkql"), ExtResource("3_mtowq")])
 ProjectileType = 0
+Rarity = 1

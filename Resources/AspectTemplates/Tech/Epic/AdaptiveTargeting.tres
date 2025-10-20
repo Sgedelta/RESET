@@ -9,3 +9,4 @@ _id = "AdaptiveTargeting"
 DisplayName = "AdaptiveTargeting"
 Modifiers = Array[Resource]([ExtResource("1_lbp6o")])
 ProjectileType = 0
+Rarity = 2

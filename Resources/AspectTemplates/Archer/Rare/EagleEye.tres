@@ -11,3 +11,4 @@ _id = "EagleEye"
 DisplayName = "EagleEye"
 Modifiers = Array[Resource]([ExtResource("1_v05ld"), ExtResource("2_icco6"), ExtResource("3_6h5ph")])
 ProjectileType = 0
+Rarity = 1

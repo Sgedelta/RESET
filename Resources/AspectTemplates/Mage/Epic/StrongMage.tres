@@ -11,3 +11,4 @@ _id = "StrongMage"
 DisplayName = "StrongMage"
 Modifiers = Array[Resource]([ExtResource("1_6gny3"), ExtResource("2_e5rbe"), ExtResource("3_w3j62")])
 ProjectileType = 0
+Rarity = 2

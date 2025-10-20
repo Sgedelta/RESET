@@ -11,3 +11,4 @@ _id = "PoisonVeil"
 DisplayName = "PoisonVeil"
 Modifiers = Array[Resource]([ExtResource("1_kv5ug"), ExtResource("2_bayaj"), ExtResource("3_o7ywu")])
 ProjectileType = 0
+Rarity = 1

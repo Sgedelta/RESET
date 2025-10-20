@@ -11,3 +11,4 @@ _id = "MissileLauncher"
 DisplayName = "MissileLauncher"
 Modifiers = Array[Resource]([ExtResource("1_2tj5r"), ExtResource("2_us70s"), ExtResource("3_jf5wu")])
 ProjectileType = 0
+Rarity = 1
