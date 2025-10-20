@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_mxfhc")
-statMin = 0.9
-statMax = 0.7
+statMin = 0.7
+statMax = 0.9
 linearRandom = false
 meanVal = 0.0
 stdDev = 0.0
