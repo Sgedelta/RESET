@@ -8,6 +8,9 @@ public partial class GameManager : Node
 	[Export] public NodePath WaveDirectorPath;
 	[Export] public NodePath EnemiesRoot;
 	[Export] public int StartingWaveSize = 3;
+	[Export] public NodePath AspectBarPath;
+	
+	private AspectBar _aspectBar;
 
 	//Singleton
 	public static GameManager Instance;
@@ -22,8 +25,14 @@ public partial class GameManager : Node
 	
 	[Export] public NodePath gameOverTextPath;
 	private Label _gameOverText;
+	
+	[Export] public NodePath RewardMenuPath;
+	private RewardMenu _rewardMenu; 
 
-    public override void _Ready()
+	private HashSet<Aspect> _lastOffered = new();
+	
+
+	public override void _Ready()
 	{
 		//Singleton
 		if(Instance != null)
@@ -40,6 +49,17 @@ public partial class GameManager : Node
 		
 		Inventory = new AspectInventory();
 		_waveDirector.SetGameManager(this);
+		
+		_aspectBar = GetNodeOrNull<AspectBar>(AspectBarPath);
+		
+			_rewardMenu = GetNodeOrNull<RewardMenu>(RewardMenuPath);
+			if (_rewardMenu != null)
+			{
+				_rewardMenu.ProcessMode = Node.ProcessModeEnum.WhenPaused; // Godot 4
+				_rewardMenu.Hide();
+				_rewardMenu.ChoicePicked += OnAspectTemplatePicked;  // <-- SUBSCRIBE!
+				GD.Print($"[GM] Subscribed to RewardMenu at {_rewardMenu.GetPath()}");
+			}
 
 		StartNextWave();
 	}
@@ -62,7 +82,7 @@ public partial class GameManager : Node
 		if (_enemiesRemaining <= 0)
 		{
 			GD.Print($"WAVE {_currentWave} CLEAR");
-			StartNextWave();
+			OfferEndOfRoundRewards();
 		}
 
 		_waveDirector.RemoveActiveEnemy(enemy);
@@ -79,12 +99,12 @@ public partial class GameManager : Node
 		//there are no enemies, get out
 		if (_enemiesRemaining <= 0) return null;
 
-        var filterEnemies = _waveDirector.ActiveEnemies.Where(e => !exclude.Contains(e));
+		var filterEnemies = _waveDirector.ActiveEnemies.Where(e => !exclude.Contains(e));
 
-        // unfortunely a little slow but this is the best way to do it for our purposes
-        // this can be better if we quad tree it but that's more overhead and work for us
-        // so. No! we'll stick with squared distance and then just retarget less frequently.
-        float closestSqDist = float.MaxValue;
+		// unfortunely a little slow but this is the best way to do it for our purposes
+		// this can be better if we quad tree it but that's more overhead and work for us
+		// so. No! we'll stick with squared distance and then just retarget less frequently.
+		float closestSqDist = float.MaxValue;
 		Enemy nearest = null;
 		foreach (Enemy e in filterEnemies)
 		{
@@ -100,5 +120,40 @@ public partial class GameManager : Node
 	public Enemy GetNearestEnemyToPoint(Vector2 point)
 	{
 		return GetNearestEnemyToPoint(point, new List<Enemy>());	
+	}
+	
+	//aspect rewards
+	private void OfferEndOfRoundRewards()
+	{
+		if (_rewardMenu == null)
+		{
+			GD.PrintErr("[GM] RewardMenuPath not set");
+			StartNextWave();
+			return;
+		}
+
+		var choices = AspectLibrary.RollTemplates(3, _ => true);
+		if (choices == null || choices.Count == 0)
+		{
+			StartNextWave();
+			return;
+		}
+
+		_rewardMenu.ShowChoices(_currentWave, choices);
+		GetTree().Paused = true;
+	}
+	
+	private void OnAspectTemplatePicked(AspectTemplate pickedTemplate)
+	{
+		GD.Print($"[GM] Picked {pickedTemplate?._id}");
+
+		var instance = Inventory.AcquireFromTemplate(pickedTemplate);
+		GD.Print($"[GM] Inventory now has {Inventory.BagAspects().Count()} aspects total");
+
+		  _aspectBar?.Refresh(); 
+
+		_rewardMenu.Hide();
+		GetTree().Paused = false;
+		StartNextWave();
 	}
 }

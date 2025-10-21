@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=40 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
@@ -38,6 +38,7 @@
 [ext_resource type="Resource" uid="uid://dmj63fqtruvft" path="res://Resources/AspectTemplates/Tech/Rare/OverClocked.tres" id="32_yu1dp"]
 [ext_resource type="Resource" uid="uid://b5vdkf6e4lvf6" path="res://Resources/AspectTemplates/Tech/Epic/AdaptiveTargeting.tres" id="33_kuav3"]
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="34_qgpf6"]
+[ext_resource type="PackedScene" uid="uid://fxiie8iedav8" path="res://Scenes/UI/RewardMenu.tscn" id="37_r63x1"]
 
 [node name="Run" type="Node2D"]
 
@@ -153,7 +154,9 @@ AspectTemplates = Array[Resource]([ExtResource("14_hdemd"), ExtResource("15_r63x
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/Enemies")
+AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
+RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("9_x3f4s")
@@ -161,6 +164,9 @@ GameManagerPath = NodePath("../GameManager")
 EnemiesRootPath = NodePath("../Map/Enemies")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
+visible = false
 
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
 RowPath = NodePath("Margin/Scroll/Row")

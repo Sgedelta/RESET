@@ -5,40 +5,101 @@ using static Aspect;
 
 public partial class AspectLibrary : Node
 {
-	//TEMPORARY class for aspect storage!
-	[Export] Godot.Collections.Array<AspectTemplate> AspectTemplates;
+	[Export] public Godot.Collections.Array<AspectTemplate> AspectTemplates;
 
-	public static List<Aspect> AllAspects = new List<Aspect>{};
-	public static readonly Dictionary<string, Aspect> ById = new();
+	public static readonly List<AspectTemplate> AllTemplates = new();
+	public static readonly Dictionary<string, AspectTemplate> TemplatesById = new();
+	
+	private static readonly Dictionary<Rarity, int> RarityWeights = new()
+	{
+		{ Rarity.Common,    75 },
+		{ Rarity.Rare,       20 },
+		{ Rarity.Epic,       5 },
+		{ Rarity.Legendary,  0 }
+	};
 
+	private static RandomNumberGenerator _rng;
 
 	 public override void _Ready()
 	{
-		AllAspects.Clear();
-		ById.Clear();
+		_rng = new RandomNumberGenerator();
+		_rng.Randomize();
+		
+		AllTemplates.Clear();
+		TemplatesById.Clear();
 
 		if (AspectTemplates == null) return;
 
-		foreach (var template in AspectTemplates)
+		foreach (var t in AspectTemplates)
 		{
-			if (template == null || string.IsNullOrWhiteSpace(template._id))
+			if (t == null || string.IsNullOrWhiteSpace(t._id))
 			{
 				GD.PushWarning("AspectTemplate missing or has empty _id");
 				continue;
 			}
-
-			var a = new Aspect(template);
-			AllAspects.Add(a);
-			ById[template._id] = a;
+			AllTemplates.Add(t);
+			TemplatesById[t._id] = t;
 		}
-		GD.Print($"AspectLibrary loaded {AllAspects.Count} aspects: ",
-		string.Join(", ", AllAspects.ConvertAll(a => a.Template?.DisplayName ?? "<null>")));
-
+		GD.Print($"AspectLibrary loaded {AllTemplates.Count} templates");
 	}
-	public static Aspect GetById(string id)
+	public static AspectTemplate GetTemplate(string id) =>
+		string.IsNullOrEmpty(id) ? null :
+		(TemplatesById.TryGetValue(id, out var t) ? t : null);
+		
+			private static Rarity RollRarity()
 	{
-		if (string.IsNullOrEmpty(id)) return null;
-		return ById.TryGetValue(id, out var aspect) ? aspect : null;
+		int total = 0;
+		foreach (var kv in RarityWeights) total += kv.Value;
+		if (total <= 0) return Rarity.Common;
+
+		int roll = (int)_rng.RandiRange(1, total);
+		int acc = 0;
+		foreach (var kv in RarityWeights)
+		{
+			acc += kv.Value;
+			if (roll <= acc) return kv.Key;
+		}
+		return Rarity.Common;
 	}
 
+	private static List<AspectTemplate> OfRarity(Rarity r) =>
+		AllTemplates.FindAll(t => t != null && t.Rarity == r);
+
+	public static AspectTemplate RollOneTemplate(Func<AspectTemplate, bool> predicate = null, int maxAttempts = 20)
+	{
+		predicate ??= (_)=>true;
+
+		for (int i = 0; i < maxAttempts; i++)
+		{
+			var rar = RollRarity();
+			var pool = OfRarity(rar);
+			if (pool.Count == 0) continue;
+
+			var pick = pool[(int)_rng.RandiRange(0, pool.Count - 1)];
+			if (predicate(pick)) return pick;
+		}
+
+
+		var any = AllTemplates.FindAll(new Predicate<AspectTemplate>(predicate));
+
+		if (any.Count > 0)
+			return any[(int)_rng.RandiRange(0, any.Count - 1)];
+
+		return null;
+	}
+
+	public static List<AspectTemplate> RollTemplates(int count, Func<AspectTemplate, bool> predicate)
+	{
+		var result = new List<AspectTemplate>(count);
+		var used   = new HashSet<string>();
+
+		while (result.Count < count)
+		{
+			var t = RollOneTemplate(tt => predicate(tt) && !used.Contains(tt._id));
+			if (t == null) break;
+			used.Add(t._id);
+			result.Add(t);
+		}
+		return result;
+	}
 }
