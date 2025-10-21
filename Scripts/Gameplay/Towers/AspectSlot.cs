@@ -41,7 +41,7 @@ public partial class AspectSlot : PanelContainer
             { "type","aspect_token" }, { "origin","slot" },
             { "tower_path", _pullout.ActiveTower.GetPath().ToString() },
             { "slot_index", Index },
-            { "aspect_id", aspect.Template._id }
+            { "aspect_id", aspect.ID }
         };
     }
 

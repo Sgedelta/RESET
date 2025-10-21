@@ -52,8 +52,13 @@ public enum ProjectileType
 public class Aspect
 {
 
+	public static Dictionary<string, int> CreatedAspectsOfType = new Dictionary<string, int>();
+
  	public AspectTemplate Template { get; }
 	public List<ModifierUnit> Modifiers { get; } = new();
+
+	private string _id;
+	public string ID { get { return _id; } }
 	
 	// prevent build from happening twice
 	private bool _initializedFromTemplate = false;
@@ -105,6 +110,17 @@ public class Aspect
 					break;
 			}
 		}
+
+		//check for first of kind
+		if(!CreatedAspectsOfType.ContainsKey(Template._id))
+		{
+			CreatedAspectsOfType.Add(Template._id, 0);
+		}
+
+		_id = $"{Template._id}_{CreatedAspectsOfType[Template._id].ToString()}";
+		CreatedAspectsOfType[Template._id] += 1;
+
+
 		_initializedFromTemplate = true;
 	}
 

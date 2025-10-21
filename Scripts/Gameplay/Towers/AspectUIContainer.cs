@@ -9,7 +9,7 @@ public partial class AspectUIContainer : HFlowContainer
     public void AttachFromBarToTargetSlot(Godot.Collections.Dictionary data, int targetIndex)
     {
         var aspectId = (string)data["aspect_id"];
-        var aspect = AspectLibrary.GetById(aspectId); //TODO: Replace with new Aspect Management System Eventually
+        var aspect = GameManager.Instance.Inventory.GetByID(aspectId); 
 
         if (aspect == null)
         {
@@ -116,7 +116,69 @@ public partial class AspectUIContainer : HFlowContainer
         }
 
     }
+    
+    /// <summary>
+    /// Returns the slot index if the localPos is over one of the active slots. otherwise, returns the first empty slot
+    /// </summary>
+    /// <param name="localPos"></param>
+    /// <returns></returns>
+    private int GetSlotIndexFromPosition(Vector2 localPos)
+    {
+        for(int i = 0; i < _pullout.AvailableSlots; i++)
+        {
+            if(GetChild(i) is AspectSlot slot)
+            {
+                var rect = new Rect2(slot.Position, slot.Size);
+                if(rect.HasPoint(localPos))
+                {
+                    return i;
+                }
+            }
+        }
 
+        return _pullout.ActiveTower.FirstEmptySlotIndex();
+    }
 
+    public override bool _CanDropData(Vector2 atPosition, Variant data)
+    {
+        if (data.VariantType != Variant.Type.Dictionary) return false;
+        var dict = (Godot.Collections.Dictionary)data;
+
+        if(!dict.TryGetValue("type", out var t) || (string)t != "aspect_token")
+        {
+            return false;
+        }
+
+        if(dict.TryGetValue("origin", out var o))
+        {
+            string origin = (string)o;
+            if(origin == "bar")
+            {
+                return dict.ContainsKey("aspect_id");
+            }
+            else if (origin == "slot")
+            {
+                return dict.ContainsKey("tower_path") && dict.ContainsKey("slot_index");
+            }
+        }
+
+        return false;
+    }
+
+    public override void _DropData(Vector2 atPosition, Variant data)
+    {
+        var dict = (Godot.Collections.Dictionary)data;
+        var origin = (string)dict["origin"];
+
+        //determine slot
+        int targetIndex = dict.ContainsKey("slot_index")
+            ? (int)dict["slot_index"]                // some UIs pass it along
+            : GetSlotIndexFromPosition(atPosition);  // otherwise calculate from mouse
+
+        if(origin == "bar")
+        {
+            string aspectID = (string)dict["aspect_id"];
+        }
+    }
     
 }

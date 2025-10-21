@@ -29,6 +29,15 @@ public class AspectInventory
 		return instance;
 	}
 
+	public Aspect GetByID(string ID)
+	{
+		foreach(Aspect a in _bag)
+		{
+			if (a.ID == ID) return a;
+		}
+		return null;
+	}
+
 
 	public bool RemoveInstance(Aspect a) => _bag.Remove(a);
 
