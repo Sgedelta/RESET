@@ -1,23 +1,38 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class GameManager : Node
 {
 	[Export] public NodePath WaveDirectorPath;
 	[Export] public NodePath EnemiesRoot;
 	[Export] public int StartingWaveSize = 3;
+
+	//Singleton
+	public static GameManager Instance;
 	
 	public AspectInventory Inventory { get; private set; }
 	
 	private WaveDirector _waveDirector;
+	public WaveDirector WaveDirector {  get { return _waveDirector; } }
+
 	private int _currentWave = 0;
 	private int _enemiesRemaining = 0;
 	
 	[Export] public NodePath gameOverTextPath;
 	private Label _gameOverText;
 
-	public override void _Ready()
+    public override void _Ready()
 	{
+		//Singleton
+		if(Instance != null)
+		{
+			QueueFree();
+		}
+
+		Instance = this;
+
 		_gameOverText = GetNode<Label>(gameOverTextPath);
 		_gameOverText.Visible = false;
 		
@@ -49,11 +64,41 @@ public partial class GameManager : Node
 			GD.Print($"WAVE {_currentWave} CLEAR");
 			StartNextWave();
 		}
+
+		_waveDirector.RemoveActiveEnemy(enemy);
 	}
 
 	public void OnPlayerDefeated()
 	{
 		_gameOverText.Visible = true;
 		GetTree().Paused = true;
+	}
+
+	public Enemy GetNearestEnemyToPoint(Vector2 point, List<Enemy> exclude)
+	{
+		//there are no enemies, get out
+		if (_enemiesRemaining <= 0) return null;
+
+        var filterEnemies = _waveDirector.ActiveEnemies.Where(e => !exclude.Contains(e));
+
+        // unfortunely a little slow but this is the best way to do it for our purposes
+        // this can be better if we quad tree it but that's more overhead and work for us
+        // so. No! we'll stick with squared distance and then just retarget less frequently.
+        float closestSqDist = float.MaxValue;
+		Enemy nearest = null;
+		foreach (Enemy e in filterEnemies)
+		{
+			if(closestSqDist > e.GlobalPosition.DistanceSquaredTo(point))
+			{
+				nearest = e;
+				closestSqDist = e.GlobalPosition.DistanceSquaredTo(point);
+			}
+		}
+		return nearest;
+	}
+
+	public Enemy GetNearestEnemyToPoint(Vector2 point)
+	{
+		return GetNearestEnemyToPoint(point, new List<Enemy>());	
 	}
 }

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dbyfycd47y8ci"]
+
+[ext_resource type="Resource" uid="uid://dr5kkrflxt6f2" path="res://Resources/Modifiers/KnockbackUp.tres" id="1_cwpmf"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="2_pek3j"]
+
+[resource]
+script = ExtResource("2_pek3j")
+_id = "knockbackTest"
+DisplayName = "KB Test"
+Modifiers = Array[Resource]([ExtResource("1_cwpmf")])
+ProjectileType = 0

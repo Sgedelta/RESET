@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bh17hu1bmotae"]
+
+[ext_resource type="Resource" uid="uid://b8vedfh4blay3" path="res://Resources/Modifiers/Range/RNG_M+.tres" id="1_qkdi6"]
+[ext_resource type="Resource" uid="uid://c2jy78kbdn5s" path="res://Resources/Modifiers/Fire Rate/FR_M-.tres" id="2_1pa8v"]
+[ext_resource type="Resource" uid="uid://xw5vbu6tsim" path="res://Resources/Modifiers/Damage/DMG_A+.tres" id="3_cwuor"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_sxcg2"]
+
+[resource]
+script = ExtResource("4_sxcg2")
+_id = "LongDraw"
+DisplayName = "LongDraw"
+Modifiers = Array[Resource]([ExtResource("1_qkdi6"), ExtResource("2_1pa8v"), ExtResource("3_cwuor")])
+ProjectileType = 0
+Rarity = 0

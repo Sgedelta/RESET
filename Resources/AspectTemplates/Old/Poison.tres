@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://cc86osegkm3kv"]
 
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="1_1icb4"]
-[ext_resource type="Resource" uid="uid://f253bqreiq3u" path="res://Resources/Modifiers/DamageDown.tres" id="1_2xhs0"]
+[ext_resource type="Resource" uid="uid://f253bqreiq3u" path="res://Resources/Modifiers/Old/DamageDown.tres" id="1_2xhs0"]
 
 [resource]
 script = ExtResource("1_1icb4")

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=3 uid="uid://daafua33ayfns"]
 
-[ext_resource type="Resource" uid="uid://cvx1rdxr7obb0" path="res://Resources/Modifiers/RangeUpCommon.tres" id="1_o2viw"]
-[ext_resource type="Resource" uid="uid://cqyeu3p86vcqa" path="res://Resources/Modifiers/FirerateDownCommon.tres" id="2_x0yvl"]
+[ext_resource type="Resource" uid="uid://cvx1rdxr7obb0" path="res://Resources/Modifiers/Old/RangeUpCommon.tres" id="1_o2viw"]
+[ext_resource type="Resource" uid="uid://cqyeu3p86vcqa" path="res://Resources/Modifiers/Old/FirerateDownCommon.tres" id="2_x0yvl"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="3_vnkvn"]
 
 [resource]

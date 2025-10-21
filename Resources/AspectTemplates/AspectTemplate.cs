@@ -2,6 +2,14 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+public enum Rarity
+{
+	Common = 0,
+	Rare = 1,
+	Epic = 2,
+	Legendary = 3
+}
+
 
 public abstract partial class ModifierInfo : Resource
 {
@@ -32,6 +40,8 @@ public partial class AspectTemplate : Resource
 	[Export] public Godot.Collections.Array<ModifierInfo> Modifiers;
 
 	[Export] public ProjectileType ProjectileType = ProjectileType.Regular;
+	[Export] public Rarity Rarity = Rarity.Common;
+
 
 
 	public AspectTemplate() { }

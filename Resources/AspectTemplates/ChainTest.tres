@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bh1t1a6hoqaqt"]
+
+[ext_resource type="Resource" uid="uid://bwyfep7l1cqcn" path="res://Resources/Modifiers/ChainUp.tres" id="1_b3vgd"]
+[ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="2_xkspo"]
+
+[resource]
+script = ExtResource("2_xkspo")
+_id = "chainTest"
+DisplayName = "Chain Test"
+Modifiers = Array[Resource]([ExtResource("1_b3vgd")])
+ProjectileType = 0

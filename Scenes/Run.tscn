@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=39 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
@@ -16,12 +16,28 @@
 [ext_resource type="Script" uid="uid://bjlwqjh832hth" path="res://Scripts/Aspects/AspectLibrary.cs" id="10_j6cy0"]
 [ext_resource type="PackedScene" uid="uid://beqx0g5b4mpis" path="res://Scripts/Gameplay/Projectiles/PoisonProjectile.tscn" id="10_u4oo0"]
 [ext_resource type="PackedScene" uid="uid://cbk7hy24lf5h8" path="res://Scripts/Gameplay/Projectiles/ChainProjectile.tscn" id="11_6kpg7"]
-[ext_resource type="Resource" uid="uid://dhymdjlukdrx7" path="res://Resources/AspectTemplates/DamageMult.tres" id="11_7jyn4"]
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
-[ext_resource type="Resource" uid="uid://bwxyqoqb1pffm" path="res://Resources/AspectTemplates/MachineGun.tres" id="12_5bwvv"]
-[ext_resource type="Resource" uid="uid://b6wahnncr2f5s" path="res://Resources/AspectTemplates/FireRateAdd.tres" id="12_81a2t"]
-[ext_resource type="Resource" uid="uid://daafua33ayfns" path="res://Resources/AspectTemplates/Farsight.tres" id="13_yq0a3"]
-[ext_resource type="Resource" uid="uid://bpfpm5krqyt7q" path="res://Resources/AspectTemplates/Brutalize.tres" id="14_wyr6k"]
+[ext_resource type="Resource" uid="uid://bh17hu1bmotae" path="res://Resources/AspectTemplates/Archer/Common/LongDraw.tres" id="14_hdemd"]
+[ext_resource type="Resource" uid="uid://cd3hvo4bsqtmm" path="res://Resources/AspectTemplates/Archer/Common/PoisonDart.tres" id="15_r63x1"]
+[ext_resource type="Resource" uid="uid://caaoqyl7lc2pw" path="res://Resources/AspectTemplates/Archer/Common/SteadyHand.tres" id="16_utqwv"]
+[ext_resource type="Resource" uid="uid://drc6c8hgqqt2" path="res://Resources/AspectTemplates/Archer/Rare/EagleEye.tres" id="17_hfefo"]
+[ext_resource type="Resource" uid="uid://b0a1x3vyrkq6i" path="res://Resources/AspectTemplates/Archer/Rare/PiercingArrow.tres" id="18_ygtc6"]
+[ext_resource type="Resource" uid="uid://serpt1wl7a5t" path="res://Resources/AspectTemplates/Archer/Epic/RainOfArrows.tres" id="19_f4ujw"]
+[ext_resource type="Resource" uid="uid://b37wej6t8hssw" path="res://Resources/AspectTemplates/Archer/Legendary/PerfectArcher.tres" id="20_pnlt7"]
+[ext_resource type="Resource" uid="uid://e7jrd5o4ghmh" path="res://Resources/AspectTemplates/Mage/Common/MagicPulse.tres" id="21_yx05o"]
+[ext_resource type="Resource" uid="uid://c6mkimgj1f1jh" path="res://Resources/AspectTemplates/Mage/Common/ManaSurge.tres" id="22_1hugo"]
+[ext_resource type="Resource" uid="uid://w6dgxclp3e56" path="res://Resources/AspectTemplates/Mage/Common/SludgeCannon.tres" id="23_72pqr"]
+[ext_resource type="Resource" uid="uid://6bx5kjpt7lul" path="res://Resources/AspectTemplates/Mage/Rare/PoisonVeil.tres" id="24_d0gkt"]
+[ext_resource type="Resource" uid="uid://bn4i6ll7heiqu" path="res://Resources/AspectTemplates/Mage/Rare/ThunderStorm.tres" id="25_pgm2k"]
+[ext_resource type="Resource" uid="uid://cti8m7p7f8ltg" path="res://Resources/AspectTemplates/Mage/Epic/StrongMage.tres" id="26_jsh7i"]
+[ext_resource type="Resource" uid="uid://beqxt0enu774u" path="res://Resources/AspectTemplates/Mage/Legendary/MasterMage.tres" id="27_jifya"]
+[ext_resource type="Resource" uid="uid://nr2pc73u0gm2" path="res://Resources/AspectTemplates/Tech/Common/CoolingCore.tres" id="28_5mnqj"]
+[ext_resource type="Resource" uid="uid://baqxccb6ckhks" path="res://Resources/AspectTemplates/Tech/Common/Random.tres" id="29_6qte5"]
+[ext_resource type="Resource" uid="uid://cpyhgebemnmis" path="res://Resources/AspectTemplates/Tech/Common/TunedGears.tres" id="30_liml1"]
+[ext_resource type="Resource" uid="uid://7x7yxfrr566g" path="res://Resources/AspectTemplates/Tech/Rare/MissileLaucnher.tres" id="31_52uki"]
+[ext_resource type="Resource" uid="uid://dmj63fqtruvft" path="res://Resources/AspectTemplates/Tech/Rare/OverClocked.tres" id="32_yu1dp"]
+[ext_resource type="Resource" uid="uid://b5vdkf6e4lvf6" path="res://Resources/AspectTemplates/Tech/Epic/AdaptiveTargeting.tres" id="33_kuav3"]
+[ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="34_qgpf6"]
 
 [node name="Run" type="Node2D"]
 
@@ -30,6 +46,7 @@ script = ExtResource("2_38uoo")
 EnemyScene = ExtResource("2_0j08j")
 MapEnemiesPath = NodePath("../Map/Enemies")
 Path2DPath = NodePath("../Map/Path2D")
+SpawnEvery = 1.5
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
 
@@ -50,6 +67,7 @@ position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
 position = Vector2(-428, 205)
+BaseProjectileSpeed = 750.0
 
 [node name="TargetingComponent" parent="Map/Towers/Tower" index="0"]
 EnemiesRootPath = NodePath("../../../Enemies")
@@ -90,6 +108,7 @@ mouse_default_cursor_shape = 7
 
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
 position = Vector2(16, 93)
+BaseProjectileSpeed = 750.0
 
 [node name="TargetingComponent" parent="Map/Towers/Tower2" index="0"]
 EnemiesRootPath = NodePath("../../../Enemies")
@@ -129,7 +148,7 @@ action_mode = 0
 
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
-AspectTemplates = Array[Resource]([ExtResource("11_7jyn4"), ExtResource("12_81a2t"), ExtResource("12_5bwvv"), ExtResource("13_yq0a3"), ExtResource("14_wyr6k")])
+AspectTemplates = Array[Resource]([ExtResource("14_hdemd"), ExtResource("15_r63x1"), ExtResource("16_utqwv"), ExtResource("17_hfefo"), ExtResource("18_ygtc6"), ExtResource("19_f4ujw"), ExtResource("20_pnlt7"), ExtResource("21_yx05o"), ExtResource("22_1hugo"), ExtResource("23_72pqr"), ExtResource("24_d0gkt"), ExtResource("25_pgm2k"), ExtResource("26_jsh7i"), ExtResource("27_jifya"), ExtResource("28_5mnqj"), ExtResource("29_6qte5"), ExtResource("30_liml1"), ExtResource("31_52uki"), ExtResource("32_yu1dp"), ExtResource("33_kuav3"), ExtResource("34_qgpf6")])
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("7_xu74l")

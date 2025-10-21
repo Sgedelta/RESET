@@ -15,3 +15,8 @@ public class FloatModifierUnit : ModifierUnit
 {
 	public float Value;
 }
+
+public class IntModifierUnit : ModifierUnit
+{
+	public int Value;
+}
