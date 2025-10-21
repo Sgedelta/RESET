@@ -13,6 +13,7 @@ public partial class Projectile : Area2D
 
     // how frequently a projectile will retarget to find the nearest enemy, in seconds
     private const float PROJ_RETARGET_SPEED = .05f;
+    private const float PERFECT_TURN_TIME = .6f; //Scalar for homing speed tuning - roughly correlates to time, but not exactly
     private float _timeSinceRetarget = float.MaxValue;
 
 	protected Vector2 dir;
@@ -80,7 +81,7 @@ public partial class Projectile : Area2D
         if(_homingStrength > 0f && _target != null && IsInstanceValid(_target))
         {
             Vector2 desiredDir = (_target.GlobalPosition - GlobalPosition).Normalized();
-            dir = dir.Lerp(desiredDir, _homingTurnSpeed * (float)delta * 10f).Normalized();
+            dir = dir.Lerp(desiredDir, _homingStrength * (float)delta / PROJ_RETARGET_SPEED).Normalized();
         }
 
         GlobalPosition += dir * Speed * (float)delta;
@@ -106,11 +107,10 @@ public partial class Projectile : Area2D
             return;
         }
 
-        GD.Print($"Hit {enemy} with flags {allowDestroy}, {doChain}, {doSplash}, {doPierce}");
+        //GD.Print($"Hit {enemy} with flags {allowDestroy}, {doChain}, {doSplash}, {doPierce}");
 
         if (_hitEnemies.Contains(enemy))
         {
-            GD.Print("Already hit this enemy");
             return;
         }
             
