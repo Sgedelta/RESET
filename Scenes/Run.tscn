@@ -38,7 +38,7 @@
 [ext_resource type="Resource" uid="uid://dmj63fqtruvft" path="res://Resources/AspectTemplates/Tech/Rare/OverClocked.tres" id="32_yu1dp"]
 [ext_resource type="Resource" uid="uid://b5vdkf6e4lvf6" path="res://Resources/AspectTemplates/Tech/Epic/AdaptiveTargeting.tres" id="33_kuav3"]
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="34_qgpf6"]
-[ext_resource type="PackedScene" uid="uid://fxiie8iedav8" path="res://Scenes/UI/RewardMenu.tscn" id="37_r63x1"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/RewardMenu.tscn" id="37_r63x1"]
 
 [node name="Run" type="Node2D"]
 
