@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://exhrotrwvk0x"]
+[gd_scene load_steps=3 format=3 uid="uid://bl17xmgfv0ete"]
 
-[ext_resource type="Script" uid="uid://dxxyryx1eej3r" path="res://Scenes/UI/UI_TowerPullout.cs" id="1_nqjej"]
+[ext_resource type="Script" path="res://Scenes/UI/UI_TowerPullout.cs" id="1_nqjej"]
 [ext_resource type="Theme" uid="uid://fjtkhwpkwdy1" path="res://Resources/Themes/Tower_UI_BG.tres" id="2_gr12i"]
 
 [node name="TempRoot" type="Node2D"]
@@ -30,9 +30,17 @@ size_flags_horizontal = 3
 text = "Tower UI!"
 horizontal_alignment = 1
 
-[node name="HFlowContainer" type="HFlowContainer" parent="TowerPullout/ScrollContainer/GridContainer"]
+[node name="AspectContainer" type="HFlowContainer" parent="TowerPullout/ScrollContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 1
+
+[node name="AspectSlot" type="PanelContainer" parent="TowerPullout/ScrollContainer/GridContainer/AspectContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TowerPullout/ScrollContainer/GridContainer"]
+layout_mode = 2
 
 [node name="Button2" type="Button" parent="."]
 offset_right = 145.0

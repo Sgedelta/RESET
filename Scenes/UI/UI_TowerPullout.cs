@@ -12,6 +12,9 @@ public partial class UI_TowerPullout : CanvasLayer
 
     [Export] float SlideTime = .5f;
 
+    [Export] private Tower _tower;
+    public Tower ActiveTower { get { return _tower; } }
+
     public override void _Ready()
     {
         i_ScrollContainer = GetChild<ScrollContainer>(0);
