@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://6q6h5nkjd56l" path="res://Scripts/Gameplay/Towers/Tower.cs" id="1_8ivuq"]
 [ext_resource type="Script" uid="uid://fwkxq0nd2ryl" path="res://Scripts/Gameplay/Towers/TargetingComponent.cs" id="2_g00a7"]
 [ext_resource type="Script" uid="uid://cu3cj8svp3ca" path="res://Scripts/Gameplay/Towers/ShooterComponent.cs" id="3_j4r41"]
-[ext_resource type="Texture2D" uid="uid://cysau8mhwke1" path="res://outpost.webp" id="4_g00a7"]
+[ext_resource type="Texture2D" uid="uid://cm8l6pi8qndbc" path="res://TowerPlaceholder.PNG" id="4_g00a7"]
 
 [node name="Tower" type="Node2D"]
 script = ExtResource("1_8ivuq")
@@ -16,5 +16,6 @@ Range = 400.0
 script = ExtResource("3_j4r41")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(54, 59)
 scale = Vector2(0.101814, 0.111676)
 texture = ExtResource("4_g00a7")

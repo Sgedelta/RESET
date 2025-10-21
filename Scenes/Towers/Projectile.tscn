@@ -1,9 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://beq0wrl3nh46k"]
 
 [ext_resource type="Script" uid="uid://dxpf4dvc50si" path="res://Scripts/Gameplay/Projectiles/Projectile.cs" id="1_hwlbg"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hwlbg"]
-size = Vector2(30, 30)
+[ext_resource type="Texture2D" uid="uid://t0c8ry4vh5oq" path="res://ProjectilePlaceholder.PNG" id="2_pe8r6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pe8r6"]
 radius = 15.0
@@ -13,7 +11,8 @@ collision_mask = 4
 script = ExtResource("1_hwlbg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("PlaceholderTexture2D_hwlbg")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_pe8r6")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pe8r6")

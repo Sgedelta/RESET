@@ -140,8 +140,7 @@ public partial class TowerSlots : Control
 			var aspect = sourceTower.GetAspectInSlot(sourceSlotIndex);
 			if (aspect == null) return;
 
-			// If moving within the same tower to a different slot, simplest is detach & attach
-			// (You could add a Tower.MoveAspectSlot(aspect, newIndex) later for efficiency)
+
 			if (_gm.Inventory.DetachFrom(aspect, sourceTower))
 			{
 				if (_gm.Inventory.AttachTo(aspect, Tower, targetIndex))
