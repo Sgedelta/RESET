@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bl17xmgfv0ete"]
+[gd_scene load_steps=5 format=3 uid="uid://bl17xmgfv0ete"]
 
-[ext_resource type="Script" path="res://Scenes/UI/UI_TowerPullout.cs" id="1_nqjej"]
+[ext_resource type="Script" uid="uid://dxxyryx1eej3r" path="res://Scenes/UI/UI_TowerPullout.cs" id="1_nqjej"]
 [ext_resource type="Theme" uid="uid://fjtkhwpkwdy1" path="res://Resources/Themes/Tower_UI_BG.tres" id="2_gr12i"]
+[ext_resource type="Script" uid="uid://duhrv60aie1wo" path="res://Scripts/Gameplay/Towers/AspectUIContainer.cs" id="3_tgmv1"]
+[ext_resource type="Script" uid="uid://gqe5yd8kptnk" path="res://Scripts/Gameplay/Towers/AspectSlot.cs" id="4_thint"]
 
 [node name="TempRoot" type="Node2D"]
 
-[node name="TowerPullout" type="CanvasLayer" parent="."]
+[node name="TowerPullout" type="CanvasLayer" parent="." node_paths=PackedStringArray("_container")]
 script = ExtResource("1_nqjej")
+_container = NodePath("ScrollContainer/GridContainer/AspectContainer")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TowerPullout"]
 anchors_preset = 11
@@ -30,14 +33,23 @@ size_flags_horizontal = 3
 text = "Tower UI!"
 horizontal_alignment = 1
 
-[node name="AspectContainer" type="HFlowContainer" parent="TowerPullout/ScrollContainer/GridContainer"]
+[node name="AspectContainer" type="HFlowContainer" parent="TowerPullout/ScrollContainer/GridContainer" node_paths=PackedStringArray("_pullout")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
+script = ExtResource("3_tgmv1")
+_pullout = NodePath("../../..")
 
 [node name="AspectSlot" type="PanelContainer" parent="TowerPullout/ScrollContainer/GridContainer/AspectContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+script = ExtResource("4_thint")
+
+[node name="Label" type="Label" parent="TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
+layout_mode = 2
+text = "+ "
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="TowerPullout/ScrollContainer/GridContainer"]
 layout_mode = 2
