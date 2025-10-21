@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://ds07h7pge8rnw"]
 
-[ext_resource type="Script" path="res://Scripts/Gameplay/UI_TowerPullout.cs" id="1_nqjej"]
+[ext_resource type="Script" uid="uid://dxxyryx1eej3r" path="res://Scripts/Gameplay/UI_TowerPullout.cs" id="1_nqjej"]
 [ext_resource type="Theme" uid="uid://fjtkhwpkwdy1" path="res://Resources/Themes/Tower_UI_BG.tres" id="2_gr12i"]
-[ext_resource type="Script" path="res://Scripts/Gameplay/Towers/AspectUIContainer.cs" id="3_tgmv1"]
-[ext_resource type="Script" path="res://Scripts/Gameplay/Towers/AspectSlot.cs" id="4_thint"]
+[ext_resource type="Script" uid="uid://duhrv60aie1wo" path="res://Scripts/Gameplay/Towers/AspectUIContainer.cs" id="3_tgmv1"]
+[ext_resource type="Script" uid="uid://gqe5yd8kptnk" path="res://Scripts/Gameplay/Towers/AspectSlot.cs" id="4_thint"]
 
 [node name="TempRoot" type="Node2D"]
 
@@ -50,6 +50,9 @@ layout_mode = 2
 text = "+ "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AspectHoverUI" type="PanelContainer" parent="TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
+layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="TowerPullout/ScrollContainer/GridContainer"]
 layout_mode = 2
