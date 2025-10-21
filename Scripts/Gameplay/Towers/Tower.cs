@@ -74,7 +74,7 @@ public partial class Tower : Node2D
 
 		UpdateModifiedStats();
 		ApplyStatsToComponents();
-    }
+	}
 
 	public bool AttachAspect(Aspect a, int slotIndex = -1)
 	{

@@ -16,12 +16,12 @@ public partial class AspectBar : Control
 
 	public void Refresh()
 	{
-		foreach (Node child in _row.GetChildren())
-			child.QueueFree();
+		foreach (Node child in _row.GetChildren()) child.QueueFree();
 
-		foreach (var aspect in AspectLibrary.AllAspects)
+		foreach (var aspect in _gm.Inventory.BagAspects())
 		{
-			if (_gm.Inventory.IsOwned(aspect)) continue;
+			if (_gm.Inventory.IsAttached(aspect)) continue;
+
 			var token = TokenScene.Instantiate<AspectToken>();
 			token.Init(aspect);
 			_row.AddChild(token);

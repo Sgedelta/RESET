@@ -41,9 +41,7 @@ public partial class ShooterComponent : Node2D
 	}
 
 
-
-
-    public void SetStats(TowerStats stats)
+	public void SetStats(TowerStats stats)
 	{
 		i_fireRate = stats.FireRate;
 		i_damage = stats.Damage;
@@ -86,17 +84,17 @@ public partial class ShooterComponent : Node2D
 
 	public void Fire()
 	{
-        //reassign tower if it's not assigned
-        if (tower == null)
-        {
-            tower = GetParent<Tower>();
-            //if its still not assigned we couldn't find it.
-            if (tower == null)
-            {
-                GD.PushError("Shooter Component attempted to fire without finding Tower!");
-                return;
-            }
-        }
+		//reassign tower if it's not assigned
+		if (tower == null)
+		{
+			tower = GetParent<Tower>();
+			//if its still not assigned we couldn't find it.
+			if (tower == null)
+			{
+				GD.PushError("Shooter Component attempted to fire without finding Tower!");
+				return;
+			}
+		}
 
 		//get target
 		var target = tower.Targeting?.PickTarget(tower.GlobalPosition);
@@ -109,8 +107,8 @@ public partial class ShooterComponent : Node2D
 		FireAt(target);
 
 		//update cooldown
-        _cooldown = 1f / Mathf.Max(0.05f, i_fireRate);
-    }
+		_cooldown = 1f / Mathf.Max(0.05f, i_fireRate);
+	}
 
 	public void FireAt(Node2D target)
 	{
@@ -124,16 +122,16 @@ public partial class ShooterComponent : Node2D
 		}
 		 
 		Projectile projectile = (Projectile)projScene.Instantiate();
-        
-        projectile.GlobalPosition = tower.GlobalPosition;
+		
+		projectile.GlobalPosition = tower.GlobalPosition;
 
-        //calc & update initial direction based on falloff
+		//calc & update initial direction based on falloff
 			// all random is gaussian, but with the falloff close to 0 it approximates linear
-        Vector2 initialDirection = (target.GlobalPosition - projectile.GlobalPosition)
+		Vector2 initialDirection = (target.GlobalPosition - projectile.GlobalPosition)
 			.Normalized()
 			.Rotated(Mathf.DegToRad(
 				rng.Randfn(0, ((i_shotSpread * FALLOFF_STDDEV_RATIO) / i_shotSpreadFalloff) % i_shotSpread)
-            ));
+			));
 		
 		projectile.Init(initialDirection, tower.ModifiedStats);
 

@@ -16,11 +16,11 @@ public partial class FloatModifierInfo : ModifierInfo
 
 	public override object GetStat()
 	{
-        RandomNumberGenerator rng = new RandomNumberGenerator();
-        //note: rng.Randomize(); could be used here to set a seed.
-        
+		RandomNumberGenerator rng = new RandomNumberGenerator();
+		//note: rng.Randomize(); could be used here to set a seed.
+		
 		//if we're getting a random something linearly...
-        if (linearRandom)
+		if (linearRandom)
 		{
 			return (GD.Randf() * (statMax - statMin)) + statMin;
 		}

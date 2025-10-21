@@ -5,16 +5,44 @@ using System.Collections.Generic;
 
 public class AspectInventory
 {
+	// What tower a specific Aspect instance is attached to
 	private readonly Dictionary<Aspect, Tower> _owner = new();
-	public bool IsOwned(Aspect a) => _owner.ContainsKey(a);
-	public Tower OwnerOf(Aspect a) => _owner.TryGetValue(a, out var t) ? t : null;
+	
+	// All aspects the player has
+	private readonly List<Aspect> _bag = new();
 
+	public IEnumerable<Aspect> BagAspects() => _bag;
+
+	public bool Acquire(Aspect a)
+	{
+		if (a == null) return false;
+		_bag.Add(a);
+		return true;
+	}
+
+	public Aspect AcquireFromTemplate(AspectTemplate t)
+	{
+		if (t == null) return null;
+		var instance = new Aspect(t);
+		_bag.Add(instance);
+		GD.Print($"[Inventory] +1 {t._id} (total now {_bag.Count})");
+		return instance;
+	}
+
+
+	public bool RemoveInstance(Aspect a) => _bag.Remove(a);
+
+	public int Count(AspectTemplate t) => t == null ? 0 : _bag.FindAll(x => x.Template == t).Count;
+	public bool HasAny(AspectTemplate t) => Count(t) > 0;
+
+	public bool IsAttached(Aspect a) => a != null && _owner.ContainsKey(a);
+	public Tower AttachedTo(Aspect a) => _owner.TryGetValue(a, out var t) ? t : null;
 
 	public bool AttachTo(Aspect a, Tower t, int slotIndex = -1)
 	{
 		if (a == null || t == null) return false;
-
-		if (IsOwned(a) && OwnerOf(a) != t) return false;
+		if (!_bag.Contains(a)) return false;
+		if (IsAttached(a) && AttachedTo(a) != t) return false;
 
 		bool ok = t.AttachAspect(a, slotIndex);
 		if (ok) _owner[a] = t;
@@ -28,8 +56,6 @@ public class AspectInventory
 		if (ok) _owner.Remove(a);
 		return ok;
 	}
-
-	
 
 	public bool Move(Aspect a, Tower toTower, int slotIndex = -1) => AttachTo(a, toTower, slotIndex);
 }

@@ -11,3 +11,4 @@ _id = "PoisonDart"
 DisplayName = "PoisonDart"
 Modifiers = Array[Resource]([ExtResource("1_ylkms"), ExtResource("2_gvkbn"), ExtResource("3_d3bg1")])
 ProjectileType = 0
+Rarity = 0

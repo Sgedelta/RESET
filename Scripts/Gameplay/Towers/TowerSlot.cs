@@ -1,12 +1,11 @@
 using Godot;
 using System;
-using System.Linq;
-
 
 public partial class TowerSlot : Button
 {
 	[Export] public int Index;
 	[Export] public NodePath TowerSlotsPath;
+
 	private TowerSlots _slots;
 	private Tower _tower;
 	private GameManager _gm;
@@ -14,16 +13,17 @@ public partial class TowerSlot : Button
 	public override void _Ready()
 	{
 		_slots = GetNode<TowerSlots>(TowerSlotsPath);
-		_gm = GetTree().Root.GetNode<GameManager>("/root/Run/GameManager");
+		_gm    = GameManager.Instance ?? GetTree().Root.GetNode<GameManager>("/root/Run/GameManager");
+		_tower = _slots?.Tower;
+
 		MouseFilter = MouseFilterEnum.Stop;
 	}
 
 	public override Variant _GetDragData(Vector2 atPosition)
 	{
-		_tower = _slots?.Tower; 
+		_tower ??= _slots?.Tower;
 		GD.Print($"[TowerSlot {_tower?.Name ?? "null"}:{Index}] _GetDragData called. Disabled={Disabled}");
-		
-	
+
 		if (_tower == null) { GD.Print("  -> NO TOWER"); return default; }
 
 		var aspect = _tower.GetAspectInSlot(Index);
@@ -39,7 +39,8 @@ public partial class TowerSlot : Button
 
 		GD.Print($"  -> starting drag with {aspect.Template._id}");
 		return new Godot.Collections.Dictionary {
-			{ "type","aspect_token" }, { "origin","slot" },
+			{ "type","aspect_token" },
+			{ "origin","slot" },
 			{ "tower_path", _tower.GetPath().ToString() },
 			{ "slot_index", Index },
 			{ "aspect_id", aspect.Template._id }
@@ -50,8 +51,17 @@ public partial class TowerSlot : Button
 	{
 		if (data.VariantType != Variant.Type.Dictionary) return false;
 		var dict = (Godot.Collections.Dictionary)data;
+
 		if (!dict.TryGetValue("type", out var t) || (string)t != "aspect_token") return false;
-		return true;
+		if (!dict.TryGetValue("origin", out var o)) return false;
+
+		var origin = (string)o;
+		if (origin == "bar")
+			return dict.ContainsKey("aspect_id");
+		if (origin == "slot")
+			return dict.ContainsKey("tower_path") && dict.ContainsKey("slot_index");
+
+		return false;
 	}
 
 	public override void _DropData(Vector2 atPosition, Variant data)
