@@ -36,6 +36,8 @@ public partial class UI_TowerPullout : CanvasLayer
 
     [Signal] public delegate void AnimationStateChangedEventHandler(bool AnimState);
 
+    [Export] private RichTextLabel _statDisplay;
+
     public int AvailableSlots
     {
         get
@@ -113,20 +115,25 @@ public partial class UI_TowerPullout : CanvasLayer
 
     public void RefreshUIs()
     {
+        GD.Print("Refreshing UIs");
         // update UIs 
             // _container's children
         DisplaySlots();
-        foreach(Node child in _container.GetChildren())
+        for(int i = 0; i < _container.GetChildCount(); i++)
         {
-            if (child is not AspectSlot slot) continue;
-            var aspect = ActiveTower.GetAspectInSlot(slot.Index);
+            if(_container.GetChild(i) is not AspectSlot slot)
+            {
+                GD.Print("Skipping Slot UI "+ i);
+                continue;
+            }
+            var aspect = ActiveTower.GetAspectInSlot(i);
             slot.Label.Text = aspect != null ? aspect.Template.DisplayName : "+";
         }
 
-            // text based on stats
-        //loop through base stats and modified stats - display net changes?
-            // use specific values? use generic +++/---?
-            // whatever we do here, has to be similar-ish to what we do for aspect hover ui
+        // text based on stats
+        _statDisplay.Text =
+            "Tower Stats\n"
+            +ActiveTower.StatDisplay();
 
 
         // get and update the Bar

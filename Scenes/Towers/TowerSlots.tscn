@@ -13,7 +13,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_12tmg")
-SlotsRowPath = null
 
 [node name="Slots" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -27,7 +26,6 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("2_yhvn8")
-Index = null
 TowerSlotsPath = NodePath("../..")
 
 [node name="HoverAspect" type="Node" parent="Slots/Slot1"]

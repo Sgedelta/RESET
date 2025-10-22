@@ -47,15 +47,13 @@
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/Enemies")
-StartingWaveSize = null
-StartingWaveDuration = null
 AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TempRoot" parent="CanvasLayer" instance=ExtResource("1_hfefo")]
+[node name="TowerPullout" parent="CanvasLayer" instance=ExtResource("1_hfefo")]
 
 [node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
 visible = false
@@ -89,7 +87,6 @@ EnemyScene = ExtResource("2_0j08j")
 MapEnemiesPath = NodePath("../Map/Enemies")
 Path2DPath = NodePath("../Map/Path2D")
 SpawnEvery = 1.5
-SpawnNumber = null
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
 
@@ -104,7 +101,6 @@ default_color = Color(0.870353, 0.000283033, 0.000153441, 1)
 script = ExtResource("4_ixfg1")
 Path2DPath = NodePath("../..")
 Line2DPath = NodePath("..")
-Width = null
 
 [node name="Towers" parent="Map" index="1"]
 position = Vector2(572, 135)
@@ -153,7 +149,6 @@ AspectTemplates = Array[Resource]([ExtResource("14_hdemd"), ExtResource("15_r63x
 script = ExtResource("9_x3f4s")
 GameManagerPath = NodePath("../GameManager")
 EnemiesRootPath = NodePath("../Map/Enemies")
-MaxHealth = null
 
 [editable path="CanvasLayer/AspectBar"]
 [editable path="CanvasLayer/AspectHoverMenu"]

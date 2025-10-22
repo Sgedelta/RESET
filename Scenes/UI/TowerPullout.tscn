@@ -5,10 +5,10 @@
 [ext_resource type="Script" uid="uid://duhrv60aie1wo" path="res://Scripts/Gameplay/Towers/AspectUIContainer.cs" id="3_tgmv1"]
 [ext_resource type="PackedScene" uid="uid://cb2xgnb7sjr8w" path="res://Scenes/UI/AspectSlot.tscn" id="4_tgmv1"]
 
-[node name="TowerPullout" type="CanvasLayer" node_paths=PackedStringArray("_container")]
+[node name="TowerPullout" type="CanvasLayer" node_paths=PackedStringArray("_container", "_statDisplay")]
 script = ExtResource("1_nqjej")
-SlideTime = null
 _container = NodePath("ScrollContainer/GridContainer/AspectContainer")
+_statDisplay = NodePath("ScrollContainer/GridContainer/RichTextLabel")
 AspectSlotScn = ExtResource("4_tgmv1")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -46,6 +46,7 @@ _pullout = NodePath("../../..")
 [node name="AspectSlot" parent="ScrollContainer/GridContainer/AspectContainer" instance=ExtResource("4_tgmv1")]
 layout_mode = 2
 mouse_filter = 1
+Index = 0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/GridContainer"]
 layout_mode = 2

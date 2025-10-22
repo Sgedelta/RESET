@@ -9,9 +9,6 @@ radius = 40.0
 
 [node name="Enemy" type="Node2D" node_paths=PackedStringArray("Follower")]
 script = ExtResource("1_7kucs")
-MaxHp = null
-AttackRate = null
-AttackDamage = null
 Follower = NodePath("PathFollower")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -20,7 +17,6 @@ texture = ExtResource("2_7kucs")
 
 [node name="PathFollower" type="Node2D" parent="."]
 script = ExtResource("3_35yb6")
-Speed = null
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 4

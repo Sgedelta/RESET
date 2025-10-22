@@ -273,5 +273,63 @@ public partial class Tower : Node2D
         
     }
 
+	public string StatDisplay()
+	{
+        string res = "";
+		//display all base stats
+		res += $"Damage: {GetStatIncrease(baseStats.Damage, modifiedStats.Damage, 1)}\n";
+        res += $"Range: {GetStatIncrease(baseStats.Range, modifiedStats.Range)}\n";
+        res += $"Fire Rate: {GetStatIncrease(baseStats.FireRate, modifiedStats.FireRate, 1)}\n";
+        res += $"Projectile Speed: {GetStatIncrease(baseStats.ProjectileSpeed, modifiedStats.ProjectileSpeed)}\n";
+        res += $"Critical Hit Chance: {GetStatIncrease(baseStats.CritChance, modifiedStats.CritChance, 2, true, true)}\n";
+        res += $"Critical Hit Multiplier: {GetStatIncrease(baseStats.CritMult, modifiedStats.CritMult, 1)}\n";
+        res += $"Shot Spread Angle: {GetStatIncrease(baseStats.ShotSpread, modifiedStats.ShotSpread, 1)}\n";
+        res += $"Shot Spread Tightness: {GetStatIncrease(baseStats.ShotSpreadFalloff, modifiedStats.ShotSpreadFalloff, 2, false, true)}\n";
+
+		//display special stats if they are changed
+        if(baseStats.ChainTargets != modifiedStats.ChainTargets) 
+			res += $"Chain Targets: {GetStatIncrease(baseStats.ChainTargets, modifiedStats.ChainTargets, 0,  false)}\n";
+        if (baseStats.ChainDistance != modifiedStats.ChainDistance)
+            res += $"Chain Distance: {GetStatIncrease(baseStats.ChainDistance, modifiedStats.ChainDistance, 0, false)}\n";
+        if (baseStats.SplashRadius != modifiedStats.SplashRadius)
+            res += $"Splash Effect Radius: {GetStatIncrease(baseStats.SplashRadius, modifiedStats.SplashRadius, 0, false)}\n";
+        if (baseStats.SplashCoef != modifiedStats.SplashCoef)
+            res += $"Splash Effect Effectiveness: {GetStatIncrease(baseStats.SplashCoef, modifiedStats.SplashCoef, 2, false, true)}\n";
+        if (baseStats.PoisonDamage != modifiedStats.PoisonDamage)
+            res += $"Poison Damage: {GetStatIncrease(baseStats.PoisonDamage, modifiedStats.PoisonDamage, 1, false)}\n";
+        if (baseStats.PoisonTicks != modifiedStats.PoisonTicks)
+            res += $"Poison Ticks: {GetStatIncrease(baseStats.PoisonTicks, modifiedStats.PoisonTicks, 0, false)}\n";
+        if (baseStats.PiercingAmount != modifiedStats.PiercingAmount)
+            res += $"Piercing Amount: {GetStatIncrease(baseStats.PiercingAmount, modifiedStats.PiercingAmount, 0, false)}\n";
+        if (baseStats.KnockbackAmount != modifiedStats.KnockbackAmount)
+            res += $"Knockback Force: {GetStatIncrease(baseStats.KnockbackAmount, modifiedStats.KnockbackAmount, 1, false)}\n";
+        if (baseStats.SlowdownPercent != modifiedStats.SlowdownPercent)
+            res += $"Slowdown Amount: {GetStatIncrease(baseStats.SlowdownPercent, modifiedStats.SlowdownPercent, 2, false, true)}\n";
+        if (baseStats.SlowdownLength != modifiedStats.SlowdownLength)
+            res += $"Slowdown Length: {GetStatIncrease(baseStats.SlowdownLength, modifiedStats.SlowdownLength, 1, false)}\n";
+        if (baseStats.HomingStrength != modifiedStats.HomingStrength)
+            res += $"Homing Strength: {GetStatIncrease(baseStats.HomingStrength, modifiedStats.HomingStrength, 2, false, true)}\n";
+
+
+
+        return res;
+	}
+
+	public string GetStatIncrease( float start, float real, int decimalPlaces = 0, bool showRealValue = true, bool showAsPercent = false)
+	{
+		float num = real - start;
+		string plusminus = num <= 0 ? "" : "+";
+		string decFormat = $"F{decimalPlaces}";
+		string realVal = $" ({real.ToString(decFormat)})";
+
+		if(showAsPercent)
+		{
+			realVal = showRealValue ? $" ({(real * 100).ToString(decFormat)}%)" : "" ;
+			return $"{plusminus}{(num * 100).ToString(decFormat)}%{realVal}";
+		}
+
+		return $"{plusminus}{num.ToString(decFormat)}{realVal}";
+	}
+
 
 }

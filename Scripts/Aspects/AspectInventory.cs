@@ -51,7 +51,10 @@ public class AspectInventory
 	{
 		if (a == null || t == null) return false;
 		if (!_bag.Contains(a)) return false;
-		if (IsAttached(a) && AttachedTo(a) != t) return false;
+		if (IsAttached(a))
+		{ 
+			DetachFrom(a, AttachedTo(a));
+		}
 
 		bool ok = t.AttachAspect(a, slotIndex);
 		if (ok)
