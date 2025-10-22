@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=41 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
@@ -38,9 +38,37 @@
 [ext_resource type="Resource" uid="uid://dmj63fqtruvft" path="res://Resources/AspectTemplates/Tech/Rare/OverClocked.tres" id="32_yu1dp"]
 [ext_resource type="Resource" uid="uid://b5vdkf6e4lvf6" path="res://Resources/AspectTemplates/Tech/Epic/AdaptiveTargeting.tres" id="33_kuav3"]
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="34_qgpf6"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/RewardMenu.tscn" id="37_r63x1"]
+[ext_resource type="PackedScene" uid="uid://fxiie8iedav8" path="res://Scenes/UI/RewardMenu.tscn" id="37_r63x1"]
+[ext_resource type="PackedScene" uid="uid://bg82b125qr81y" path="res://Scenes/UI/AspectHoverMenu.tscn" id="37_utqwv"]
 
 [node name="Run" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
+visible = false
+
+[node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
+RowPath = NodePath("Margin/Scroll/Row")
+
+[node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
+
+[node name="HealthUI" type="Label" parent="CanvasLayer"]
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 103.0
+offset_bottom = 27.0
+text = "HP: 100 / 100"
+script = ExtResource("11_x3f4s")
+PlayerManagerPath = NodePath("../../PlayerManager")
+
+[node name="GameOverText" type="Label" parent="CanvasLayer"]
+visible = false
+offset_left = 534.0
+offset_top = 282.0
+offset_right = 626.0
+offset_bottom = 305.0
+text = "GAME OVER"
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
@@ -164,34 +192,10 @@ script = ExtResource("9_x3f4s")
 GameManagerPath = NodePath("../GameManager")
 EnemiesRootPath = NodePath("../Map/Enemies")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
-visible = false
-
-[node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
-RowPath = NodePath("Margin/Scroll/Row")
-
-[node name="HealthUI" type="Label" parent="CanvasLayer"]
-offset_left = 3.0
-offset_top = 4.0
-offset_right = 103.0
-offset_bottom = 27.0
-text = "HP: 100 / 100"
-script = ExtResource("11_x3f4s")
-PlayerManagerPath = NodePath("../../PlayerManager")
-
-[node name="GameOverText" type="Label" parent="CanvasLayer"]
-visible = false
-offset_left = 534.0
-offset_top = 282.0
-offset_right = 626.0
-offset_bottom = 305.0
-text = "GAME OVER"
-
+[editable path="CanvasLayer/AspectBar"]
+[editable path="CanvasLayer/AspectHoverMenu"]
 [editable path="Map"]
 [editable path="Map/Towers/Tower"]
 [editable path="Map/Towers/Tower/TowerControl/TowerSlots"]
 [editable path="Map/Towers/Tower2"]
 [editable path="Map/Towers/Tower2/TowerControl/TowerSlots"]
-[editable path="CanvasLayer/AspectBar"]
