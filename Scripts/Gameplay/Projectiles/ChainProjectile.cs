@@ -53,7 +53,7 @@ public partial class ChainProjectile : Projectile
 
         _target = nextTarget;
         float timeToTarget = (_target.GlobalPosition - GlobalPosition).Length() / Speed;
-        dir = (_target.Follower.GetFuturePosition(timeToTarget) - GlobalPosition).Normalized();
+        dir = (_target.GetFuturePosition(timeToTarget) - GlobalPosition).Normalized();
     }
 
     private Enemy FindNextTarget()
