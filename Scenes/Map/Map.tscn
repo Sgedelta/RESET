@@ -2,18 +2,16 @@
 
 [sub_resource type="Curve2D" id="Curve2D_edo5e"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1119, 41, 0, 0, 0, 0, 343, 37, 0, 0, 0, 0, 338, 197, 0, 0, 0, 0, 43, 199, 0, 0, 0, 0, 47, 601, 0, 0, 0, 0, 314, 601, 0, 0, 0, 0, 312, 461, 0, 0, 0, 0, 577, 457, 0, 0, 0, 0, 575, 325, 0, 0, 0, 0, 1108, 319)
+"points": PackedVector2Array(0, 0, 0, 0, 1158.96, 42.4581, 0, 0, 0, 0, 343, 37, 0, 0, 0, 0, 338, 197, 0, 0, 0, 0, 43, 199, 0, 0, 0, 0, 48.2176, 712.674, 0, 0, 0, 0, 309.087, 705.674, 0, 0, 0, 0, 314.758, 582.674, 0, 0, 0, 0, 572.792, 581.674, 0, 0, 0, 0, 575, 325, 0, 0, 0, 0, 1031.2, 318.674, 0, 0, 0, 0, 1033.09, 462.674, 0, 0, 0, 0, 1243.87, 464.674)
 }
-point_count = 10
+point_count = 12
 
 [node name="Map" type="Node2D"]
 
-[node name="Path2D" type="Path2D" parent="."]
-position = Vector2(1, 8)
+[node name="EnemyPath" type="Path2D" parent="."]
+position = Vector2(-6.01419, -9.67376)
+scale = Vector2(1.058, 1)
 curve = SubResource("Curve2D_edo5e")
 
 [node name="Towers" type="Node2D" parent="."]
 position = Vector2(591, 130)
-
-[node name="Enemies" type="Node2D" parent="."]
-position = Vector2(1146, 84)

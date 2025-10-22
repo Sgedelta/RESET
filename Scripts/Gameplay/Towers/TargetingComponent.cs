@@ -4,11 +4,10 @@ using System;
 public partial class TargetingComponent : Node2D
 {
 	[Export] public float Range = 160f;
-	[Export] public NodePath EnemiesRootPath; 
 
 	public Enemy PickTarget(Vector2 origin)
 	{
-		var enemiesRoot = GetNodeOrNull<Node2D>(EnemiesRootPath);
+		var enemiesRoot = GameManager.Instance.EnemiesRoot;
 		if (enemiesRoot == null) return null;
 
 		Enemy best = null;
