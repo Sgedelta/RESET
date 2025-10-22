@@ -6,8 +6,67 @@ public partial class AspectUIContainer : HFlowContainer
 
     [Export] private UI_TowerPullout _pullout;
 
+    /// <summary>
+    /// Takes a Data Dictionary (use _DropData format) and an index to 
+    /// get an aspect and put it into the given slot of the ActiveTower.
+    /// If there was an aspect there, places it wherever this aspect comes from.
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="targetIndex"></param>
+    public void AttachAspectToIndex(Godot.Collections.Dictionary data, int targetIndex)
+    {
+        //ensure data is good
+        Aspect aspect = GameManager.Instance.Inventory.GetByID((string)data["aspect_id"]);
+
+        if (aspect == null)
+        {
+            GD.PushWarning("Found Aspect was null!");
+            return;
+        }
+
+        if (_pullout == null)
+        {
+            GD.PushWarning("Pullout UI is Null when attaching aspect!");
+            return;
+        }
+
+        if (_pullout.ActiveTower == null)
+        {
+            GD.PushWarning("Active Tower for UI is null!");
+            return;
+        }
+
+
+        //grab aspect in slot (can be null)
+
+        Aspect oldAspect = _pullout.ActiveTower.GetAspectInSlot(targetIndex);
+
+        //place new aspect in slot (shouldn't be null)
+
+        if(_pullout.ActiveTower.DetachAspect(targetIndex))
+        {
+            _pullout.ActiveTower.AttachAspect(aspect, targetIndex);
+        }
+        //take oldAspect and put in newAspects past location
+
+        if(oldAspect != null)
+        {
+            switch((string)data["origin"])
+            {
+                case "bar":
+
+                    break;
+            }
+        }
+
+        //refresh/recompute
+        _pullout.RefreshUIs();
+
+    }
+
     public void AttachFromBarToTargetSlot(Godot.Collections.Dictionary data, int targetIndex)
     {
+        //setup and ensuring our data is valid
         var aspectId = (string)data["aspect_id"];
         var aspect = GameManager.Instance.Inventory.GetByID(aspectId); 
 
@@ -29,8 +88,9 @@ public partial class AspectUIContainer : HFlowContainer
             return;
         }
 
-        //attempt to attach in earliest slot
-        int emptySlot = _pullout.ActiveTower.FirstEmptySlotIndex();
+        //attempt to attach in earliest slot if there are empty slots
+        // TODO: Consider if this is needed.
+        /*int emptySlot = _pullout.ActiveTower.FirstEmptySlotIndex();
         if(emptySlot >= 0)
         {
             if (GameManager.Instance.Inventory.AttachTo(aspect, _pullout.ActiveTower, emptySlot))
@@ -58,7 +118,8 @@ public partial class AspectUIContainer : HFlowContainer
         {
             _pullout.ActiveTower.Recompute();
             _pullout.RefreshUIs();
-        }
+        }*/
+
 
     }
 
@@ -136,7 +197,7 @@ public partial class AspectUIContainer : HFlowContainer
             }
         }
 
-        return _pullout.ActiveTower.FirstEmptySlotIndex();
+        return _pullout.ActiveTower.LowestOpenSlot;
     }
 
     public override bool _CanDropData(Vector2 atPosition, Variant data)
@@ -178,8 +239,20 @@ public partial class AspectUIContainer : HFlowContainer
         if(origin == "bar")
         {
             string aspectID = (string)dict["aspect_id"];
+            Aspect aspectInstance = GameManager.Instance.Inventory.GetByID(aspectID);
 
 
+            if(GameManager.Instance.Inventory.AttachTo(aspectInstance, _pullout.ActiveTower, targetIndex))
+            {
+                _pullout.ActiveTower.Recompute();
+                _pullout.RefreshUIs();
+
+            }
+
+        } 
+        else if (origin == "slot")
+        {
+            AttachFromSlotToTargetSlot(dict, targetIndex);
         }
     }
     

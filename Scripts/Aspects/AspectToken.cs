@@ -42,7 +42,7 @@ public partial class AspectToken : Control
 		{
 			{ "type", "aspect_token" },
 			{ "origin", "bar" },
-			{ "aspect_id", Aspect.Template._id }
+			{ "aspect_id", Aspect.ID }
 		};
 		return data;
 	}

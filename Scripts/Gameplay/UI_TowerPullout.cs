@@ -79,6 +79,10 @@ public partial class UI_TowerPullout : CanvasLayer
             // use specific values? use generic +++/---?
             // whatever we do here, has to be similar-ish to what we do for aspect hover ui
 
+
+        // get and update the Bar
+        GetNodeOrNull<AspectBar>("/root/Run/AspectBar")?.Refresh();
+
     }
 
     public void DisplaySlots(int count)

@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 public struct TowerStats
 {
@@ -48,7 +49,21 @@ public partial class Tower : Node2D
 	private TowerStats modifiedStats;
 	public TowerStats ModifiedStats { get { return modifiedStats; } }
 
-	public readonly List<Aspect> AttachedAspects = new();
+	public readonly SortedList<int, Aspect> AttachedAspects = new();
+	public int LowestOpenSlot 
+	{
+		get { 
+            int lowest = 0;
+			//its in order, so count up until we can't count
+            foreach (int index in AttachedAspects.Keys)
+            {
+				if (lowest == index) lowest++;
+				else break;
+            }
+			if (lowest >= modifiedStats.AspectSlots) return -1; //no open slots within range
+            return lowest; //the value, which is in range and is the lowest
+        }     
+	}
 
 	public TargetingComponent Targeting { get; private set; }
 	public ShooterComponent   Shooter   { get; private set; }
@@ -74,37 +89,72 @@ public partial class Tower : Node2D
 
 		UpdateModifiedStats();
 		ApplyStatsToComponents();
-	}
+    }
 
 	public bool AttachAspect(Aspect a, int slotIndex = -1)
 	{
 		GD.Print("Trying to add Aspect");
 		if (a == null) return false;
 		GD.Print("Aspect Exists");
-		if (slotIndex < 0 || slotIndex > AttachedAspects.Count)
+
+		if ((slotIndex < 0 || slotIndex > modifiedStats.AspectSlots) && LowestOpenSlot != -1)
 		{
-			AttachedAspects.Add(a);
+			AttachedAspects.Add(LowestOpenSlot, a);
 
 		}
+		else if(AttachedAspects.ContainsKey(slotIndex))
+		{
+			// the slot is taken, the action fails
+			return false;
+		} 
 		else
 		{
-			AttachedAspects.Insert(slotIndex, a);
+			//add the aspect
+			AttachedAspects.Add(slotIndex, a);
 		}
 		GD.Print("Aspect Added");
 		Recompute();
 		return true;
 	}
 
+	/// <summary>
+	/// Detatches an Aspect from the tower. Returns true if removal is successful, false if that aspect is not here.
+	/// </summary>
+	/// <param name="a"></param>
+	/// <returns></returns>
 	public bool DetachAspect(Aspect a)
 	{
 		if (a == null) return false;
-		bool removed = AttachedAspects.Remove(a);
+		int indexOfAspect = AttachedAspects.IndexOfValue(a);
+
+		if(indexOfAspect == -1)
+		{
+			return false;
+		}
+
+        bool removed = AttachedAspects.Remove(AttachedAspects.GetKeyAtIndex(indexOfAspect));
+		if (removed) Recompute();
+		return removed;
+	}
+
+	/// <summary>
+	/// Detatches an Aspect at the given index from the tower. Returns true if removal is successful or if there is no aspect in that slot
+	/// </summary>
+	/// <param name="aspectIndex"></param>
+	/// <returns></returns>
+	public bool DetachAspect(int aspectIndex)
+	{
+		if (!AttachedAspects.ContainsKey(aspectIndex))
+		{
+			return true;
+		}
+		bool removed = AttachedAspects.Remove(aspectIndex);
 		if (removed) Recompute();
 		return removed;
 	}
 
 	public void Recompute()
-	{
+	{ 
 
 		modifiedStats = CalculateModifiedStats();
 		ApplyStatsToComponents();
@@ -116,16 +166,13 @@ public partial class Tower : Node2D
 	{
 		Shooter?.SetStats(modifiedStats);
 
-		var type = GetProjectileTypeFromAspects();
-		Shooter?.SetProjectileType(type);
-
 		if (Targeting != null) Targeting.Range = modifiedStats.Range;
 	}
 
 	public TowerStats CalculateModifiedStats()
 	{
 		var result = baseStats;
-		foreach (var a in AttachedAspects)
+		foreach (Aspect a in AttachedAspects.Values)
 		{
 			if (a == null) continue;
 			result = a.ModifyGivenStats(result);
@@ -137,44 +184,68 @@ public partial class Tower : Node2D
 		result.ShotSpreadFalloff = Mathf.Max(0.1f, result.ShotSpreadFalloff);
 		return result;
 	}
-
-	private ProjectileType GetProjectileTypeFromAspects()
-	{
-		foreach (var a in AttachedAspects)
-		{
-			if (a?.Template == null) continue;
-			if (a.Template.ProjectileType != ProjectileType.Regular)
-				return a.Template.ProjectileType;
-		}
-		return ProjectileType.Regular;
-	}
 	
 	public Aspect GetAspectInSlot(int index)
 	{
 		if (index < 0 || index >= AttachedAspects.Count) return null;
-		return AttachedAspects[index];
-	}
-
-	public int FirstEmptySlotIndex()
-	{
-		for (int i = 0; i < AttachedAspects.Count; i++)
-			if (AttachedAspects[i] == null) return i;
-		return -1;
+		if(AttachedAspects.ContainsKey(index))
+		{
+            return AttachedAspects[index];
+        }
+		else
+		{
+			return null;
+		}
 	}
 
 	public void SwapSlots(int i, int j)
 	{
 		if (i == j) return;
-		var tmp = AttachedAspects[i];
-		AttachedAspects[i] = AttachedAspects[j];
-		AttachedAspects[j] = tmp;
+		Aspect iAsp = null;
+		Aspect jAsp = null;
+
+		if(AttachedAspects.ContainsKey(i))
+		{
+			iAsp = AttachedAspects[i];
+		}
+		if(AttachedAspects.ContainsKey(j))
+		{
+			jAsp = AttachedAspects[j];
+		}
+
+		//swap w/ sorted list
+		if (iAsp != null && jAsp != null)
+		{
+            var tmp = AttachedAspects[i];
+            AttachedAspects[i] = AttachedAspects[j];
+            AttachedAspects[j] = tmp;
+        }
+		else if (iAsp == null)
+		{
+			AttachedAspects.Remove(j);
+			AttachedAspects.Add(i, jAsp);
+		} 
+		else if (jAsp == null)
+		{
+			AttachedAspects.Remove(i);
+			AttachedAspects.Add(j, iAsp);
+		}
+
+
 	}
 	private void SetSlot(int index, Aspect a)
 	{
-		while (AttachedAspects.Count <= index)
-			AttachedAspects.Add(null);
-
-		AttachedAspects[index] = a;
+		if(AttachedAspects.ContainsKey(index))
+		{
+            AttachedAspects[index] = a;
+        }
+		else
+		{
+			AttachedAspects.Add(index, a);
+		}
+		
 	}
+
+
 
 }
