@@ -22,7 +22,7 @@ public partial class Enemy : PathFollow2D
 	public float HP;
 	private Timer attackTimer;
 
-	[Export] AnimatedSprite2D _sprite;
+	[Export] private AnimatedSprite2D _sprite;
 
 	//Slow information
 	private float _slowPercent = 0f;
@@ -40,6 +40,7 @@ public partial class Enemy : PathFollow2D
 		attackTimer.OneShot = false;
 		attackTimer.Timeout += OnAttackTimeout;
 		EnemyReachedEnd += (e) => attackTimer.Start();
+		EnemyReachedEnd += (e) => {_sprite.Play("Attack");};
 		AddChild(attackTimer);
 
 		AddToGroup("enemies");
@@ -108,13 +109,13 @@ public partial class Enemy : PathFollow2D
 
 	}
 
-    public void SetPathAndCurve(Path2D path)
-    {
-        _path = path;
-        _curve = _path?.Curve;
-    }
+	public void SetPathAndCurve(Path2D path)
+	{
+		_path = path;
+		_curve = _path?.Curve;
+	}
 
-    public void ApplyKnockback(Vector2 direction, float force)
+	public void ApplyKnockback(Vector2 direction, float force)
 	{
 		GlobalPosition += direction.Normalized() * force;
 		GD.Print($"[Enemy] Knocked back by {force}px");
@@ -131,17 +132,17 @@ public partial class Enemy : PathFollow2D
 		AddChild(new PoisonEffect(this, damagePerTick, duration, tickInterval));
 	}
 
-    /// <summary>
-    /// Method to read ahead the follow's position by timeAhead milliseconds.
-    /// </summary>
-    /// <param name="timeAhead">milliseconds to read ahead</param>
-    /// <returns></returns>
-    public Vector2 GetFuturePosition(float timeAhead)
-    {
-        Vector2 pos = new Vector2();
+	/// <summary>
+	/// Method to read ahead the follow's position by timeAhead milliseconds.
+	/// </summary>
+	/// <param name="timeAhead">milliseconds to read ahead</param>
+	/// <returns></returns>
+	public Vector2 GetFuturePosition(float timeAhead)
+	{
+		Vector2 pos = new Vector2();
 
-        pos += _curve.SampleBaked(Progress + (Speed * timeAhead * (1-_slowPercent)));
+		pos += _curve.SampleBaked(Progress + (Speed * timeAhead * (1-_slowPercent)));
 
-        return pos;
-    }
+		return pos;
+	}
 }
