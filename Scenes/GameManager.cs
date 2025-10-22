@@ -7,7 +7,8 @@ public partial class GameManager : Node
 {
 	[Export] public NodePath WaveDirectorPath;
 	[Export] public NodePath EnemiesRoot;
-	[Export] public int StartingWaveSize = 3;
+	[Export] public int StartingWaveSize = 5;
+	[Export] public float StartingWaveDuration = 15f;
 	[Export] public NodePath AspectBarPath;
 	
 	private AspectBar _aspectBar;
@@ -22,6 +23,7 @@ public partial class GameManager : Node
 
 	private int _currentWave = 0;
 	private int _enemiesRemaining = 0;
+	private float _duration = 0;
 	
 	[Export] public NodePath gameOverTextPath;
 	private Label _gameOverText;
@@ -67,8 +69,9 @@ public partial class GameManager : Node
 	private void StartNextWave()
 	{
 		_currentWave++;
-		_enemiesRemaining = StartingWaveSize + (_currentWave * 2);
-		_waveDirector.StartWave(_enemiesRemaining);
+		_enemiesRemaining = StartingWaveSize * (_currentWave +1);
+		_duration = StartingWaveDuration - (_currentWave * .5f);
+		_waveDirector.StartWave(_enemiesRemaining, _duration);
 
 		GD.Print($"start wave {_currentWave} : {_enemiesRemaining} enemies");
 	}

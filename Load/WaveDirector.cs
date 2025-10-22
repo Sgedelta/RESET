@@ -61,6 +61,14 @@ public partial class WaveDirector : Node2D
 		_timer = 0f;
 	}
 	
+	public void StartWave(int enemyCount, float spawningDuration)
+	{
+		SpawnNumber = enemyCount;
+		SpawnEvery = spawningDuration / enemyCount;
+		_count = 0;
+		_timer = 0f;
+	}
+	
 	public void SetGameManager(GameManager manager)
 	{
 		_gameManager = manager;

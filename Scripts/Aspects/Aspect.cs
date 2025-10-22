@@ -181,8 +181,8 @@ public class Aspect
 						newStats.PoisonTicks = (int)Mathf.Round(ApplyFloat(newStats.PoisonTicks, unit));
 					} else 
 					{
-                        newStats.PoisonTicks = ApplyInt(newStats.PoisonTicks, unit);
-                    }
+						newStats.PoisonTicks = ApplyInt(newStats.PoisonTicks, unit);
+					}
 					
 					break;
 
@@ -192,8 +192,8 @@ public class Aspect
 						newStats.ChainTargets = (int)Mathf.Round(ApplyFloat(newStats.ChainTargets, unit));
 					} else
 					{
-                        newStats.ChainTargets = ApplyInt(newStats.ChainTargets, unit);
-                    }
+						newStats.ChainTargets = ApplyInt(newStats.ChainTargets, unit);
+					}
 					break;
 
 				case StatType.ChainDistance :
@@ -203,12 +203,12 @@ public class Aspect
 				case StatType.PiercingAmount : //int
 					if (unit.Type == ModifierType.Multiply)
 					{
-                        newStats.PiercingAmount = (int)Mathf.Round(ApplyFloat(newStats.PiercingAmount, unit));
-                    } else
+						newStats.PiercingAmount = (int)Mathf.Round(ApplyFloat(newStats.PiercingAmount, unit));
+					} else
 					{
-                        newStats.PiercingAmount = ApplyInt(newStats.PiercingAmount, unit);
-                    }
-                        
+						newStats.PiercingAmount = ApplyInt(newStats.PiercingAmount, unit);
+					}
+						
 					break;
 
 				case StatType.KnockbackAmount :

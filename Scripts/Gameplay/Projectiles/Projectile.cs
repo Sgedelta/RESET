@@ -11,10 +11,10 @@ public partial class Projectile : Area2D
 	protected Enemy _target;
 	protected float _damage;
 
-    // how frequently a projectile will retarget to find the nearest enemy, in seconds
-    private const float PROJ_RETARGET_SPEED = .05f;
-    private const float PERFECT_TURN_TIME = .6f; //Scalar for homing speed tuning - roughly correlates to time, but not exactly
-    private float _timeSinceRetarget = float.MaxValue;
+	// how frequently a projectile will retarget to find the nearest enemy, in seconds
+	private const float PROJ_RETARGET_SPEED = .05f;
+	private const float PERFECT_TURN_TIME = .6f; //Scalar for homing speed tuning - roughly correlates to time, but not exactly
+	private float _timeSinceRetarget = float.MaxValue;
 
 	protected Vector2 dir;
 
@@ -77,12 +77,12 @@ public partial class Projectile : Area2D
 		}
 		_timeSinceRetarget += (float)delta;
 
-        //Homing Logic 
-        if(_homingStrength > 0f && _target != null && IsInstanceValid(_target))
-        {
-            Vector2 desiredDir = (_target.GlobalPosition - GlobalPosition).Normalized();
-            dir = dir.Lerp(desiredDir, _homingStrength * (float)delta / PROJ_RETARGET_SPEED).Normalized();
-        }
+		//Homing Logic 
+		if(_homingStrength > 0f && _target != null && IsInstanceValid(_target))
+		{
+			Vector2 desiredDir = (_target.GlobalPosition - GlobalPosition).Normalized();
+			dir = dir.Lerp(desiredDir, _homingStrength * (float)delta / PROJ_RETARGET_SPEED).Normalized();
+		}
 
 		GlobalPosition += dir * Speed * (float)delta;
 
@@ -107,13 +107,13 @@ public partial class Projectile : Area2D
 			return;
 		}
 
-        //GD.Print($"Hit {enemy} with flags {allowDestroy}, {doChain}, {doSplash}, {doPierce}");
+		//GD.Print($"Hit {enemy} with flags {allowDestroy}, {doChain}, {doSplash}, {doPierce}");
 
-        if (_hitEnemies.Contains(enemy))
-        {
-            return;
-        }
-            
+		if (_hitEnemies.Contains(enemy))
+		{
+			return;
+		}
+			
 
 		_hitEnemies.Add(enemy);
 
@@ -188,13 +188,13 @@ public partial class Projectile : Area2D
 		}
 	}
 
-    private void ChainToNextTargets(Enemy firstHit)
-    {
-        var enemies = GameManager.Instance.WaveDirector.ActiveEnemies.Where(e => e != firstHit);
-        List<Enemy> chainedEnemies = new List<Enemy>();
+	private void ChainToNextTargets(Enemy firstHit)
+	{
+		var enemies = GameManager.Instance.WaveDirector.ActiveEnemies.Where(e => e != firstHit);
+		List<Enemy> chainedEnemies = new List<Enemy>();
 
-        Enemy lastChained = firstHit;
-        chainedEnemies.Add(firstHit);
+		Enemy lastChained = firstHit;
+		chainedEnemies.Add(firstHit);
 
 		//loop through enemies and grab chain targets
 		for(int i = 0; i < _chainTargets; i++ )
@@ -202,11 +202,11 @@ public partial class Projectile : Area2D
 			//get nearest
 			Enemy potentialTarget = GameManager.Instance.GetNearestEnemyToPoint(lastChained.GlobalPosition, chainedEnemies);
 
-            //check against distance and valid enemies
-            if(potentialTarget == null || lastChained.GlobalPosition.DistanceTo(potentialTarget.GlobalPosition) > _chainDistance)
-            {
-                break; //break, because if the nearest is too far, all are 
-            }
+			//check against distance and valid enemies
+			if(potentialTarget == null || lastChained.GlobalPosition.DistanceTo(potentialTarget.GlobalPosition) > _chainDistance)
+			{
+				break; //break, because if the nearest is too far, all are 
+			}
 
 			chainedEnemies.Add(potentialTarget);
 			lastChained = potentialTarget;
