@@ -126,7 +126,8 @@ public partial class UI_TowerPullout : CanvasLayer
 				GD.Print("Skipping Slot UI "+ i);
 				continue;
 			}
-			var aspect = ActiveTower.GetAspectInSlot(i);
+			int idx = slot.Index;  // <<— use the logical index you set in DisplaySlots()
+	   		var aspect = ActiveTower.GetAspectInSlot(idx);
 			slot.Label.Text = aspect != null ? aspect.Template.DisplayName : "+";
 		}
 
@@ -143,12 +144,20 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	public void DisplaySlots(int count)
 	{
-		for (int i = _container.GetChildCount(); i < count; i++)
+		// Count how many AspectSlot nodes currently exist in the container
+		int slotsFound = 0;
+		for (int i = 0; i < _container.GetChildCount(); i++)
 		{
-			var newSlot = AspectSlotScn.Instantiate();
+			 if (_container.GetChild(i) is AspectSlot) slotsFound++;
+		}
+		   
+		for (int need = slotsFound; need < count; need++)
+		{
+			var newSlot = AspectSlotScn.Instantiate<AspectSlot>();
 			_container.AddChild(newSlot);
 		}
 		
+		int logical = 0;
 		// activate children that exist
 		for (int i = 0; i < _container.GetChildCount(); i++)
 		{
@@ -157,23 +166,22 @@ public partial class UI_TowerPullout : CanvasLayer
 			
 			if (_container.GetChild(i) is AspectSlot slot)
 			{
-				slot.Visible = i < count;
-				slot.SetIndex(i);              // <— ensure slot.Index matches its position
+				slot.SetIndex(logical); 
+				slot.Visible = logical < count;
+				logical++;
 			}
 		}
-
-		// create new ones that we still need
-		for (int i = _container.GetChildCount(); i < count; i++)
-		{
-			var newSlot = AspectSlotScn.Instantiate();
-			_container.AddChild(newSlot);
-		}
-
+		
+		int seen = 0;
 		// hide ones we don't
-		for(int i = count; i < _container.GetChildCount(); i++)
+		for(int i = 0; i < _container.GetChildCount(); i++)
 		{
 			//set others to not visible
-			_container.GetChild<AspectSlot>(i).Visible = false;
+			if (_container.GetChild(i) is AspectSlot slot)
+			{
+				slot.Visible = seen < count;
+				seen++;
+			}
 		}
 	}
 
