@@ -49,8 +49,17 @@ public partial class AspectBar : Control
 		{
 			tower.Recompute();
 			Refresh();
-			var slotsUI = tower.GetNodeOrNull<TowerSlots>("TowerControl/TowerSlots");
-			slotsUI?.RefreshIcons();
+			RefreshPulloutsForTower(tower);
 		}
 	}
+	
+	private void RefreshPulloutsForTower(Tower tower)
+	{
+		foreach (var n in GetTree().GetNodesInGroup("tower_pullout"))
+		{
+			if (n is UI_TowerPullout p && p.ActiveTower == tower)
+				p.RefreshUIs();
+		}
+	}
+
 }

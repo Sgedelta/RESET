@@ -4,78 +4,68 @@ using System;
 public partial class AspectSlot : PanelContainer
 {
 
-    [Export] public int Index;
+	[Export] public int Index;
 
-    private UI_TowerPullout _pullout;
-    public UI_TowerPullout Pullout { get { return _pullout;  } } //for AspectHover, probably could be better
+	private UI_TowerPullout _pullout;
+	public UI_TowerPullout Pullout { get { return _pullout;  } } //for AspectHover, probably could be better
 
-    public Label Label;
-
-
-    public override void _Ready()
-    {
-        Index = GetIndex();
-        _pullout = null;
-        Node lastChecked = GetParent();
-        while(lastChecked is not UI_TowerPullout && lastChecked != GetNode("/root"))
-        {
-            lastChecked = lastChecked.GetParent();
-        }
-        _pullout = (UI_TowerPullout)lastChecked;
-        Label = GetChild<Label>(0);
+	public Label Label;
 
 
-        base._Ready();
-    }
+	public override void _Ready()
+	{
 
-    public override Variant _GetDragData(Vector2 atPosition)
-    {
-        var aspect = _pullout.ActiveTower.GetAspectInSlot(Index);
+		Node lastChecked = GetParent();
+		while(lastChecked != null && lastChecked is not UI_TowerPullout)
+		{
+			lastChecked = lastChecked.GetParent();
+			_pullout = lastChecked as UI_TowerPullout;
 
-        if (aspect == null)
-        {
-            return default;
-        }
+		}
+		Label = GetChild<Label>(0);
+		base._Ready();
+	}
+	
+	public void SetIndex(int i) { Index = i;}
 
-        if (GetChildCount() > 0)
-        {
-            var preview = (Control)Duplicate();
-            SetDragPreview(preview);
-        }
+	public override Variant _GetDragData(Vector2 atPosition)
+	{
+		var aspect = _pullout.ActiveTower.GetAspectInSlot(Index);
 
-        return new Godot.Collections.Dictionary
-        {
-            { "type","aspect_token" }, { "origin","slot" },
-            { "tower_path", _pullout.ActiveTower.GetPath().ToString() },
-            { "slot_index", Index },
-            { "aspect_id", aspect.ID }
-        };
-    }
+		if (aspect == null)
+		{
+			return default;
+		}
 
-    public override bool _CanDropData(Vector2 atPosition, Variant data)
-    {
-        if(data.VariantType != Variant.Type.Dictionary)
-        {
-            return false;
-        }
+		if (GetChildCount() > 0)
+		{
+			var preview = (Control)Duplicate();
+			SetDragPreview(preview);
+		}
 
-        var dict = (Godot.Collections.Dictionary)data;
+		return new Godot.Collections.Dictionary
+		{
+			{ "type","aspect_token" }, { "origin","slot" },
+			{ "tower_path", _pullout.ActiveTower.GetPath().ToString() },
+			{ "slot_index", Index },
+			{ "aspect_id", aspect.ID }
+		};
+	}
 
-        if(!dict.TryGetValue("type", out var t) || (string)t != "aspect_token")
-        {
-            return false;
-        }
+	public override bool _CanDropData(Vector2 atPosition, Variant data)
+	{
+	 if (data.VariantType != Variant.Type.Dictionary) return false;
+			var dict = (Godot.Collections.Dictionary)data;
+			return dict.TryGetValue("type", out var t) && (string)t == "aspect_token";
+	}
 
-        return true;
-    }
+	public override void _DropData(Vector2 atPosition, Variant data)
+	{
+		var dict = (Godot.Collections.Dictionary)data;
+		_pullout.Container.AttachAspectToIndex(dict, Index);
 
-    public override void _DropData(Vector2 atPosition, Variant data)
-    {
-        var dict = (Godot.Collections.Dictionary)data;
-        var origin = (string)dict["origin"];
-
-        _pullout.Container.AttachAspectToIndex(dict, Index);
-    }
+		_pullout.RefreshUIs();
+	}
 
 
 }
