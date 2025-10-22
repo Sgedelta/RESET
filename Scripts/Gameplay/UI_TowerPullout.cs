@@ -144,39 +144,35 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	public void DisplaySlots(int count)
 	{
-		// Count how many AspectSlot nodes currently exist in the container
+		// Guard
+		if (count < 0) { GD.PushWarning("[UI_TowerPullout] DisplaySlots called with count < 0"); count = 0; }
+		if (AspectSlotScn == null) { GD.PushError("[UI_TowerPullout] AspectSlotScn not set!"); return; }
+
+		// 1) Count existing slots (ignore non-slot UI)
 		int slotsFound = 0;
 		for (int i = 0; i < _container.GetChildCount(); i++)
-		{
-			 if (_container.GetChild(i) is AspectSlot) slotsFound++;
-		}
-		   
+			if (_container.GetChild(i) is AspectSlot) slotsFound++;
+
+		// 2) Create missing slots to reach 'count'
 		for (int need = slotsFound; need < count; need++)
-		{
-			var newSlot = AspectSlotScn.Instantiate<AspectSlot>();
-			_container.AddChild(newSlot);
-		}
-		
+			_container.AddChild(AspectSlotScn.Instantiate<AspectSlot>());
+
+		// 3) Assign indices to *slots only* and control visibility
 		int logical = 0;
-		// activate children that exist
 		for (int i = 0; i < _container.GetChildCount(); i++)
 		{
-			//loop through _container's AspectSlot children - if they don't exist, create more
-			//activate each one (is visible)
-			
 			if (_container.GetChild(i) is AspectSlot slot)
 			{
-				slot.SetIndex(logical); 
+				slot.SetIndex(logical);
 				slot.Visible = logical < count;
 				logical++;
 			}
 		}
-		
+
+		// 4) Hide any extra slots beyond `count`
 		int seen = 0;
-		// hide ones we don't
-		for(int i = 0; i < _container.GetChildCount(); i++)
+		for (int i = 0; i < _container.GetChildCount(); i++)
 		{
-			//set others to not visible
 			if (_container.GetChild(i) is AspectSlot slot)
 			{
 				slot.Visible = seen < count;
@@ -184,6 +180,7 @@ public partial class UI_TowerPullout : CanvasLayer
 			}
 		}
 	}
+
 
 	public void DisplaySlots()
 	{

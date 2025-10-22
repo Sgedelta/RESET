@@ -79,7 +79,7 @@ public class AspectInventory
 	{
 		Aspect a = t.GetAspectInSlot(index);
 		return DetachFrom(a, t);
-    }
+	}
 
-    public bool Move(Aspect a, Tower toTower, int slotIndex = -1) => AttachTo(a, toTower, slotIndex);
+	public bool Move(Aspect a, Tower toTower, int slotIndex = -1) => AttachTo(a, toTower, slotIndex);
 }
