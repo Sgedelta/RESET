@@ -28,6 +28,8 @@ public partial class AspectHoverMenu : Control
 
 	public void ShowAspect(Aspect aspect, Vector2 globalMousePos)
 	{
+		if (aspect == null) return;
+
 		_name.Text   = aspect.Template.DisplayName ?? "Aspect";
 		_rarity.Text = aspect.Template.Rarity.ToString();
 

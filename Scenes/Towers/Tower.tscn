@@ -1,12 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://ci33ppfhyllf"]
+[gd_scene load_steps=6 format=3 uid="uid://ci33ppfhyllf"]
 
 [ext_resource type="Script" uid="uid://6q6h5nkjd56l" path="res://Scripts/Gameplay/Towers/Tower.cs" id="1_8ivuq"]
 [ext_resource type="Script" uid="uid://fwkxq0nd2ryl" path="res://Scripts/Gameplay/Towers/TargetingComponent.cs" id="2_g00a7"]
 [ext_resource type="Script" uid="uid://cu3cj8svp3ca" path="res://Scripts/Gameplay/Towers/ShooterComponent.cs" id="3_j4r41"]
 [ext_resource type="Texture2D" uid="uid://cm8l6pi8qndbc" path="res://TowerPlaceholder.PNG" id="4_g00a7"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqxva"]
+size = Vector2(1024, 1024)
+
 [node name="Tower" type="Node2D"]
 script = ExtResource("1_8ivuq")
+BaseAspectSlots = null
+BaseFireRate = null
+BaseDamage = null
+BaseRange = null
+BaseProjectileSpeed = null
+BaseCritChance = null
+BaseCritMult = null
+BaseShotSpread = null
+BaseShotSpreadFalloff = null
+BaseChainTargets = null
 
 [node name="TargetingComponent" type="Node2D" parent="."]
 script = ExtResource("2_g00a7")
@@ -19,3 +32,10 @@ script = ExtResource("3_j4r41")
 position = Vector2(54, 59)
 scale = Vector2(0.101814, 0.111676)
 texture = ExtResource("4_g00a7")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+shape = SubResource("RectangleShape2D_lqxva")
+
+[connection signal="input_event" from="Sprite2D/Area2D" to="." method="OnTowerClicked"]

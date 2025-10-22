@@ -7,6 +7,7 @@ public partial class AspectSlot : PanelContainer
     [Export] public int Index;
 
     private UI_TowerPullout _pullout;
+    public UI_TowerPullout Pullout { get { return _pullout;  } } //for AspectHover, probably could be better
 
     public Label Label;
 
@@ -14,7 +15,13 @@ public partial class AspectSlot : PanelContainer
     public override void _Ready()
     {
         Index = GetIndex();
-        _pullout = GetParent<UI_TowerPullout>();
+        _pullout = null;
+        Node lastChecked = GetParent();
+        while(lastChecked is not UI_TowerPullout && lastChecked != GetNode("/root"))
+        {
+            lastChecked = lastChecked.GetParent();
+        }
+        _pullout = (UI_TowerPullout)lastChecked;
         Label = GetChild<Label>(0);
 
 
@@ -67,13 +74,7 @@ public partial class AspectSlot : PanelContainer
         var dict = (Godot.Collections.Dictionary)data;
         var origin = (string)dict["origin"];
 
-        if(origin == "bar")
-        {
-            _pullout.Container.AttachFromBarToTargetSlot(dict, Index);
-        } else if (origin == "slot")
-        {
-            _pullout.Container.AttachFromSlotToTargetSlot(dict, Index);
-        }
+        _pullout.Container.AttachAspectToIndex(dict, Index);
     }
 
 

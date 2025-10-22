@@ -80,8 +80,6 @@ public partial class GameManager : Node
 	{
 		_enemiesRemaining--;
 
-		GD.Print($"enemy died, {_enemiesRemaining} left in wave");
-
 		if (_enemiesRemaining <= 0)
 		{
 			GD.Print($"WAVE {_currentWave} CLEAR");

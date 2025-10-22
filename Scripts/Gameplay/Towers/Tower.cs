@@ -65,8 +65,18 @@ public partial class Tower : Node2D
         }     
 	}
 
-	public TargetingComponent Targeting { get; private set; }
+    public UI_TowerPullout Pullout {
+		get {
+			var pullouts = GetTree().GetNodesInGroup("tower_pullout");
+			if(pullouts.Count == 0) return null;
+            return (UI_TowerPullout)pullouts[0]; 
+		} 
+	}
+
+    public TargetingComponent Targeting { get; private set; }
 	public ShooterComponent   Shooter   { get; private set; }
+
+
 
 	public override void _Ready()
 	{
@@ -246,6 +256,22 @@ public partial class Tower : Node2D
 		
 	}
 
+    public void OnTowerClicked(Node view, InputEvent input, int shapeIndex)
+    {
+		if (input is not InputEventMouseButton buttonInput) return;
+		if (!buttonInput.Pressed || buttonInput.ButtonIndex != MouseButton.Left) return;
+
+		if(Pullout.ActiveTower == this)
+		{
+			Pullout.ToggleActive();
+		} 
+		else
+		{
+            Pullout.ActiveTower = this;
+        }
+
+        
+    }
 
 
 }

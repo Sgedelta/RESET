@@ -3,15 +3,15 @@
 [ext_resource type="Script" uid="uid://dxxyryx1eej3r" path="res://Scripts/Gameplay/UI_TowerPullout.cs" id="1_nqjej"]
 [ext_resource type="Theme" uid="uid://fjtkhwpkwdy1" path="res://Resources/Themes/Tower_UI_BG.tres" id="2_gr12i"]
 [ext_resource type="Script" uid="uid://duhrv60aie1wo" path="res://Scripts/Gameplay/Towers/AspectUIContainer.cs" id="3_tgmv1"]
-[ext_resource type="Script" uid="uid://gqe5yd8kptnk" path="res://Scripts/Gameplay/Towers/AspectSlot.cs" id="4_thint"]
+[ext_resource type="PackedScene" uid="uid://cb2xgnb7sjr8w" path="res://Scenes/UI/AspectSlot.tscn" id="4_tgmv1"]
 
-[node name="TempRoot" type="Node2D"]
-
-[node name="TowerPullout" type="CanvasLayer" parent="." node_paths=PackedStringArray("_container")]
+[node name="TowerPullout" type="CanvasLayer" node_paths=PackedStringArray("_container")]
 script = ExtResource("1_nqjej")
+SlideTime = null
 _container = NodePath("ScrollContainer/GridContainer/AspectContainer")
+AspectSlotScn = ExtResource("4_tgmv1")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TowerPullout"]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
@@ -19,48 +19,36 @@ anchor_bottom = 1.0
 offset_left = -250.0
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("2_gr12i")
 
-[node name="GridContainer" type="GridContainer" parent="TowerPullout/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 theme = ExtResource("2_gr12i")
 
-[node name="Title" type="Label" parent="TowerPullout/ScrollContainer/GridContainer"]
+[node name="Title" type="Label" parent="ScrollContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Tower UI!"
 horizontal_alignment = 1
 
-[node name="AspectContainer" type="HFlowContainer" parent="TowerPullout/ScrollContainer/GridContainer" node_paths=PackedStringArray("_pullout")]
+[node name="AspectContainer" type="HFlowContainer" parent="ScrollContainer/GridContainer" node_paths=PackedStringArray("_pullout")]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 0
 alignment = 1
 script = ExtResource("3_tgmv1")
 _pullout = NodePath("../../..")
 
-[node name="AspectSlot" type="PanelContainer" parent="TowerPullout/ScrollContainer/GridContainer/AspectContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="AspectSlot" parent="ScrollContainer/GridContainer/AspectContainer" instance=ExtResource("4_tgmv1")]
 layout_mode = 2
-script = ExtResource("4_thint")
+mouse_filter = 1
 
-[node name="Label" type="Label" parent="TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
-layout_mode = 2
-text = "+ "
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AspectHoverUI" type="PanelContainer" parent="TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="TowerPullout/ScrollContainer/GridContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/GridContainer"]
 layout_mode = 2
 fit_content = true
 
-[node name="Button2" type="Button" parent="."]
-offset_right = 145.0
-offset_bottom = 145.0
-text = "Toggle In Out"
-
-[connection signal="pressed" from="Button2" to="TowerPullout" method="ToggleActive"]
+[editable path="ScrollContainer/GridContainer/AspectContainer/AspectSlot"]

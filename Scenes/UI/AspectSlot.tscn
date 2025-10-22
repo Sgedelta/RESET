@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb2xgnb7sjr8w"]
+
+[ext_resource type="Script" uid="uid://gqe5yd8kptnk" path="res://Scripts/Gameplay/Towers/AspectSlot.cs" id="1_pfy1q"]
+[ext_resource type="Script" uid="uid://bbpoax07bi5jy" path="res://Scenes/UI/HoverAspect.cs" id="2_cdbvh"]
+
+[node name="AspectSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(50, 50)
+script = ExtResource("1_pfy1q")
+Index = null
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+mouse_filter = 1
+text = "+ "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AspectHoverUI" type="PanelContainer" parent="."]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="AspectHoverable" type="Node" parent="."]
+script = ExtResource("2_cdbvh")

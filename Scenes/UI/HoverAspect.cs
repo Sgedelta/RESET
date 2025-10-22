@@ -39,10 +39,10 @@ public partial class HoverAspect : Node
 			return token.Aspect;
 
 		//  TowerSlot
-		if (parentNode is TowerSlot slot)
+		if (parentNode is AspectSlot slot)
 		{
-			var slots = slot.GetNodeOrNull<TowerSlots>(slot.TowerSlotsPath);
-			var tower = slots?.Tower;
+			var pullout = GetParent<AspectSlot>().Pullout;
+			var tower = pullout?.ActiveTower;
 			return tower?.GetAspectInSlot(slot.Index);
 		}
 

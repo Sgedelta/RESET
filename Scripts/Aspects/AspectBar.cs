@@ -5,22 +5,21 @@ public partial class AspectBar : Control
 	[Export] public PackedScene TokenScene;
 	[Export] public NodePath RowPath = "Panel/Margin/Scroll/Row";
 	private HBoxContainer _row;
-	private GameManager _gm;
 
 	public override void _Ready()
 	{
 		_row = GetNode<HBoxContainer>(RowPath);
-		_gm  = GetTree().Root.GetNode<GameManager>("/root/Run/GameManager");
 		Refresh();
 	}
 
 	public void Refresh()
 	{
+		GD.Print("Refreshing Bar");
 		foreach (Node child in _row.GetChildren()) child.QueueFree();
 
-		foreach (var aspect in _gm.Inventory.BagAspects())
+		foreach (var aspect in GameManager.Instance.Inventory.BagAspects())
 		{
-			if (_gm.Inventory.IsAttached(aspect)) continue;
+			if (GameManager.Instance.Inventory.IsAttached(aspect)) continue;
 
 			var token = TokenScene.Instantiate<AspectToken>();
 			token.Init(aspect);
@@ -46,7 +45,7 @@ public partial class AspectBar : Control
 		var aspect = tower.GetAspectInSlot(slotIndex);
 		if (aspect == null) return;
 
-		if (_gm.Inventory.DetachFrom(aspect, tower))
+		if (GameManager.Instance.Inventory.DetachFrom(aspect, tower))
 		{
 			tower.Recompute();
 			Refresh();

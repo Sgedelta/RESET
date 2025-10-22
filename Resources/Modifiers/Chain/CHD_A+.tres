@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_s57ef")
-statMin = 10000.0
-statMax = 10000.0
+statMin = 200.0
+statMax = 350.0
 linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
