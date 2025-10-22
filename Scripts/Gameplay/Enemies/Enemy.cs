@@ -1,18 +1,28 @@
 using Godot;
 using System;
+using System.Security.Cryptography;
 
-public partial class Enemy : Node2D
+public partial class Enemy : PathFollow2D
 {
 	[Signal] public delegate void EnemyDiedEventHandler(Enemy enemy);
 	[Signal] public delegate void EnemyAttackedEventHandler(Enemy enemy, float damage);
+	[Signal] public delegate void EnemyReachedEndEventHandler(Enemy enemy);
+
+	private Path2D _path;
+	private Curve2D _curve;
 
 	[Export] public float MaxHp = 30f;         // max health
 	[Export] public float AttackRate = 1.2f;   // time between attacks in seconds
 	[Export] public float AttackDamage = 3f;   // damage per attack
-	[Export] public PathFollower Follower;
+
+	[Export] public float Speed = 80f;
+	private bool _calledReachedEnd = false;
+	public bool ReachedEnd { get { return ProgressRatio >= 1; } }
 
 	public float HP;
 	private Timer attackTimer;
+
+	[Export] AnimatedSprite2D _sprite;
 
 	//Slow information
 	private float _slowPercent = 0f;
@@ -29,9 +39,12 @@ public partial class Enemy : Node2D
 		attackTimer.WaitTime = AttackRate;
 		attackTimer.OneShot = false;
 		attackTimer.Timeout += OnAttackTimeout;
+		EnemyReachedEnd += (e) => attackTimer.Start();
 		AddChild(attackTimer);
 
 		AddToGroup("enemies");
+
+		_sprite.Play("Idle");
 	}
 	public override void _Process(double delta)
 	{
@@ -42,6 +55,14 @@ public partial class Enemy : Node2D
 			{
 				ResetSlow();
 			}
+		}
+
+		Progress += Speed * (float)delta * (1-_slowPercent);
+		
+		if(ReachedEnd && !_calledReachedEnd)
+		{
+			_calledReachedEnd = true;
+			EmitSignal(SignalName.EnemyReachedEnd, this);
 		}
 	}
 
@@ -55,20 +76,10 @@ public partial class Enemy : Node2D
 		}
 
 	}
-  
-	public void OnReachedPathEnd()
-	{
-		attackTimer.Start();
-	}
 
 	private void OnAttackTimeout()
 	{
 		EmitSignal(SignalName.EnemyAttacked, this, AttackDamage);
-	}
-
-	public void SetPath(Path2D path)
-	{
-		Follower.SetPath(path);
 	}
 
 	public void ApplyDamageOverTime(float damagePerTick, float duration, float tickInterval)
@@ -86,9 +97,6 @@ public partial class Enemy : Node2D
 		_slowTimer = duration;
 		_isSlowed = true;
 
-		if (Follower != null)
-			Follower.Speed *= (1f - percent);
-
 		GD.Print($"[Enemy] Slowed by {percent * 100}% for {duration}s");
 	}
 
@@ -98,11 +106,15 @@ public partial class Enemy : Node2D
 		_slowPercent = 0f;
 		_slowDuration = 0f;
 
-		if (Follower != null)
-			Follower.Speed = 100f; // replace with base speed later
 	}
 
-	public void ApplyKnockback(Vector2 direction, float force)
+    public void SetPathAndCurve(Path2D path)
+    {
+        _path = path;
+        _curve = _path?.Curve;
+    }
+
+    public void ApplyKnockback(Vector2 direction, float force)
 	{
 		GlobalPosition += direction.Normalized() * force;
 		GD.Print($"[Enemy] Knocked back by {force}px");
@@ -118,4 +130,18 @@ public partial class Enemy : Node2D
 		GD.Print($"[Enemy] Poison applied for {ticks} ticks at {damagePerTick} dmg/tick");
 		AddChild(new PoisonEffect(this, damagePerTick, duration, tickInterval));
 	}
+
+    /// <summary>
+    /// Method to read ahead the follow's position by timeAhead milliseconds.
+    /// </summary>
+    /// <param name="timeAhead">milliseconds to read ahead</param>
+    /// <returns></returns>
+    public Vector2 GetFuturePosition(float timeAhead)
+    {
+        Vector2 pos = new Vector2();
+
+        pos += _curve.SampleBaked(Progress + (Speed * timeAhead * (1-_slowPercent)));
+
+        return pos;
+    }
 }

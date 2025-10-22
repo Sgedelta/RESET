@@ -43,10 +43,10 @@
 
 [node name="Run" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot")]
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
-EnemiesRoot = NodePath("../Map/Enemies")
+EnemiesRoot = NodePath("../Map/Path2D")
 AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
@@ -84,7 +84,6 @@ text = "GAME OVER"
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
 EnemyScene = ExtResource("2_0j08j")
-MapEnemiesPath = NodePath("../Map/Enemies")
 Path2DPath = NodePath("../Map/Path2D")
 SpawnEvery = 1.5
 
@@ -109,9 +108,6 @@ position = Vector2(572, 135)
 position = Vector2(-428, 171)
 BaseProjectileSpeed = 750.0
 
-[node name="TargetingComponent" parent="Map/Towers/Tower" index="0"]
-EnemiesRootPath = NodePath("../../../Enemies")
-
 [node name="ShooterComponent" parent="Map/Towers/Tower" index="1"]
 ProjectileScene = ExtResource("5_ixfg1")
 HomingProjectileScene = ExtResource("7_asn5m")
@@ -126,9 +122,6 @@ position = Vector2(1.99994, -6.00003)
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
 position = Vector2(16, 53)
 BaseProjectileSpeed = 750.0
-
-[node name="TargetingComponent" parent="Map/Towers/Tower2" index="0"]
-EnemiesRootPath = NodePath("../../../Enemies")
 
 [node name="ShooterComponent" parent="Map/Towers/Tower2" index="1"]
 ProjectileScene = ExtResource("5_ixfg1")

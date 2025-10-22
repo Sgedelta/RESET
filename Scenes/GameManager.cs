@@ -6,7 +6,7 @@ using System.Linq;
 public partial class GameManager : Node
 {
 	[Export] public NodePath WaveDirectorPath;
-	[Export] public NodePath EnemiesRoot;
+	[Export] public Path2D EnemiesRoot;
 	[Export] public int StartingWaveSize = 5;
 	[Export] public float StartingWaveDuration = 15f;
 	[Export] public NodePath AspectBarPath;

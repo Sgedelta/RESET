@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public partial class WaveDirector : Node2D
 {
 	[Export] public PackedScene EnemyScene;
-	[Export] public NodePath MapEnemiesPath;
 	[Export] public NodePath Path2DPath;
 	[Export] public float SpawnEvery = 5.0f;
 	[Export] public int SpawnNumber = 5;
@@ -14,7 +13,6 @@ public partial class WaveDirector : Node2D
 	private int _count;
 	public int GetSpawnedCount() => _count;
 	
-	private Node2D _enemiesRoot;
 	private Path2D _path2D;
 	private List<Enemy> _activeEnemies;
 
@@ -24,7 +22,6 @@ public partial class WaveDirector : Node2D
 	
 	public override void _Ready()
 	{
-		_enemiesRoot = GetNode<Node2D>(MapEnemiesPath);
 		_path2D = GetNode<Path2D>(Path2DPath);
 		_count = 0;
 		_activeEnemies = new List<Enemy>();
@@ -41,9 +38,9 @@ public partial class WaveDirector : Node2D
 
 		// Spawn enemy on the Enemies node
 		 var enemy = (Enemy)EnemyScene.Instantiate();
-		_enemiesRoot.AddChild(enemy);
+		GameManager.Instance.EnemiesRoot.AddChild(enemy);
 
-		enemy.SetPath(_path2D);
+		enemy.SetPathAndCurve(_path2D);
 		_activeEnemies.Add(enemy);
 		
 		if (_gameManager != null)
