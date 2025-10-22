@@ -46,8 +46,8 @@
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot")]
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
-EnemiesRoot = NodePath("../Map/Path2D")
-AspectBarPath = NodePath("../CanvasLayer/AspectBar")
+EnemiesRoot = NodePath("../Map/EnemyPath")
+AspectBarPath = NodePath("../CanvasLayer/AspectBarLayout/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 
@@ -58,8 +58,43 @@ RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 [node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
 visible = false
 
-[node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
+[node name="AspectBarLayout" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[node name="AspectBar" parent="CanvasLayer/AspectBarLayout" instance=ExtResource("9_kl2rs")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 1
 RowPath = NodePath("Margin/Scroll/Row")
+
+[node name="Panel" parent="CanvasLayer/AspectBarLayout/AspectBar" index="0"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1440.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Margin" parent="CanvasLayer/AspectBarLayout/AspectBar" index="1"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
 mouse_filter = 2
@@ -84,28 +119,17 @@ text = "GAME OVER"
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
 EnemyScene = ExtResource("2_0j08j")
-Path2DPath = NodePath("../Map/Path2D")
+Path2DPath = NodePath("../Map/EnemyPath")
 SpawnEvery = 1.5
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
-
-[node name="Path2D" parent="Map" index="0"]
-position = Vector2(0, 0)
-
-[node name="Line2D" type="Line2D" parent="Map/Path2D" index="0"]
-points = PackedVector2Array(-263, -242)
-default_color = Color(0.870353, 0.000283033, 0.000153441, 1)
-
-[node name="Node" type="Node" parent="Map/Path2D/Line2D"]
-script = ExtResource("4_ixfg1")
-Path2DPath = NodePath("../..")
-Line2DPath = NodePath("..")
 
 [node name="Towers" parent="Map" index="1"]
 position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
-position = Vector2(-428, 171)
+position = Vector2(-395, 193)
+BaseRange = 600.0
 BaseProjectileSpeed = 750.0
 
 [node name="ShooterComponent" parent="Map/Towers/Tower" index="1"]
@@ -120,7 +144,8 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 position = Vector2(1.99994, -6.00003)
 
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
-position = Vector2(16, 53)
+position = Vector2(-52, 2)
+BaseRange = 600.0
 BaseProjectileSpeed = 750.0
 
 [node name="ShooterComponent" parent="Map/Towers/Tower2" index="1"]
@@ -134,6 +159,22 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 [node name="Sprite2D" parent="Map/Towers/Tower2" index="2"]
 position = Vector2(1.99994, -6.00003)
 
+[node name="Tower3" parent="Map/Towers" index="2" instance=ExtResource("4_jbeyo")]
+position = Vector2(206, 349)
+BaseRange = 600.0
+BaseProjectileSpeed = 750.0
+
+[node name="ShooterComponent" parent="Map/Towers/Tower3" index="1"]
+ProjectileScene = ExtResource("5_ixfg1")
+HomingProjectileScene = ExtResource("7_asn5m")
+ExplosiveProjectileScene = ExtResource("8_q06an")
+PiercingProjectileScene = ExtResource("9_s2nua")
+PoisonProjectileScene = ExtResource("10_u4oo0")
+ChainProjectileScene = ExtResource("11_6kpg7")
+
+[node name="Sprite2D" parent="Map/Towers/Tower3" index="2"]
+position = Vector2(1.99994, -6.00003)
+
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
 AspectTemplates = Array[Resource]([ExtResource("14_hdemd"), ExtResource("15_r63x1"), ExtResource("16_utqwv"), ExtResource("17_hfefo"), ExtResource("18_ygtc6"), ExtResource("19_f4ujw"), ExtResource("20_pnlt7"), ExtResource("21_yx05o"), ExtResource("22_1hugo"), ExtResource("23_72pqr"), ExtResource("24_d0gkt"), ExtResource("25_pgm2k"), ExtResource("26_jsh7i"), ExtResource("27_jifya"), ExtResource("28_5mnqj"), ExtResource("29_6qte5"), ExtResource("30_liml1"), ExtResource("31_52uki"), ExtResource("32_yu1dp"), ExtResource("33_kuav3"), ExtResource("34_qgpf6")])
@@ -141,10 +182,20 @@ AspectTemplates = Array[Resource]([ExtResource("14_hdemd"), ExtResource("15_r63x
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("9_x3f4s")
 GameManagerPath = NodePath("../GameManager")
-EnemiesRootPath = NodePath("../Map/Enemies")
+EnemiesRootPath = NodePath("../Map/EnemyPath")
 
-[editable path="CanvasLayer/AspectBar"]
+[node name="PathVis" type="Node" parent="."]
+script = ExtResource("4_ixfg1")
+Path2DPath = NodePath("../Map/EnemyPath")
+Line2DPath = NodePath("Line2D")
+
+[node name="Line2D" type="Line2D" parent="PathVis"]
+z_index = -180
+default_color = Color(1, 0, 0, 1)
+
+[editable path="CanvasLayer/AspectBarLayout/AspectBar"]
 [editable path="CanvasLayer/AspectHoverMenu"]
 [editable path="Map"]
 [editable path="Map/Towers/Tower"]
 [editable path="Map/Towers/Tower2"]
+[editable path="Map/Towers/Tower3"]

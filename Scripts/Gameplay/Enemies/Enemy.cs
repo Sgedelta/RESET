@@ -39,7 +39,7 @@ public partial class Enemy : PathFollow2D
 		attackTimer.WaitTime = AttackRate;
 		attackTimer.OneShot = false;
 		attackTimer.Timeout += OnAttackTimeout;
-		EnemyReachedEnd += (e) => attackTimer.Start();
+		EnemyReachedEnd += (e) => { attackTimer.Start(); };
 		EnemyReachedEnd += (e) => {_sprite.Play("Attack");};
 		AddChild(attackTimer);
 
@@ -81,6 +81,7 @@ public partial class Enemy : PathFollow2D
 	private void OnAttackTimeout()
 	{
 		EmitSignal(SignalName.EnemyAttacked, this, AttackDamage);
+		GD.Print("Attack Timeout!");
 	}
 
 	public void ApplyDamageOverTime(float damagePerTick, float duration, float tickInterval)
