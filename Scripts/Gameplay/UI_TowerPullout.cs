@@ -136,9 +136,12 @@ public partial class UI_TowerPullout : CanvasLayer
 			"Tower Stats\n"
 			+ActiveTower.StatDisplay();
 
+		
 
 		// get and update the Bar
-		GetNodeOrNull<AspectBar>("/root/Run/CanvasLayer/AspectBar")?.Refresh();
+		if(AspectBar.Instance != null) {
+			AspectBar.Instance.Refresh();
+		}
 
 	}
 

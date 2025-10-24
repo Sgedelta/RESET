@@ -5,9 +5,16 @@ public partial class AspectBar : Control
 	[Export] public PackedScene TokenScene;
 	[Export] public NodePath RowPath = "Panel/Margin/Scroll/Row";
 	private HBoxContainer _row;
+	public static AspectBar Instance;
 
 	public override void _Ready()
 	{
+		if(Instance != null && Instance != this) {
+			this.QueueFree();
+		} else if (Instance == null) {
+			Instance = this;
+		}
+		
 		_row = GetNode<HBoxContainer>(RowPath);
 		Refresh();
 	}
