@@ -9,7 +9,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -94.0
+offset_top = -146.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -18,9 +18,9 @@ script = ExtResource("1_kk8ba")
 TokenScene = ExtResource("2_16sq4")
 
 [node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+offset_right = 50.0
+offset_bottom = 63.0
 scale = Vector2(29.0643, 2.32224)
 
 [node name="Margin" type="MarginContainer" parent="."]
@@ -32,11 +32,10 @@ offset_bottom = 100.0
 [node name="Scroll" type="ScrollContainer" parent="Margin"]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
+vertical_scroll_mode = 0
 
 [node name="Row" type="HBoxContainer" parent="Margin/Scroll"]
 clip_contents = true
-custom_minimum_size = Vector2(55, 55)
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 theme_override_constants/separation = 8

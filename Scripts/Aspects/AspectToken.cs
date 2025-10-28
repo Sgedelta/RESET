@@ -4,7 +4,6 @@ public partial class AspectToken : Control
 {
 	public Aspect Aspect { get; private set; }
 
-	[Export] public Texture2D Icon;
 
 	private TextureRect _icon;
 	private Label _label;
@@ -14,8 +13,10 @@ public partial class AspectToken : Control
 		_icon  = GetNodeOrNull<TextureRect>("TextureRect");
 		_label = GetNodeOrNull<Label>("Label");
 
-		if (_icon != null && Icon != null) _icon.Texture = Icon;
+		if (_icon != null && Aspect != null) _icon.Texture = Aspect.Template.AspectSprite;
 		if (_label != null && Aspect != null) _label.Text = Aspect.Template.DisplayName;
+		
+
 
 		MouseFilter = MouseFilterEnum.Pass;
 		
@@ -24,7 +25,7 @@ public partial class AspectToken : Control
 	public void Init(Aspect aspect, Texture2D icon = null)
 	{
 		Aspect = aspect;
-		if (icon != null) Icon = icon;
+		Aspect.Template.AspectSprite = icon;
 		if (IsInsideTree()) _Ready();
 	}
 

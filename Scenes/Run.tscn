@@ -93,6 +93,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 0.0
+offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -193,6 +194,8 @@ Line2DPath = NodePath("Line2D")
 z_index = -180
 default_color = Color(1, 0, 0, 1)
 
+[editable path="CanvasLayer/TowerPullout"]
+[editable path="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
 [editable path="CanvasLayer/AspectBarLayout/AspectBar"]
 [editable path="CanvasLayer/AspectHoverMenu"]
 [editable path="Map"]

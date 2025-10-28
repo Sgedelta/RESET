@@ -18,6 +18,7 @@ public abstract partial class ModifierInfo : Resource
 	[Export] public ModifierType ModifierType;
 
 
+
 	/// <summary>
 	/// A method to be implemented in all specfic modifier infos. 
 	/// Must return object, because each ModifierInfo exists because
@@ -34,6 +35,7 @@ public partial class AspectTemplate : Resource
 
 	[Export] public string _id; //a unique id for this type of Aspect
 	[Export] public string DisplayName; //A display name for this aspect, such as "Rapid Fire"
+	[Export] public Texture2D AspectSprite;
 
 	//ToDo: add information/data/links to resources about sprites and such... once we have them.
 		//must be a Godot Array to be exported
