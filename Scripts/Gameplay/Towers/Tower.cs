@@ -315,6 +315,7 @@ public partial class Tower : Node2D
 		string decFormat = $"F{decimalPlaces}";
 		string realVal = $" ({real.ToString(decFormat)})";
 
+		// Certain stats go (typically) from 0-1, and serve as percentages. we display them as these.
 		if(showAsPercent)
 		{
 			realVal = showRealValue ? $" ({(real * 100).ToString(decFormat)}%)" : "" ;

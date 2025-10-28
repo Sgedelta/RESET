@@ -239,13 +239,34 @@ public class Aspect
 	static float ApplyFloat(float current, ModifierUnit unit)
 	{
 		float modVal = ((FloatModifierUnit)unit).Value;
-		return unit.Type switch
+		switch (unit.Type)
 		{
-			ModifierType.Add => current + modVal,
-			ModifierType.Multiply => current * modVal,
-			ModifierType.Subtract => current - modVal,
-			_ => current
+			case ModifierType.Add:
+				current = current + modVal;
+				break;
+			
+			case ModifierType.Multiply:
+				if (current == 0)
+				{
+					//stats that start as percentages start at a default value of 1%
+					if(unit.Stat == StatType.CritChance ||
+						unit.Stat == StatType.SpreadFalloff ||
+						unit.Stat == StatType.SplashCoef ||
+						unit.Stat == StatType.SlowdownPercent ||
+						unit.Stat == StatType.HomingStrength)
+					{
+						current = 0.01f;
+					} 
+					else //other stats use a default of 1
+					{
+						current = 1;
+					}
+				}
+				current = current * modVal;
+				break;
+			
 		};
+		return modVal;
 	}
 
 	static int ApplyInt(int current, ModifierUnit unit) {
