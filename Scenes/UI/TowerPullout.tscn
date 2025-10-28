@@ -5,18 +5,16 @@
 [ext_resource type="Script" uid="uid://duhrv60aie1wo" path="res://Scripts/Gameplay/Towers/AspectUIContainer.cs" id="3_tgmv1"]
 [ext_resource type="PackedScene" uid="uid://cb2xgnb7sjr8w" path="res://Scenes/UI/AspectSlot.tscn" id="4_tgmv1"]
 
-[node name="TowerPullout" type="CanvasLayer" node_paths=PackedStringArray("_container", "_statDisplay")]
+[node name="TowerPullout" type="CanvasLayer" node_paths=PackedStringArray("_container")]
 script = ExtResource("1_nqjej")
 _container = NodePath("ScrollContainer/GridContainer/AspectContainer")
-_statDisplay = NodePath("ScrollContainer/GridContainer/RichTextLabel")
-AspectSlotScn = ExtResource("4_tgmv1")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -250.0
+offset_left = -346.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
@@ -51,5 +49,23 @@ Index = 0
 [node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/GridContainer"]
 layout_mode = 2
 fit_content = true
+
+[node name="HFlowContainer" type="HFlowContainer" parent="ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/GridContainer/HFlowContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.01
+text = "Critical Hit Multiplier"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="ScrollContainer/GridContainer/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Stat Value"
+fit_content = true
+horizontal_alignment = 2
 
 [editable path="ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
