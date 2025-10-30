@@ -47,7 +47,9 @@
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/EnemyPath")
+AspectBarPath = NodePath("../CanvasLayer/AspectBarLayout/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
+RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

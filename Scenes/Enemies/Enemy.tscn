@@ -7,10 +7,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_7kucs"]
 radius = 40.0
 
-[node name="Enemy" type="PathFollow2D"]
+[node name="Enemy" type="PathFollow2D" node_paths=PackedStringArray("_sprite")]
 loop = false
 script = ExtResource("1_7kucs")
 MaxHp = 45.0
+_sprite = NodePath("AnimatedSprite2D")
 DamageIndicatorScene = ExtResource("2_qwcx1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

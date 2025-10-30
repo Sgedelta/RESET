@@ -70,10 +70,10 @@ public partial class Enemy : PathFollow2D
 		}
 	}
 
-	public void TakeDamage(float dmg)
+	public void TakeDamage(float dmg, DamageType type)
 	{
 		HP -= dmg;
-		ShowDamageIndicator(dmg);
+		ShowDamageIndicator(dmg, type);
 		if (HP <= 0f) 
 		{
 			EmitSignal(SignalName.EnemyDied, this);
@@ -82,9 +82,20 @@ public partial class Enemy : PathFollow2D
 
 	}
 
-	private void ShowDamageIndicator(float dmg)
+	public void TakeDamage(float dmg)
 	{
-		if (DamageIndicatorScene == null) return;
+		TakeDamage(dmg, DamageType.Normal);
+	}
+
+
+	private void ShowDamageIndicator(float dmg, DamageType type)
+	{
+		//Make Damage Type enum - set indicator color off damage type?
+		if (DamageIndicatorScene == null)
+		{
+			GD.PushWarning("Damage indicator failed due to scene being null. Took " + dmg + " damage.");
+			return;
+		}
 
         var indicator = (DamageIndicator)DamageIndicatorScene.Instantiate();
         GetTree().CurrentScene.AddChild(indicator);
