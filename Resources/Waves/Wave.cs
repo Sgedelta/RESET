@@ -3,7 +3,5 @@ using System;
 
 public partial class Wave : Resource
 {
-
-    [Export] Godot.Collections.Array<Godot.Collections.Array> WaveInfo;
-
+	[Export] public Godot.Collections.Array<EnemyInfo> WaveEnemies;
 }

@@ -7,10 +7,12 @@ public partial class GameManager : Node
 {
 	[Export] public NodePath WaveDirectorPath;
 	[Export] public Path2D EnemiesRoot;
-	[Export] public int StartingWaveSize = 5;
-	[Export] public float StartingWaveDuration = 15f;
-	[Export] public NodePath AspectBarPath;
 	
+	// Folder containing Wave resource files
+	[Export(PropertyHint.Dir)] public string WaveFolderPath = "res://Resources/Waves";
+	
+
+	[Export] public NodePath AspectBarPath;	
 	private AspectBar _aspectBar;
 
 	//Singleton
@@ -69,13 +71,29 @@ public partial class GameManager : Node
 	private void StartNextWave()
 	{
 		_currentWave++;
-		_enemiesRemaining = StartingWaveSize * (_currentWave +1);
-		_duration = StartingWaveDuration - (_currentWave * .5f);
-		_waveDirector.StartWave(_enemiesRemaining, _duration);
 
-		GD.Print($"start wave {_currentWave} : {_enemiesRemaining} enemies");
+		string wavePath = $"{WaveFolderPath}/Wave{_currentWave}.tres";
+		GD.Print($"[GM] Attempting to load {wavePath}");
+
+		if (!ResourceLoader.Exists(wavePath))
+		{
+			GD.Print($"[GM] No more waves found after wave {_currentWave - 1}.");
+			return;
+		}
+
+		Wave wave = ResourceLoader.Load<Wave>(wavePath);
+		if (wave == null)
+		{
+			GD.PrintErr($"[GM] Failed to load wave resource at {wavePath}");
+			return;
+		}
+
+		GD.Print($"[GM] Starting wave {_currentWave}...");
+		_waveDirector.StartWave(wave);
+
+		_enemiesRemaining = wave.WaveEnemies.Count;
 	}
-
+	
 	public void OnEnemyDied(Enemy enemy)
 	{
 		_enemiesRemaining--;

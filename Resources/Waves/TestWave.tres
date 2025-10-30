@@ -1,8 +1,0 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://byugtuemaywqx"]
-
-[ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="1_np748"]
-[ext_resource type="Script" uid="uid://b8ve75dhdxavr" path="res://Resources/Waves/Wave.cs" id="2_5i3aa"]
-
-[resource]
-script = ExtResource("2_5i3aa")
-WaveInfo = Array[Array]([[ExtResource("1_np748"), 10.0]])
