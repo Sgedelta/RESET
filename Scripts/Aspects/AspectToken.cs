@@ -31,8 +31,8 @@ public partial class AspectToken : Control
 		if (Aspect?.Template == null || _icon == null)
 			return;
 
-		_icon.Texture = Aspect.Template.AspectSprite;
-		_icon.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
+		_icon.Texture = Aspect.Template.AspectSprite;        // fills the parent rect
+	_icon.ExpandMode  = TextureRect.ExpandModeEnum.IgnoreSize;
 	}
 
 	public override Variant _GetDragData(Vector2 atPosition)

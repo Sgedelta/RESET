@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=10 format=3 uid="uid://beqxt0enu774u"]
 
-[ext_resource type="Texture2D" uid="uid://cerkb0mpto1bq" path="res://Resources/AspectTemplates/TemplateIcons/master mage.png" id="1_gqdd3"]
+[ext_resource type="Texture2D" uid="uid://dj55ojwqph8d2" path="res://Resources/AspectTemplates/TemplateIcons/master mage.png" id="1_gqdd3"]
 [ext_resource type="Resource" uid="uid://dp1qagv5n1v2f" path="res://Resources/Modifiers/Poison/PSD_M++.tres" id="1_wnipi"]
 [ext_resource type="Resource" uid="uid://cgcnxvopc5kw8" path="res://Resources/Modifiers/Poison/PST_A+.tres" id="2_i0wbu"]
 [ext_resource type="Resource" uid="uid://s14coybcugf3" path="res://Resources/Modifiers/Range/RNG_M-.tres" id="3_hp4on"]

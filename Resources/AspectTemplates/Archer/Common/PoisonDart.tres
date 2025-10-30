@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=6 format=3 uid="uid://cd3hvo4bsqtmm"]
 
-[ext_resource type="Texture2D" uid="uid://l2ym7wxpfnmn" path="res://Resources/AspectTemplates/TemplateIcons/poison dart.png" id="1_nh3du"]
+[ext_resource type="Texture2D" uid="uid://beko0p27ocrxm" path="res://Resources/AspectTemplates/TemplateIcons/poison dart.png" id="1_nh3du"]
 [ext_resource type="Resource" uid="uid://cvqdyufx1poke" path="res://Resources/Modifiers/Poison/PSD_M+.tres" id="1_ylkms"]
 [ext_resource type="Resource" uid="uid://cgcnxvopc5kw8" path="res://Resources/Modifiers/Poison/PST_A+.tres" id="2_gvkbn"]
 [ext_resource type="Resource" uid="uid://bs0a8d6usyoqg" path="res://Resources/Modifiers/Damage/DMG_M-.tres" id="3_d3bg1"]

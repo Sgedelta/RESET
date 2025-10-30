@@ -47,7 +47,7 @@
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/EnemyPath")
-AspectBarPath = NodePath("../CanvasLayer/AspectBarLayout/AspectBar")
+AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 
@@ -57,45 +57,6 @@ RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 
 [node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
 visible = false
-
-[node name="AspectBarLayout" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -100.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 3
-size_flags_vertical = 8
-
-[node name="AspectBar" parent="CanvasLayer/AspectBarLayout" instance=ExtResource("9_kl2rs")]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_horizontal = 1
-RowPath = NodePath("Margin/Scroll/Row")
-
-[node name="Panel" parent="CanvasLayer/AspectBarLayout/AspectBar" index="0"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1440.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Margin" parent="CanvasLayer/AspectBarLayout/AspectBar" index="1"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 0
 
 [node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
 mouse_filter = 2
@@ -116,6 +77,8 @@ offset_top = 282.0
 offset_right = 626.0
 offset_bottom = 305.0
 text = "GAME OVER"
+
+[node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
@@ -196,7 +159,6 @@ default_color = Color(1, 0, 0, 1)
 
 [editable path="CanvasLayer/TowerPullout"]
 [editable path="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
-[editable path="CanvasLayer/AspectBarLayout/AspectBar"]
 [editable path="CanvasLayer/AspectHoverMenu"]
 [editable path="Map"]
 [editable path="Map/Towers/Tower"]
