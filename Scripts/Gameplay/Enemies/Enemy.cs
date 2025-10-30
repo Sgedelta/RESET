@@ -30,7 +30,10 @@ public partial class Enemy : PathFollow2D
 	private float _slowTimer = 0f;
 	private bool _isSlowed = false;
 
-	public override void _Ready()
+    //Damage indicator 
+    [Export] public PackedScene DamageIndicatorScene;
+
+    public override void _Ready()
 	{
 		HP = MaxHp;
 
@@ -70,6 +73,7 @@ public partial class Enemy : PathFollow2D
 	public void TakeDamage(float dmg)
 	{
 		HP -= dmg;
+		ShowDamageIndicator(dmg);
 		if (HP <= 0f) 
 		{
 			EmitSignal(SignalName.EnemyDied, this);
@@ -78,7 +82,21 @@ public partial class Enemy : PathFollow2D
 
 	}
 
-	private void OnAttackTimeout()
+	private void ShowDamageIndicator(float dmg)
+	{
+		if (DamageIndicatorScene == null) return;
+
+        var indicator = (DamageIndicator)DamageIndicatorScene.Instantiate();
+        GetTree().CurrentScene.AddChild(indicator);
+
+
+        indicator.GlobalPosition = GlobalPosition + new Vector2(0, -20);
+		indicator.SetDamage(dmg);
+
+
+    }
+
+    private void OnAttackTimeout()
 	{
 		EmitSignal(SignalName.EnemyAttacked, this, AttackDamage);
 		GD.Print("Attack Timeout!");
