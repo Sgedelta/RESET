@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://e7jrd5o4ghmh"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://e7jrd5o4ghmh"]
 
 [ext_resource type="Resource" uid="uid://bkvckdop3hj4l" path="res://Resources/Modifiers/Damage/DMG_A-.tres" id="1_36hcl"]
+[ext_resource type="Texture2D" uid="uid://ckuckx8f3d6cf" path="res://Resources/AspectTemplates/TemplateIcons/magic pulse.png" id="1_f8705"]
 [ext_resource type="Resource" uid="uid://ofhk8sk4krut" path="res://Resources/Modifiers/Splash/SLC_M+.tres" id="2_86xpp"]
 [ext_resource type="Resource" uid="uid://dchjoqrer3mq2" path="res://Resources/Modifiers/Splash/SLR_A+.tres" id="3_sn8hm"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_mcqrs"]
@@ -9,5 +10,7 @@
 script = ExtResource("4_mcqrs")
 _id = "MagicPulse"
 DisplayName = "MagicPulse"
+AspectSprite = ExtResource("1_f8705")
 Modifiers = Array[Resource]([ExtResource("1_36hcl"), ExtResource("2_86xpp"), ExtResource("3_sn8hm")])
 ProjectileType = 0
+Rarity = 0

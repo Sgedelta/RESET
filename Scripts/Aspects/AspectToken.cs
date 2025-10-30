@@ -4,40 +4,50 @@ public partial class AspectToken : Control
 {
 	public Aspect Aspect { get; private set; }
 
-
 	private TextureRect _icon;
-	private Label _label;
+
+	[Export] public Vector2 TokenSize = new Vector2(96, 96);
 
 	public override void _Ready()
 	{
-		_icon  = GetNodeOrNull<TextureRect>("TextureRect");
-		_label = GetNodeOrNull<Label>("Label");
-
-		if (_icon != null && Aspect != null) _icon.Texture = Aspect.Template.AspectSprite;
-		if (_label != null && Aspect != null) _label.Text = Aspect.Template.DisplayName;
-		
-
-
+		CustomMinimumSize = TokenSize;
+		_icon = GetNodeOrNull<TextureRect>("TextureRect");
 		MouseFilter = MouseFilterEnum.Pass;
-		
+
+		if (Aspect != null)
+			ApplyAspectVisual();
 	}
 
-	public void Init(Aspect aspect, Texture2D icon = null)
+	public void Init(Aspect aspect)
 	{
 		Aspect = aspect;
-		Aspect.Template.AspectSprite = icon;
-		if (IsInsideTree()) _Ready();
+
+		if (IsInsideTree())
+			ApplyAspectVisual();
+	}
+
+	private void ApplyAspectVisual()
+	{
+		if (Aspect?.Template == null || _icon == null)
+			return;
+
+		_icon.Texture = Aspect.Template.AspectSprite;
+		_icon.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
 	}
 
 	public override Variant _GetDragData(Vector2 atPosition)
 	{
-		if (Aspect == null || Aspect.Template == null) return default;
+		if (Aspect == null)
+			return default;
 
-		if (GetChildCount() > 0)
-		{
-			var preview = (Control)Duplicate();
-			SetDragPreview(preview);
-		}
+		var preview = (AspectToken)Duplicate();
+		preview.MouseFilter = MouseFilterEnum.Ignore;
+
+		var hover = preview.GetNodeOrNull<Control>("HoverAspect");
+		if (hover != null)
+			hover.Visible = false;
+
+		SetDragPreview(preview);
 
 		var data = new Godot.Collections.Dictionary
 		{
@@ -45,7 +55,7 @@ public partial class AspectToken : Control
 			{ "origin", "bar" },
 			{ "aspect_id", Aspect.ID }
 		};
+
 		return data;
 	}
-
 }
