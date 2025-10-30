@@ -41,10 +41,10 @@
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot")]
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
+EnemiesRoot = NodePath("../Map/EnemyPath")
 AspectBarPath = NodePath("../CanvasLayer/AspectBarLayout/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
-EnemiesRoot = NodePath("../Map/EnemyPath")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -124,7 +124,8 @@ SpawnEvery = 1.5
 position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
-position = Vector2(-395, 193)
+position = Vector2(-319, 547)
+BaseRange = 400.0
 
 [node name="ShooterComponent" parent="Map/Towers/Tower" index="1"]
 ProjectileScene = ExtResource("5_ixfg1")
@@ -133,7 +134,8 @@ ProjectileScene = ExtResource("5_ixfg1")
 position = Vector2(1.99994, -6.00003)
 
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
-position = Vector2(-52, 2)
+position = Vector2(84, 73)
+BaseRange = 400.0
 
 [node name="ShooterComponent" parent="Map/Towers/Tower2" index="1"]
 ProjectileScene = ExtResource("5_ixfg1")
@@ -142,7 +144,8 @@ ProjectileScene = ExtResource("5_ixfg1")
 position = Vector2(1.99994, -6.00003)
 
 [node name="Tower3" parent="Map/Towers" index="2" instance=ExtResource("4_jbeyo")]
-position = Vector2(206, 349)
+position = Vector2(505, 625)
+BaseRange = 400.0
 
 [node name="ShooterComponent" parent="Map/Towers/Tower3" index="1"]
 ProjectileScene = ExtResource("5_ixfg1")
