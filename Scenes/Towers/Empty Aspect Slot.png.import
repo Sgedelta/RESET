@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cllqtlrjpytug"
-path="res://.godot/imported/Aspects Panel.png-ec78bc7ff9cd687b97dac9abba884c4e.ctex"
+uid="uid://bm5mnafi4m7qk"
+path="res://.godot/imported/Empty Aspect Slot.png-8cd1f20df7ac98eeef9f852d9e69f372.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Towers/Aspects Panel.png"
-dest_files=["res://.godot/imported/Aspects Panel.png-ec78bc7ff9cd687b97dac9abba884c4e.ctex"]
+source_file="res://Scenes/Towers/Empty Aspect Slot.png"
+dest_files=["res://.godot/imported/Empty Aspect Slot.png-8cd1f20df7ac98eeef9f852d9e69f372.ctex"]
 
 [params]
 

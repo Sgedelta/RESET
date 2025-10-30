@@ -19,20 +19,22 @@ public partial class AspectBar : Control
 		Refresh();
 	}
 
-	public void Refresh()
+public void Refresh()
+{
+	GD.Print("Refreshing Bar");
+	foreach (Node child in _row.GetChildren()) child.QueueFree();
+
+	foreach (var aspect in GameManager.Instance.Inventory.BagAspects())
 	{
-		GD.Print("Refreshing Bar");
-		foreach (Node child in _row.GetChildren()) child.QueueFree();
+		if (GameManager.Instance.Inventory.IsAttached(aspect)) continue;
 
-		foreach (var aspect in GameManager.Instance.Inventory.BagAspects())
-		{
-			if (GameManager.Instance.Inventory.IsAttached(aspect)) continue;
-
-			var token = TokenScene.Instantiate<AspectToken>();
-			token.Init(aspect);
-			_row.AddChild(token);
-		}
+		var token = TokenScene.Instantiate<AspectToken>();
+		token.Init(aspect, TokenPlace.Bar);
+		token.FocusMode = Control.FocusModeEnum.None;
+		_row.AddChild(token);
 	}
+}
+
 
 	public override bool _CanDropData(Vector2 atPosition, Variant data)
 	{

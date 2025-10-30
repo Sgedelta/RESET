@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://db6afg827k3yo"]
+[gd_scene load_steps=3 format=3 uid="uid://db6afg827k3yo"]
 
 [ext_resource type="Script" uid="uid://32igpbrn2o7m" path="res://Scripts/Aspects/AspectToken.cs" id="1_pjfdh"]
-[ext_resource type="Texture2D" uid="uid://cqblj2ye7kto" path="res://Resources/AspectTemplates/TemplateIcons/reactor meltdown.png" id="2_3sxs5"]
 [ext_resource type="Script" uid="uid://bbpoax07bi5jy" path="res://Scenes/UI/HoverAspect.cs" id="2_ok8gp"]
 
 [node name="AspectToken" type="Button"]
@@ -23,7 +22,6 @@ localize_numeral_system = false
 mouse_filter = 1
 flat = true
 script = ExtResource("1_pjfdh")
-TokenSize = Vector2(126, 126)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(126, 126)
@@ -33,7 +31,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_3sxs5")
 expand_mode = 1
 
 [node name="HoverAspect" type="Node" parent="."]

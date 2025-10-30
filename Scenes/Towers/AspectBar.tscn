@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cwwd53dv0qf0q" path="res://Scripts/Aspects/AspectBar.cs" id="1_kk8ba"]
 [ext_resource type="PackedScene" uid="uid://db6afg827k3yo" path="res://Scenes/Towers/AspectToken.tscn" id="2_16sq4"]
-[ext_resource type="Texture2D" uid="uid://cllqtlrjpytug" path="res://Scenes/Towers/Aspects Panel (1).png" id="3_ke58x"]
+[ext_resource type="Texture2D" uid="uid://cllqtlrjpytug" path="res://Scenes/Towers/Aspects Panel.png" id="3_ke58x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ke58x"]
 bg_color = Color(0, 0, 0, 0)
@@ -17,7 +17,6 @@ offset_top = -146.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 1
 script = ExtResource("1_kk8ba")
 TokenScene = ExtResource("2_16sq4")
 

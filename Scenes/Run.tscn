@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=42 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://b4tnp4tapoonn" path="res://Scripts/Gameplay/Projectiles/HomingProjectile.tscn" id="7_asn5m"]
+[ext_resource type="PackedScene" uid="uid://bjakny67bkalp" path="res://Scenes/UI/BarToggle.tscn" id="7_hfefo"]
 [ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
 [ext_resource type="PackedScene" uid="uid://cl0og6r3uc6ax" path="res://Scripts/Gameplay/Projectiles/ExplodingProjectile.tscn" id="8_q06an"]
 [ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
@@ -79,6 +80,10 @@ offset_bottom = 305.0
 text = "GAME OVER"
 
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
+visible = false
+
+[node name="BarToggle" parent="CanvasLayer" instance=ExtResource("7_hfefo")]
+AspectBarPath = NodePath("../AspectBar")
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
@@ -93,6 +98,7 @@ position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
 position = Vector2(-395, 193)
+BaseAspectSlots = 6
 BaseRange = 600.0
 BaseProjectileSpeed = 750.0
 

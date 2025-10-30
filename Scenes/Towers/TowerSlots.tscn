@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://sgt7rxkujxr1"]
+[gd_scene load_steps=4 format=3 uid="uid://cp3kcj8c8k7tl"]
 
 [ext_resource type="Script" uid="uid://bj8cyt1e3flgs" path="res://Scripts/Gameplay/Towers/TowerSlots.cs" id="1_12tmg"]
 [ext_resource type="Script" uid="uid://b8xdx78t4cuh8" path="res://Scripts/Gameplay/Towers/TowerSlot.cs" id="2_yhvn8"]
