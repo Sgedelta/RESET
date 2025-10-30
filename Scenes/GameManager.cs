@@ -73,18 +73,18 @@ public partial class GameManager : Node
 		_currentWave++;
 
 		string wavePath = $"{WaveFolderPath}/Wave{_currentWave}.tres";
-		GD.Print($"[GM] Attempting to load {wavePath}");
+		GD.Print($"[GM] Loading {wavePath}");
 
 		if (!ResourceLoader.Exists(wavePath))
 		{
-			GD.Print($"[GM] No more waves found after wave {_currentWave - 1}.");
+			GD.Print($"[GM] No more waves");
 			return;
 		}
 
 		Wave wave = ResourceLoader.Load<Wave>(wavePath);
 		if (wave == null)
 		{
-			GD.PrintErr($"[GM] Failed to load wave resource at {wavePath}");
+			GD.PrintErr($"[GM] Failed to load {wavePath}");
 			return;
 		}
 
