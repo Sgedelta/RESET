@@ -3,9 +3,13 @@ using System;
 using System.Collections.Generic;
 using static Aspect;
 
+/// <summary>
+/// A Node that loads and can generate new aspects
+/// </summary>
 public partial class AspectLibrary : Node
 {
 	[Export] public Godot.Collections.Array<AspectTemplate> AspectTemplates;
+	[Export] public Godot.Collections.Array<String> TemplatesFilePathsFromRes;
 
 	public static readonly List<AspectTemplate> AllTemplates = new();
 	public static readonly Dictionary<string, AspectTemplate> TemplatesById = new();
@@ -41,6 +45,17 @@ public partial class AspectLibrary : Node
 			TemplatesById[t._id] = t;
 		}
 		GD.Print($"AspectLibrary loaded {AllTemplates.Count} templates");
+		GD.Print("Loading Templates via Filepaths");
+		foreach(string folder in TemplatesFilePathsFromRes)
+		{
+			string path = $"res://Resources/AspectTemplates/${folder}";
+			foreach(string item in DirAccess.GetFilesAt(path))
+			{
+                Resource loaded = ResourceLoader.Load($"{path}/{item}");
+            }
+
+        }
+
 	}
 	public static AspectTemplate GetTemplate(string id) =>
 		string.IsNullOrEmpty(id) ? null :
