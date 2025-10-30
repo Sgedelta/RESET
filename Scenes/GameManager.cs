@@ -23,6 +23,9 @@ public partial class GameManager : Node
 	private WaveDirector _waveDirector;
 	public WaveDirector WaveDirector {  get { return _waveDirector; } }
 
+	private Dictionary<string, Wave> _waveLibrary;
+
+
 	private int _currentWave = 0;
 	private int _enemiesRemaining = 0;
 	private float _duration = 0;
