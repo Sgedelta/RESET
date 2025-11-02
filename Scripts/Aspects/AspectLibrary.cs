@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using static Aspect;
 
 /// <summary>
@@ -24,7 +25,7 @@ public partial class AspectLibrary : Node
 
 	private static RandomNumberGenerator _rng;
 
-	 public override void _Ready()
+	public override void _Ready()
 	{
 		_rng = new RandomNumberGenerator();
 		_rng.Randomize();
@@ -48,15 +49,63 @@ public partial class AspectLibrary : Node
 		GD.Print("Loading Templates via Filepaths");
 		foreach(string folder in TemplatesFilePathsFromRes)
 		{
-			string path = $"res://Resources/AspectTemplates/${folder}";
-			foreach(string item in DirAccess.GetFilesAt(path))
+			string path = $"res://Resources/AspectTemplates/{folder}";
+
+			List<string> files = GetAllFilepathsInAllSubfolders(path);
+
+			//load added files
+			foreach(string fullPath in files)
 			{
-                Resource loaded = ResourceLoader.Load($"{path}/{item}");
-            }
+				Resource loaded = ResourceLoader.Load(fullPath);
+				if(loaded is not AspectTemplate)
+				{
+					continue;
+				}
+				
+				AspectTemplate loadedTemplate = (AspectTemplate)loaded;
+
+				//only add if this hasn't been added before
+				if(!TemplatesById.ContainsKey(loadedTemplate._id))
+				{
+                    AllTemplates.Add(loadedTemplate);
+                    TemplatesById.Add(loadedTemplate._id, loadedTemplate);
+                } 
+				else 
+				{
+					GD.PushWarning($"Skipped adding aspect {loadedTemplate._id} due to it's id already being loaded");
+				}
+				
+			}
 
         }
 
 	}
+
+	/// <summary>
+	/// recursively get all files in basePath and return a list of all complete paths
+	/// </summary>
+	public List<string> GetAllFilepathsInAllSubfolders(string basePath)
+	{
+		List<string> paths = new List<string>();
+
+        //get all files in this folder
+        foreach (string file in DirAccess.GetFilesAt(basePath))
+        {
+			paths.Add($"{basePath}/{file}");
+        }
+
+		//call on all subfolders
+		foreach (string dir in DirAccess.GetDirectoriesAt(basePath))
+		{
+			paths.AddRange(GetAllFilepathsInAllSubfolders($"{basePath}/{dir}"));
+		}
+
+		//return
+		return paths;
+    }
+
+
+
 	public static AspectTemplate GetTemplate(string id) =>
 		string.IsNullOrEmpty(id) ? null :
 		(TemplatesById.TryGetValue(id, out var t) ? t : null);
