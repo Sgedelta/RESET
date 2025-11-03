@@ -1,6 +1,5 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://bce7t2qj88ub5"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bce7t2qj88ub5"]
 
-[ext_resource type="Texture2D" uid="uid://cqblj2ye7kto" path="res://Resources/AspectTemplates/TemplateIcons/reactor meltdown.png" id="1_ncf5j"]
 [ext_resource type="Resource" uid="uid://c2uh183xb6iam" path="res://Resources/Modifiers/Range/RNG_M++++.tres" id="1_wf8b7"]
 [ext_resource type="Resource" uid="uid://j5pw3jxa0otp" path="res://Resources/Modifiers/Slow/SDL_A+.tres" id="2_kq7k1"]
 [ext_resource type="Resource" uid="uid://c8op3oj2lfmos" path="res://Resources/Modifiers/Slow/SDP_A+.tres" id="3_g458w"]
@@ -10,7 +9,6 @@
 script = ExtResource("4_d83o6")
 _id = "ReactorMeltdown"
 DisplayName = "ReactorMeltdown"
-AspectSprite = ExtResource("1_ncf5j")
 Modifiers = Array[Resource]([ExtResource("1_wf8b7"), ExtResource("2_kq7k1"), ExtResource("3_g458w")])
 ProjectileType = 0
 Rarity = 3

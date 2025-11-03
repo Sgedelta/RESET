@@ -33,7 +33,13 @@ public partial class AspectLibrary : Node
 		AllTemplates.Clear();
 		TemplatesById.Clear();
 
-		if (AspectTemplates == null) return;
+		if (AspectTemplates == null || TemplatesFilePathsFromRes == null)
+		{
+			GD.PrintErr("Aspect Library Templates or Filepaths arrays are null! Cancelled loading aspects!");
+			return;
+
+		}
+
 		GD.Print("Loading Templates directly");
 		foreach (var t in AspectTemplates)
 		{
