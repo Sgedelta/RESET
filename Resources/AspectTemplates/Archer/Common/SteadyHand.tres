@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://caaoqyl7lc2pw"]
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://caaoqyl7lc2pw"]
 
 [ext_resource type="Resource" uid="uid://c2jy78kbdn5s" path="res://Resources/Modifiers/Fire Rate/FR_M-.tres" id="1_cxks2"]
+[ext_resource type="Texture2D" uid="uid://cjusrky8fnfoi" path="res://Resources/AspectTemplates/TemplateIcons/steady hand.png" id="1_s2epg"]
 [ext_resource type="Resource" uid="uid://bwigsejsqqeqp" path="res://Resources/Modifiers/Accuracy/SPA_A-.tres" id="2_r44js"]
 [ext_resource type="Resource" uid="uid://hy4nn8iy45m1" path="res://Resources/Modifiers/Critical/CRC_M+.tres" id="3_t4ep5"]
 [ext_resource type="Resource" uid="uid://ddaqurbop6hpx" path="res://Resources/Modifiers/Critical/CRM_M+.tres" id="4_1wsqk"]
@@ -10,6 +11,7 @@
 script = ExtResource("5_qneh5")
 _id = "SteadyHand"
 DisplayName = "SteadyHand"
+AspectSprite = ExtResource("1_s2epg")
 Modifiers = Array[Resource]([ExtResource("1_cxks2"), ExtResource("2_r44js"), ExtResource("3_t4ep5"), ExtResource("4_1wsqk")])
 ProjectileType = 0
 Rarity = 0

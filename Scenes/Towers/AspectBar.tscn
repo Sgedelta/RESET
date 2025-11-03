@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckc33onu063q5"]
+[gd_scene load_steps=5 format=3 uid="uid://ckc33onu063q5"]
 
 [ext_resource type="Script" uid="uid://cwwd53dv0qf0q" path="res://Scripts/Aspects/AspectBar.cs" id="1_kk8ba"]
 [ext_resource type="PackedScene" uid="uid://db6afg827k3yo" path="res://Scenes/Towers/AspectToken.tscn" id="2_16sq4"]
+[ext_resource type="Texture2D" uid="uid://cllqtlrjpytug" path="res://Scenes/Towers/Aspects Panel.png" id="3_ke58x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ke58x"]
+bg_color = Color(0, 0, 0, 0)
 
 [node name="AspectBar" type="Control"]
 layout_mode = 3
@@ -9,34 +13,51 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -94.0
+offset_top = -146.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
-size_flags_horizontal = 0
 script = ExtResource("1_kk8ba")
 TokenScene = ExtResource("2_16sq4")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ke58x")
+expand_mode = 1
+
 [node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(29.0643, 2.32224)
+custom_minimum_size = Vector2(1420, 130)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ke58x")
 
-[node name="Margin" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(1000, 100)
-layout_mode = 0
-offset_right = 1150.0
-offset_bottom = 100.0
-
-[node name="Scroll" type="ScrollContainer" parent="Margin"]
-custom_minimum_size = Vector2(35, 0)
-layout_mode = 2
-
-[node name="Row" type="HBoxContainer" parent="Margin/Scroll"]
+[node name="Margin" type="MarginContainer" parent="Panel"]
 clip_contents = true
-custom_minimum_size = Vector2(55, 55)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scroll" type="ScrollContainer" parent="Panel/Margin"]
+clip_contents = false
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 8
+vertical_scroll_mode = 0
+
+[node name="Row" type="HBoxContainer" parent="Panel/Margin/Scroll"]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+theme_override_constants/separation = 12

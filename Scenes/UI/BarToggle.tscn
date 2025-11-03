@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjakny67bkalp"]
+
+[ext_resource type="Script" uid="uid://wj5iy1h1m2u4" path="res://Scenes/UI/BarToggle.cs" id="1_028rp"]
+[ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="1_t1v2i"]
+
+[node name="BarToggle" type="Button"]
+custom_minimum_size = Vector2(60, 25)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -25.0
+offset_right = 30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_t1v2i")
+script = ExtResource("1_028rp")

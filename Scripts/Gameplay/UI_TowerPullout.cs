@@ -55,7 +55,7 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	public override void _Ready()
 	{
-		i_ScrollContainer = GetChild<ScrollContainer>(0);
+		i_ScrollContainer = GetChild<ScrollContainer>(1);
 
 		AddToGroup("tower_pullout");
 
@@ -113,37 +113,24 @@ public partial class UI_TowerPullout : CanvasLayer
 	}
 
 
-	public void RefreshUIs()
+public void RefreshUIs()
+{
+	GD.Print("Refreshing UIs");
+
+	DisplaySlots(); // ensures the right number are visible
+
+	for (int i = 0; i < _container.GetChildCount(); i++)
 	{
-		GD.Print("Refreshing UIs");
-		// update UIs 
-			// _container's children
-		DisplaySlots();
-		for(int i = 0; i < _container.GetChildCount(); i++)
-		{
-			if(_container.GetChild(i) is not AspectSlot slot)
-			{
-				GD.Print("Skipping Slot UI "+ i);
-				continue;
-			}
-			int idx = slot.Index;  // <<— use the logical index you set in DisplaySlots()
-	   		var aspect = ActiveTower.GetAspectInSlot(idx);
-			slot.Label.Text = aspect != null ? aspect.Template.DisplayName : "+";
-		}
-
-		// text based on stats
-		_statDisplay.Text =
-			"Tower Stats\n"
-			+ActiveTower.StatDisplay();
-
-		
-
-		// get and update the Bar
-		if(AspectBar.Instance != null) {
-			AspectBar.Instance.Refresh();
-		}
-
+		if (_container.GetChild(i) is AspectSlot slot)
+			slot.RefreshVisual();           // <-- update token/label in each slot
 	}
+
+	_statDisplay.Text = "Tower Stats\n" + ActiveTower.StatDisplay();
+
+	if (AspectBar.Instance != null)
+		AspectBar.Instance.Refresh();
+}
+
 
 	public void DisplaySlots(int count)
 	{

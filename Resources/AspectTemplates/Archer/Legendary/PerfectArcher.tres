@@ -1,14 +1,16 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://b37wej6t8hssw"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://b37wej6t8hssw"]
 
 [ext_resource type="Resource" uid="uid://c0dvq8fexqcbn" path="res://Resources/Modifiers/Fire Rate/FR_M++.tres" id="1_7d26m"]
+[ext_resource type="Texture2D" uid="uid://c1fngblgxovjk" path="res://Resources/AspectTemplates/TemplateIcons/perfect archer.png" id="1_hwh7e"]
 [ext_resource type="Resource" uid="uid://bqcsbfkg2hoxq" path="res://Resources/Modifiers/Damage/DMG_A+++.tres" id="2_5jdh7"]
-[ext_resource type="Resource" uid="uid://y44fbhvh4wmo" path="res://Resources/Modifiers/Piercing/PRM_A+.tres" id="3_nmggq"]
+[ext_resource type="Resource" uid="uid://cfk10k67pju21" path="res://Resources/Modifiers/Piercing/PRM_A+.tres" id="3_nmggq"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_nfslw"]
 
 [resource]
 script = ExtResource("4_nfslw")
 _id = "PerfectArcher"
 DisplayName = "PerfectArcher"
+AspectSprite = ExtResource("1_hwh7e")
 Modifiers = Array[Resource]([ExtResource("1_7d26m"), ExtResource("2_5jdh7"), ExtResource("3_nmggq")])
 ProjectileType = 0
 Rarity = 3
