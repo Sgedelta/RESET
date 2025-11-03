@@ -1,9 +1,0 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dpp7sanqy3lhi"]
-
-[ext_resource type="Resource" uid="uid://dnq53l55mi1l1" path="res://Resources/Waves/Enemy Info/enemy1.tres" id="1_psac3"]
-[ext_resource type="Resource" uid="uid://cl88nemk5sj4" path="res://Resources/Waves/Enemy Info/enemy2.tres" id="2_qc70f"]
-[ext_resource type="Script" uid="uid://b8ve75dhdxavr" path="res://Resources/Waves/Wave.cs" id="3_o7uw4"]
-
-[resource]
-script = ExtResource("3_o7uw4")
-WaveEnemies = Array[Resource]([ExtResource("1_psac3"), ExtResource("1_psac3"), ExtResource("1_psac3"), ExtResource("2_qc70f"), ExtResource("2_qc70f")])

@@ -94,7 +94,7 @@ public partial class GameManager : Node
 		GD.Print($"[GM] Starting wave {_currentWave}...");
 		_waveDirector.StartWave(wave);
 
-		_enemiesRemaining = wave.WaveEnemies.Count;
+		_enemiesRemaining = wave.WaveInfo.Count;
 	}
 	
 	public void OnEnemyDied(Enemy enemy)
