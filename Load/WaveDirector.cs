@@ -40,7 +40,7 @@ public partial class WaveDirector : Node2D
 
 		foreach (var info in wave.WaveInfo)
 		{
-			if (info.EnemyScene == null)
+			if ((bool)info[0] == false)
 				continue;
 				
 			var enemy = (Enemy)info[0];
