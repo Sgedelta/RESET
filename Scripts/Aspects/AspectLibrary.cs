@@ -1,11 +1,16 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using static Aspect;
 
+/// <summary>
+/// A Node that loads and can generate new aspects
+/// </summary>
 public partial class AspectLibrary : Node
 {
 	[Export] public Godot.Collections.Array<AspectTemplate> AspectTemplates;
+	[Export] public Godot.Collections.Array<String> TemplatesFilePathsFromRes;
 
 	public static readonly List<AspectTemplate> AllTemplates = new();
 	public static readonly Dictionary<string, AspectTemplate> TemplatesById = new();
@@ -20,7 +25,7 @@ public partial class AspectLibrary : Node
 
 	private static RandomNumberGenerator _rng;
 
-	 public override void _Ready()
+	public override void _Ready()
 	{
 		_rng = new RandomNumberGenerator();
 		_rng.Randomize();
@@ -41,7 +46,66 @@ public partial class AspectLibrary : Node
 			TemplatesById[t._id] = t;
 		}
 		GD.Print($"AspectLibrary loaded {AllTemplates.Count} templates");
+		GD.Print("Loading Templates via Filepaths");
+		foreach(string folder in TemplatesFilePathsFromRes)
+		{
+			string path = $"res://Resources/AspectTemplates/{folder}";
+
+			List<string> files = GetAllFilepathsInAllSubfolders(path);
+
+			//load added files
+			foreach(string fullPath in files)
+			{
+				Resource loaded = ResourceLoader.Load(fullPath);
+				if(loaded is not AspectTemplate)
+				{
+					continue;
+				}
+				
+				AspectTemplate loadedTemplate = (AspectTemplate)loaded;
+
+				//only add if this hasn't been added before
+				if(!TemplatesById.ContainsKey(loadedTemplate._id))
+				{
+                    AllTemplates.Add(loadedTemplate);
+                    TemplatesById.Add(loadedTemplate._id, loadedTemplate);
+                } 
+				else 
+				{
+					GD.PushWarning($"Skipped adding aspect {loadedTemplate._id} due to it's id already being loaded");
+				}
+				
+			}
+
+        }
+
 	}
+
+	/// <summary>
+	/// recursively get all files in basePath and return a list of all complete paths
+	/// </summary>
+	public List<string> GetAllFilepathsInAllSubfolders(string basePath)
+	{
+		List<string> paths = new List<string>();
+
+        //get all files in this folder
+        foreach (string file in DirAccess.GetFilesAt(basePath))
+        {
+			paths.Add($"{basePath}/{file}");
+        }
+
+		//call on all subfolders
+		foreach (string dir in DirAccess.GetDirectoriesAt(basePath))
+		{
+			paths.AddRange(GetAllFilepathsInAllSubfolders($"{basePath}/{dir}"));
+		}
+
+		//return
+		return paths;
+    }
+
+
+
 	public static AspectTemplate GetTemplate(string id) =>
 		string.IsNullOrEmpty(id) ? null :
 		(TemplatesById.TryGetValue(id, out var t) ? t : null);

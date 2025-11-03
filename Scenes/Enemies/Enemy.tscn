@@ -10,7 +10,6 @@ radius = 40.0
 loop = false
 script = ExtResource("1_7kucs")
 MaxHp = 45.0
-Speed = 120.0
 _sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
