@@ -43,7 +43,11 @@ public partial class WaveDirector : Node2D
 			if ((bool)info[0] == false)
 				continue;
 				
-			var enemy = (Enemy)info[0];
+			//grab the enemy to spawn
+			PackedScene enemyScene = (PackedScene)info[0];
+			//create it
+			Enemy enemy = (Enemy)enemyScene.Instantiate();
+			//put it into the tree
 			GameManager.Instance.EnemiesRoot.AddChild(enemy);
 			enemy.SetPathAndCurve(_path2D);
 
