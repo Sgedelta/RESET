@@ -33,9 +33,10 @@ public partial class DamageIndicator : Node2D
         speed = (int)Mathf.Max(speed - friction * delta, 0);
     }
 
-    public void SetDamage(float damage)
+
+    public void SetDamage(float damage, Color color)
     {
-        label.Modulate = new Color(1f, 1f, 0f); 
+        label.Modulate = color;
         if (label != null)
         {
             label.Text = damage.ToString();

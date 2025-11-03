@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=44 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://b4tnp4tapoonn" path="res://Scripts/Gameplay/Projectiles/HomingProjectile.tscn" id="7_asn5m"]
+[ext_resource type="Script" uid="uid://cl4o1tyjnjy6x" path="res://Scenes/UI/DamageOverlay.cs" id="7_hfefo"]
 [ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
 [ext_resource type="PackedScene" uid="uid://cl0og6r3uc6ax" path="res://Scripts/Gameplay/Projectiles/ExplodingProjectile.tscn" id="8_q06an"]
 [ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
@@ -40,6 +41,19 @@
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="34_qgpf6"]
 [ext_resource type="PackedScene" uid="uid://fxiie8iedav8" path="res://Scenes/UI/RewardMenu.tscn" id="37_r63x1"]
 [ext_resource type="PackedScene" uid="uid://duca7uphmawjk" path="res://Scenes/UI/AspectHoverMenu.tscn" id="37_utqwv"]
+
+[sub_resource type="Gradient" id="Gradient_hfefo"]
+offsets = PackedFloat32Array(0.363636, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 0.529412)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ygtc6"]
+gradient = SubResource("Gradient_hfefo")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+metadata/_snap_enabled = true
 
 [node name="Run" type="Node2D"]
 
@@ -108,6 +122,7 @@ offset_bottom = 27.0
 text = "HP: 100 / 100"
 script = ExtResource("11_x3f4s")
 PlayerManagerPath = NodePath("../../PlayerManager")
+damageOverlayPath = NodePath("../DamageOverlay")
 
 [node name="GameOverText" type="Label" parent="CanvasLayer"]
 visible = false
@@ -116,6 +131,16 @@ offset_top = 282.0
 offset_right = 626.0
 offset_bottom = 305.0
 text = "GAME OVER"
+
+[node name="DamageOverlay" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+z_index = 4096
+offset_right = 1438.0
+offset_bottom = 803.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_ygtc6")
+stretch_mode = 6
+script = ExtResource("7_hfefo")
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
