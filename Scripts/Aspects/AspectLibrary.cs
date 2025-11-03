@@ -34,7 +34,7 @@ public partial class AspectLibrary : Node
 		TemplatesById.Clear();
 
 		if (AspectTemplates == null) return;
-
+		GD.Print("Loading Templates directly");
 		foreach (var t in AspectTemplates)
 		{
 			if (t == null || string.IsNullOrWhiteSpace(t._id))
@@ -45,10 +45,11 @@ public partial class AspectLibrary : Node
 			AllTemplates.Add(t);
 			TemplatesById[t._id] = t;
 		}
-		GD.Print($"AspectLibrary loaded {AllTemplates.Count} templates");
+		int specficTemplateCount = AllTemplates.Count;
 		GD.Print("Loading Templates via Filepaths");
 		foreach(string folder in TemplatesFilePathsFromRes)
 		{
+			//default path
 			string path = $"res://Resources/AspectTemplates/{folder}";
 
 			List<string> files = GetAllFilepathsInAllSubfolders(path);
@@ -78,6 +79,7 @@ public partial class AspectLibrary : Node
 			}
 
         }
+		GD.Print($"AspectLibrary loaded {AllTemplates.Count} templates: {specficTemplateCount} directly, {AllTemplates.Count - specficTemplateCount} via filepaths");
 
 	}
 

@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=6 format=3 uid="uid://e7jrd5o4ghmh"]
 
 [ext_resource type="Resource" uid="uid://bkvckdop3hj4l" path="res://Resources/Modifiers/Damage/DMG_A-.tres" id="1_36hcl"]
-[ext_resource type="Resource" uid="uid://b5vcfex11hnld" path="res://Resources/Modifiers/Splash/SLC_A+.tres" id="2_f8705"]
+[ext_resource type="Resource" path="res://Resources/Modifiers/Splash/SLC_A+.tres" id="2_f8705"]
 [ext_resource type="Resource" uid="uid://dchjoqrer3mq2" path="res://Resources/Modifiers/Splash/SLR_A+.tres" id="3_sn8hm"]
-[ext_resource type="Resource" uid="uid://bnjwkt4sk1p5m" path="res://Resources/Modifiers/Accuracy/SPA_A++.tres" id="4_87vsc"]
+[ext_resource type="Resource" path="res://Resources/Modifiers/Accuracy/SPA_A++.tres" id="4_87vsc"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_mcqrs"]
 
 [resource]
