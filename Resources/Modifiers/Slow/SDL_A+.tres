@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_g0tpe")
-statMin = 5.0
-statMax = 10.0
-linearRandom = false
+statMin = 1.0
+statMax = 3.0
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 1009

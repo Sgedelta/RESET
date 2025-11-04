@@ -6,7 +6,7 @@
 script = ExtResource("1_ecbgx")
 statMin = 0.5
 statMax = 0.8
-linearRandom = false
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 2

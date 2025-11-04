@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_vfkj1")
-statMin = 0.3
-statMax = 0.5
-linearRandom = false
+statMin = 0.05
+statMax = 0.15
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 1008

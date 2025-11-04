@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_mniif")
-statMin = 20.0
-statMax = 30.0
-linearRandom = false
+statMin = 40.0
+statMax = 75.0
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 1001

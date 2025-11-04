@@ -1,10 +1,10 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cgcnxvopc5kw8"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b34bf0e65hh8u"]
 
 [ext_resource type="Script" uid="uid://dnp64aumldx32" path="res://Resources/Modifiers/IntModifierInfo.cs" id="1_5rv5s"]
 
 [resource]
 script = ExtResource("1_5rv5s")
-statMin = 2
+statMin = 1
 statMax = 3
 linearRandom = true
 meanVal = 0
