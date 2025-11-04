@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cb2xgnb7sjr8w"]
+[gd_scene load_steps=5 format=3 uid="uid://cb2xgnb7sjr8w"]
 
 [ext_resource type="Script" uid="uid://gqe5yd8kptnk" path="res://Scripts/Gameplay/Towers/AspectSlot.cs" id="1_pfy1q"]
+[ext_resource type="PackedScene" uid="uid://db6afg827k3yo" path="res://Scenes/Towers/AspectToken.tscn" id="2_72xyx"]
 [ext_resource type="Script" uid="uid://bbpoax07bi5jy" path="res://Scenes/UI/HoverAspect.cs" id="2_cdbvh"]
 [ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="3_72xyx"]
 
@@ -10,6 +11,7 @@ offset_right = 1.0
 offset_bottom = 80.0
 mouse_filter = 1
 script = ExtResource("1_pfy1q")
+TokenScene = ExtResource("2_72xyx")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(0, 80)

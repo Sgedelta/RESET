@@ -5,6 +5,15 @@ using System.Diagnostics;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
+
+public enum DamageType
+{
+	Normal,
+	Posion,
+	Splash,
+	Chain
+}
+
 public partial class Projectile : Area2D
 {
 	[Export] public float Speed = 800f; //speed, in pixels

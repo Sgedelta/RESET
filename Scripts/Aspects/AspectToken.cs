@@ -50,8 +50,8 @@ public partial class AspectToken : Control
 	private void ApplySize()
 	{
 		var size = _place == TokenPlace.Bar ? SizeBar : SizeSlot;
-		CustomMinimumSize = size;
-		Size = size; 
+		SetSize(size);
+		SetDeferred("custom_minimum_size", size);
 	}
 
 	private void ApplyAspectVisual()
