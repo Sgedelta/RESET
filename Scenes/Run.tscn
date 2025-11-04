@@ -35,9 +35,6 @@ RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 
 [node name="TowerPullout" parent="CanvasLayer" instance=ExtResource("1_hfefo")]
 
-[node name="AspectSlot" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer" index="0"]
-TokenScene = null
-
 [node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
 visible = false
 

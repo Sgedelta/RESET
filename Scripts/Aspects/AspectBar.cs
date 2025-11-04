@@ -47,6 +47,13 @@ public void Refresh()
 	public override void _DropData(Vector2 atPosition, Variant data)
 	{
 		var dict = (Godot.Collections.Dictionary)data;
+
+		if(!dict.ContainsKey("tower_path") || !dict.ContainsKey("slot_index"))
+		{
+			GD.PrintErr("Aspect could not be dropped on bar because it lacks some data!");
+			return;
+		}
+
 		var towerPath = (string)dict["tower_path"];
 		var slotIndex = (int)dict["slot_index"];
 
