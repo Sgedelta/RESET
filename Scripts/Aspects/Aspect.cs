@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public enum StatType
 {
@@ -248,6 +249,7 @@ public class Aspect
 			case ModifierType.Multiply:
 				if (current == 0)
 				{
+					GD.Print("Setting value to default");
 					//stats that start as percentages start at a default value of 1%
 					if(unit.Stat == StatType.CritChance ||
 						unit.Stat == StatType.SpreadFalloff ||
@@ -266,7 +268,7 @@ public class Aspect
 				break;
 			
 		};
-		return modVal;
+		return current;
 	}
 
 	static int ApplyInt(int current, ModifierUnit unit) {

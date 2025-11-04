@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ds07h7pge8rnw"]
+[gd_scene load_steps=8 format=3 uid="uid://ds07h7pge8rnw"]
 
 [ext_resource type="Script" uid="uid://dxxyryx1eej3r" path="res://Scripts/Gameplay/UI_TowerPullout.cs" id="1_nqjej"]
 [ext_resource type="Theme" uid="uid://fjtkhwpkwdy1" path="res://Resources/Themes/Tower_UI_BG.tres" id="2_gr12i"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://btlr2ecoiy1ff" path="res://Scenes/Towers/Tower Panel.png" id="3_thint"]
 [ext_resource type="PackedScene" uid="uid://cb2xgnb7sjr8w" path="res://Scenes/UI/AspectSlot.tscn" id="4_tgmv1"]
 [ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="6_nn1wt"]
-[ext_resource type="PackedScene" uid="uid://db6afg827k3yo" path="res://Scenes/Towers/AspectToken.tscn" id="6_qcift"]
 [ext_resource type="FontFile" uid="uid://dlb6kpyl4ho4g" path="res://MonaSans[slnt,wdth,wght].ttf" id="7_2usos"]
 
 [node name="TowerPullout" type="CanvasLayer" node_paths=PackedStringArray("_container", "_statDisplay")]
@@ -50,7 +49,6 @@ _pullout = NodePath("../../..")
 [node name="AspectSlot" parent="ScrollContainer/GridContainer/AspectContainer" instance=ExtResource("4_tgmv1")]
 layout_mode = 2
 mouse_filter = 0
-TokenScene = ExtResource("6_qcift")
 
 [node name="MarginContainer" parent="ScrollContainer/GridContainer/AspectContainer/AspectSlot" index="0"]
 mouse_filter = 2

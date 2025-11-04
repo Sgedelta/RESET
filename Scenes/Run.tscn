@@ -39,6 +39,8 @@ RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 visible = false
 
 [node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
+top_level = true
+z_index = 2
 mouse_filter = 2
 
 [node name="HealthUI" type="Label" parent="CanvasLayer"]
