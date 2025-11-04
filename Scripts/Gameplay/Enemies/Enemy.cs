@@ -30,6 +30,8 @@ public partial class Enemy : PathFollow2D
 	private float _slowTimer = 0f;
 	private bool _isSlowed = false;
 
+<<<<<<< Updated upstream
+=======
 	//Damage indicator 
 	[Export] public PackedScene DamageIndicatorScene;
 
@@ -83,6 +85,8 @@ public partial class Enemy : PathFollow2D
 
 	}
 
+<<<<<<< Updated upstream
+=======
 	public void TakeDamage(float dmg)
 	{
 		TakeDamage(dmg, DamageType.Normal);
@@ -116,6 +120,8 @@ public partial class Enemy : PathFollow2D
 
 
 	}
+
+>>>>>>> Stashed changes
 	private void OnAttackTimeout()
 	{
 		EmitSignal(SignalName.EnemyAttacked, this, AttackDamage);
