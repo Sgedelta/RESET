@@ -6,7 +6,7 @@
 script = ExtResource("1_n7ylq")
 statMin = 0.33
 statMax = 0.66
-linearRandom = false
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 1

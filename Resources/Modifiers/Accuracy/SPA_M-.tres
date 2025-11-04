@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cimbxbcerexit"]
+
+[ext_resource type="Script" uid="uid://cpfe6pao0v0kl" path="res://Resources/Modifiers/FloatModifierInfo.cs" id="1_ricso"]
+
+[resource]
+script = ExtResource("1_ricso")
+statMin = 0.7
+statMax = 0.95
+linearRandom = true
+meanVal = 0.0
+stdDev = 0.0
+StatType = 6
+ModifierType = 1

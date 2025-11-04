@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_ppmu4")
 statMin = 0.2
-statMax = 0.6
+statMax = 0.4
 linearRandom = true
 meanVal = 0.0
 stdDev = 0.0

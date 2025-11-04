@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_thjdk")
-statMin = 10.0
-statMax = 25.0
+statMin = 5.0
+statMax = 15.0
 linearRandom = true
 meanVal = 0.0
 stdDev = 0.0

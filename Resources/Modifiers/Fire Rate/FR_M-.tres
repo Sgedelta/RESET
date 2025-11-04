@@ -6,8 +6,8 @@
 script = ExtResource("1_map2q")
 statMin = 0.7
 statMax = 0.9
-linearRandom = false
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 0
-ModifierType = 0
+ModifierType = 1

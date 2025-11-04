@@ -6,7 +6,7 @@
 script = ExtResource("1_lmlyt")
 statMin = 4.5
 statMax = 5.5
-linearRandom = false
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 1

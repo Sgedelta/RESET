@@ -6,8 +6,8 @@
 script = ExtResource("1_x7qon")
 statMin = 1.3
 statMax = 1.8
-linearRandom = false
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
-StatType = 1000
+StatType = 1002
 ModifierType = 1

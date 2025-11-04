@@ -6,8 +6,8 @@
 script = ExtResource("1_bocua")
 statMin = 2.0
 statMax = 3.0
-linearRandom = false
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 1010
-ModifierType = 0
+ModifierType = 1

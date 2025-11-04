@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_vfilu")
 statMin = 2.0
-statMax = 2.0
-linearRandom = false
+statMax = 3.0
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 5

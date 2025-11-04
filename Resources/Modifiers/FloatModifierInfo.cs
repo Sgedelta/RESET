@@ -10,7 +10,7 @@ public partial class FloatModifierInfo : ModifierInfo
 
 	[Export] public float statMin;
 	[Export] public float statMax;
-	[Export] public bool linearRandom;
+	[Export] public bool linearRandom = true;
 	[Export] public float meanVal;
 	[Export] public float stdDev;
 
