@@ -74,9 +74,9 @@ public partial class AspectLibrary : Node
 				//only add if this hasn't been added before
 				if(!TemplatesById.ContainsKey(loadedTemplate._id))
 				{
-                    AllTemplates.Add(loadedTemplate);
-                    TemplatesById.Add(loadedTemplate._id, loadedTemplate);
-                } 
+					AllTemplates.Add(loadedTemplate);
+					TemplatesById.Add(loadedTemplate._id, loadedTemplate);
+				} 
 				else 
 				{
 					GD.PushWarning($"Skipped adding aspect {loadedTemplate._id} due to it's id already being loaded");
@@ -84,7 +84,7 @@ public partial class AspectLibrary : Node
 				
 			}
 
-        }
+		}
 		GD.Print($"AspectLibrary loaded {AllTemplates.Count} templates: {specficTemplateCount} directly, {AllTemplates.Count - specficTemplateCount} via filepaths");
 
 	}
@@ -96,11 +96,11 @@ public partial class AspectLibrary : Node
 	{
 		List<string> paths = new List<string>();
 
-        //get all files in this folder
-        foreach (string file in DirAccess.GetFilesAt(basePath))
-        {
+		//get all files in this folder
+		foreach (string file in DirAccess.GetFilesAt(basePath))
+		{
 			paths.Add($"{basePath}/{file}");
-        }
+		}
 
 		//call on all subfolders
 		foreach (string dir in DirAccess.GetDirectoriesAt(basePath))
@@ -110,7 +110,7 @@ public partial class AspectLibrary : Node
 
 		//return
 		return paths;
-    }
+	}
 
 
 

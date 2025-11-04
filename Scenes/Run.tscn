@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://b4tnp4tapoonn" path="res://Scripts/Gameplay/Projectiles/HomingProjectile.tscn" id="7_asn5m"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/BarToggle.tscn" id="7_hfefo"]
+[ext_resource type="PackedScene" uid="uid://bjakny67bkalp" path="res://Scenes/UI/BarToggle.tscn" id="7_hfefo"]
 [ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
 [ext_resource type="PackedScene" uid="uid://cl0og6r3uc6ax" path="res://Scripts/Gameplay/Projectiles/ExplodingProjectile.tscn" id="8_q06an"]
 [ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
@@ -130,7 +130,6 @@ position = Vector2(1.99994, -6.00003)
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
 AspectTemplates = Array[Resource]([])
-TemplatesFilePathsFromRes = Array[String](["Archer", "Mage", "Tech"])
 
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("9_x3f4s")

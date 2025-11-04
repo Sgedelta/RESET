@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://7x7yxfrr566g"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://7x7yxfrr566g"]
 
 [ext_resource type="Resource" uid="uid://v3frhwf1nhgp" path="res://Resources/Modifiers/Homing/HMS_A++.tres" id="1_7cmmt"]
+[ext_resource type="Texture2D" uid="uid://d1j8dhq566ys6" path="res://Resources/AspectTemplates/TemplateIcons/missile launcher.png" id="1_yw66n"]
 [ext_resource type="Resource" uid="uid://hy4nn8iy45m1" path="res://Resources/Modifiers/Critical/CRC_M+.tres" id="2_us70s"]
 [ext_resource type="Resource" uid="uid://ddaqurbop6hpx" path="res://Resources/Modifiers/Critical/CRM_M+.tres" id="3_jf5wu"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_5rkix"]
@@ -9,6 +10,7 @@
 script = ExtResource("4_5rkix")
 _id = "MissileLauncher"
 DisplayName = "MissileLauncher"
+AspectSprite = ExtResource("1_yw66n")
 Modifiers = Array[Resource]([ExtResource("1_7cmmt"), ExtResource("2_us70s"), ExtResource("3_jf5wu")])
 ProjectileType = 0
 Rarity = 1
