@@ -21,6 +21,7 @@ anchor_right = 1.0
 offset_left = -316.0
 offset_bottom = 615.0
 grow_horizontal = 0
+mouse_filter = 2
 texture = ExtResource("3_thint")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -32,16 +33,19 @@ offset_top = 16.0
 offset_right = -5.0
 offset_bottom = 611.0
 grow_horizontal = 0
+mouse_filter = 2
 
 [node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 theme = ExtResource("2_gr12i")
 
 [node name="AspectContainer" type="HFlowContainer" parent="ScrollContainer/GridContainer" node_paths=PackedStringArray("_pullout")]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 alignment = 1
 script = ExtResource("3_tgmv1")
 _pullout = NodePath("../../..")

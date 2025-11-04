@@ -13,7 +13,6 @@ public partial class AspectSlot : PanelContainer
 
 	private const string TokenSceneFallbackPath = "res://Scenes/Towers/AspectToken.tscn";
 
-	// 👇 Give every slot a guaranteed hitbox so drag queries reach it
 	private static readonly Vector2 MinSlotSize = new(96, 96);
 
 	public override void _Ready()
@@ -24,16 +23,7 @@ public partial class AspectSlot : PanelContainer
 
 		Label = GetNodeOrNull<Label>("RichTextLabel") ?? GetNodeOrNull<Label>("Label");
 
-		// Slot must be the drop target
-		MouseFilter = Control.MouseFilterEnum.Stop;
 
-		// Children must NOT intercept mouse
-		foreach (var ch in GetChildren())
-			if (ch is Control cc) cc.MouseFilter = Control.MouseFilterEnum.Ignore;
-
-		ClipChildren = ClipChildrenMode.Only;
-
-		// 👇 Ensure the slot actually has size in the layout
 		CustomMinimumSize = MinSlotSize;
 
 		if (TokenScene == null)
@@ -123,8 +113,6 @@ public partial class AspectSlot : PanelContainer
 
 	public override bool _CanDropData(Vector2 atPosition, Variant data)
 	{
-		// DEBUG: prove this slot receives the query
-		GD.Print($"[AspectSlot {Index}] _CanDropData? size={Size} min={CustomMinimumSize} rect={GetGlobalRect()}");
 
 		if (data.VariantType != Variant.Type.Dictionary) return false;
 		var dict = (Godot.Collections.Dictionary)data;
@@ -136,15 +124,13 @@ public partial class AspectSlot : PanelContainer
 		var origin = (string)o;
 
 		bool ok = (origin == "bar"  && dict.ContainsKey("aspect_id"))
-			   || (origin == "slot"); // always ok for slot-origin
+			   || (origin == "slot");
 
-		GD.Print($"[AspectSlot {Index}] _CanDropData -> {ok} (origin={origin})");
 		return ok;
 	}
 
 	public override void _DropData(Vector2 atPosition, Variant data)
 	{
-		GD.Print($"[AspectSlot {Index}] _DropData");
 		var dict = (Godot.Collections.Dictionary)data;
 
 		_pullout.Container.AttachAspectToIndex(dict, Index);

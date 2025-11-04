@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://duca7uphmawjk"]
+[gd_scene load_steps=4 format=3 uid="uid://duca7uphmawjk"]
 
 [ext_resource type="Script" uid="uid://db24644hxve2w" path="res://Scenes/UI/AspectHoverMenu.cs" id="1_l0r1g"]
+[ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="2_2wkds"]
+[ext_resource type="FontFile" uid="uid://dlb6kpyl4ho4g" path="res://MonaSans[slnt,wdth,wght].ttf" id="3_lgt2m"]
 
 [node name="AspectHoverMenu" type="Control"]
 layout_mode = 3
@@ -40,13 +42,16 @@ layout_mode = 2
 
 [node name="Name" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2wkds")
 horizontal_alignment = 1
 
 [node name="Rarity" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2wkds")
 horizontal_alignment = 1
 
 [node name="Stats" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("3_lgt2m")
 horizontal_alignment = 1

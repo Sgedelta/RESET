@@ -129,47 +129,51 @@ public partial class UI_TowerPullout : CanvasLayer
 	}
 
 	public void DisplaySlots(int count)
+{
+	if (count < 0) { GD.PushWarning("[UI_TowerPullout] DisplaySlots called with count < 0"); count = 0; }
+	if (AspectSlotScn == null) { GD.PushError("[UI_TowerPullout] AspectSlotScn not set!"); return; }
+
+	// Count existing slots
+	int slotsFound = 0;
+	for (int i = 0; i < _container.GetChildCount(); i++)
+		if (_container.GetChild(i) is AspectSlot) slotsFound++;
+
+	// Create missing
+	for (int need = slotsFound; need < count; need++)
 	{
-		if (count < 0) { GD.PushWarning("[UI_TowerPullout] DisplaySlots called with count < 0"); count = 0; }
-		if (AspectSlotScn == null) { GD.PushError("[UI_TowerPullout] AspectSlotScn not set!"); return; }
+		var slot = AspectSlotScn.Instantiate<AspectSlot>();
+		// ensure usable hitbox before it’s added to the flow layout
+		slot.CustomMinimumSize = new Vector2(96, 96);
+		ConfigureSlotInput(slot);
+		_container.AddChild(slot);
+	}
 
-		// Count existing slots
-		int slotsFound = 0;
-		for (int i = 0; i < _container.GetChildCount(); i++)
-			if (_container.GetChild(i) is AspectSlot) slotsFound++;
-
-		// Create missing
-		for (int need = slotsFound; need < count; need++)
+	// Assign indices, visibility, and configure all
+	int logical = 0;
+	for (int i = 0; i < _container.GetChildCount(); i++)
+	{
+		if (_container.GetChild(i) is AspectSlot slot)
 		{
-			var slot = AspectSlotScn.Instantiate<AspectSlot>();
+			slot.CustomMinimumSize = new Vector2(96, 96); // keep size on existing ones, too
 			ConfigureSlotInput(slot);
-			_container.AddChild(slot);
-		}
-
-		// Assign indices, visibility, and configure all
-		int logical = 0;
-		for (int i = 0; i < _container.GetChildCount(); i++)
-		{
-			if (_container.GetChild(i) is AspectSlot slot)
-			{
-				ConfigureSlotInput(slot);
-				slot.SetIndex(logical);
-				slot.Visible = logical < count;
-				logical++;
-			}
-		}
-
-		// Hide extras
-		int seen = 0;
-		for (int i = 0; i < _container.GetChildCount(); i++)
-		{
-			if (_container.GetChild(i) is AspectSlot slot)
-			{
-				slot.Visible = seen < count;
-				seen++;
-			}
+			slot.SetIndex(logical);
+			slot.Visible = logical < count;
+			logical++;
 		}
 	}
+
+	// Hide extras
+	int seen = 0;
+	for (int i = 0; i < _container.GetChildCount(); i++)
+	{
+		if (_container.GetChild(i) is AspectSlot slot)
+		{
+			slot.Visible = seen < count;
+			seen++;
+		}
+	}
+}
+
 
 	public void DisplaySlots()
 	{
