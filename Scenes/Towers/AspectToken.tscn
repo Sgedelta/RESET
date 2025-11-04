@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bbpoax07bi5jy" path="res://Scenes/UI/HoverAspect.cs" id="2_ok8gp"]
 
 [node name="AspectToken" type="Button"]
-custom_minimum_size = Vector2(126, 126)
+custom_minimum_size = Vector2(96, 96)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -19,12 +19,11 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 localize_numeral_system = false
-mouse_filter = 1
 flat = true
 script = ExtResource("1_pjfdh")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(126, 126)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

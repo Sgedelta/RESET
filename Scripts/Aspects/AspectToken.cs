@@ -16,17 +16,19 @@ public partial class AspectToken : Control
 	public override void _Ready()
 	{
 		_icon = GetNodeOrNull<TextureRect>("TextureRect");
-		MouseFilter = MouseFilterEnum.Pass;
+		MouseFilter = Control.MouseFilterEnum.Pass;
 
 		if (_icon != null)
 		{
-			_icon.AnchorLeft = 0;  _icon.AnchorTop = 0;
-			_icon.AnchorRight = 1; _icon.AnchorBottom = 1;
-			_icon.StretchMode = TextureRect.StretchModeEnum.Scale;
-			_icon.ExpandMode  = TextureRect.ExpandModeEnum.IgnoreSize;
+			_icon.AnchorLeft   = 0;  _icon.AnchorTop    = 0;
+			_icon.AnchorRight  = 1;  _icon.AnchorBottom = 1;
+			_icon.StretchMode  = TextureRect.StretchModeEnum.Scale;
+			_icon.ExpandMode   = TextureRect.ExpandModeEnum.IgnoreSize;
+			_icon.MouseFilter  = Control.MouseFilterEnum.Ignore;
 		}
 
 		ApplySize();
+		ApplyAnchorPreset();
 		ApplyAspectVisual();
 	}
 
@@ -37,6 +39,7 @@ public partial class AspectToken : Control
 		if (IsInsideTree())
 		{
 			ApplySize();
+			ApplyAnchorPreset();
 			ApplyAspectVisual();
 		}
 	}
@@ -45,13 +48,22 @@ public partial class AspectToken : Control
 	{
 		_place = place;
 		ApplySize();
+		ApplyAnchorPreset();
 	}
 
 	private void ApplySize()
 	{
 		var size = _place == TokenPlace.Bar ? SizeBar : SizeSlot;
-		SetSize(size);
-		SetDeferred("custom_minimum_size", size);
+		CustomMinimumSize = size;
+		Size = size;
+	}
+
+	private void ApplyAnchorPreset()
+	{
+		if (_place == TokenPlace.Slot)
+			SetAnchorsPreset(LayoutPreset.Center);
+		else
+			SetAnchorsPreset(LayoutPreset.TopLeft);
 	}
 
 	private void ApplyAspectVisual()
@@ -65,14 +77,33 @@ public partial class AspectToken : Control
 		if (Aspect == null) return default;
 
 		var preview = (AspectToken)Duplicate();
-		preview.MouseFilter = MouseFilterEnum.Ignore;
+		preview.MouseFilter = Control.MouseFilterEnum.Ignore;
 		SetDragPreview(preview);
 
-		return new Godot.Collections.Dictionary
+		var dict = new Godot.Collections.Dictionary
 		{
 			{ "type", "aspect_token" },
 			{ "origin", _place == TokenPlace.Bar ? "bar" : "slot" },
 			{ "aspect_id", Aspect.ID }
 		};
+
+		// If we're living inside a slot, include tower + slot index
+		if (_place == TokenPlace.Slot)
+		{
+			AspectSlot slot = null;
+			Node n = GetParent();
+			while (n != null && slot == null)
+			{
+				slot = n as AspectSlot;
+				n = n.GetParent();
+			}
+			if (slot != null && slot.Pullout?.ActiveTower != null)
+			{
+				dict["tower_path"] = slot.Pullout.ActiveTower.GetPath().ToString();
+				dict["slot_index"] = slot.Index;
+			}
+		}
+
+		return dict;
 	}
 }

@@ -1,26 +1,47 @@
 using Godot;
-using System;
 
 public partial class AspectSlot : PanelContainer
 {
 	[Export] public int Index;
-	[Export] public PackedScene TokenScene; // assign AspectToken.tscn
+	[Export] public PackedScene TokenScene;
 
 	private UI_TowerPullout _pullout;
 	public UI_TowerPullout Pullout => _pullout;
 
-	public Label Label;          // your “Empty Slot” label
-	private AspectToken _token;  // mounted token (if any)
+	public Label Label;
+	private AspectToken _token;
+
+	private const string TokenSceneFallbackPath = "res://Scenes/Towers/AspectToken.tscn";
+
+	// 👇 Give every slot a guaranteed hitbox so drag queries reach it
+	private static readonly Vector2 MinSlotSize = new(96, 96);
 
 	public override void _Ready()
 	{
-		// climb to pullout
 		Node n = GetParent();
 		while (n != null && n is not UI_TowerPullout) n = n.GetParent();
 		_pullout = n as UI_TowerPullout;
 
 		Label = GetNodeOrNull<Label>("RichTextLabel") ?? GetNodeOrNull<Label>("Label");
-		ClipChildren = ClipChildrenMode.Only; // keep token inside the slot rect
+
+		// Slot must be the drop target
+		MouseFilter = Control.MouseFilterEnum.Stop;
+
+		// Children must NOT intercept mouse
+		foreach (var ch in GetChildren())
+			if (ch is Control cc) cc.MouseFilter = Control.MouseFilterEnum.Ignore;
+
+		ClipChildren = ClipChildrenMode.Only;
+
+		// 👇 Ensure the slot actually has size in the layout
+		CustomMinimumSize = MinSlotSize;
+
+		if (TokenScene == null)
+		{
+			var loaded = ResourceLoader.Load<PackedScene>(TokenSceneFallbackPath);
+			if (loaded != null) TokenScene = loaded;
+			else GD.PushError($"[AspectSlot] TokenScene not set and fallback not found at {TokenSceneFallbackPath}");
+		}
 
 		RefreshVisual();
 		base._Ready();
@@ -29,6 +50,8 @@ public partial class AspectSlot : PanelContainer
 	public void SetIndex(int i)
 	{
 		Index = i;
+		// keep the minimum size when indices change
+		CustomMinimumSize = MinSlotSize;
 		RefreshVisual();
 	}
 
@@ -38,7 +61,6 @@ public partial class AspectSlot : PanelContainer
 
 		if (aspect != null)
 		{
-			// Ensure token exists and is sized for SLOT
 			if (_token == null)
 			{
 				if (TokenScene == null)
@@ -49,24 +71,23 @@ public partial class AspectSlot : PanelContainer
 				_token = TokenScene.Instantiate<AspectToken>();
 				_token.Name = "AspectToken";
 				_token.FocusMode = FocusModeEnum.None;
+				_token.MouseFilter = Control.MouseFilterEnum.Ignore;
 
-				// Make it cover the slot
 				_token.AnchorLeft = 0;  _token.AnchorTop = 0;
 				_token.AnchorRight = 1; _token.AnchorBottom = 1;
-				_token.OffsetLeft = 0;  _token.OffsetTop = 0;
-				_token.OffsetRight = 0; _token.OffsetBottom = 0;
+				_token.OffsetLeft = _token.OffsetTop = _token.OffsetRight = _token.OffsetBottom = 0;
 
 				AddChild(_token);
-				_token.MoveToFront(); // ensure on top of label
+				_token.ZIndex = 100;
+				_token.MoveToFront();
 			}
 
-			_token.Init(aspect, TokenPlace.Slot); // <-- SLOT context (96x96)
+			_token.Init(aspect, TokenPlace.Slot);
 
 			if (Label != null) Label.Visible = false;
 		}
 		else
 		{
-			// No aspect in this slot → remove token and show label
 			if (_token != null)
 			{
 				_token.QueueFree();
@@ -75,12 +96,10 @@ public partial class AspectSlot : PanelContainer
 			if (Label != null)
 			{
 				Label.Visible = true;
-				Label.Text = Label.Text is { Length: > 0 } ? Label.Text : "Empty\nSlot";
+				if (string.IsNullOrEmpty(Label.Text)) Label.Text = "Empty\nSlot";
 			}
 		}
 	}
-
-	// --- Drag & Drop stays the same ---
 
 	public override Variant _GetDragData(Vector2 atPosition)
 	{
@@ -104,16 +123,33 @@ public partial class AspectSlot : PanelContainer
 
 	public override bool _CanDropData(Vector2 atPosition, Variant data)
 	{
+		// DEBUG: prove this slot receives the query
+		GD.Print($"[AspectSlot {Index}] _CanDropData? size={Size} min={CustomMinimumSize} rect={GetGlobalRect()}");
+
 		if (data.VariantType != Variant.Type.Dictionary) return false;
 		var dict = (Godot.Collections.Dictionary)data;
-		return dict.TryGetValue("type", out var t) && (string)t == "aspect_token";
+
+		if (!dict.TryGetValue("type", out var t) || (string)t != "aspect_token")
+			return false;
+
+		if (!dict.TryGetValue("origin", out var o)) return false;
+		var origin = (string)o;
+
+		bool ok = (origin == "bar"  && dict.ContainsKey("aspect_id"))
+			   || (origin == "slot"); // always ok for slot-origin
+
+		GD.Print($"[AspectSlot {Index}] _CanDropData -> {ok} (origin={origin})");
+		return ok;
 	}
 
 	public override void _DropData(Vector2 atPosition, Variant data)
 	{
+		GD.Print($"[AspectSlot {Index}] _DropData");
 		var dict = (Godot.Collections.Dictionary)data;
+
 		_pullout.Container.AttachAspectToIndex(dict, Index);
+
+		RefreshVisual();
 		_pullout.RefreshUIs();
-		RefreshVisual(); // update this slot immediately
 	}
 }
