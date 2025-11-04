@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ddok57xgjsagd" path="res://Resources/AspectTemplates/TemplateIcons/magic pulse.png" id="1_87vsc"]
 [ext_resource type="Resource" uid="uid://b5vcfex11hnld" path="res://Resources/Modifiers/Splash/SLC_A+.tres" id="2_f8705"]
 [ext_resource type="Resource" uid="uid://dchjoqrer3mq2" path="res://Resources/Modifiers/Splash/SLR_A+.tres" id="3_sn8hm"]
-[ext_resource type="Resource" path="res://Resources/Modifiers/Accuracy/SPA_A++.tres" id="4_87vsc"]
+[ext_resource type="Resource" uid="uid://bnjwkt4sk1p5m" path="res://Resources/Modifiers/Accuracy/SPA_A++.tres" id="4_87vsc"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_mcqrs"]
 
 [resource]
