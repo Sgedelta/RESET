@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxdhdw8570td6"]
+[gd_scene load_steps=5 format=3 uid="uid://bxdhdw8570td6"]
 
 [ext_resource type="Script" uid="uid://nxhrep7cp0pq" path="res://Scripts/Gameplay/Enemies/Enemy.cs" id="1_7kucs"]
 [ext_resource type="SpriteFrames" uid="uid://bu0k1pn08yqv3" path="res://Resources/Sprites/Zombie.tres" id="2_7kucs"]
+[ext_resource type="PackedScene" uid="uid://rpq7jcrqoa83" path="res://Scenes/UI/Damage_Indicator.tscn" id="2_qwcx1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7kucs"]
 radius = 40.0
@@ -11,6 +12,7 @@ loop = false
 script = ExtResource("1_7kucs")
 MaxHp = 45.0
 _sprite = NodePath("AnimatedSprite2D")
+DamageIndicatorScene = ExtResource("2_qwcx1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = -1.5708
