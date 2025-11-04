@@ -21,7 +21,7 @@ public partial class Projectile : Area2D
 	protected float _damage;
 
 	// how frequently a projectile will retarget to find the nearest enemy, in seconds
-	private const float PROJ_RETARGET_SPEED = .05f;
+	private const float PROJ_RETARGET_SPEED = .1f;
 	private const float PERFECT_TURN_TIME = .6f; //Scalar for homing speed tuning - roughly correlates to time, but not exactly
 	private float _timeSinceRetarget = float.MaxValue;
 
@@ -67,6 +67,7 @@ public partial class Projectile : Area2D
 		_poisonTicks = stats.PoisonTicks;
 		_piercingAmount = stats.PiercingAmount;
 		_knockbackAmount = stats.KnockbackAmount;
+		_slowdownPercent = stats.SlowdownPercent;
 		_slowdownLength = stats.SlowdownLength;
 		_homingStrength = stats.HomingStrength;
 
@@ -164,7 +165,11 @@ public partial class Projectile : Area2D
 
 	private void ApplySlow(Enemy enemy)
 	{
-		if (_slowdownPercent <= 0 || _slowdownLength <= 0) return;
+		if (_slowdownPercent <= 0 || _slowdownLength <= 0)
+		{
+
+			return;
+		}
 
 		enemy.ApplySlow(_slowdownPercent, _slowdownLength);
 

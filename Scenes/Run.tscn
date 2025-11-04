@@ -95,7 +95,7 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 position = Vector2(1.99994, -6.00003)
 
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
-position = Vector2(-52, 2)
+position = Vector2(128, 47)
 BaseRange = 600.0
 BaseProjectileSpeed = 750.0
 
@@ -111,7 +111,7 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 position = Vector2(1.99994, -6.00003)
 
 [node name="Tower3" parent="Map/Towers" index="2" instance=ExtResource("4_jbeyo")]
-position = Vector2(206, 349)
+position = Vector2(206, 653)
 BaseRange = 600.0
 BaseProjectileSpeed = 750.0
 

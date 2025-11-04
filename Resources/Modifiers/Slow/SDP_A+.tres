@@ -10,4 +10,4 @@ linearRandom = false
 meanVal = 0.0
 stdDev = 0.0
 StatType = 1008
-ModifierType = 1
+ModifierType = 0

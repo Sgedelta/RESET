@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_jkoe2")
-statMin = 3.0
-statMax = 3.5
-linearRandom = false
+statMin = 2.0
+statMax = 3.0
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 1004

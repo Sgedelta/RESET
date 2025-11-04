@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_102gc")
-statMin = 6
-statMax = 9
+statMin = 3
+statMax = 5
 linearRandom = false
 meanVal = 0
 stdDev = 0
