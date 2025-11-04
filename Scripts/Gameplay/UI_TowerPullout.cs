@@ -1,18 +1,14 @@
 using Godot;
-using System;
-using System.Collections;
 using System.Threading.Tasks;
 
 public partial class UI_TowerPullout : CanvasLayer
 {
-
 	private bool _active = false;
 	private bool animating = false;
-	public bool Animating { get { return animating;  } 
-		set {  
-			animating = value;
-			EmitSignal(SignalName.AnimationStateChanged, value);
-				} 
+	public bool Animating
+	{
+		get => animating;
+		set { animating = value; EmitSignal(SignalName.AnimationStateChanged, value); }
 	}
 
 	private ScrollContainer i_ScrollContainer;
@@ -20,19 +16,14 @@ public partial class UI_TowerPullout : CanvasLayer
 	[Export] float SlideTime = .5f;
 
 	[Export] private Tower _tower;
-	public Tower ActiveTower { get { return _tower; } 
-		set
-		{
-			if(value != _tower)
-			{
-				ChangeActiveTower(value);
-			}
-		}
-	
+	public Tower ActiveTower
+	{
+		get => _tower;
+		set { if (value != _tower) ChangeActiveTower(value); }
 	}
 
 	[Export] private AspectUIContainer _container;
-	public AspectUIContainer Container { get { return _container; } }
+	public AspectUIContainer Container => _container;
 
 	[Signal] public delegate void AnimationStateChangedEventHandler(bool AnimState);
 
@@ -42,10 +33,8 @@ public partial class UI_TowerPullout : CanvasLayer
 	{
 		get
 		{
-			if(ActiveTower != null)
-			{
-				return ActiveTower.ModifiedStats.AspectSlots; ;
-			}
+			if (ActiveTower != null)
+				return ActiveTower.ModifiedStats.AspectSlots;
 			GD.PushError("No Active Tower to Get Slots From!");
 			return -1;
 		}
@@ -56,15 +45,15 @@ public partial class UI_TowerPullout : CanvasLayer
 	public override void _Ready()
 	{
 		i_ScrollContainer = GetChild<ScrollContainer>(1);
+		i_ScrollContainer.MouseFilter = Control.MouseFilterEnum.Pass;
 
 		AddToGroup("tower_pullout");
 
 		_active = false;
-		SetToActivePosition(); //do not tween
+		SetToActivePosition(); // don't tween
 
 		base._Ready();
 	}
-
 
 	public void ToggleActive()
 	{
@@ -74,35 +63,30 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	public void SetActiveState(bool state)
 	{
-		if(_active != state)
-		{
-			ToggleActive();
-		}
+		if (_active != state) ToggleActive();
 	}
-
 
 	public void TweenToActivePosition()
 	{
-		if (animating) return; //currently already animating, so don't do anything
+		if (animating) return;
 
-		Animating = true; //otherwise, lock until tween is over
-		Tween slideAnim = CreateTween();
+		Animating = true;
+		var slideAnim = CreateTween();
 		slideAnim.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Cubic);
-		slideAnim.TweenProperty(this, "offset", 
-			new Vector2((_active ? 0 : i_ScrollContainer.Size.X), 0), 
+		slideAnim.TweenProperty(this, "offset",
+			new Vector2((_active ? 0 : i_ScrollContainer.Size.X), 0),
 			SlideTime);
-		slideAnim.TweenCallback(Callable.From(() => {Animating = false;}));
+		slideAnim.TweenCallback(Callable.From(() => { Animating = false; }));
 	}
 
 	public void SetToActivePosition()
 	{
-
-		Offset = new Vector2( (_active ? 0 : i_ScrollContainer.Size.X), 0);
+		Offset = new Vector2((_active ? 0 : i_ScrollContainer.Size.X), 0);
 	}
 
 	private async void ChangeActiveTower(Tower tower)
 	{
-		if(_active)
+		if (_active)
 		{
 			ToggleActive();
 			await ToSignal(this, SignalName.AnimationStateChanged);
@@ -112,71 +96,87 @@ public partial class UI_TowerPullout : CanvasLayer
 		ToggleActive();
 	}
 
+	public void RefreshUIs()
+	{
+		GD.Print("Refreshing UIs");
 
-public void RefreshUIs()
+		DisplaySlots(); // ensures the right number are visible
+
+		for (int i = 0; i < _container.GetChildCount(); i++)
+			if (_container.GetChild(i) is AspectSlot slot)
+				slot.RefreshVisual();
+
+		_statDisplay.Text = "Tower Stats\n" + ActiveTower.StatDisplay();
+
+		if (AspectBar.Instance != null)
+			AspectBar.Instance.Refresh();
+	}
+
+	private void ConfigureSlotInput(AspectSlot slot)
+	{
+		if (slot == null) return;
+
+		// Slot is the drop target
+		slot.MouseFilter = Control.MouseFilterEnum.Stop;
+
+		// Children should not intercept mouse
+		foreach (var ch in slot.GetChildren())
+			if (ch is Control cc)
+				cc.MouseFilter = Control.MouseFilterEnum.Ignore;
+
+		// NOTE: We no longer connect 'child_entered_tree' here.
+		// We set MouseFilter on the token itself when we create it in AspectSlot.RefreshVisual().
+	}
+
+	public void DisplaySlots(int count)
 {
-	GD.Print("Refreshing UIs");
+	if (count < 0) { GD.PushWarning("[UI_TowerPullout] DisplaySlots called with count < 0"); count = 0; }
+	if (AspectSlotScn == null) { GD.PushError("[UI_TowerPullout] AspectSlotScn not set!"); return; }
 
-	DisplaySlots(); // ensures the right number are visible
+	// Count existing slots
+	int slotsFound = 0;
+	for (int i = 0; i < _container.GetChildCount(); i++)
+		if (_container.GetChild(i) is AspectSlot) slotsFound++;
 
+	// Create missing
+	for (int need = slotsFound; need < count; need++)
+	{
+		var slot = AspectSlotScn.Instantiate<AspectSlot>();
+		// ensure usable hitbox before it’s added to the flow layout
+		slot.CustomMinimumSize = new Vector2(96, 96);
+		ConfigureSlotInput(slot);
+		_container.AddChild(slot);
+	}
+
+	// Assign indices, visibility, and configure all
+	int logical = 0;
 	for (int i = 0; i < _container.GetChildCount(); i++)
 	{
 		if (_container.GetChild(i) is AspectSlot slot)
-			slot.RefreshVisual();           // <-- update token/label in each slot
+		{
+			slot.CustomMinimumSize = new Vector2(96, 96); // keep size on existing ones, too
+			ConfigureSlotInput(slot);
+			slot.SetIndex(logical);
+			slot.Visible = logical < count;
+			logical++;
+		}
 	}
 
-	_statDisplay.Text = "Tower Stats\n" + ActiveTower.StatDisplay();
-
-	if (AspectBar.Instance != null)
-		AspectBar.Instance.Refresh();
-}
-
-
-	public void DisplaySlots(int count)
+	// Hide extras
+	int seen = 0;
+	for (int i = 0; i < _container.GetChildCount(); i++)
 	{
-		// Guard
-		if (count < 0) { GD.PushWarning("[UI_TowerPullout] DisplaySlots called with count < 0"); count = 0; }
-		if (AspectSlotScn == null) { GD.PushError("[UI_TowerPullout] AspectSlotScn not set!"); return; }
-
-		// 1) Count existing slots (ignore non-slot UI)
-		int slotsFound = 0;
-		for (int i = 0; i < _container.GetChildCount(); i++)
-			if (_container.GetChild(i) is AspectSlot) slotsFound++;
-
-		// 2) Create missing slots to reach 'count'
-		for (int need = slotsFound; need < count; need++)
-			_container.AddChild(AspectSlotScn.Instantiate<AspectSlot>());
-
-		// 3) Assign indices to *slots only* and control visibility
-		int logical = 0;
-		for (int i = 0; i < _container.GetChildCount(); i++)
+		if (_container.GetChild(i) is AspectSlot slot)
 		{
-			if (_container.GetChild(i) is AspectSlot slot)
-			{
-				slot.SetIndex(logical);
-				slot.Visible = logical < count;
-				logical++;
-			}
-		}
-
-		// 4) Hide any extra slots beyond `count`
-		int seen = 0;
-		for (int i = 0; i < _container.GetChildCount(); i++)
-		{
-			if (_container.GetChild(i) is AspectSlot slot)
-			{
-				slot.Visible = seen < count;
-				seen++;
-			}
+			slot.Visible = seen < count;
+			seen++;
 		}
 	}
+}
 
 
 	public void DisplaySlots()
 	{
 		DisplaySlots(AvailableSlots);
 	}
-
-
-
 }

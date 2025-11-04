@@ -30,11 +30,11 @@ public partial class Enemy : PathFollow2D
 	private float _slowTimer = 0f;
 	private bool _isSlowed = false;
 
-    //Damage indicator 
-    [Export] public PackedScene DamageIndicatorScene;
+	//Damage indicator 
+	[Export] public PackedScene DamageIndicatorScene;
 
 	Color damageColor;
-    public override void _Ready()
+	public override void _Ready()
 	{
 		HP = MaxHp;
 
@@ -101,23 +101,23 @@ public partial class Enemy : PathFollow2D
 		if(type == DamageType.Posion)
 		{
 			damageColor = new Color(0.0f, 1.0f,0.0f);
-        }
+		}
 		else
 		{
 			damageColor = new Color(1.0f, 0.7f, 0.0f);
 		}
 			
 		var indicator = (DamageIndicator)DamageIndicatorScene.Instantiate();
-        GetTree().CurrentScene.AddChild(indicator);
+		GetTree().CurrentScene.AddChild(indicator);
 
 		
-        indicator.GlobalPosition = GlobalPosition + new Vector2(0, -20);
+		indicator.GlobalPosition = GlobalPosition + new Vector2(0, -20);
 		indicator.SetDamage(dmg, damageColor);
 
 
-    }
+	}
 
-    private void OnAttackTimeout()
+	private void OnAttackTimeout()
 	{
 		EmitSignal(SignalName.EnemyAttacked, this, AttackDamage);
 		GD.Print("Attack Timeout!");

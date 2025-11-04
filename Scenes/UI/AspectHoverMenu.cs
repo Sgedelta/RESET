@@ -13,8 +13,11 @@ public partial class AspectHoverMenu : Control
 	private Label _rarity;
 	private RichTextLabel _stats;
 
-	// where to place relative to mouse
-	private Vector2 _offset = new Vector2(14, -40);
+	// Offset from mouse when using ShowAspect(..., mousePos)
+	[Export] public Vector2 MouseOffset = new Vector2(14, -40);
+
+	// Screen padding when clamping
+	[Export] public float ClampPadding = 8f;
 
 	public override void _Ready()
 	{
@@ -26,10 +29,79 @@ public partial class AspectHoverMenu : Control
 		AddToGroup("AspectTooltip");
 	}
 
+	// =========================================================
+	// 1) Simple: mouse-based position, clamped to screen
+	// =========================================================
 	public void ShowAspect(Aspect aspect, Vector2 globalMousePos)
 	{
 		if (aspect == null) return;
 
+		FillText(aspect);
+
+		// Defer until sizes are resolved this frame
+		CallDeferred(nameof(PlaceMenuAtMouseClamped), globalMousePos);
+		Show();
+	}
+
+	private void PlaceMenuAtMouseClamped(Vector2 mousePos)
+	{
+		var desired = mousePos + MouseOffset;
+		GlobalPosition = ClampToViewport(desired, GetMenuSize());
+	}
+
+	// =========================================================
+	// 2) Optional: control-anchored placement (for later use)
+	//    Example: Show above-left of the token, clamped
+	// =========================================================
+	public enum MenuAnchor
+	{
+		AboveLeft,   // bottom-left of menu aligns to top-left of target
+		AboveRight,  // bottom-right of menu aligns to top-right of target
+		LeftCenter,  // right-center of menu aligns to left-center of target
+		RightCenter, // left-center of menu aligns to right-center of target
+		BelowLeft,   // top-left of menu aligns to bottom-left of target
+		BelowRight   // top-right of menu aligns to bottom-right of target
+	}
+
+	public void ShowAspectAtControl(Aspect aspect, Control target, MenuAnchor anchor = MenuAnchor.AboveLeft, Vector2 extraOffset = default)
+	{
+		if (aspect == null || target == null) return;
+
+		FillText(aspect);
+
+		CallDeferred(nameof(PlaceMenuAtControlClamped), target.GetPath(), (int)anchor, extraOffset);
+		Show();
+	}
+
+	private void PlaceMenuAtControlClamped(NodePath targetPath, int anchorRaw, Vector2 extraOffset)
+	{
+		var target = GetNodeOrNull<Control>(targetPath);
+		if (target == null) return;
+
+		var targetRect = target.GetGlobalRect();
+		var size = GetMenuSize();
+		var anchor = (MenuAnchor)anchorRaw;
+
+		Vector2 desired = anchor switch
+		{
+			MenuAnchor.AboveLeft   => new Vector2(targetRect.Position.X, targetRect.Position.Y - size.Y),
+			MenuAnchor.AboveRight  => new Vector2(targetRect.End.X - size.X, targetRect.Position.Y - size.Y),
+			MenuAnchor.LeftCenter  => new Vector2(targetRect.Position.X - size.X, targetRect.Position.Y + targetRect.Size.Y * 0.5f - size.Y * 0.5f),
+			MenuAnchor.RightCenter => new Vector2(targetRect.End.X,         targetRect.Position.Y + targetRect.Size.Y * 0.5f - size.Y * 0.5f),
+			MenuAnchor.BelowLeft   => new Vector2(targetRect.Position.X, targetRect.End.Y),
+			MenuAnchor.BelowRight  => new Vector2(targetRect.End.X - size.X, targetRect.End.Y),
+			_ => targetRect.End    // fallback
+		};
+
+		desired += extraOffset;
+		GlobalPosition = ClampToViewport(desired, size);
+	}
+
+	// =========================================================
+	// Utility
+	// =========================================================
+	private void FillText(Aspect aspect)
+	{
 		_name.Text   = aspect.Template.DisplayName ?? "Aspect";
 		_rarity.Text = aspect.Template.Rarity.ToString();
 
@@ -37,27 +109,36 @@ public partial class AspectHoverMenu : Control
 		_stats.PushMono();
 		_stats.AppendText(BuildLines(aspect));
 		_stats.Pop();
+	}
 
-		CallDeferred(nameof(PlaceMenu), globalMousePos);
-		Show();
+	private Vector2 GetMenuSize()
+	{
+		// Use the greater of current Size and minimum to be robust
+		var min = GetCombinedMinimumSize();
+		return new Vector2(Mathf.Max(Size.X, min.X), Mathf.Max(Size.Y, min.Y));
+	}
+
+	private Vector2 ClampToViewport(Vector2 desiredGlobalPos, Vector2 menuSize)
+	{
+		var vp = GetViewport().GetVisibleRect(); // (0,0)-(w,h) for visible area
+		float pad = ClampPadding;
+
+		float minX = vp.Position.X + pad;
+		float minY = vp.Position.Y + pad;
+		float maxX = vp.End.X - pad - menuSize.X;
+		float maxY = vp.End.Y - pad - menuSize.Y;
+
+		return new Vector2(
+			Mathf.Clamp(desiredGlobalPos.X, minX, Mathf.Max(minX, maxX)),
+			Mathf.Clamp(desiredGlobalPos.Y, minY, Mathf.Max(minY, maxY))
+		);
 	}
 
 	public void HideTooltip() => Hide();
 
-	private void PlaceMenu(Vector2 mousePos)
-	{
-		var desired = mousePos + _offset;
-		var vp = GetViewport().GetVisibleRect();
-
-		var size = GetCombinedMinimumSize();
-		var finalPos = desired;
-
-		if (finalPos.X + size.X > vp.Size.X) finalPos.X = vp.Size.X - size.X - 4;
-		if (finalPos.Y + size.Y > vp.Size.Y) finalPos.Y = vp.Size.Y - size.Y - 4;
-
-		GlobalPosition = finalPos;
-	}
-
+	// =========================================================
+	// Text building (unchanged)
+	// =========================================================
 	private string BuildLines(Aspect aspect)
 	{
 		var sb = new StringBuilder();
@@ -100,7 +181,6 @@ public partial class AspectHoverMenu : Control
 
 	private static string FormatModifier(string statName, ModifierUnit unit)
 	{
-		// int vs float value
 		bool isInt = unit is IntModifierUnit;
 		double val = isInt
 			? ((IntModifierUnit)unit).Value

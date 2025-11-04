@@ -9,66 +9,99 @@ public partial class AspectBar : Control
 
 	public override void _Ready()
 	{
-		if(Instance != null && Instance != this) {
-			this.QueueFree();
-		} else if (Instance == null) {
+		if (Instance != null && Instance != this)
+			QueueFree();
+		else
 			Instance = this;
-		}
-		
+
 		_row = GetNode<HBoxContainer>(RowPath);
 		Refresh();
 	}
 
-public void Refresh()
-{
-	GD.Print("Refreshing Bar");
-	foreach (Node child in _row.GetChildren()) child.QueueFree();
-
-	foreach (var aspect in GameManager.Instance.Inventory.BagAspects())
+	public void Refresh()
 	{
-		if (GameManager.Instance.Inventory.IsAttached(aspect)) continue;
+		GD.Print("Refreshing Bar");
+		foreach (Node child in _row.GetChildren()) child.QueueFree();
 
-		var token = TokenScene.Instantiate<AspectToken>();
-		token.Init(aspect, TokenPlace.Bar);
-		token.FocusMode = Control.FocusModeEnum.None;
-		_row.AddChild(token);
+		foreach (var aspect in GameManager.Instance.Inventory.BagAspects())
+		{
+			if (GameManager.Instance.Inventory.IsAttached(aspect)) continue;
+
+			var token = TokenScene.Instantiate<AspectToken>();
+			token.Init(aspect, TokenPlace.Bar);
+			token.FocusMode = Control.FocusModeEnum.None;
+			_row.AddChild(token);
+		}
 	}
-}
-
 
 	public override bool _CanDropData(Vector2 atPosition, Variant data)
 	{
 		if (data.VariantType != Variant.Type.Dictionary) return false;
 		var dict = (Godot.Collections.Dictionary)data;
-		return dict.TryGetValue("type", out var t) && (string)t == "aspect_token"
-			&& dict.TryGetValue("origin", out var o) && (string)o == "slot";
+
+		// Accept either slot-origin payload, or bar-origin with just aspect_id
+		if (!dict.TryGetValue("type", out var t) || (string)t != "aspect_token")
+			return false;
+
+		if (!dict.TryGetValue("origin", out var o)) return false;
+		var origin = (string)o;
+
+		if (origin == "slot")
+			return true; // slot → bar detach
+		if (origin == "bar")
+			return dict.ContainsKey("aspect_id"); // no-op but safe
+
+		return false;
 	}
 
 	public override void _DropData(Vector2 atPosition, Variant data)
 	{
 		var dict = (Godot.Collections.Dictionary)data;
 
-		if(!dict.ContainsKey("tower_path") || !dict.ContainsKey("slot_index"))
+		var inv = GameManager.Instance.Inventory;
+		Aspect aspect = null;
+
+		// Resolve aspect regardless of payload shape
+		if (dict.ContainsKey("aspect_id"))
 		{
-			GD.PrintErr("Aspect could not be dropped on bar because it lacks some data!");
+			aspect = inv.GetByID((string)dict["aspect_id"]);
+		}
+
+		Tower tower = null;
+
+		if (dict.ContainsKey("tower_path") && dict.ContainsKey("slot_index"))
+		{
+			var towerPath = (string)dict["tower_path"];
+			var slotIndex = (int)dict["slot_index"];
+			tower = GetNode<Tower>(towerPath);
+
+			if (aspect == null && tower != null)
+				aspect = tower.GetAspectInSlot(slotIndex);
+		}
+
+		if (aspect == null)
+		{
+			GD.PushWarning("[AspectBar] Drop ignored: aspect couldn't be resolved.");
 			return;
 		}
 
-		var towerPath = (string)dict["tower_path"];
-		var slotIndex = (int)dict["slot_index"];
+		// If we know the owner, detach from it
+		tower ??= inv.AttachedTo(aspect);
+		if (tower == null)
+		{
+			// already unattached – just refresh bar
+			Refresh();
+			return;
+		}
 
-		var tower = GetNode<Tower>(towerPath);
-		var aspect = tower.GetAspectInSlot(slotIndex);
-		if (aspect == null) return;
-
-		if (GameManager.Instance.Inventory.DetachFrom(aspect, tower))
+		if (inv.DetachFrom(aspect, tower))
 		{
 			tower.Recompute();
 			Refresh();
 			RefreshPulloutsForTower(tower);
 		}
 	}
-	
+
 	private void RefreshPulloutsForTower(Tower tower)
 	{
 		foreach (var n in GetTree().GetNodesInGroup("tower_pullout"))
@@ -77,5 +110,4 @@ public void Refresh()
 				p.RefreshUIs();
 		}
 	}
-
 }
