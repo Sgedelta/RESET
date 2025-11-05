@@ -9,5 +9,5 @@ statMax = 0.1
 linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
-StatType = 0
+StatType = 4
 ModifierType = 0

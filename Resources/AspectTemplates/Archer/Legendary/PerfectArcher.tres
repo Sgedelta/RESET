@@ -1,16 +1,20 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://b37wej6t8hssw"]
+[gd_resource type="Resource" load_steps=10 format=3 uid="uid://b37wej6t8hssw"]
 
-[ext_resource type="Resource" uid="uid://c0dvq8fexqcbn" path="res://Resources/Modifiers/Fire Rate/FR_M++.tres" id="1_7d26m"]
 [ext_resource type="Texture2D" uid="uid://cgdr3dbe4k2vs" path="res://Resources/AspectTemplates/TemplateIcons/perfect archer.png" id="1_hwh7e"]
 [ext_resource type="Resource" uid="uid://bqcsbfkg2hoxq" path="res://Resources/Modifiers/Damage/DMG_A+++.tres" id="2_5jdh7"]
-[ext_resource type="Resource" uid="uid://cfk10k67pju21" path="res://Resources/Modifiers/Piercing/PRM_A+.tres" id="3_nmggq"]
+[ext_resource type="Resource" uid="uid://bsyefwk0d35x3" path="res://Resources/Modifiers/Range/RNG_M++.tres" id="2_7x6d2"]
+[ext_resource type="Resource" uid="uid://pwel6kv4kiyp" path="res://Resources/Modifiers/Critical/CRC_A++.tres" id="4_cfb2l"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_nfslw"]
+[ext_resource type="Resource" uid="uid://ddaqurbop6hpx" path="res://Resources/Modifiers/Critical/CRM_M+.tres" id="5_7jrsu"]
+[ext_resource type="Resource" uid="uid://7olgkdfnx1qm" path="res://Resources/Modifiers/Accuracy/SPA_A--.tres" id="6_at36h"]
+[ext_resource type="Resource" uid="uid://gjvx2wxxd2j1" path="res://Resources/Modifiers/Accuracy/SPF_A++.tres" id="7_2wd1y"]
+[ext_resource type="Resource" uid="uid://bih2jwpy8inrc" path="res://Resources/Modifiers/Piercing/PRM_A++.tres" id="8_5of1s"]
 
 [resource]
 script = ExtResource("4_nfslw")
 _id = "PerfectArcher"
 DisplayName = "Perfect Archer"
 AspectSprite = ExtResource("1_hwh7e")
-Modifiers = Array[Resource]([ExtResource("1_7d26m"), ExtResource("2_5jdh7"), ExtResource("3_nmggq")])
+Modifiers = Array[Resource]([ExtResource("2_7x6d2"), ExtResource("2_5jdh7"), ExtResource("4_cfb2l"), ExtResource("5_7jrsu"), ExtResource("6_at36h"), ExtResource("7_2wd1y"), ExtResource("8_5of1s")])
 ProjectileType = 0
 Rarity = 3
