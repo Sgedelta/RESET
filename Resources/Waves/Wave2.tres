@@ -6,4 +6,7 @@
 
 [resource]
 script = ExtResource("3_nlc01")
+ID = ""
+selectionWeight = 0.0
 WaveEnemies = Array[Resource]([ExtResource("1_wlds8"), ExtResource("1_wlds8"), ExtResource("1_wlds8"), ExtResource("2_1qnre"), ExtResource("2_1qnre")])
+WaveInfo = Array[Array]([])
