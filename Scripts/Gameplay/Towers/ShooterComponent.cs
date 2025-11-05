@@ -133,8 +133,6 @@ public partial class ShooterComponent : Node2D
 				rng.Randfn(0, ((i_shotSpread * FALLOFF_STDDEV_RATIO) / i_shotSpreadFalloff)) % i_shotSpread
 			));
 
-		GD.Print(rng.Randfn(0, ((i_shotSpread * FALLOFF_STDDEV_RATIO) / i_shotSpreadFalloff)) % i_shotSpread);
-
 		projectile.Init(initialDirection, tower.ModifiedStats);
 
 		

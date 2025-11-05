@@ -49,10 +49,6 @@ Btn2IconPath = NodePath("Panel/VBox/Row/Btn2/Icon")
 [node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
 offset_right = 200.0
 offset_bottom = 200.0
-CommonTexture = null
-RareTexture = null
-LegendaryTexture = null
-EpicTexture = null
 
 [node name="MarginContainer" parent="CanvasLayer/AspectHoverMenu/Panel" index="1"]
 theme_override_constants/margin_bottom = 20
