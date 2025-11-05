@@ -2,14 +2,14 @@
 
 [ext_resource type="Resource" uid="uid://dm8ju4v8o12dl" path="res://Resources/Modifiers/Damage/DMG_A++.tres" id="1_as0kr"]
 [ext_resource type="Texture2D" uid="uid://c73ex4l8h07qe" path="res://Resources/AspectTemplates/TemplateIcons/mana surge.png" id="1_upy2d"]
-[ext_resource type="Resource" uid="uid://dkkse3hbw7fl2" path="res://Resources/Modifiers/Fire Rate/FR_M--.tres" id="2_8wa2d"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="3_j7nop"]
+[ext_resource type="Resource" uid="uid://b1yc8rnr6wxpx" path="res://Resources/Modifiers/Fire Rate/FR_A--.tres" id="3_upy2d"]
 
 [resource]
 script = ExtResource("3_j7nop")
 _id = "ManaSurge"
 DisplayName = "Mana Surge"
 AspectSprite = ExtResource("1_upy2d")
-Modifiers = Array[Resource]([ExtResource("1_as0kr"), ExtResource("2_8wa2d")])
+Modifiers = Array[Resource]([ExtResource("1_as0kr"), ExtResource("3_upy2d")])
 ProjectileType = 0
 Rarity = 0

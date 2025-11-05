@@ -1,16 +1,16 @@
 [gd_resource type="Resource" load_steps=6 format=3 uid="uid://cti8m7p7f8ltg"]
 
-[ext_resource type="Resource" uid="uid://ckkt8pbp32tyu" path="res://Resources/Modifiers/Damage/DMG_M+++.tres" id="1_6gny3"]
 [ext_resource type="Texture2D" uid="uid://kpn6ppfmvwey" path="res://Resources/AspectTemplates/TemplateIcons/strong mage.png" id="1_y36l7"]
 [ext_resource type="Resource" uid="uid://c2jy78kbdn5s" path="res://Resources/Modifiers/Fire Rate/FR_M-.tres" id="2_e5rbe"]
-[ext_resource type="Resource" uid="uid://s14coybcugf3" path="res://Resources/Modifiers/Range/RNG_M-.tres" id="3_w3j62"]
+[ext_resource type="Resource" uid="uid://ky38uk3aihse" path="res://Resources/Modifiers/Damage/DMG_M++.tres" id="2_y36l7"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_iafa0"]
+[ext_resource type="Resource" uid="uid://b2jvfq7a3v0h6" path="res://Resources/Modifiers/Range/RNG_A--.tres" id="4_y2b04"]
 
 [resource]
 script = ExtResource("4_iafa0")
 _id = "StrongMage"
 DisplayName = "Strong Mage"
 AspectSprite = ExtResource("1_y36l7")
-Modifiers = Array[Resource]([ExtResource("1_6gny3"), ExtResource("2_e5rbe"), ExtResource("3_w3j62")])
+Modifiers = Array[Resource]([ExtResource("2_y36l7"), ExtResource("2_e5rbe"), ExtResource("4_y2b04")])
 ProjectileType = 0
 Rarity = 2

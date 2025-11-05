@@ -1,15 +1,16 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://baqxccb6ckhks"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://baqxccb6ckhks"]
 
-[ext_resource type="Resource" uid="uid://hy4nn8iy45m1" path="res://Resources/Modifiers/Critical/CRC_M+.tres" id="1_ctgji"]
 [ext_resource type="Texture2D" uid="uid://crmoq6oaum7vp" path="res://Resources/AspectTemplates/TemplateIcons/random.png" id="1_dgt6o"]
-[ext_resource type="Resource" uid="uid://ddaqurbop6hpx" path="res://Resources/Modifiers/Critical/CRM_M+.tres" id="2_6uscv"]
+[ext_resource type="Resource" uid="uid://pwel6kv4kiyp" path="res://Resources/Modifiers/Critical/CRC_A++.tres" id="2_v5647"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="3_52slx"]
+[ext_resource type="Resource" uid="uid://bns3ruojs2e8q" path="res://Resources/Modifiers/Critical/CRM_A++.tres" id="3_cdyuo"]
+[ext_resource type="Resource" uid="uid://bnjwkt4sk1p5m" path="res://Resources/Modifiers/Accuracy/SPA_A++.tres" id="4_npqq5"]
 
 [resource]
 script = ExtResource("3_52slx")
 _id = "Random"
 DisplayName = "Random"
 AspectSprite = ExtResource("1_dgt6o")
-Modifiers = Array[Resource]([ExtResource("1_ctgji"), ExtResource("2_6uscv")])
+Modifiers = Array[Resource]([ExtResource("2_v5647"), ExtResource("3_cdyuo"), ExtResource("4_npqq5")])
 ProjectileType = 0
 Rarity = 0

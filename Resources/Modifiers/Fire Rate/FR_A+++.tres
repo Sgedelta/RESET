@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_gn5pv")
-statMin = 0.0
-statMax = 0.0
+statMin = 3.0
+statMax = 5.0
 linearRandom = true
 meanVal = 0.0
 stdDev = 0.0

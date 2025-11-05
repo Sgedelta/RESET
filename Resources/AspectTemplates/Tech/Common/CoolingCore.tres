@@ -1,15 +1,19 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://nr2pc73u0gm2"]
+[gd_resource type="Resource" load_steps=9 format=3 uid="uid://nr2pc73u0gm2"]
 
 [ext_resource type="Texture2D" uid="uid://d4j2waabmmj2c" path="res://Resources/AspectTemplates/TemplateIcons/cooling core.png" id="1_ac7el"]
 [ext_resource type="Resource" uid="uid://kucl2205xlxa" path="res://Resources/Modifiers/Fire Rate/FR_M+.tres" id="1_r8ik0"]
 [ext_resource type="Resource" uid="uid://s14coybcugf3" path="res://Resources/Modifiers/Range/RNG_M-.tres" id="2_2qwfl"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="3_e1umv"]
+[ext_resource type="Resource" uid="uid://j5pw3jxa0otp" path="res://Resources/Modifiers/Slow/SDL_A+.tres" id="4_bnis6"]
+[ext_resource type="Resource" uid="uid://c8op3oj2lfmos" path="res://Resources/Modifiers/Slow/SDP_A+.tres" id="5_1gjx2"]
+[ext_resource type="Resource" uid="uid://b6mqdi3ynjv3d" path="res://Resources/Modifiers/Splash/SLC_A-.tres" id="6_vnyqm"]
+[ext_resource type="Resource" uid="uid://crcoh34wie8os" path="res://Resources/Modifiers/Splash/SLR_A-.tres" id="7_1gjx2"]
 
 [resource]
 script = ExtResource("3_e1umv")
 _id = "CoolingCore"
 DisplayName = "Cooling Core"
 AspectSprite = ExtResource("1_ac7el")
-Modifiers = Array[Resource]([ExtResource("1_r8ik0"), ExtResource("2_2qwfl")])
+Modifiers = Array[Resource]([ExtResource("1_r8ik0"), ExtResource("2_2qwfl"), ExtResource("4_bnis6"), ExtResource("5_1gjx2"), ExtResource("6_vnyqm"), ExtResource("7_1gjx2")])
 ProjectileType = 0
 Rarity = 0

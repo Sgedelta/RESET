@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=6 format=3 uid="uid://dmj63fqtruvft"]
 
-[ext_resource type="Resource" uid="uid://c0dvq8fexqcbn" path="res://Resources/Modifiers/Fire Rate/FR_M++.tres" id="1_16iuf"]
 [ext_resource type="Texture2D" uid="uid://clhya1bq3su7o" path="res://Resources/AspectTemplates/TemplateIcons/overclocked.png" id="1_g1tck"]
-[ext_resource type="Resource" uid="uid://bkvckdop3hj4l" path="res://Resources/Modifiers/Damage/DMG_A-.tres" id="2_5kkql"]
-[ext_resource type="Resource" uid="uid://bwigsejsqqeqp" path="res://Resources/Modifiers/Accuracy/SPA_A-.tres" id="3_mtowq"]
+[ext_resource type="Resource" uid="uid://ck70cdncs5m24" path="res://Resources/Modifiers/Fire Rate/FR_A+.tres" id="2_g1tck"]
+[ext_resource type="Resource" uid="uid://kucl2205xlxa" path="res://Resources/Modifiers/Fire Rate/FR_M+.tres" id="3_7tymd"]
+[ext_resource type="Resource" uid="uid://b2jvfq7a3v0h6" path="res://Resources/Modifiers/Range/RNG_A--.tres" id="4_6ouqt"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_bs0ix"]
 
 [resource]
@@ -11,6 +11,6 @@ script = ExtResource("4_bs0ix")
 _id = "OverClocked"
 DisplayName = "Over Clocked"
 AspectSprite = ExtResource("1_g1tck")
-Modifiers = Array[Resource]([ExtResource("1_16iuf"), ExtResource("2_5kkql"), ExtResource("3_mtowq")])
+Modifiers = Array[Resource]([ExtResource("2_g1tck"), ExtResource("3_7tymd"), ExtResource("4_6ouqt")])
 ProjectileType = 0
 Rarity = 1
