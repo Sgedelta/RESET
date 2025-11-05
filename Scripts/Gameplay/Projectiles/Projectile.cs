@@ -251,5 +251,10 @@ public partial class Projectile : Area2D
 		_target.TakeDamage(_damage);
 	}
 
+	public void FreeProjectile()
+	{
+		QueueFree();
+	}
+
 	
 }
