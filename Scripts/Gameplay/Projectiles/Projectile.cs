@@ -127,6 +127,13 @@ public partial class Projectile : Area2D
 
 		_hitEnemies.Add(enemy);
 
+		//check crit
+		float hitDamage = _damage;
+		if(GD.Randf() <= _critChance)
+		{
+			_damage *= _critMult;
+		}
+
 		enemy.TakeDamage(_damage);
 
 		ApplyKnockback(enemy);
@@ -239,8 +246,6 @@ public partial class Projectile : Area2D
 	{
 		if (_target == null || !IsInstanceValid(_target))
 			return;
-
-		_target.TakeDamage(_damage);
 
 	   
 		_target.TakeDamage(_damage);
