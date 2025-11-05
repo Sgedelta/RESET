@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("3_t4giv")
 _id = "SludgeCannon"
-DisplayName = "SludgeCannon"
+DisplayName = "Sludge Cannon"
 AspectSprite = ExtResource("1_t21n4")
 Modifiers = Array[Resource]([ExtResource("1_ut35l"), ExtResource("2_ttbq4")])
 ProjectileType = 0

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=6 format=3 uid="uid://6bx5kjpt7lul"]
 
-[ext_resource type="Texture2D" uid="uid://c05taewi0j8l4" path="res://Resources/AspectTemplates/TemplateIcons/poison veil.png" id="1_j2dhm"]
+[ext_resource type="Texture2D" uid="uid://bq7teereqan5x" path="res://Resources/AspectTemplates/TemplateIcons/poison veil.png" id="1_j2dhm"]
 [ext_resource type="Resource" uid="uid://cvqdyufx1poke" path="res://Resources/Modifiers/Poison/PSD_M+.tres" id="1_kv5ug"]
 [ext_resource type="Resource" uid="uid://cgcnxvopc5kw8" path="res://Resources/Modifiers/Poison/PST_A+.tres" id="2_bayaj"]
 [ext_resource type="Resource" uid="uid://xw5vbu6tsim" path="res://Resources/Modifiers/Damage/DMG_A+.tres" id="3_o7ywu"]
@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("4_431kn")
 _id = "PoisonVeil"
-DisplayName = "PoisonVeil"
+DisplayName = "Poison Veil"
 AspectSprite = ExtResource("1_j2dhm")
 Modifiers = Array[Resource]([ExtResource("1_kv5ug"), ExtResource("2_bayaj"), ExtResource("3_o7ywu")])
 ProjectileType = 0

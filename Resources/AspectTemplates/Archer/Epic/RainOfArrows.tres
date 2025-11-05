@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("3_0mpwe")
 _id = "RainOfArrows"
-DisplayName = "RainOfArrows"
+DisplayName = "Rain Of Arrows"
 AspectSprite = ExtResource("1_33k5o")
 Modifiers = Array[Resource]([ExtResource("1_5fxr8"), ExtResource("2_u7tqm")])
 ProjectileType = 0

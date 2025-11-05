@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("4_5rkix")
 _id = "MissileLauncher"
-DisplayName = "MissileLauncher"
+DisplayName = "Missile Launcher"
 AspectSprite = ExtResource("1_yw66n")
 Modifiers = Array[Resource]([ExtResource("1_7cmmt"), ExtResource("2_us70s"), ExtResource("3_jf5wu")])
 ProjectileType = 0

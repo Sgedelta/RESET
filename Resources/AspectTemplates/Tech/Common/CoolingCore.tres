@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("3_e1umv")
 _id = "CoolingCore"
-DisplayName = "CoolingCore"
+DisplayName = "Cooling Core"
 AspectSprite = ExtResource("1_ac7el")
 Modifiers = Array[Resource]([ExtResource("1_r8ik0"), ExtResource("2_2qwfl")])
 ProjectileType = 0

@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("5_qneh5")
 _id = "SteadyHand"
-DisplayName = "SteadyHand"
+DisplayName = "Steady Hand"
 AspectSprite = ExtResource("1_s2epg")
 Modifiers = Array[Resource]([ExtResource("1_cxks2"), ExtResource("2_r44js"), ExtResource("3_t4ep5"), ExtResource("4_1wsqk")])
 ProjectileType = 0

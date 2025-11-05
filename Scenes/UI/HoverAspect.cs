@@ -13,7 +13,6 @@ public partial class HoverAspect : Node
 			return;
 		}
 
-		// Connect hover signals on the parent control
 		_parentCtrl.MouseEntered += OnMouseEntered;
 		_parentCtrl.MouseExited  += OnMouseExited;
 	}
@@ -26,13 +25,40 @@ public partial class HoverAspect : Node
 		if (aspect == null || tooltip == null || _parentCtrl == null)
 			return;
 
-		// Anchor the tooltip to the parent control (token or slot)
-		tooltip.ShowAspectAtControl(
-			aspect,
-			_parentCtrl,
-			AspectHoverMenu.MenuAnchor.AboveLeft,   // tweak if you prefer another anchor
-			new Vector2(0, -6)                      // small extra offset
-		);
+		// Decide anchor based on where this aspect/token is
+		AspectHoverMenu.MenuAnchor anchor;
+		Vector2 offset = Vector2.Zero;
+
+		// If the hovered control is a token, we can read its placement directly
+		if (_parentCtrl is AspectToken tok)
+		{
+			if (tok.Place == TokenPlace.Bar)
+			{
+				// BAR: menu above token, bottom-left of menu -> top-left of token
+				anchor = AspectHoverMenu.MenuAnchor.AboveLeft;
+				offset = new Vector2(0, -2);
+			}
+			else
+			{
+				// SLOT: menu to the left, top-right of menu -> top-left of token
+				anchor = AspectHoverMenu.MenuAnchor.LeftTop;
+				offset = new Vector2(-6, 0);
+			}
+		}
+		else if (_parentCtrl is AspectSlot)
+		{
+			// Hovering the slot itself: treat as tower menu placement
+			anchor = AspectHoverMenu.MenuAnchor.LeftTop;
+			offset = new Vector2(-6, 0);
+		}
+		else
+		{
+			// Fallback (safe default)
+			anchor = AspectHoverMenu.MenuAnchor.AboveLeft;
+			offset = new Vector2(0, -2);
+		}
+
+		tooltip.ShowAspectAtControl(aspect, _parentCtrl, anchor, offset);
 	}
 
 	private void OnMouseExited()
@@ -49,11 +75,9 @@ public partial class HoverAspect : Node
 
 	private Aspect ResolveAspect()
 	{
-		// If we're on an AspectToken, use its Aspect directly
 		if (_parentCtrl is AspectToken token)
 			return token.Aspect;
 
-		// If we're on an AspectSlot, ask its tower for the aspect at that index
 		if (_parentCtrl is AspectSlot slot)
 		{
 			var tower = slot.Pullout?.ActiveTower;

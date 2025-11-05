@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("4_khelr")
 _id = "TunedGears"
-DisplayName = "TunedGears"
+DisplayName = "Tuned Gears"
 AspectSprite = ExtResource("1_wbcdg")
 Modifiers = Array[Resource]([ExtResource("1_ppmah"), ExtResource("2_cyqh1"), ExtResource("3_vgi5a")])
 ProjectileType = 0

@@ -9,6 +9,10 @@ public partial class AspectHoverMenu : Control
 	[Export] public NodePath RarityPath = "Panel/Margin/VBox/Rarity";
 	[Export] public NodePath StatsPath  = "Panel/Margin/VBox/stats";
 
+	// NEW: TextureRect background path (point this at your background TextureRect)
+	[Export] public NodePath BackgroundPath = "Panel/TextureRect";
+	private TextureRect _bg;
+
 	private Label _name;
 	private Label _rarity;
 	private RichTextLabel _stats;
@@ -19,11 +23,17 @@ public partial class AspectHoverMenu : Control
 	// Screen padding when clamping
 	[Export] public float ClampPadding = 8f;
 
+	[Export] public Texture2D CommonTexture;
+	[Export] public Texture2D RareTexture;
+	[Export] public Texture2D LegendaryTexture;
+	[Export] public Texture2D EpicTexture; 
+
 	public override void _Ready()
 	{
 		_name   = GetNode<Label>(NamePath);
 		_rarity = GetNode<Label>(RarityPath);
 		_stats  = GetNode<RichTextLabel>(StatsPath);
+		_bg     = GetNodeOrNull<TextureRect>(BackgroundPath);
 
 		Visible = false;
 		AddToGroup("AspectTooltip");
@@ -50,8 +60,7 @@ public partial class AspectHoverMenu : Control
 	}
 
 	// =========================================================
-	// 2) Optional: control-anchored placement (for later use)
-	//    Example: Show above-left of the token, clamped
+	// 2) Control-anchored placement
 	// =========================================================
 	public enum MenuAnchor
 	{
@@ -60,7 +69,10 @@ public partial class AspectHoverMenu : Control
 		LeftCenter,  // right-center of menu aligns to left-center of target
 		RightCenter, // left-center of menu aligns to right-center of target
 		BelowLeft,   // top-left of menu aligns to bottom-left of target
-		BelowRight   // top-right of menu aligns to bottom-right of target
+		BelowRight,  // top-right of menu aligns to bottom-right of target
+
+		// NEW: top-right of menu aligns to top-left of target (for tower slot case)
+		LeftTop
 	}
 
 	public void ShowAspectAtControl(Aspect aspect, Control target, MenuAnchor anchor = MenuAnchor.AboveLeft, Vector2 extraOffset = default)
@@ -90,6 +102,10 @@ public partial class AspectHoverMenu : Control
 			MenuAnchor.RightCenter => new Vector2(targetRect.End.X,         targetRect.Position.Y + targetRect.Size.Y * 0.5f - size.Y * 0.5f),
 			MenuAnchor.BelowLeft   => new Vector2(targetRect.Position.X, targetRect.End.Y),
 			MenuAnchor.BelowRight  => new Vector2(targetRect.End.X - size.X, targetRect.End.Y),
+
+			// NEW exact alignment: menu.topRight = token.topLeft
+			MenuAnchor.LeftTop     => new Vector2(targetRect.Position.X - size.X, targetRect.Position.Y),
+
 			_ => targetRect.End    // fallback
 		};
 
@@ -105,15 +121,35 @@ public partial class AspectHoverMenu : Control
 		_name.Text   = aspect.Template.DisplayName ?? "Aspect";
 		_rarity.Text = aspect.Template.Rarity.ToString();
 
+		// Apply rarity background color
+		ApplyRarityBackground(aspect.Template.Rarity);
+
 		_stats.Clear();
 		_stats.PushMono();
 		_stats.AppendText(BuildLines(aspect));
 		_stats.Pop();
 	}
 
+private void ApplyRarityBackground(Rarity rarity)
+{
+	if (_bg == null) return;
+
+	Texture2D tex = rarity switch
+	{
+		Rarity.Common    => CommonTexture,
+		Rarity.Rare      => RareTexture,
+		Rarity.Epic      => EpicTexture,
+		Rarity.Legendary => LegendaryTexture,
+		_                => CommonTexture
+	};
+
+	_bg.Texture = tex;
+
+	_bg.Modulate = Colors.White;
+}
+
 	private Vector2 GetMenuSize()
 	{
-		// Use the greater of current Size and minimum to be robust
 		var min = GetCombinedMinimumSize();
 		return new Vector2(Mathf.Max(Size.X, min.X), Mathf.Max(Size.Y, min.Y));
 	}
@@ -136,9 +172,7 @@ public partial class AspectHoverMenu : Control
 
 	public void HideTooltip() => Hide();
 
-	// =========================================================
-	// Text building (unchanged)
-	// =========================================================
+
 	private string BuildLines(Aspect aspect)
 	{
 		var sb = new StringBuilder();

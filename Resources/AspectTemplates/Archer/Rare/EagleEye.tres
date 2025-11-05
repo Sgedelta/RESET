@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=6 format=3 uid="uid://drc6c8hgqqt2"]
 
-[ext_resource type="Texture2D" uid="uid://bc4n33uk2dt48" path="res://Resources/AspectTemplates/TemplateIcons/eagle eye.png" id="1_8gvwe"]
+[ext_resource type="Texture2D" uid="uid://brpt0w5064ix2" path="res://Resources/AspectTemplates/TemplateIcons/eagle eye.png" id="1_8gvwe"]
 [ext_resource type="Resource" uid="uid://bwigsejsqqeqp" path="res://Resources/Modifiers/Accuracy/SPA_A-.tres" id="1_v05ld"]
 [ext_resource type="Resource" uid="uid://bsyefwk0d35x3" path="res://Resources/Modifiers/Range/RNG_M++.tres" id="2_icco6"]
 [ext_resource type="Resource" uid="uid://c2jy78kbdn5s" path="res://Resources/Modifiers/Fire Rate/FR_M-.tres" id="3_6h5ph"]
@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("4_li0wt")
 _id = "EagleEye"
-DisplayName = "EagleEye"
+DisplayName = "Eagle Eye"
 AspectSprite = ExtResource("1_8gvwe")
 Modifiers = Array[Resource]([ExtResource("1_v05ld"), ExtResource("2_icco6"), ExtResource("3_6h5ph")])
 ProjectileType = 0

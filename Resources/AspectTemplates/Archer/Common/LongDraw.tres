@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("4_sxcg2")
 _id = "LongDraw"
-DisplayName = "LongDraw"
+DisplayName = "Long Draw"
 AspectSprite = ExtResource("1_d3mo6")
 Modifiers = Array[Resource]([ExtResource("1_qkdi6"), ExtResource("2_1pa8v"), ExtResource("3_cwuor")])
 ProjectileType = 0

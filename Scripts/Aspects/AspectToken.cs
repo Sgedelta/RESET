@@ -13,6 +13,9 @@ public partial class AspectToken : Control
 
 	private TokenPlace _place = TokenPlace.Bar;
 
+	// NEW: expose placement for hover logic
+	public TokenPlace Place => _place;
+
 	public override void _Ready()
 	{
 		_icon = GetNodeOrNull<TextureRect>("TextureRect");

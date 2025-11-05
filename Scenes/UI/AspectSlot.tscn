@@ -1,14 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://cb2xgnb7sjr8w"]
+[gd_scene load_steps=6 format=3 uid="uid://cb2xgnb7sjr8w"]
 
 [ext_resource type="Script" uid="uid://gqe5yd8kptnk" path="res://Scripts/Gameplay/Towers/AspectSlot.cs" id="1_pfy1q"]
 [ext_resource type="PackedScene" uid="uid://db6afg827k3yo" path="res://Scenes/Towers/AspectToken.tscn" id="2_72xyx"]
 [ext_resource type="Script" uid="uid://bbpoax07bi5jy" path="res://Scenes/UI/HoverAspect.cs" id="2_cdbvh"]
 [ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="3_72xyx"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_72xyx"]
+bg_color = Color(0.6, 0.6, 0.6, 0.121569)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="AspectSlot" type="PanelContainer"]
 custom_minimum_size = Vector2(96, 96)
 offset_right = 1.0
 offset_bottom = 80.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_72xyx")
 script = ExtResource("1_pfy1q")
 TokenScene = ExtResource("2_72xyx")
 

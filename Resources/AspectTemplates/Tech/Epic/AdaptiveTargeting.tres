@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("2_b7gk0")
 _id = "AdaptiveTargeting"
-DisplayName = "AdaptiveTargeting"
+DisplayName = "Adaptive Targeting"
 AspectSprite = ExtResource("1_8jy1x")
 Modifiers = Array[Resource]([ExtResource("1_lbp6o")])
 ProjectileType = 0

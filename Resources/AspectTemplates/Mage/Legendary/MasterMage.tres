@@ -13,7 +13,7 @@
 [resource]
 script = ExtResource("8_g0nrr")
 _id = "MasterMage"
-DisplayName = "MasterMage"
+DisplayName = "Master Mage"
 AspectSprite = ExtResource("1_gqdd3")
 Modifiers = Array[Resource]([ExtResource("1_wnipi"), ExtResource("2_i0wbu"), ExtResource("3_hp4on"), ExtResource("4_6q12t"), ExtResource("5_tqscn"), ExtResource("6_bpyi4"), ExtResource("7_2ofoi")])
 ProjectileType = 0

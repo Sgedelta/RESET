@@ -52,13 +52,6 @@ _pullout = NodePath("../../..")
 
 [node name="AspectSlot" parent="ScrollContainer/GridContainer/AspectContainer" instance=ExtResource("4_tgmv1")]
 layout_mode = 2
-mouse_filter = 0
-
-[node name="MarginContainer" parent="ScrollContainer/GridContainer/AspectContainer/AspectSlot" index="0"]
-mouse_filter = 2
-
-[node name="RichTextLabel" parent="ScrollContainer/GridContainer/AspectContainer/AspectSlot/MarginContainer" index="0"]
-mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/GridContainer"]
 layout_mode = 2

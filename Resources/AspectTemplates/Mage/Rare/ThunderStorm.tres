@@ -11,7 +11,7 @@
 [resource]
 script = ExtResource("4_rqjvm")
 _id = "ThunderStorm"
-DisplayName = "ThunderStorm"
+DisplayName = "Thunder Storm"
 AspectSprite = ExtResource("1_qr7ks")
 Modifiers = Array[Resource]([ExtResource("1_j1rob"), ExtResource("2_ycggl"), ExtResource("3_qr7ks"), ExtResource("2_x6ivj"), ExtResource("3_jepfx")])
 ProjectileType = 0
