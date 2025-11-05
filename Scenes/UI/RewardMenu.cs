@@ -12,7 +12,6 @@ public partial class RewardMenu : Control
 	[Export] public NodePath Btn1Path  = "Panel/VBox/Row/Btn1";
 	[Export] public NodePath Btn2Path  = "Panel/VBox/Row/Btn2";
 
-	// NEW: TextureRects under each button (Icons)
 	[Export] public NodePath Btn0IconPath = "Panel/VBox/Row/Btn0/Icon";
 	[Export] public NodePath Btn1IconPath = "Panel/VBox/Row/Btn1/Icon";
 	[Export] public NodePath Btn2IconPath = "Panel/VBox/Row/Btn2/Icon";
@@ -34,12 +33,10 @@ public partial class RewardMenu : Control
 		_icons[1] = GetNodeOrNull<TextureRect>(Btn1IconPath);
 		_icons[2] = GetNodeOrNull<TextureRect>(Btn2IconPath);
 
-		// Button click
 		_buttons[0].Pressed += () => OnButton(0);
 		_buttons[1].Pressed += () => OnButton(1);
 		_buttons[2].Pressed += () => OnButton(2);
 
-		// Hover → show tooltip “as if in bar” (AboveLeft)
 		_buttons[0].MouseEntered += () => OnHoverEnter(0);
 		_buttons[1].MouseEntered += () => OnHoverEnter(1);
 		_buttons[2].MouseEntered += () => OnHoverEnter(2);
@@ -48,7 +45,6 @@ public partial class RewardMenu : Control
 		_buttons[1].MouseExited += OnHoverExit;
 		_buttons[2].MouseExited += OnHoverExit;
 
-		// Make icon rects full bleed + untinted
 		for (int i = 0; i < _icons.Length; i++)
 		{
 			if (_icons[i] == null) continue;
@@ -79,15 +75,12 @@ public partial class RewardMenu : Control
 
 			var t = _currentChoices[i];
 
-			// Your choice: keep label text or clear it (since icon shows the aspect)
 			_buttons[i].Text = $"{t.DisplayName}\n({t.Rarity})";
 			_buttons[i].Disabled = false;
 
-			// Put the aspect image on the TextureRect child
 			if (_icons[i] != null)
-				_icons[i].Texture = t.AspectSprite; // <<— uses template’s icon
+				_icons[i].Texture = t.AspectSprite;
 
-			// Remove any rarity tinting – transparent theme will let icon show fully
 			_buttons[i].Modulate = Colors.White;
 		}
 
@@ -103,8 +96,6 @@ public partial class RewardMenu : Control
 		EmitSignal(SignalName.ChoicePicked, picked);
 	}
 
-	// ===== Tooltip on hover (show “as if in the bar” above-left) =====
-
 	private void OnHoverEnter(int index)
 	{
 		if (_currentChoices == null) return;
@@ -114,11 +105,9 @@ public partial class RewardMenu : Control
 		var tooltip = GetTooltip();
 		if (tooltip == null) return;
 
-		// Build a temporary Aspect instance from the template for display
 		var aspectForTooltip = BuildTempAspect(t);
 		if (aspectForTooltip == null) return;
 
-		// Anchor like bar: menu bottom-left = button top-left
 		tooltip.ShowAspectAtControl(
 			aspectForTooltip,
 			_buttons[index],
@@ -138,7 +127,6 @@ public partial class RewardMenu : Control
 		return list.Count > 0 ? list[0] as AspectHoverMenu : null;
 	}
 
-	// ---- Replace this with your actual “create an Aspect from template” path if different ----
 private Aspect BuildTempAspect(AspectTemplate t)
 {
 

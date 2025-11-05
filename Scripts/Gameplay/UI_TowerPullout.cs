@@ -106,7 +106,7 @@ public partial class UI_TowerPullout : CanvasLayer
 			if (_container.GetChild(i) is AspectSlot slot)
 				slot.RefreshVisual();
 
-		_statDisplay.Text = ActiveTower.StatDisplay();
+	_statDisplay.Text = ActiveTower.StatDisplayBBCode();
 
 		if (AspectBar.Instance != null)
 			AspectBar.Instance.Refresh();
