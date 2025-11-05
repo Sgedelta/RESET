@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dj55ojwqph8d2" path="res://Resources/AspectTemplates/TemplateIcons/master mage.png" id="1_gqdd3"]
 [ext_resource type="Resource" uid="uid://dp1qagv5n1v2f" path="res://Resources/Modifiers/Poison/PSD_M++.tres" id="1_wnipi"]
-[ext_resource type="Resource" uid="uid://cgcnxvopc5kw8" path="res://Resources/Modifiers/Poison/PST_A+.tres" id="2_i0wbu"]
+[ext_resource type="Resource" uid="uid://b34bf0e65hh8u" path="res://Resources/Modifiers/Poison/PST_A+.tres" id="2_i0wbu"]
 [ext_resource type="Resource" uid="uid://s14coybcugf3" path="res://Resources/Modifiers/Range/RNG_M-.tres" id="3_hp4on"]
 [ext_resource type="Resource" uid="uid://ofhk8sk4krut" path="res://Resources/Modifiers/Splash/SLC_M+.tres" id="4_6q12t"]
 [ext_resource type="Resource" uid="uid://dchjoqrer3mq2" path="res://Resources/Modifiers/Splash/SLR_A+.tres" id="5_tqscn"]

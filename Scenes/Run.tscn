@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://b4tnp4tapoonn" path="res://Scripts/Gameplay/Projectiles/HomingProjectile.tscn" id="7_asn5m"]
-[ext_resource type="PackedScene" uid="uid://bjakny67bkalp" path="res://Scenes/UI/BarToggle.tscn" id="7_hfefo"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/BarToggle.tscn" id="7_hfefo"]
 [ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
 [ext_resource type="PackedScene" uid="uid://cl0og6r3uc6ax" path="res://Scripts/Gameplay/Projectiles/ExplodingProjectile.tscn" id="8_q06an"]
 [ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
@@ -40,10 +40,17 @@ visible = false
 
 [node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
 visible = false
+Btn0IconPath = NodePath("Panel/VBox/Row/Btn0/Icon")
+Btn1IconPath = NodePath("Panel/VBox/Row/Btn1/Icon")
+Btn2IconPath = NodePath("Panel/VBox/Row/Btn2/Icon")
 
 [node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
 offset_right = 200.0
 offset_bottom = 200.0
+CommonTexture = null
+RareTexture = null
+LegendaryTexture = null
+EpicTexture = null
 
 [node name="MarginContainer" parent="CanvasLayer/AspectHoverMenu/Panel" index="1"]
 theme_override_constants/margin_bottom = 20

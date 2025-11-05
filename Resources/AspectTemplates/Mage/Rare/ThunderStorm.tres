@@ -1,10 +1,8 @@
-[gd_resource type="Resource" load_steps=8 format=3 uid="uid://bn4i6ll7heiqu"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://bn4i6ll7heiqu"]
 
 [ext_resource type="Resource" uid="uid://c5yfl7d1llaq7" path="res://Resources/Modifiers/Accuracy/SPA_A+.tres" id="1_j1rob"]
 [ext_resource type="Texture2D" uid="uid://cwt33i03ncc66" path="res://Resources/AspectTemplates/TemplateIcons/thunder storm.png" id="1_qr7ks"]
-[ext_resource type="Resource" uid="uid://doelnkb5tmgwi" path="res://Resources/Modifiers/Chain/CHD_M+.tres" id="2_x6ivj"]
 [ext_resource type="Resource" uid="uid://b1nkwqm4jxu8a" path="res://Resources/Modifiers/Chain/CHD_A+.tres" id="2_ycggl"]
-[ext_resource type="Resource" uid="uid://cdd3e4ekdylav" path="res://Resources/Modifiers/Chain/CHT_M++.tres" id="3_jepfx"]
 [ext_resource type="Resource" uid="uid://bdv54wwj2pk2h" path="res://Resources/Modifiers/Chain/CHT_A+.tres" id="3_qr7ks"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_rqjvm"]
 
@@ -13,6 +11,6 @@ script = ExtResource("4_rqjvm")
 _id = "ThunderStorm"
 DisplayName = "Thunder Storm"
 AspectSprite = ExtResource("1_qr7ks")
-Modifiers = Array[Resource]([ExtResource("1_j1rob"), ExtResource("2_ycggl"), ExtResource("3_qr7ks"), ExtResource("2_x6ivj"), ExtResource("3_jepfx")])
+Modifiers = Array[Resource]([ExtResource("1_j1rob"), ExtResource("2_ycggl"), ExtResource("3_qr7ks")])
 ProjectileType = 0
 Rarity = 0
