@@ -91,6 +91,7 @@ public partial class Projectile : Area2D
 		if(_homingStrength > 0f && _target != null && IsInstanceValid(_target))
 		{
 			Vector2 desiredDir = (_target.GlobalPosition - GlobalPosition).Normalized();
+
 			dir = dir.Lerp(desiredDir, _homingStrength * (float)delta / PROJ_RETARGET_SPEED).Normalized();
 		}
 

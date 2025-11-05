@@ -130,9 +130,11 @@ public partial class ShooterComponent : Node2D
 		Vector2 initialDirection = (target.GlobalPosition - projectile.GlobalPosition)
 			.Normalized()
 			.Rotated(Mathf.DegToRad(
-				rng.Randfn(0, ((i_shotSpread * FALLOFF_STDDEV_RATIO) / i_shotSpreadFalloff) % i_shotSpread)
+				rng.Randfn(0, ((i_shotSpread * FALLOFF_STDDEV_RATIO) / i_shotSpreadFalloff)) % i_shotSpread
 			));
-		
+
+		GD.Print(rng.Randfn(0, ((i_shotSpread * FALLOFF_STDDEV_RATIO) / i_shotSpreadFalloff)) % i_shotSpread);
+
 		projectile.Init(initialDirection, tower.ModifiedStats);
 
 		

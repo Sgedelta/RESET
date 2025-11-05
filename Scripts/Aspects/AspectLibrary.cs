@@ -18,9 +18,9 @@ public partial class AspectLibrary : Node
 	private static readonly Dictionary<Rarity, int> RarityWeights = new()
 	{
 		{ Rarity.Common,    75 },
-		{ Rarity.Rare,       20 },
+		{ Rarity.Rare,       15 },
 		{ Rarity.Epic,       5 },
-		{ Rarity.Legendary,  0 }
+		{ Rarity.Legendary,  1 }
 	};
 
 	private static RandomNumberGenerator _rng;

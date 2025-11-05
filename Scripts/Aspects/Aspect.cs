@@ -247,10 +247,6 @@ public class Aspect
 				break;
 			
 			case ModifierType.Multiply:
-
-
-
-
 				if (current == 0)
 				{
 					GD.Print("Setting value to default");

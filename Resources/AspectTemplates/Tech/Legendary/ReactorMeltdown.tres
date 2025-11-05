@@ -13,6 +13,6 @@ script = ExtResource("4_d83o6")
 _id = "ReactorMeltdown"
 DisplayName = "Reactor Meltdown"
 AspectSprite = ExtResource("1_ncf5j")
-Modifiers = Array[Resource]([ExtResource("2_elclx"), ExtResource("3_bfw4r"), ExtResource("4_cxmny"), ExtResource("5_0u66b"), ExtResource("6_jdqgt")])
+Modifiers = Array[Resource]([ExtResource("5_0u66b"), ExtResource("2_elclx"), ExtResource("3_bfw4r"), ExtResource("4_cxmny"), ExtResource("6_jdqgt")])
 ProjectileType = 0
 Rarity = 3
