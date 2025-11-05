@@ -38,15 +38,15 @@ RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
 visible = false
 
+[node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
+visible = false
+
 [node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
 offset_right = 200.0
 offset_bottom = 200.0
 
 [node name="MarginContainer" parent="CanvasLayer/AspectHoverMenu/Panel" index="1"]
 theme_override_constants/margin_bottom = 20
-
-[node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
-visible = false
 
 [node name="HealthUI" type="Label" parent="CanvasLayer"]
 offset_left = 3.0

@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://fxiie8iedav8"]
+[gd_scene load_steps=9 format=3 uid="uid://fxiie8iedav8"]
 
 [ext_resource type="Script" uid="uid://ct2h5jtl2jd42" path="res://Scenes/UI/RewardMenu.cs" id="1_1cw63"]
+[ext_resource type="Texture2D" uid="uid://ccnlcj7avc84r" path="res://Scenes/UI/Wave Cleared.png" id="2_5qp1f"]
+[ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="3_f0ifr"]
+[ext_resource type="FontFile" uid="uid://dlb6kpyl4ho4g" path="res://MonaSans[slnt,wdth,wght].ttf" id="4_7ocg1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2rmx0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qp1f"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0ifr"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ocg1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="RewardMenu" type="Control"]
 process_mode = 2
@@ -11,11 +26,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1cw63")
-TitlePath = NodePath("CenterContainer/Panel/MarginContainer/VBox/Title")
-RowPath = NodePath("CenterContainer/Panel/MarginContainer/VBox/Row")
-Btn0Path = NodePath("CenterContainer/Panel/MarginContainer/VBox/Row/Btn0")
-Btn1Path = NodePath("CenterContainer/Panel/MarginContainer/VBox/Row/Btn1")
-Btn2Path = NodePath("CenterContainer/Panel/MarginContainer/VBox/Row/Btn2")
+TitlePath = NodePath("Panel/MarginContainer/VBox/Title")
+RowPath = NodePath("Panel/MarginContainer/VBox/Row")
+Btn0Path = NodePath("Panel/MarginContainer/VBox/Row/Btn0")
+Btn1Path = NodePath("Panel/MarginContainer/VBox/Row/Btn1")
+Btn2Path = NodePath("Panel/MarginContainer/VBox/Row/Btn2")
+Btn0IconPath = NodePath("Panel/MarginContainer/VBox/Row/Btn0/Icon")
+Btn1IconPath = NodePath("Panel/MarginContainer/VBox/Row/Btn1/Icon")
+Btn2IconPath = NodePath("Panel/MarginContainer/VBox/Row/Btn2/Icon")
 
 [node name="Dim" type="ColorRect" parent="."]
 layout_mode = 1
@@ -26,7 +44,64 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.360784, 0.360784, 0.360784, 0.454902)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(700, 360)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -180.0
+offset_right = 350.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2rmx0")
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 2
+texture = ExtResource("2_5qp1f")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBox" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Panel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_f0ifr")
+theme_override_font_sizes/font_size = 40
+text = "Wave Cleared!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_7ocg1")
+theme_override_font_sizes/font_size = 25
+text = "Choose an Aspect"
+horizontal_alignment = 1
+
+[node name="Row" type="HBoxContainer" parent="Panel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Btn0" type="Button" parent="Panel/MarginContainer/VBox/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_5qp1f")
+
+[node name="Icon" type="TextureRect" parent="Panel/MarginContainer/VBox/Row/Btn0"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,53 +109,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="CenterContainer"]
-custom_minimum_size = Vector2(700, 360)
+[node name="Btn1" type="Button" parent="Panel/MarginContainer/VBox/Row"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_f0ifr")
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+[node name="Icon" type="TextureRect" parent="Panel/MarginContainer/VBox/Row/Btn1"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -187.0
-offset_top = -106.0
-offset_right = 213.0
-offset_bottom = 126.2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.909897, 0.722702)
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
 
-[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="Title" type="Label" parent="CenterContainer/Panel/MarginContainer/VBox"]
-layout_mode = 2
-text = "Choose Your Rewards!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Row" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="Btn0" type="Button" parent="CenterContainer/Panel/MarginContainer/VBox/Row"]
+[node name="Btn2" type="Button" parent="Panel/MarginContainer/VBox/Row"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_7ocg1")
 
-[node name="Btn1" type="Button" parent="CenterContainer/Panel/MarginContainer/VBox/Row"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Btn2" type="Button" parent="CenterContainer/Panel/MarginContainer/VBox/Row"]
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="Icon" type="TextureRect" parent="Panel/MarginContainer/VBox/Row/Btn2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

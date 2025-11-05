@@ -12,8 +12,15 @@ public partial class RewardMenu : Control
 	[Export] public NodePath Btn1Path  = "Panel/VBox/Row/Btn1";
 	[Export] public NodePath Btn2Path  = "Panel/VBox/Row/Btn2";
 
+	// NEW: TextureRects under each button (Icons)
+	[Export] public NodePath Btn0IconPath = "Panel/VBox/Row/Btn0/Icon";
+	[Export] public NodePath Btn1IconPath = "Panel/VBox/Row/Btn1/Icon";
+	[Export] public NodePath Btn2IconPath = "Panel/VBox/Row/Btn2/Icon";
+
 	private Label _title;
 	private Button[] _buttons = new Button[3];
+	private TextureRect[] _icons = new TextureRect[3];
+
 	private List<AspectTemplate> _currentChoices;
 
 	public override void _Ready()
@@ -23,10 +30,32 @@ public partial class RewardMenu : Control
 		_buttons[1] = GetNode<Button>(Btn1Path);
 		_buttons[2] = GetNode<Button>(Btn2Path);
 
-		// Button handlers
+		_icons[0] = GetNodeOrNull<TextureRect>(Btn0IconPath);
+		_icons[1] = GetNodeOrNull<TextureRect>(Btn1IconPath);
+		_icons[2] = GetNodeOrNull<TextureRect>(Btn2IconPath);
+
+		// Button click
 		_buttons[0].Pressed += () => OnButton(0);
 		_buttons[1].Pressed += () => OnButton(1);
 		_buttons[2].Pressed += () => OnButton(2);
+
+		// Hover → show tooltip “as if in bar” (AboveLeft)
+		_buttons[0].MouseEntered += () => OnHoverEnter(0);
+		_buttons[1].MouseEntered += () => OnHoverEnter(1);
+		_buttons[2].MouseEntered += () => OnHoverEnter(2);
+
+		_buttons[0].MouseExited += OnHoverExit;
+		_buttons[1].MouseExited += OnHoverExit;
+		_buttons[2].MouseExited += OnHoverExit;
+
+		// Make icon rects full bleed + untinted
+		for (int i = 0; i < _icons.Length; i++)
+		{
+			if (_icons[i] == null) continue;
+			_icons[i].StretchMode = TextureRect.StretchModeEnum.Scale;
+			_icons[i].ExpandMode  = TextureRect.ExpandModeEnum.IgnoreSize;
+			_icons[i].Modulate    = Colors.White;
+		}
 
 		Hide();
 	}
@@ -37,25 +66,29 @@ public partial class RewardMenu : Control
 
 		// Title
 		if (_title != null)
-			_title.Text = $"Wave {waveNumber} cleared!\nChoose one Aspect";
+			_title.Text = $"Wave {waveNumber} cleared!";
 
-		// Populate buttons
+		// Populate buttons & icons
 		for (int i = 0; i < _buttons.Length; i++)
 		{
-			if (i < _currentChoices.Count)
-			{
-				var t = _currentChoices[i];
-				_buttons[i].Text = $"{t.DisplayName}\n({t.Rarity})";
-				_buttons[i].Disabled = false;
-				_buttons[i].Visible = true;
+			bool has = i < _currentChoices.Count;
+			_buttons[i].Visible = has;
 
-				// Optional: color by rarity
-				_buttons[i].Modulate = RarityColor(t.Rarity);
-			}
-			else
-			{
-				_buttons[i].Visible = false;
-			}
+			if (!has)
+				continue;
+
+			var t = _currentChoices[i];
+
+			// Your choice: keep label text or clear it (since icon shows the aspect)
+			_buttons[i].Text = $"{t.DisplayName}\n({t.Rarity})";
+			_buttons[i].Disabled = false;
+
+			// Put the aspect image on the TextureRect child
+			if (_icons[i] != null)
+				_icons[i].Texture = t.AspectSprite; // <<— uses template’s icon
+
+			// Remove any rarity tinting – transparent theme will let icon show fully
+			_buttons[i].Modulate = Colors.White;
 		}
 
 		Show();
@@ -63,31 +96,53 @@ public partial class RewardMenu : Control
 
 	private void OnButton(int index)
 	{
-		GD.Print($"[RewardMenu] Button {index} pressed");
-
-		if (_currentChoices == null)
-		{
-			GD.Print("[RewardMenu] _currentChoices is NULL");
-			return;
-		}
-		if (index < 0 || index >= _currentChoices.Count)
-		{
-			GD.Print($"[RewardMenu] Index {index} out of range ({_currentChoices.Count})");
-			return;
-		}
+		if (_currentChoices == null) return;
+		if (index < 0 || index >= _currentChoices.Count) return;
 
 		var picked = _currentChoices[index];
-		GD.Print($"[RewardMenu] Emitting pick: {picked?._id}");
 		EmitSignal(SignalName.ChoicePicked, picked);
-		// NOTE: Don't Hide() here – let GameManager hide after acquisition
 	}
 
-	private static Color RarityColor(Rarity r) => r switch
+	// ===== Tooltip on hover (show “as if in the bar” above-left) =====
+
+	private void OnHoverEnter(int index)
 	{
-		Rarity.Common    => new Color(0.8f, 0.8f, 0.8f),
-		Rarity.Rare      => new Color(0.4f, 0.6f, 1.0f),
-		Rarity.Epic      => new Color(0.75f, 0.4f, 0.95f),
-		Rarity.Legendary => new Color(1.0f, 0.85f, 0.3f),
-		_ => Colors.White
-	};
+		if (_currentChoices == null) return;
+		if (index < 0 || index >= _currentChoices.Count) return;
+
+		var t = _currentChoices[index];
+		var tooltip = GetTooltip();
+		if (tooltip == null) return;
+
+		// Build a temporary Aspect instance from the template for display
+		var aspectForTooltip = BuildTempAspect(t);
+		if (aspectForTooltip == null) return;
+
+		// Anchor like bar: menu bottom-left = button top-left
+		tooltip.ShowAspectAtControl(
+			aspectForTooltip,
+			_buttons[index],
+			AspectHoverMenu.MenuAnchor.AboveLeft,
+			new Vector2(0, -2)
+		);
+	}
+
+	private void OnHoverExit()
+	{
+		GetTooltip()?.HideTooltip();
+	}
+
+	private AspectHoverMenu GetTooltip()
+	{
+		var list = GetTree().GetNodesInGroup("AspectTooltip");
+		return list.Count > 0 ? list[0] as AspectHoverMenu : null;
+	}
+
+	// ---- Replace this with your actual “create an Aspect from template” path if different ----
+private Aspect BuildTempAspect(AspectTemplate t)
+{
+
+	return new Aspect(t);
+}
+
 }
