@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_txlno")
-statMin = 2.0
-statMax = 2.0
-linearRandom = false
+statMin = 1.0
+statMax = 1.5
+linearRandom = true
 meanVal = 0.0
 stdDev = 0.0
 StatType = 1007

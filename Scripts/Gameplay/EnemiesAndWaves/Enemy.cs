@@ -16,6 +16,7 @@ public partial class Enemy : PathFollow2D
 	[Export] public float AttackDamage = 3f;   // damage per attack
 
 	[Export] public float Speed = 80f;
+
 	private bool _calledReachedEnd = false;
 	public bool ReachedEnd { get { return ProgressRatio >= 1; } }
 
@@ -34,7 +35,15 @@ public partial class Enemy : PathFollow2D
 	[Export] public PackedScene DamageIndicatorScene;
 
 	Color damageColor;
-	public override void _Ready()
+
+	private float _knockbackVelocity = 0f;
+	private float _knockbackDecay = 750.0f;
+	private const float KNOCKBACK_SCALE = 100; //number in pixels/sec that 1 unit of knockback applies to a enemy of mass 1
+	[Export] private float _mass = 1; //serves as a divisor for knockback calculations
+	[Export] private float _kbScalar = 1; //serves as a float % of knockback resistance for this enemy - lower means more resistant, higher means more vulnerable
+
+
+    public override void _Ready()
 	{
 		HP = MaxHp;
 
@@ -62,8 +71,18 @@ public partial class Enemy : PathFollow2D
 			}
 		}
 
-		Progress += Speed * (float)delta * (1-_slowPercent);
-		
+		if (Mathf.Abs(_knockbackVelocity) > 0.01f)
+		{
+			Progress += _knockbackVelocity * (float)delta;
+
+			_knockbackVelocity = Mathf.MoveToward(_knockbackVelocity, 0, _knockbackDecay * (float)delta);
+		}
+		else
+		{
+			Progress += Speed * (float)delta * (1 - _slowPercent);
+		}
+
+
 		if(ReachedEnd && !_calledReachedEnd)
 		{
 			_calledReachedEnd = true;
@@ -157,7 +176,7 @@ public partial class Enemy : PathFollow2D
 
 	public void ApplyKnockback(Vector2 direction, float force)
 	{
-		GlobalPosition += direction.Normalized() * force;
+		_knockbackVelocity = -(force * KNOCKBACK_SCALE) * _kbScalar / _mass;
 		GD.Print($"[Enemy] Knocked back by {force}px");
 	}
 
