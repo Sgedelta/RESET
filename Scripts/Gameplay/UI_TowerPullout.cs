@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 public partial class UI_TowerPullout : CanvasLayer
 {
 	private bool _active = false;
+	public bool Active { get { return _active; } }
+
 	private bool animating = false;
 	public bool Animating
 	{
@@ -88,9 +90,11 @@ public partial class UI_TowerPullout : CanvasLayer
 	{
 		if (_active)
 		{
-			ToggleActive();
+            _tower.ShowOrHideRange(false);
+            ToggleActive();
 			await ToSignal(this, SignalName.AnimationStateChanged);
-		}
+
+        }
 		_tower = tower;
 		RefreshUIs();
 		ToggleActive();

@@ -13,6 +13,7 @@ public partial class RangeDisplay : Node2D
         {
             show = value;
             Visible = value;
+            QueueRedraw();
         }
 
     }

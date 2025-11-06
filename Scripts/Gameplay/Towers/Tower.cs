@@ -85,6 +85,7 @@ public partial class Tower : Node2D
 		Targeting = GetNodeOrNull<TargetingComponent>("TargetingComponent");
 		Shooter   = GetNodeOrNull<ShooterComponent>("ShooterComponent");
 		rangeDisplay = GetNode<RangeDisplay>(rangeDisplayPath);
+		rangeDisplay.Show = false;
 
 		baseStats = new TowerStats
 		{
@@ -262,112 +263,119 @@ public partial class Tower : Node2D
 		if(Pullout.ActiveTower == this)
 		{
 			Pullout.ToggleActive();
+			rangeDisplay.Show = Pullout.Active;
 		} 
 		else
 		{
 			Pullout.ActiveTower = this;
+			rangeDisplay.Show = true;
 		}
 
 		
 	}
 
+	public void ShowOrHideRange(bool state)
+	{
+		rangeDisplay.Show = state;
+	}
+
 	public string StatDisplayBBCode()
-{
-	var sb = new System.Text.StringBuilder();
-	sb.Append("[code]");
-
-	sb.AppendLine(FormatStatLine("Damage",               baseStats.Damage,            modifiedStats.Damage,            1));
-	sb.AppendLine(FormatStatLine("Range",                baseStats.Range,             modifiedStats.Range));
-	sb.AppendLine(FormatStatLine("Fire Rate",            baseStats.FireRate,          modifiedStats.FireRate,          1));
-	sb.AppendLine(FormatStatLine("Projectile Speed",     baseStats.ProjectileSpeed,   modifiedStats.ProjectileSpeed));
-
-	sb.AppendLine(FormatStatLine("Crit Chance",  baseStats.CritChance,        modifiedStats.CritChance,        2, showRealValue:true,  asPercent:true));
-	sb.AppendLine(FormatStatLine("Crit Multiplier", baseStats.CritMult,       modifiedStats.CritMult,          1));
-	sb.AppendLine(FormatStatLine("Shot Spread Angle",    baseStats.ShotSpread,        modifiedStats.ShotSpread,        1));
-	sb.AppendLine(FormatStatLine("Shot Spread",baseStats.ShotSpreadFalloff, modifiedStats.ShotSpreadFalloff, 2, showRealValue:true,  asPercent:true));
-
-	AppendIfDiff(sb, "Chain Targets",            baseStats.ChainTargets,    modifiedStats.ChainTargets,    0, showRealValue:false);
-	AppendIfDiff(sb, "Chain Distance",           baseStats.ChainDistance,   modifiedStats.ChainDistance,   0, showRealValue:false);
-	AppendIfDiff(sb, "Splash Radius",     baseStats.SplashRadius,    modifiedStats.SplashRadius,    0, showRealValue:false);
-	AppendIfDiff(sb, "Splash Damage", baseStats.SplashCoef,   modifiedStats.SplashCoef,      2, showRealValue:true,  asPercent:true);
-	AppendIfDiff(sb, "Poison Damage",            baseStats.PoisonDamage,    modifiedStats.PoisonDamage,    1, showRealValue:false);
-	AppendIfDiff(sb, "Poison Ticks",             baseStats.PoisonTicks,     modifiedStats.PoisonTicks,     0, showRealValue:false);
-	AppendIfDiff(sb, "Piercing Amount",          baseStats.PiercingAmount,  modifiedStats.PiercingAmount,  0, showRealValue:false);
-	AppendIfDiff(sb, "Knockback Force",          baseStats.KnockbackAmount, modifiedStats.KnockbackAmount, 1, showRealValue:false);
-	AppendIfDiff(sb, "Slowdown Amount",          baseStats.SlowdownPercent, modifiedStats.SlowdownPercent, 2, showRealValue:true,  asPercent:true);
-	AppendIfDiff(sb, "Slowdown Length",          baseStats.SlowdownLength,  modifiedStats.SlowdownLength,  1, showRealValue:false);
-	AppendIfDiff(sb, "Homing Strength",          baseStats.HomingStrength,  modifiedStats.HomingStrength,  2, showRealValue:true,  asPercent:true);
-
-	// Close monospace
-	sb.Append("[/code]");
-	return sb.ToString();
-}
-
-// Helper to only add a line if changed
-private void AppendIfDiff(System.Text.StringBuilder sb, string name, float start, float real, int decimals = 0, bool showRealValue = true, bool asPercent = false)
-{
-	if (System.Math.Abs(real - start) > 0.0001f)
-		sb.AppendLine(FormatStatLine(name, start, real, decimals, showRealValue, asPercent));
-}
-
-// === Core formatter (left label, right aligned delta + final), colored +/– ===
-private string FormatStatLine(string label, float start, float real, int decimals = 0, bool showRealValue = true, bool asPercent = false)
-{
-	float delta = real - start;
-
-	// 1) Build plain strings (no bbcode) for alignment calculations
-	string fmt = $"F{decimals}";
-	string deltaPlain, realPlain = "";
-
-	if (asPercent)
 	{
-		string pm = delta > 0 ? "+" : "";
-		deltaPlain = $"{pm}{delta.ToString(fmt)}%";
-		if (showRealValue)
-			realPlain = $" ({real.ToString(fmt)}%)";
-	}
-	else
-	{
-		string pm = delta > 0 ? "+" : "";
-		deltaPlain = $"{pm}{delta.ToString(fmt)}";
-		if (showRealValue)
-			realPlain = $" ({real.ToString(fmt)})";
+		var sb = new System.Text.StringBuilder();
+		sb.Append("[code]");
+
+		sb.AppendLine(FormatStatLine("Damage",               baseStats.Damage,            modifiedStats.Damage,            1));
+		sb.AppendLine(FormatStatLine("Range",                baseStats.Range,             modifiedStats.Range));
+		sb.AppendLine(FormatStatLine("Fire Rate",            baseStats.FireRate,          modifiedStats.FireRate,          1));
+		sb.AppendLine(FormatStatLine("Projectile Speed",     baseStats.ProjectileSpeed,   modifiedStats.ProjectileSpeed));
+
+		sb.AppendLine(FormatStatLine("Crit Chance",  baseStats.CritChance,        modifiedStats.CritChance,        2, showRealValue:true,  asPercent:true));
+		sb.AppendLine(FormatStatLine("Crit Multiplier", baseStats.CritMult,       modifiedStats.CritMult,          1));
+		sb.AppendLine(FormatStatLine("Shot Spread Angle",    baseStats.ShotSpread,        modifiedStats.ShotSpread,        1));
+		sb.AppendLine(FormatStatLine("Shot Spread",baseStats.ShotSpreadFalloff, modifiedStats.ShotSpreadFalloff, 2, showRealValue:true,  asPercent:true));
+
+		AppendIfDiff(sb, "Chain Targets",            baseStats.ChainTargets,    modifiedStats.ChainTargets,    0, showRealValue:false);
+		AppendIfDiff(sb, "Chain Distance",           baseStats.ChainDistance,   modifiedStats.ChainDistance,   0, showRealValue:false);
+		AppendIfDiff(sb, "Splash Radius",     baseStats.SplashRadius,    modifiedStats.SplashRadius,    0, showRealValue:false);
+		AppendIfDiff(sb, "Splash Damage", baseStats.SplashCoef,   modifiedStats.SplashCoef,      2, showRealValue:true,  asPercent:true);
+		AppendIfDiff(sb, "Poison Damage",            baseStats.PoisonDamage,    modifiedStats.PoisonDamage,    1, showRealValue:false);
+		AppendIfDiff(sb, "Poison Ticks",             baseStats.PoisonTicks,     modifiedStats.PoisonTicks,     0, showRealValue:false);
+		AppendIfDiff(sb, "Piercing Amount",          baseStats.PiercingAmount,  modifiedStats.PiercingAmount,  0, showRealValue:false);
+		AppendIfDiff(sb, "Knockback Force",          baseStats.KnockbackAmount, modifiedStats.KnockbackAmount, 1, showRealValue:false);
+		AppendIfDiff(sb, "Slowdown Amount",          baseStats.SlowdownPercent, modifiedStats.SlowdownPercent, 2, showRealValue:true,  asPercent:true);
+		AppendIfDiff(sb, "Slowdown Length",          baseStats.SlowdownLength,  modifiedStats.SlowdownLength,  1, showRealValue:false);
+		AppendIfDiff(sb, "Homing Strength",          baseStats.HomingStrength,  modifiedStats.HomingStrength,  2, showRealValue:true,  asPercent:true);
+
+		// Close monospace
+		sb.Append("[/code]");
+		return sb.ToString();
 	}
 
-	string rightPlain = deltaPlain + realPlain;
+	// Helper to only add a line if changed
+	private void AppendIfDiff(System.Text.StringBuilder sb, string name, float start, float real, int decimals = 0, bool showRealValue = true, bool asPercent = false)
+	{
+		if (System.Math.Abs(real - start) > 0.0001f)
+			sb.AppendLine(FormatStatLine(name, start, real, decimals, showRealValue, asPercent));
+	}
 
-	// 2) Make colored versions
-	string colorHexPlus  = "#6CFF6C";  // green
-	string colorHexMinus = "#FF6C6C";  // red
-	string colorHexNeutral = "#DDDDDD"; // neutral grey for (real)
-	string deltaColored =
-		delta > 0 ? $"[color={colorHexPlus}]{deltaPlain}[/color]" :
-		delta < 0 ? $"[color={colorHexMinus}]{deltaPlain}[/color]" :
-					deltaPlain;
+	// === Core formatter (left label, right aligned delta + final), colored +/– ===
+	private string FormatStatLine(string label, float start, float real, int decimals = 0, bool showRealValue = true, bool asPercent = false)
+	{
+		float delta = real - start;
 
-	string realColored = showRealValue
-		? $"[color={colorHexNeutral}]{realPlain}[/color]"
-		: "";
+		// 1) Build plain strings (no bbcode) for alignment calculations
+		string fmt = $"F{decimals}";
+		string deltaPlain, realPlain = "";
 
-	string rightColored = deltaColored + realColored;
+		if (asPercent)
+		{
+			string pm = delta > 0 ? "+" : "";
+			deltaPlain = $"{pm}{delta.ToString(fmt)}%";
+			if (showRealValue)
+				realPlain = $" ({real.ToString(fmt)}%)";
+		}
+		else
+		{
+			string pm = delta > 0 ? "+" : "";
+			deltaPlain = $"{pm}{delta.ToString(fmt)}";
+			if (showRealValue)
+				realPlain = $" ({real.ToString(fmt)})";
+		}
 
-	// 3) Align: left column for label, right column for numbers
-	// We’re in [code] monospace, so spaces are trustworthy.
-	const int NAME_COL_WIDTH  = 28;   // tweak to taste
-	const int RIGHT_COL_WIDTH = 18;   // tweak to taste
+		string rightPlain = deltaPlain + realPlain;
 
-	string left = label.Length > NAME_COL_WIDTH
-		? label.Substring(0, NAME_COL_WIDTH)
-		: label;
+		// 2) Make colored versions
+		string colorHexPlus  = "#6CFF6C";  // green
+		string colorHexMinus = "#FF6C6C";  // red
+		string colorHexNeutral = "#DDDDDD"; // neutral grey for (real)
+		string deltaColored =
+			delta > 0 ? $"[color={colorHexPlus}]{deltaPlain}[/color]" :
+			delta < 0 ? $"[color={colorHexMinus}]{deltaPlain}[/color]" :
+						deltaPlain;
 
-	string leftPadded  = left.PadRight(NAME_COL_WIDTH, ' ');
+		string realColored = showRealValue
+			? $"[color={colorHexNeutral}]{realPlain}[/color]"
+			: "";
 
-	// Compute padding using *plain* text lengths (bbcode excluded)
-	int pad = RIGHT_COL_WIDTH - rightPlain.Length;
-	if (pad < 1) pad = 1; // at least one space
+		string rightColored = deltaColored + realColored;
 
-	return leftPadded + new string(' ', pad) + rightColored;
-}
+		// 3) Align: left column for label, right column for numbers
+		// We’re in [code] monospace, so spaces are trustworthy.
+		const int NAME_COL_WIDTH  = 28;   // tweak to taste
+		const int RIGHT_COL_WIDTH = 18;   // tweak to taste
+
+		string left = label.Length > NAME_COL_WIDTH
+			? label.Substring(0, NAME_COL_WIDTH)
+			: label;
+
+		string leftPadded  = left.PadRight(NAME_COL_WIDTH, ' ');
+
+		// Compute padding using *plain* text lengths (bbcode excluded)
+		int pad = RIGHT_COL_WIDTH - rightPlain.Length;
+		if (pad < 1) pad = 1; // at least one space
+
+		return leftPadded + new string(' ', pad) + rightColored;
+	}
 
 
 	public string GetStatIncrease( float start, float real, int decimalPlaces = 0, bool showRealValue = true, bool showAsPercent = false)
