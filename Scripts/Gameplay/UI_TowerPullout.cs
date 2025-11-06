@@ -177,6 +177,16 @@ public partial class UI_TowerPullout : CanvasLayer
 		}
 	}
 }
+public override void _UnhandledInput(InputEvent e)
+{
+	if (!_active || animating) return;
+	if (e is InputEventMouseButton mb && mb.Pressed)
+	{
+		_tower.ShowOrHideRange(false);
+		ToggleActive();
+		GetViewport().SetInputAsHandled();
+	}
+}
 
 
 	public void DisplaySlots()

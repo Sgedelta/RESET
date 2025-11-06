@@ -71,6 +71,7 @@ offset_bottom = 305.0
 text = "GAME OVER"
 
 [node name="BarToggle" parent="CanvasLayer" instance=ExtResource("7_hfefo")]
+theme_override_font_sizes/font_size = 40
 AspectBarPath = NodePath("../AspectBar")
 
 [node name="WaveDirector" type="Node2D" parent="."]
