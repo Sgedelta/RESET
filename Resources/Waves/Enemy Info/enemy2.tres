@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cl88nemk5sj4"]
+
+[ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="1_e7qda"]
+[ext_resource type="Script" uid="uid://bn1gtgr1h4lpa" path="res://Resources/Waves/Enemy Info/EnemyInfo.cs" id="2_de0fs"]
+
+[resource]
+script = ExtResource("2_de0fs")
+EnemyScene = ExtResource("1_e7qda")
+HealthMultiplier = 1.0
+SpeedMultiplier = 3.0
+Delay = 2.0

@@ -185,4 +185,10 @@ public partial class Enemy : PathFollow2D
 
 		return pos;
 	}
+	
+	public void ModifyStats(float healthMultiplier, float speedMultiplier)
+	{
+		MaxHp *= healthMultiplier;
+		Speed *= speedMultiplier;
+	}
 }

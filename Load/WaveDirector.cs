@@ -1,71 +1,25 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class WaveDirector : Node2D
 {
-	[Export] public PackedScene EnemyScene;
 	[Export] public NodePath Path2DPath;
-	[Export] public float SpawnEvery = 5.0f;
-	[Export] public int SpawnNumber = 5;
-	
-	private float _timer;
-	private int _count;
-	public int GetSpawnedCount() => _count;
-	
+	[Export] public Wave CurrentWave;
 	private Path2D _path2D;
-	private List<Enemy> _activeEnemies;
 
-	public List<Enemy> ActiveEnemies { get { return _activeEnemies; } }
-	
+	private List<Enemy> _activeEnemies = new();
 	private GameManager _gameManager;
-	
+	private bool _isSpawning = false;
+
+	public List<Enemy> ActiveEnemies => _activeEnemies;
+
 	public override void _Ready()
 	{
 		_path2D = GetNode<Path2D>(Path2DPath);
-		_count = 0;
-		_activeEnemies = new List<Enemy>();
 	}
 
-	public override void _Process(double delta)
-	{
-		_timer += (float)delta;
-		if (_timer < SpawnEvery) return;
-		_timer = 0f;
-
-		if (EnemyScene == null) return;
-		if (_count >= SpawnNumber) return;
-
-		// Spawn enemy on the Enemies node
-		 var enemy = (Enemy)EnemyScene.Instantiate();
-		GameManager.Instance.EnemiesRoot.AddChild(enemy);
-
-		enemy.SetPathAndCurve(_path2D);
-		_activeEnemies.Add(enemy);
-		
-		if (_gameManager != null)
-		{
-			enemy.EnemyDied += _gameManager.OnEnemyDied;
-		}
-		
-		_count += 1;
-	}
-	
-	public void StartWave(int enemyCount)
-	{
-		SpawnNumber = enemyCount;
-		_count = 0;
-		_timer = 0f;
-	}
-	
-	public void StartWave(int enemyCount, float spawningDuration)
-	{
-		SpawnNumber = enemyCount;
-		SpawnEvery = spawningDuration / enemyCount;
-		_count = 0;
-		_timer = 0f;
-	}
-	
 	public void SetGameManager(GameManager manager)
 	{
 		_gameManager = manager;
@@ -73,6 +27,42 @@ public partial class WaveDirector : Node2D
 
 	public void RemoveActiveEnemy(Enemy enemy)
 	{
-		ActiveEnemies.Remove(enemy);
+		_activeEnemies.Remove(enemy);
+	}
+
+	public async void StartWave(Wave wave)
+	{
+		if (wave == null || _isSpawning)
+			return;
+
+		CurrentWave = wave;
+		_isSpawning = true;
+
+		foreach (var info in wave.WaveInfo)
+		{
+			if ((bool)info[0] == false)
+				continue;
+				
+			//grab the enemy to spawn
+			PackedScene enemyScene = (PackedScene)info[0];
+			//create it
+			Enemy enemy = (Enemy)enemyScene.Instantiate();
+			//put it into the tree
+			GameManager.Instance.EnemiesRoot.AddChild(enemy);
+			enemy.SetPathAndCurve(_path2D);
+
+			//enemy.ModifyStats(info.HealthMultiplier, info.SpeedMultiplier);
+
+			_activeEnemies.Add(enemy);
+
+			if (_gameManager != null)
+			{
+				enemy.EnemyDied += _gameManager.OnEnemyDied;
+			}
+
+			await ToSignal(GetTree().CreateTimer((float)info[1]), "timeout");
+		}
+
+		_isSpawning = false;
 	}
 }

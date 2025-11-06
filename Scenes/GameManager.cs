@@ -7,10 +7,12 @@ public partial class GameManager : Node
 {
 	[Export] public NodePath WaveDirectorPath;
 	[Export] public Path2D EnemiesRoot;
-	[Export] public int StartingWaveSize = 5;
-	[Export] public float StartingWaveDuration = 15f;
-	[Export] public NodePath AspectBarPath;
 	
+	// Folder containing Wave resource files
+	[Export(PropertyHint.Dir)] public string WaveFolderPath = "res://Resources/Waves";
+	
+
+	[Export] public NodePath AspectBarPath;	
 	private AspectBar _aspectBar;
 
 	//Singleton
@@ -20,6 +22,9 @@ public partial class GameManager : Node
 	
 	private WaveDirector _waveDirector;
 	public WaveDirector WaveDirector {  get { return _waveDirector; } }
+
+	private Dictionary<string, Wave> _waveLibrary;
+
 
 	private int _currentWave = 0;
 	private int _enemiesRemaining = 0;
@@ -69,13 +74,29 @@ public partial class GameManager : Node
 	private void StartNextWave()
 	{
 		_currentWave++;
-		_enemiesRemaining = StartingWaveSize * (_currentWave +1);
-		_duration = StartingWaveDuration - (_currentWave * .5f);
-		_waveDirector.StartWave(_enemiesRemaining, _duration);
 
-		GD.Print($"start wave {_currentWave} : {_enemiesRemaining} enemies");
+		string wavePath = $"{WaveFolderPath}/Wave{_currentWave}.tres";
+		GD.Print($"[GM] Loading {wavePath}");
+
+		if (!ResourceLoader.Exists(wavePath))
+		{
+			GD.Print($"[GM] No more waves");
+			return;
+		}
+
+		Wave wave = ResourceLoader.Load<Wave>(wavePath);
+		if (wave == null)
+		{
+			GD.PrintErr($"[GM] Failed to load {wavePath}");
+			return;
+		}
+
+		GD.Print($"[GM] Starting wave {_currentWave}...");
+		_waveDirector.StartWave(wave);
+
+		_enemiesRemaining = wave.WaveInfo.Count;
 	}
-
+	
 	public void OnEnemyDied(Enemy enemy)
 	{
 		_enemiesRemaining--;
