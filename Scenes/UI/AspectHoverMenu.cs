@@ -9,7 +9,6 @@ public partial class AspectHoverMenu : Control
 	[Export] public NodePath RarityPath = "Panel/Margin/VBox/Rarity";
 	[Export] public NodePath StatsPath  = "Panel/Margin/VBox/stats";
 
-	// NEW: TextureRect background path (point this at your background TextureRect)
 	[Export] public NodePath BackgroundPath = "Panel/TextureRect";
 	private TextureRect _bg;
 
@@ -39,16 +38,11 @@ public partial class AspectHoverMenu : Control
 		AddToGroup("AspectTooltip");
 	}
 
-	// =========================================================
-	// 1) Simple: mouse-based position, clamped to screen
-	// =========================================================
 	public void ShowAspect(Aspect aspect, Vector2 globalMousePos)
 	{
 		if (aspect == null) return;
 
 		FillText(aspect);
-
-		// Defer until sizes are resolved this frame
 		CallDeferred(nameof(PlaceMenuAtMouseClamped), globalMousePos);
 		Show();
 	}
@@ -59,19 +53,14 @@ public partial class AspectHoverMenu : Control
 		GlobalPosition = ClampToViewport(desired, GetMenuSize());
 	}
 
-	// =========================================================
-	// 2) Control-anchored placement
-	// =========================================================
 	public enum MenuAnchor
 	{
-		AboveLeft,   // bottom-left of menu aligns to top-left of target
-		AboveRight,  // bottom-right of menu aligns to top-right of target
-		LeftCenter,  // right-center of menu aligns to left-center of target
-		RightCenter, // left-center of menu aligns to right-center of target
-		BelowLeft,   // top-left of menu aligns to bottom-left of target
-		BelowRight,  // top-right of menu aligns to bottom-right of target
-
-		// NEW: top-right of menu aligns to top-left of target (for tower slot case)
+		AboveLeft,
+		AboveRight,
+		LeftCenter,
+		RightCenter,
+		BelowLeft,
+		BelowRight,
 		LeftTop
 	}
 
@@ -103,19 +92,16 @@ public partial class AspectHoverMenu : Control
 			MenuAnchor.BelowLeft   => new Vector2(targetRect.Position.X, targetRect.End.Y),
 			MenuAnchor.BelowRight  => new Vector2(targetRect.End.X - size.X, targetRect.End.Y),
 
-			// NEW exact alignment: menu.topRight = token.topLeft
 			MenuAnchor.LeftTop     => new Vector2(targetRect.Position.X - size.X, targetRect.Position.Y),
 
-			_ => targetRect.End    // fallback
+			_ => targetRect.End
 		};
 
 		desired += extraOffset;
 		GlobalPosition = ClampToViewport(desired, size);
 	}
 
-	// =========================================================
-	// Utility
-	// =========================================================
+
 	private void FillText(Aspect aspect)
 	{
 		_name.Text   = aspect.Template.DisplayName ?? "Aspect";
