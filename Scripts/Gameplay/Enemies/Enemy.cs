@@ -34,6 +34,10 @@ public partial class Enemy : PathFollow2D
     [Export] public PackedScene DamageIndicatorScene;
 
 	Color damageColor;
+
+    private float _knockbackVelocity = 0f;
+    private float _knockbackDecay = 200.0f;
+
     public override void _Ready()
 	{
 		HP = MaxHp;
@@ -53,6 +57,11 @@ public partial class Enemy : PathFollow2D
 	}
 	public override void _Process(double delta)
 	{
+        if (_curve == null)
+        {
+            return;
+        }
+        
 		if (_isSlowed)
 		{
 			_slowTimer -= (float)delta;
@@ -62,9 +71,24 @@ public partial class Enemy : PathFollow2D
 			}
 		}
 
-		Progress += Speed * (float)delta * (1-_slowPercent);
-		
-		if(ReachedEnd && !_calledReachedEnd)
+        if (Mathf.Abs(_knockbackVelocity) > 0.01f)
+        {
+            Progress += _knockbackVelocity * (float)delta;
+
+            _knockbackVelocity = Mathf.MoveToward(_knockbackVelocity, 0, _knockbackDecay * (float)delta);
+        }
+        else
+        {
+            // Normal forward movement
+            Progress += Speed * (float)delta * (1 - _slowPercent);
+
+
+        }
+
+        //Progress += Speed * (float)delta * (1-_slowPercent);
+
+
+        if (ReachedEnd && !_calledReachedEnd)
 		{
 			_calledReachedEnd = true;
 			EmitSignal(SignalName.EnemyReachedEnd, this);
@@ -153,15 +177,22 @@ public partial class Enemy : PathFollow2D
 	{
 		_path = path;
 		_curve = _path?.Curve;
-	}
+
+        Progress = 0f;
+        _calledReachedEnd = false;
+    }
 
 	public void ApplyKnockback(Vector2 direction, float force)
 	{
-		GlobalPosition += direction.Normalized() * force;
-		GD.Print($"[Enemy] Knocked back by {force}px");
-	}
+        //GlobalPosition += direction.Normalized() * force;
+        //_knockbackVelocity = direction.Normalized() * force;
 
-	public void ApplyPoison(float damagePerTick, int ticks)
+        _knockbackVelocity = Speed * - force;
+        GD.Print($"[Enemy] Knocked back by {force}px");
+
+    }
+
+    public void ApplyPoison(float damagePerTick, int ticks)
 	{
 		if (damagePerTick <= 0f || ticks <= 0) return;
 
