@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=25 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cl0og6r3uc6ax" path="res://Scripts/Gameplay/Projectiles/ExplodingProjectile.tscn" id="8_q06an"]
 [ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
 [ext_resource type="PackedScene" uid="uid://ciubnx7jia5kj" path="res://Scripts/Gameplay/Projectiles/PierceProjectile.tscn" id="9_s2nua"]
+[ext_resource type="PackedScene" uid="uid://cafcaihqdjarv" path="res://Scenes/UI/PauseMenu.tscn" id="9_u4oo0"]
 [ext_resource type="Script" uid="uid://b460sts102rxs" path="res://Scripts/Gameplay/EnemiesAndWaves/WaveGenerator.cs" id="9_wyr6k"]
 [ext_resource type="Script" uid="uid://cxpekmp87pqns" path="res://Scenes/PlayerManager.cs" id="9_x3f4s"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="10_asn5m"]
@@ -26,13 +27,17 @@
 
 [node name="Run" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot", "PauseButton", "ResumeButton", "MainMenuButton")]
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/EnemyPath")
 AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
+PauseMenuPath = NodePath("../CanvasLayer/PauseMenu")
+PauseButton = NodePath("../CanvasLayer/Button")
+ResumeButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Resume")
+MainMenuButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Main Menu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -76,6 +81,16 @@ text = "GAME OVER"
 [node name="BarToggle" parent="CanvasLayer" instance=ExtResource("7_hfefo")]
 theme_override_font_sizes/font_size = 40
 AspectBarPath = NodePath("../AspectBar")
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_u4oo0")]
+visible = false
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 727.0
+offset_top = 6.0
+offset_right = 827.0
+offset_bottom = 37.0
+text = "PauseGame"
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
@@ -153,6 +168,7 @@ default_color = Color(1, 0, 0, 1)
 [editable path="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
 [editable path="CanvasLayer/RewardMenu"]
 [editable path="CanvasLayer/AspectHoverMenu"]
+[editable path="CanvasLayer/PauseMenu"]
 [editable path="Map"]
 [editable path="Map/Towers/Tower"]
 [editable path="Map/Towers/Tower2"]
