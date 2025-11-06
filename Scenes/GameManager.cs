@@ -7,11 +7,7 @@ public partial class GameManager : Node
 {
 	[Export] public NodePath WaveDirectorPath;
 	[Export] public Path2D EnemiesRoot;
-	
-	// Folder containing Wave resource files
 	[Export(PropertyHint.Dir)] public string WaveFolderPath = "res://Resources/Waves";
-	
-
 	[Export] public NodePath AspectBarPath;	
 	[Export] public NodePath gameOverTextPath;
 	[Export] public NodePath RewardMenuPath;
@@ -33,7 +29,6 @@ public partial class GameManager : Node
 	private float _duration = 0;
 
 	private HashSet<Aspect> _lastOffered = new();
-	
 
 	public override void _Ready()
 	{
@@ -48,24 +43,23 @@ public partial class GameManager : Node
 
 		_gameOverText = GetNode<Label>(gameOverTextPath);
 		_gameOverText.Visible = false;
-		
+
 		_waveDirector = GetNode<WaveDirector>(WaveDirectorPath);
-		
 		Inventory = new AspectInventory();
 		_waveDirector.SetGameManager(this);
-		
+
 		_aspectBar = GetNodeOrNull<AspectBar>(AspectBarPath);
-		
-			_rewardMenu = GetNodeOrNull<RewardMenu>(RewardMenuPath);
-			if (_rewardMenu != null)
-			{
+
+		_rewardMenu = GetNodeOrNull<RewardMenu>(RewardMenuPath);
+		if (_rewardMenu != null)
+		{
 				_rewardMenu.ProcessMode = Node.ProcessModeEnum.WhenPaused; // Godot 4
 				_rewardMenu.Hide();
 				_rewardMenu.ChoicePicked += OnAspectTemplatePicked;  // <-- SUBSCRIBE!
 				GD.Print($"[GM] Subscribed to RewardMenu at {_rewardMenu.GetPath()}");
-			}
 		}
 
+		LoadAllWaves();
 		StartNextWave();
 	}
 
@@ -117,6 +111,7 @@ public partial class GameManager : Node
 			return;
 		}
 
+		Wave wave = GetWave();
 		if (wave == null)
 		{
 			GD.PrintErr("[GM] Failed to select a wave");
@@ -129,6 +124,7 @@ public partial class GameManager : Node
 	}
 
 	/// <summary>
+	/// returns a random Wave from the loaded wave library
 	/// </summary>
 	public Wave GetWave()
 	{
@@ -153,6 +149,7 @@ public partial class GameManager : Node
 		// fallback
 		return _waveLibrary.Values.Last();
 	}
+
 
 	public void OnEnemyDied(Enemy enemy)
 	{
