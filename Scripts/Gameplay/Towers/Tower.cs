@@ -76,12 +76,15 @@ public partial class Tower : Node2D
 	public TargetingComponent Targeting { get; private set; }
 	public ShooterComponent   Shooter   { get; private set; }
 
+	[Export] private string rangeDisplayPath = "RangeDisplay";
+	private RangeDisplay rangeDisplay;
 
 
 	public override void _Ready()
 	{
 		Targeting = GetNodeOrNull<TargetingComponent>("TargetingComponent");
 		Shooter   = GetNodeOrNull<ShooterComponent>("ShooterComponent");
+		rangeDisplay = GetNode<RangeDisplay>(rangeDisplayPath);
 
 		baseStats = new TowerStats
 		{
@@ -171,6 +174,8 @@ public partial class Tower : Node2D
 	private void ApplyStatsToComponents()
 	{
 		Shooter?.SetStats(modifiedStats);
+
+		rangeDisplay?.UpdateSize(modifiedStats.Range);
 
 		if (Targeting != null) Targeting.Range = modifiedStats.Range;
 	}
