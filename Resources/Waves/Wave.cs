@@ -3,8 +3,8 @@ using System;
 
 public partial class Wave : Resource
 {
-	[Export] string ID;
-	[Export] float selectionWeight;
+	[Export] public string ID;
+	[Export] public float SelectionWeight;
 
 	[Export] public Godot.Collections.Array<Godot.Collections.Array> WaveInfo;
 
