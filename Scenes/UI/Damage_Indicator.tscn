@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://rpq7jcrqoa83"]
+[gd_scene load_steps=3 format=3 uid="uid://rpq7jcrqoa83"]
 
 [ext_resource type="Script" uid="uid://dim67871v6331" path="res://Scenes/UI/DamageIndicator.cs" id="1_xjv21"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_xjv21"]
+resource_local_to_scene = true
+font_size = 50
+
 [node name="DamageIndicator" type="Node2D"]
 script = ExtResource("1_xjv21")
+moveSpeed = null
+shrinkSpeed = 10.0
+minScaleDamage = Vector2(3, 15)
+maxScaleDamage = Vector2(50, 125)
+offsetSize = Vector2(75, 30)
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8
@@ -21,3 +30,4 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 100
 text = "0"
+label_settings = SubResource("LabelSettings_xjv21")

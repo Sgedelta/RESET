@@ -41,7 +41,7 @@ public partial class DamageIndicator : Node2D
         //movement
         anim.SetParallel(true);
 
-		anim.TweenProperty(this, "position", )
+		anim.TweenProperty(this, "position", Position + new Vector2(0, -1 * moveSpeed * animTime), animTime);
 
 
 
@@ -65,7 +65,8 @@ public partial class DamageIndicator : Node2D
 			label.QueueRedraw();
 		}
 
-		
+		animTime = label.LabelSettings.FontSize / shrinkSpeed;
+		GD.Print(animTime);
 
 		StartAnimation();
 	}
