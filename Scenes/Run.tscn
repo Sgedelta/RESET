@@ -130,7 +130,7 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
 AspectTemplates = Array[Resource]([])
-TemplatesFilePathsFromRes = Array[String](["Archer", "Tech", "Mage"])
+TemplatesFilePathsFromRes = Array[String](["Archer", "Mage", "Tech"])
 
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("9_x3f4s")
