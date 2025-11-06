@@ -30,6 +30,18 @@ public partial class GameManager : Node
 	private int _currentWave = 0;
 	private int _enemiesRemaining = 0;
 	private float _duration = 0;
+	
+	[Export] public NodePath gameOverTextPath;
+	private Label _gameOverText;
+	
+	[Export] public NodePath RewardMenuPath;
+	private RewardMenu _rewardMenu; 
+	
+	[Export] public NodePath PauseMenuPath;
+	private PauseMenu _pauseMenu;
+	[Export] public Button PauseButton;
+	[Export] public Button ResumeButton;
+	[Export] public Button MainMenuButton;
 
 	private HashSet<Aspect> _lastOffered = new();
 
@@ -52,15 +64,20 @@ public partial class GameManager : Node
 		_waveDirector.SetGameManager(this);
 
 		_aspectBar = GetNodeOrNull<AspectBar>(AspectBarPath);
-
+		
 		_rewardMenu = GetNodeOrNull<RewardMenu>(RewardMenuPath);
 		if (_rewardMenu != null)
 		{
-				_rewardMenu.ProcessMode = Node.ProcessModeEnum.WhenPaused; // Godot 4
-				_rewardMenu.Hide();
-				_rewardMenu.ChoicePicked += OnAspectTemplatePicked;  // <-- SUBSCRIBE!
-				GD.Print($"[GM] Subscribed to RewardMenu at {_rewardMenu.GetPath()}");
+			_rewardMenu.ProcessMode = Node.ProcessModeEnum.WhenPaused; // Godot 4
+			_rewardMenu.Hide();
+			_rewardMenu.ChoicePicked += OnAspectTemplatePicked;  // <-- SUBSCRIBE!
+			GD.Print($"[GM] Subscribed to RewardMenu at {_rewardMenu.GetPath()}");
 		}
+		
+		_pauseMenu = GetNodeOrNull<PauseMenu>(PauseMenuPath);
+		ResumeButton.Pressed += OnGameResume;
+		MainMenuButton.Pressed  += OnMainMenu;
+		PauseButton.Pressed  += OnGamePaused;
 
 		LoadAllWaves();
 		StartNextWave();
@@ -172,8 +189,20 @@ public partial class GameManager : Node
 		GetTree().Paused = true;
 		GetTree().ChangeSceneToFile(StartScreenPath);
 		GetTree().Paused = false;
-
-
+	}
+	public void OnGamePaused()
+	{
+		_pauseMenu.Visible = true;
+		GetTree().Paused = true;
+	}
+	public void OnGameResume()
+	{
+		_pauseMenu.Visible = false;
+		GetTree().Paused = false;
+	}
+	public void OnMainMenu()
+	{
+		GetTree().ChangeSceneToFile(StartScreenPath);
 	}
 
 	public Enemy GetNearestEnemyToPoint(Vector2 point, List<Enemy> exclude)

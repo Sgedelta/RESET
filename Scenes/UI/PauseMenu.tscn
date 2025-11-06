@@ -1,8 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://cafcaihqdjarv"]
+[gd_scene load_steps=6 format=3 uid="uid://cafcaihqdjarv"]
 
 [ext_resource type="Script" uid="uid://d4iylcpoox1vx" path="res://Scenes/UI/PauseMenu.cs" id="1_eod5q"]
+[ext_resource type="Texture2D" uid="uid://b7sw2lfmkf4xy" path="res://Scenes/UI/AspectHover/Pause Menu.png" id="2_238ko"]
+[ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="3_2bpff"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_238ko"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hc20"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="PauseMenu" type="Control"]
+process_mode = 3
+custom_minimum_size = Vector2(1000, 800)
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_eod5q")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_238ko")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_2bpff")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/pressed = SubResource("StyleBoxFlat_238ko")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8hc20")
+text = "Resume"
+
+[node name="Main Menu" type="Button" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_2bpff")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_8hc20")
+text = "Main Menu"

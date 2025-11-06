@@ -322,12 +322,10 @@ public partial class Tower : Node2D
 			sb.AppendLine(FormatStatLine(name, start, real, decimals, showRealValue, asPercent));
 	}
 
-	// === Core formatter (left label, right aligned delta + final), colored +/– ===
 	private string FormatStatLine(string label, float start, float real, int decimals = 0, bool showRealValue = true, bool asPercent = false)
 	{
 		float delta = real - start;
 
-		// 1) Build plain strings (no bbcode) for alignment calculations
 		string fmt = $"F{decimals}";
 		string deltaPlain, realPlain = "";
 
@@ -348,10 +346,9 @@ public partial class Tower : Node2D
 
 		string rightPlain = deltaPlain + realPlain;
 
-		// 2) Make colored versions
-		string colorHexPlus  = "#6CFF6C";  // green
-		string colorHexMinus = "#FF6C6C";  // red
-		string colorHexNeutral = "#DDDDDD"; // neutral grey for (real)
+		string colorHexPlus  = "#6CFF6C";
+		string colorHexMinus = "#FF6C6C";
+		string colorHexNeutral = "#DDDDDD";
 		string deltaColored =
 			delta > 0 ? $"[color={colorHexPlus}]{deltaPlain}[/color]" :
 			delta < 0 ? $"[color={colorHexMinus}]{deltaPlain}[/color]" :
@@ -363,10 +360,8 @@ public partial class Tower : Node2D
 
 		string rightColored = deltaColored + realColored;
 
-		// 3) Align: left column for label, right column for numbers
-		// We’re in [code] monospace, so spaces are trustworthy.
-		const int NAME_COL_WIDTH  = 28;   // tweak to taste
-		const int RIGHT_COL_WIDTH = 18;   // tweak to taste
+		const int NAME_COL_WIDTH  = 28;
+		const int RIGHT_COL_WIDTH = 18;
 
 		string left = label.Length > NAME_COL_WIDTH
 			? label.Substring(0, NAME_COL_WIDTH)
@@ -374,9 +369,8 @@ public partial class Tower : Node2D
 
 		string leftPadded  = left.PadRight(NAME_COL_WIDTH, ' ');
 
-		// Compute padding using *plain* text lengths (bbcode excluded)
 		int pad = RIGHT_COL_WIDTH - rightPlain.Length;
-		if (pad < 1) pad = 1; // at least one space
+		if (pad < 1) pad = 1;
 
 		return $"[fill]{leftPadded} {rightColored}[/fill]";
 	}
