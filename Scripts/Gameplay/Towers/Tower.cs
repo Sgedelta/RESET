@@ -286,7 +286,7 @@ public partial class Tower : Node2D
 		var sb = new System.Text.StringBuilder();
 		sb.Append("[code]");
 
-		//sb.AppendLine(""); //the first line breaks on fill. so this has to exist?
+		sb.AppendLine(""); //the first line breaks on fill. so this has to exist?
 
 		sb.AppendLine(FormatStatLine("Damage",               baseStats.Damage,            modifiedStats.Damage,            1));
 		sb.AppendLine(FormatStatLine("Range",                baseStats.Range,             modifiedStats.Range));
