@@ -144,7 +144,7 @@ public partial class Projectile : Area2D
 		if(doSplash && _splashRadius > 0 && !_hasExploded)
 		{
 			ExplodeSplash();
-			_hasExploded = true;
+			//_hasExploded = true;
 		}
 
 		if(doChain && _chainTargets > 0)
@@ -163,15 +163,15 @@ public partial class Projectile : Area2D
 
 	}
 
-	private void ApplyKnockback(Enemy enemy)
+	private void ApplyKnockback(Enemy enemy, float coef = 1)
 	{
 		if (_knockbackAmount <= 0) return;
 
 		Vector2 knockDir = (enemy.GlobalPosition - GlobalPosition).Normalized();
-		enemy.ApplyKnockback(knockDir, _knockbackAmount);
+		enemy.ApplyKnockback(knockDir, _knockbackAmount * coef);
 	}
 
-	private void ApplySlow(Enemy enemy)
+	private void ApplySlow(Enemy enemy, float coef = 1)
 	{
 		if (_slowdownPercent <= 0 || _slowdownLength <= 0)
 		{
@@ -179,33 +179,40 @@ public partial class Projectile : Area2D
 			return;
 		}
 
-		enemy.ApplySlow(_slowdownPercent, _slowdownLength);
+		enemy.ApplySlow(_slowdownPercent * coef, _slowdownLength * coef);
 
 	}
 
-	private void ApplyPoison(Enemy enemy)
+	private void ApplyPoison(Enemy enemy, float coef = 1)
 	{
 		if (_poisonDamage <= 0 || _poisonTicks <= 0) return;
 
-		enemy.ApplyPoison(_poisonDamage, _poisonTicks);
+		enemy.ApplyPoison(_poisonDamage * coef, Mathf.Max(1, (int)(_poisonTicks * coef)));
 	}
 
 	private void ExplodeSplash()
 	{
 		var enemies = GameManager.Instance.WaveDirector.ActiveEnemies;
-		foreach (var e in enemies)
+		for (int i = 0; i < enemies.Count; i++)
 		{
+			Enemy e = enemies[i];
+
 			if (!IsInstanceValid(e)) continue;
 
 			float dist = GlobalPosition.DistanceTo(e.GlobalPosition);
 			if (dist <= _splashRadius)
 			{
 				float coef = 1f;
+				//linear falloff
 				if (_splashCoef > 0)
-					coef = Mathf.Clamp(1f - (dist / _splashRadius) * _splashCoef, 0.2f, 1f);
+					coef = Mathf.Clamp((1f - (dist / _splashRadius)) * _splashCoef, 0.01f, 1f);
 
 				e.TakeDamage(_damage * coef);
-				//TODO: Apply other effects (poison, knockback, slow)
+
+				ApplyPoison(e, coef);
+				ApplySlow(e, coef);
+				ApplyKnockback(e, coef);
+
 			}
 		}
 	}

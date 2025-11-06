@@ -28,7 +28,6 @@ public partial class Enemy : PathFollow2D
 	//Slow information
 	private float _slowPercent = 0f;
 	private float _slowDuration = 0f;
-	private float _slowTimer = 0f;
 	private bool _isSlowed = false;
 
 	//Damage indicator 
@@ -64,8 +63,8 @@ public partial class Enemy : PathFollow2D
 	{
 		if (_isSlowed)
 		{
-			_slowTimer -= (float)delta;
-			if (_slowTimer <= 0)
+			_slowDuration -= (float)delta;
+			if (_slowDuration <= 0)
 			{
 				ResetSlow();
 			}
@@ -151,11 +150,33 @@ public partial class Enemy : PathFollow2D
 	{
 		if (percent <= 0f || duration <= 0f) 
 			return;
+		
+		//check if we are currently slowing
+		if(_isSlowed)
+		{
+			//we have a stronger slow
+			if(_slowPercent > percent)
+			{
+				//add to that slow by an "equivalent amount"
+				float ratio = percent / _slowPercent;
+				_slowDuration += ratio * duration;
+			}
+			else
+			{
+				//otherwise our new slow is better - make the old slow add to this by a equivalent amount
+				float ratio = _slowPercent / percent;
+				_slowDuration = duration + _slowDuration * ratio;
+				_slowPercent = percent;
+			}
+		}
+		else //otherwise apply slow
+		{
+            _slowPercent = percent;
 
-		_slowPercent = percent;
-		_slowDuration = duration;
-		_slowTimer = duration;
-		_isSlowed = true;
+            _slowDuration = duration;
+            _isSlowed = true;
+        }
+
 
 		GD.Print($"[Enemy] Slowed by {percent * 100}% for {duration}s");
 	}
@@ -164,7 +185,6 @@ public partial class Enemy : PathFollow2D
 	{
 		_isSlowed = false;
 		_slowPercent = 0f;
-		_slowDuration = 0f;
 
 	}
 

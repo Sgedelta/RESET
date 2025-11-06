@@ -12,7 +12,6 @@
 
 [node name="TowerPullout" type="CanvasLayer" node_paths=PackedStringArray("_container", "_statDisplay")]
 script = ExtResource("1_nqjej")
-SlideTime = null
 _container = NodePath("ScrollContainer/GridContainer/AspectContainer")
 _statDisplay = NodePath("ScrollContainer/GridContainer/MarginContainer2/RichTextLabel")
 AspectSlotScn = ExtResource("4_tgmv1")
@@ -55,7 +54,6 @@ _pullout = NodePath("../../..")
 
 [node name="AspectSlot" parent="ScrollContainer/GridContainer/AspectContainer" instance=ExtResource("4_tgmv1")]
 layout_mode = 2
-Index = null
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/GridContainer"]
 layout_mode = 2
