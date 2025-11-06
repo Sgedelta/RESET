@@ -6,7 +6,8 @@ public partial class DamageIndicator : Node2D
 {
 
 	[Export] public float moveSpeed = 30;
-	[Export] private float shrinkSpeed = 100;
+	[Export] public float animFalloffExp = 3;
+	[Export] private float maxAnimTime = 1.5f;
 
 	// two vec2s representing a damage value in X and a font size associated with it in Y. interpolated between for scaling
 	[Export] private Vector2 minScaleDamage;
@@ -39,10 +40,11 @@ public partial class DamageIndicator : Node2D
         anim = GetTree().CreateTween();
 
         //movement
-        anim.SetParallel(true);
+        anim.SetParallel(true).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
 
 		anim.TweenProperty(this, "position", Position + new Vector2(0, -1 * moveSpeed * animTime), animTime);
-
+		anim.TweenProperty(this, "scale", Vector2.Zero, animTime);
+		//anim.TweenProperty(this)
 
 
         //deletion
@@ -62,11 +64,13 @@ public partial class DamageIndicator : Node2D
 			float damageScale = (Mathf.Clamp( damage, minScaleDamage.X, maxScaleDamage.X ) - minScaleDamage.X) / (maxScaleDamage.X - minScaleDamage.X);
 			label.LabelSettings.FontSize = (int)Mathf.Lerp(minScaleDamage.Y, maxScaleDamage.Y, damageScale);
 
-			label.QueueRedraw();
+            animTime = Mathf.Pow(damageScale, animFalloffExp) * maxAnimTime;
+
+            label.QueueRedraw();
 		}
 
-		animTime = label.LabelSettings.FontSize / shrinkSpeed;
 		GD.Print(animTime);
+		
 
 		StartAnimation();
 	}

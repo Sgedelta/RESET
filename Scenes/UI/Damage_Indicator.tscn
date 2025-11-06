@@ -8,8 +8,8 @@ font_size = 50
 
 [node name="DamageIndicator" type="Node2D"]
 script = ExtResource("1_xjv21")
-moveSpeed = null
-shrinkSpeed = 10.0
+animFalloffExp = 0.3
+maxAnimTime = 2.0
 minScaleDamage = Vector2(3, 15)
 maxScaleDamage = Vector2(50, 125)
 offsetSize = Vector2(75, 30)
