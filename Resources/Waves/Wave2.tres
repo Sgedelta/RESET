@@ -1,11 +1,10 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dsgydxel33yrn"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dsgydxel33yrn"]
 
-[ext_resource type="PackedScene" uid="uid://cdqc0wm6sinp2" path="res://Scenes/Enemies/FastEnemy.tscn" id="1_wlds8"]
-[ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_1qnre"]
+[ext_resource type="PackedScene" uid="uid://cdqc0wm6sinp2" path="res://Scenes/Enemies/FastEnemy.tscn" id="1_e5656"]
 [ext_resource type="Script" uid="uid://b8ve75dhdxavr" path="res://Resources/Waves/Wave.cs" id="3_nlc01"]
 
 [resource]
 script = ExtResource("3_nlc01")
-_id = "wave_2"
-selectionWeight = 0.0
-WaveInfo = Array[Array]([[ExtResource("1_wlds8"), 0.3], [ExtResource("1_wlds8"), 0.5], [ExtResource("1_wlds8"), 0.7], [ExtResource("1_wlds8"), 1.0], [ExtResource("1_wlds8"), 1.0], [ExtResource("2_1qnre"), 1.0], [ExtResource("2_1qnre"), 1.0], [ExtResource("2_1qnre"), 0.4], [ExtResource("2_1qnre"), 1.0], [ExtResource("2_1qnre"), 0.4]])
+ID = "wave2"
+SelectionWeight = 1.5
+WaveInfo = Array[Array]([[ExtResource("1_e5656"), 0.2], [ExtResource("1_e5656"), 0.2], [ExtResource("1_e5656"), 0.2], [ExtResource("1_e5656"), 0.2], [ExtResource("1_e5656"), 0.2]])

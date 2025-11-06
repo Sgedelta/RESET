@@ -7,39 +7,31 @@ public partial class GameManager : Node
 {
 	[Export] public NodePath WaveDirectorPath;
 	[Export] public Path2D EnemiesRoot;
-	
 	[Export] public string StartScreenPath;
 	
 	// Folder containing Wave resource files
 	[Export(PropertyHint.Dir)] public string WaveFolderPath = "res://Resources/Waves";
-	
-
 	[Export] public NodePath AspectBarPath;	
+	[Export] public NodePath gameOverTextPath;
+	[Export] public NodePath RewardMenuPath;
+
 	private AspectBar _aspectBar;
-
-	//Singleton
-	public static GameManager Instance;
-	
-	public AspectInventory Inventory { get; private set; }
-	
+	private Label _gameOverText;
+	private RewardMenu _rewardMenu; 
 	private WaveDirector _waveDirector;
-	public WaveDirector WaveDirector {  get { return _waveDirector; } }
 
-	private Dictionary<string, Wave> _waveLibrary;
+	// Singleton
+	public static GameManager Instance;
 
+	public AspectInventory Inventory { get; private set; }
+	public WaveDirector WaveDirector => _waveDirector;
 
+	private Dictionary<string, Wave> _waveLibrary = new();
 	private int _currentWave = 0;
 	private int _enemiesRemaining = 0;
 	private float _duration = 0;
-	
-	[Export] public NodePath gameOverTextPath;
-	private Label _gameOverText;
-	
-	[Export] public NodePath RewardMenuPath;
-	private RewardMenu _rewardMenu; 
 
 	private HashSet<Aspect> _lastOffered = new();
-	
 
 	public override void _Ready()
 	{
@@ -54,34 +46,69 @@ public partial class GameManager : Node
 
 		_gameOverText = GetNode<Label>(gameOverTextPath);
 		_gameOverText.Visible = false;
-		
+
 		_waveDirector = GetNode<WaveDirector>(WaveDirectorPath);
-		
 		Inventory = new AspectInventory();
 		_waveDirector.SetGameManager(this);
-		
+
 		_aspectBar = GetNodeOrNull<AspectBar>(AspectBarPath);
-		
-			_rewardMenu = GetNodeOrNull<RewardMenu>(RewardMenuPath);
-			if (_rewardMenu != null)
-			{
+
+		_rewardMenu = GetNodeOrNull<RewardMenu>(RewardMenuPath);
+		if (_rewardMenu != null)
+		{
 				_rewardMenu.ProcessMode = Node.ProcessModeEnum.WhenPaused; // Godot 4
 				_rewardMenu.Hide();
 				_rewardMenu.ChoicePicked += OnAspectTemplatePicked;  // <-- SUBSCRIBE!
 				GD.Print($"[GM] Subscribed to RewardMenu at {_rewardMenu.GetPath()}");
-			}
+		}
 
+		LoadAllWaves();
 		StartNextWave();
+	}
+
+	private void LoadAllWaves()
+	{
+		_waveLibrary.Clear();
+
+		var dir = DirAccess.Open(WaveFolderPath);
+		if (dir == null)
+		{
+			GD.PrintErr($"[GM] Failed to open wave folder: {WaveFolderPath}");
+			return;
+		}
+
+		dir.ListDirBegin();
+		string fileName = dir.GetNext();
+		while (!string.IsNullOrEmpty(fileName))
+		{
+			if (!dir.CurrentIsDir() && fileName.EndsWith(".tres"))
+			{
+				string filePath = $"{WaveFolderPath}/{fileName}";
+				var wave = ResourceLoader.Load<Wave>(filePath);
+				if (wave != null)
+				{
+					string key = wave.ID;
+					_waveLibrary[key] = wave;
+					GD.Print($"[GM] Loaded wave: {key}");
+				}
+				else
+				{
+					GD.PrintErr($"[GM] Failed to load wave {filePath}");
+				}
+			}
+			fileName = dir.GetNext();
+		}
+
+		dir.ListDirEnd();
+
+		GD.Print($"[GM] Loaded {_waveLibrary.Count} waves");
 	}
 
 	private void StartNextWave()
 	{
 		_currentWave++;
 
-		string wavePath = $"{WaveFolderPath}/Wave{_currentWave}.tres";
-		GD.Print($"[GM] Loading {wavePath}");
-
-		if (!ResourceLoader.Exists(wavePath))
+		if (_waveLibrary.Count == 0)
 		{
 			GD.Print($"[GM] No more waves: generating random!");
 
@@ -91,23 +118,49 @@ public partial class GameManager : Node
 			_waveDirector.StartWave(randWave);
 
 			_enemiesRemaining = randWave.WaveInfo.Count;
-
 			return;
 		}
 
-		Wave wave = ResourceLoader.Load<Wave>(wavePath);
+		Wave wave = GetWave();
 		if (wave == null)
 		{
-			GD.PrintErr($"[GM] Failed to load {wavePath}");
+			GD.PrintErr("[GM] Failed to select a wave");
 			return;
 		}
 
-		GD.Print($"[GM] Starting wave {_currentWave}...");
+		GD.Print($"[GM] Starting wave {_currentWave}: {wave.ID}");
 		_waveDirector.StartWave(wave);
-
 		_enemiesRemaining = wave.WaveInfo.Count;
 	}
-	
+
+	/// <summary>
+	/// returns a random Wave from the loaded wave library
+	/// </summary>
+	public Wave GetWave()
+	{
+		if (_waveLibrary.Count == 0)
+			return null;
+
+		// compute total weight
+		float totalWeight = 0;
+		foreach (var wave in _waveLibrary.Values)
+			totalWeight += Mathf.Max(wave.SelectionWeight, 0.0f);
+
+		var rng = new Random();
+		float choice = (float)(rng.NextDouble() * totalWeight);
+
+		foreach (var wave in _waveLibrary.Values)
+		{
+			choice -= Mathf.Max(wave.SelectionWeight, 0.0f);
+			if (choice <= 0)
+				return wave;
+		}
+
+		// fallback
+		return _waveLibrary.Values.Last();
+	}
+
+
 	public void OnEnemyDied(Enemy enemy)
 	{
 		_enemiesRemaining--;
@@ -133,22 +186,20 @@ public partial class GameManager : Node
 
 	public Enemy GetNearestEnemyToPoint(Vector2 point, List<Enemy> exclude)
 	{
-		//there are no enemies, get out
 		if (_enemiesRemaining <= 0) return null;
 
 		var filterEnemies = _waveDirector.ActiveEnemies.Where(e => !exclude.Contains(e));
 
-		// unfortunely a little slow but this is the best way to do it for our purposes
-		// this can be better if we quad tree it but that's more overhead and work for us
-		// so. No! we'll stick with squared distance and then just retarget less frequently.
 		float closestSqDist = float.MaxValue;
 		Enemy nearest = null;
+
 		foreach (Enemy e in filterEnemies)
 		{
-			if(closestSqDist > e.GlobalPosition.DistanceSquaredTo(point))
+			float dist = e.GlobalPosition.DistanceSquaredTo(point);
+			if (dist < closestSqDist)
 			{
 				nearest = e;
-				closestSqDist = e.GlobalPosition.DistanceSquaredTo(point);
+				closestSqDist = dist;
 			}
 		}
 		return nearest;
@@ -158,8 +209,7 @@ public partial class GameManager : Node
 	{
 		return GetNearestEnemyToPoint(point, new List<Enemy>());	
 	}
-	
-	//aspect rewards
+
 	private void OfferEndOfRoundRewards()
 	{
 		if (_rewardMenu == null)
@@ -179,7 +229,7 @@ public partial class GameManager : Node
 		_rewardMenu.ShowChoices(_currentWave, choices);
 		GetTree().Paused = true;
 	}
-	
+
 	private void OnAspectTemplatePicked(AspectTemplate pickedTemplate)
 	{
 		GD.Print($"[GM] Picked {pickedTemplate?._id}");
@@ -187,7 +237,7 @@ public partial class GameManager : Node
 		var instance = Inventory.AcquireFromTemplate(pickedTemplate);
 		GD.Print($"[GM] Inventory now has {Inventory.BagAspects().Count()} aspects total");
 
-		  _aspectBar?.Refresh(); 
+		_aspectBar?.Refresh(); 
 
 		_rewardMenu.Hide();
 		GetTree().Paused = false;
