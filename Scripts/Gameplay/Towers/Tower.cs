@@ -39,7 +39,7 @@ public partial class Tower : Node2D
 	[Export] public float BaseDamage              = 5f;
 	[Export] public float BaseRange               = 500f;
 	[Export] public float BaseProjectileSpeed     = 1000f;
-	[Export] public float BaseCritChance          = 0f;
+	[Export] public float BaseCritChance          = 0.05f;
 	[Export] public float BaseCritMult            = 2f;
 	[Export] public float BaseShotSpread          = 0f;
 	[Export] public float BaseShotSpreadFalloff   = 0f;

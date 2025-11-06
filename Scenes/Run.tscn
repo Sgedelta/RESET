@@ -33,8 +33,7 @@
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/EnemyPath")
-StartScreenPath = null
-WaveFolderPath = null
+StartScreenPath = "res://Scenes/UI/StartMenu.tscn"
 AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
@@ -42,9 +41,11 @@ RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TowerPullout" parent="CanvasLayer" instance=ExtResource("1_hfefo")]
+SlideTime = 0.5
 
 [node name="AspectSlot" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer" index="0"]
 custom_minimum_size = Vector2(50, 50)
+Index = 0
 
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
 visible = false
@@ -55,6 +56,9 @@ visible = false
 [node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
 offset_right = 200.0
 offset_bottom = 200.0
+BackgroundPath = NodePath("Panel/TextureRect")
+MouseOffset = Vector2(14, -40)
+ClampPadding = 8.0
 
 [node name="MarginContainer" parent="CanvasLayer/AspectHoverMenu/Panel" index="1"]
 theme_override_constants/margin_bottom = 20
@@ -81,7 +85,6 @@ text = "GAME OVER"
 [node name="BarToggle" parent="CanvasLayer" instance=ExtResource("7_hfefo")]
 theme_override_font_sizes/font_size = 40
 AspectBarPath = NodePath("../AspectBar")
-StartVisible = null
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
@@ -110,6 +113,12 @@ PiercingProjectileScene = ExtResource("9_s2nua")
 PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
 
+[node name="RangeDisplay" parent="Map/Towers/Tower" index="3"]
+borderWidth = 5.0
+rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
+rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
+rangeChangeRate = 1250.0
+
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
 position = Vector2(128, 47)
 BaseRange = 600.0
@@ -122,6 +131,12 @@ ExplosiveProjectileScene = ExtResource("8_q06an")
 PiercingProjectileScene = ExtResource("9_s2nua")
 PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
+
+[node name="RangeDisplay" parent="Map/Towers/Tower2" index="3"]
+borderWidth = 5.0
+rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
+rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
+rangeChangeRate = 1250.0
 
 [node name="Tower3" parent="Map/Towers" index="2" instance=ExtResource("4_jbeyo")]
 position = Vector2(206, 653)
@@ -136,6 +151,12 @@ PiercingProjectileScene = ExtResource("9_s2nua")
 PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
 
+[node name="RangeDisplay" parent="Map/Towers/Tower3" index="3"]
+borderWidth = 5.0
+rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
+rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
+rangeChangeRate = 1250.0
+
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
 AspectTemplates = Array[Resource]([ExtResource("22_6kpg7"), ExtResource("23_rb5a6"), ExtResource("24_twhnw")])
@@ -145,13 +166,11 @@ TemplatesFilePathsFromRes = Array[String](["Archer", "Mage", "Tech"])
 script = ExtResource("9_x3f4s")
 GameManagerPath = NodePath("../GameManager")
 EnemiesRootPath = NodePath("../Map/EnemyPath")
-MaxHealth = null
 
 [node name="PathVis" type="Node" parent="."]
 script = ExtResource("4_ixfg1")
 Path2DPath = NodePath("../Map/EnemyPath")
 Line2DPath = NodePath("Line2D")
-Width = null
 
 [node name="Line2D" type="Line2D" parent="PathVis"]
 z_index = -180
