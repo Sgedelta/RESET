@@ -21,9 +21,20 @@ public partial class RangeDisplay : Node2D
     private float size = 600;
 
     [Export] private float borderWidth = 5;
-    [Export] private Color rangeColor = new Color("#5dbdce");
-    [Export] private Color rangeInteriorColor = new Color("#5dbdce66");
+    [Export] private Color rangeColor = new Color("#5dbdce91");
+    [Export] private Color rangeInteriorColor = new Color("#5dbdce2c");
+    [Export] private float rangeChangeRate = 1250;
 
+    private bool _animating = false;
+    private Tween _animation;
+
+    public override void _Process(double delta)
+    {
+        if (_animating)
+        {
+            QueueRedraw();
+        }
+    }
 
     public void SetDisplay(bool val)
     {
@@ -31,6 +42,23 @@ public partial class RangeDisplay : Node2D
     }
 
     public void UpdateSize(float range)
+    {
+        float currSize = size;
+        //check if animating and stop the old tween if needed
+        if(_animating && _animation != null)
+        {
+            _animation.Kill();
+        }
+
+        _animating = true;
+        float delta = Mathf.Abs(range - currSize);
+
+        _animation = GetTree().CreateTween();
+        _animation.TweenProperty(this, nameof(size), range, delta / rangeChangeRate);
+
+    }
+
+    public void SetSize(float range)
     {
         size = range;
         QueueRedraw();

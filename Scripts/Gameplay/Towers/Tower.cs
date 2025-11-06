@@ -190,10 +190,12 @@ public partial class Tower : Node2D
 			result = a.ModifyGivenStats(result);
 		}
 
-		result.FireRate        = Mathf.Max(0.05f, result.FireRate);
-		result.ProjectileSpeed = Mathf.Max(0f, result.ProjectileSpeed);
-		result.ShotSpread	   = Mathf.Max(0.5f, result.ShotSpread);
-		result.ShotSpreadFalloff = Mathf.Max(0.1f, result.ShotSpreadFalloff);
+		result.FireRate				= Mathf.Max(0.05f, result.FireRate);
+		result.ProjectileSpeed		= Mathf.Max(0f, result.ProjectileSpeed);
+		result.ShotSpread			= Mathf.Max(0.5f, result.ShotSpread);
+		result.ShotSpreadFalloff	= Mathf.Max(0.1f, result.ShotSpreadFalloff);
+		result.Range				= Mathf.Max(0, result.Range);
+		result.Damage				= Mathf.Max(0f, result.Damage);
 		return result;
 	}
 	

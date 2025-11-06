@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=6 format=3 uid="uid://cpyhgebemnmis"]
 
-[ext_resource type="Resource" uid="uid://dm8ju4v8o12dl" path="res://Resources/Modifiers/Damage/DMG_A++.tres" id="1_ppmah"]
 [ext_resource type="Texture2D" uid="uid://w3svjf0b2ith" path="res://Resources/AspectTemplates/TemplateIcons/tuned gears.png" id="1_wbcdg"]
+[ext_resource type="Resource" uid="uid://xw5vbu6tsim" path="res://Resources/Modifiers/Damage/DMG_A+.tres" id="2_wbcdg"]
 [ext_resource type="Resource" uid="uid://ck70cdncs5m24" path="res://Resources/Modifiers/Fire Rate/FR_A+.tres" id="3_wbcdg"]
 [ext_resource type="Resource" uid="uid://dgkal1k4cs2m7" path="res://Resources/Modifiers/Critical/CRC_A-.tres" id="4_he5ug"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_khelr"]
@@ -11,6 +11,6 @@ script = ExtResource("4_khelr")
 _id = "TunedGears"
 DisplayName = "Tuned Gears"
 AspectSprite = ExtResource("1_wbcdg")
-Modifiers = Array[Resource]([ExtResource("1_ppmah"), ExtResource("3_wbcdg"), ExtResource("4_he5ug")])
+Modifiers = Array[Resource]([ExtResource("2_wbcdg"), ExtResource("3_wbcdg"), ExtResource("4_he5ug")])
 ProjectileType = 0
 Rarity = 0
