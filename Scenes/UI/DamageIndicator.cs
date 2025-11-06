@@ -26,6 +26,13 @@ public partial class DamageIndicator : Node2D
 
         ZIndex = 999;
 
+        var timer = new Timer();
+        timer.WaitTime = 1.5f;
+        timer.OneShot = true;
+        timer.Timeout += () => QueueFree();
+        AddChild(timer);
+        timer.Start();
+
     }
     public override void _Process(double delta)
     {
