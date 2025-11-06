@@ -40,6 +40,17 @@ RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 [node name="AspectSlot" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer" index="0"]
 custom_minimum_size = Vector2(50, 50)
 
+[node name="Label" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot" index="0"]
+layout_mode = 2
+mouse_filter = 1
+text = "+ "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AspectHoverUI" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot" index="1"]
+layout_mode = 2
+mouse_filter = 1
+
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
 visible = false
 
@@ -129,7 +140,7 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
 AspectTemplates = Array[Resource]([])
-TemplatesFilePathsFromRes = Array[String](["Archer", "Mage", "Tech"])
+TemplatesFilePathsFromRes = Array[String](["Archer", "Tech", "Mage"])
 
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("9_x3f4s")
