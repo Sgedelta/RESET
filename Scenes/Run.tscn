@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=28 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
@@ -46,11 +46,9 @@ MainMenuButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Ma
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TowerPullout" parent="CanvasLayer" instance=ExtResource("1_hfefo")]
-SlideTime = 0.5
 
 [node name="AspectSlot" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer" index="0"]
 custom_minimum_size = Vector2(50, 50)
-Index = 0
 
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
 visible = false
@@ -61,9 +59,6 @@ visible = false
 [node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
 offset_right = 200.0
 offset_bottom = 200.0
-BackgroundPath = NodePath("Panel/TextureRect")
-MouseOffset = Vector2(14, -40)
-ClampPadding = 8.0
 
 [node name="MarginContainer" parent="CanvasLayer/AspectHoverMenu/Panel" index="1"]
 theme_override_constants/margin_bottom = 20
@@ -95,11 +90,13 @@ AspectBarPath = NodePath("../AspectBar")
 visible = false
 
 [node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 727.0
-offset_top = 6.0
-offset_right = 827.0
-offset_bottom = 37.0
-text = "PauseGame"
+offset_left = 8.0
+offset_top = 63.0
+offset_right = 108.0
+offset_bottom = 94.0
+theme_override_fonts/font = ExtResource("6_q06an")
+theme_override_font_sizes/font_size = 25
+text = "Pause"
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
@@ -129,10 +126,8 @@ PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
 
 [node name="RangeDisplay" parent="Map/Towers/Tower" index="3"]
-borderWidth = 5.0
 rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
-rangeChangeRate = 1250.0
 
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
 position = Vector2(128, 47)
@@ -148,10 +143,8 @@ PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
 
 [node name="RangeDisplay" parent="Map/Towers/Tower2" index="3"]
-borderWidth = 5.0
 rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
-rangeChangeRate = 1250.0
 
 [node name="Tower3" parent="Map/Towers" index="2" instance=ExtResource("4_jbeyo")]
 position = Vector2(206, 653)
@@ -167,10 +160,8 @@ PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
 
 [node name="RangeDisplay" parent="Map/Towers/Tower3" index="3"]
-borderWidth = 5.0
 rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
-rangeChangeRate = 1250.0
 
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")

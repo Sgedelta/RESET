@@ -31,12 +31,6 @@ public partial class GameManager : Node
 	private int _enemiesRemaining = 0;
 	private float _duration = 0;
 	
-	[Export] public NodePath gameOverTextPath;
-	private Label _gameOverText;
-	
-	[Export] public NodePath RewardMenuPath;
-	private RewardMenu _rewardMenu; 
-	
 	[Export] public NodePath PauseMenuPath;
 	private PauseMenu _pauseMenu;
 	[Export] public Button PauseButton;
@@ -53,6 +47,7 @@ public partial class GameManager : Node
 			QueueFree();
 			return;
 		}
+		GetTree().Paused = false;
 
 		Instance = this;
 
@@ -145,12 +140,12 @@ public partial class GameManager : Node
 		//if no waves, get random wave
 			//TODO for Build, put in wave count fallback as well, just so we don't keep getting easy waves
 		if (_waveLibrary.Count == 0 || _currentWave > 3)
-            return WaveGenerator.GenerateWave(_currentWave * _currentWave);
+			return WaveGenerator.GenerateWave(_currentWave * _currentWave);
 
 		//TODO, switch to Godot's RandomNumberGenerator randWeighted
 
-        // compute total weight
-        float totalWeight = 0;
+		// compute total weight
+		float totalWeight = 0;
 		foreach (var wave in _waveLibrary.Values)
 			totalWeight += Mathf.Max(wave.SelectionWeight, 0.0f);
 
@@ -166,7 +161,7 @@ public partial class GameManager : Node
 
 		// fallback to random
 		return WaveGenerator.GenerateWave(_currentWave * _currentWave);
-    }
+	}
 
 
 
