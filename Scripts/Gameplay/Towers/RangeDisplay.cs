@@ -55,6 +55,7 @@ public partial class RangeDisplay : Node2D
 
         _animation = GetTree().CreateTween();
         _animation.TweenProperty(this, nameof(size), range, delta / rangeChangeRate);
+        _animation.TweenCallback(Callable.From(() => { _animating = false; }));
 
     }
 
@@ -67,8 +68,6 @@ public partial class RangeDisplay : Node2D
     // Custom Draw command that overwrites hownthis is displayed
     public override void _Draw()
     {
-        GD.Print(size);
-
         //draw the interior circle
 
         DrawCircle(Vector2.Zero, size, rangeInteriorColor, true);

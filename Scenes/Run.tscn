@@ -95,9 +95,6 @@ PiercingProjectileScene = ExtResource("9_s2nua")
 PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
 
-[node name="Sprite2D" parent="Map/Towers/Tower" index="2"]
-position = Vector2(1.99994, -6.00003)
-
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
 position = Vector2(128, 47)
 BaseRange = 600.0
@@ -111,9 +108,6 @@ PiercingProjectileScene = ExtResource("9_s2nua")
 PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
 
-[node name="Sprite2D" parent="Map/Towers/Tower2" index="2"]
-position = Vector2(1.99994, -6.00003)
-
 [node name="Tower3" parent="Map/Towers" index="2" instance=ExtResource("4_jbeyo")]
 position = Vector2(206, 653)
 BaseRange = 600.0
@@ -126,9 +120,6 @@ ExplosiveProjectileScene = ExtResource("8_q06an")
 PiercingProjectileScene = ExtResource("9_s2nua")
 PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
-
-[node name="Sprite2D" parent="Map/Towers/Tower3" index="2"]
-position = Vector2(1.99994, -6.00003)
 
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
