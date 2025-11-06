@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="3_e1umv"]
 [ext_resource type="Resource" uid="uid://j5pw3jxa0otp" path="res://Resources/Modifiers/Slow/SDL_A+.tres" id="4_bnis6"]
 [ext_resource type="Resource" uid="uid://c8op3oj2lfmos" path="res://Resources/Modifiers/Slow/SDP_A+.tres" id="5_1gjx2"]
-[ext_resource type="Resource" uid="uid://b6mqdi3ynjv3d" path="res://Resources/Modifiers/Splash/SLC_A-.tres" id="6_vnyqm"]
+[ext_resource type="Resource" path="res://Resources/Modifiers/Splash/SLC_A-.tres" id="6_vnyqm"]
 [ext_resource type="Resource" uid="uid://crcoh34wie8os" path="res://Resources/Modifiers/Splash/SLR_A-.tres" id="7_1gjx2"]
 
 [resource]

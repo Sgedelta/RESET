@@ -14,4 +14,4 @@ DisplayName = "Thunder Storm"
 AspectSprite = ExtResource("1_qr7ks")
 Modifiers = Array[Resource]([ExtResource("1_j1rob"), ExtResource("2_ycggl"), ExtResource("3_qr7ks"), ExtResource("5_ycggl")])
 ProjectileType = 0
-Rarity = 0
+Rarity = 1
