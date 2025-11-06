@@ -25,11 +25,9 @@ public partial class HoverAspect : Node
 		if (aspect == null || tooltip == null || _parentCtrl == null)
 			return;
 
-		// Decide anchor based on where this aspect/token is
 		AspectHoverMenu.MenuAnchor anchor;
 		Vector2 offset = Vector2.Zero;
 
-		// If the hovered control is a token, we can read its placement directly
 		if (_parentCtrl is AspectToken tok)
 		{
 			if (tok.Place == TokenPlace.Bar)

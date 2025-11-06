@@ -39,7 +39,6 @@ public partial class AspectBar : Control
 		if (data.VariantType != Variant.Type.Dictionary) return false;
 		var dict = (Godot.Collections.Dictionary)data;
 
-		// Accept either slot-origin payload, or bar-origin with just aspect_id
 		if (!dict.TryGetValue("type", out var t) || (string)t != "aspect_token")
 			return false;
 
@@ -47,9 +46,9 @@ public partial class AspectBar : Control
 		var origin = (string)o;
 
 		if (origin == "slot")
-			return true; // slot → bar detach
+			return true;
 		if (origin == "bar")
-			return dict.ContainsKey("aspect_id"); // no-op but safe
+			return dict.ContainsKey("aspect_id");
 
 		return false;
 	}
