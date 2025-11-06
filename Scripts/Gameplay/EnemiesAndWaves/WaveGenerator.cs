@@ -62,7 +62,7 @@ public partial class WaveGenerator : Node
             //get an enemy
             enemyTime.Add(_instance.GetRandomEnemy());
             //temp random timing thing? anywhere from 3 seconds to near instant, with higher difficulties being faster
-            enemyTime.Add(Mathf.Clamp(10f / (GD.Randf() * relativeDifficulty), 0.1f, 3f));
+            enemyTime.Add(Mathf.Clamp(2f / (GD.Randf() * relativeDifficulty), 0.1f, 2f));
 
             wave.WaveInfo.Add(enemyTime);
         }
