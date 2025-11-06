@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://cbk7hy24lf5h8" path="res://Scripts/Gameplay/Projectiles/ChainProjectile.tscn" id="11_6kpg7"]
 [ext_resource type="PackedScene" uid="uid://cdqc0wm6sinp2" path="res://Scenes/Enemies/FastEnemy.tscn" id="11_q06an"]
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
-[ext_resource type="Resource" uid="uid://b37wej6t8hssw" path="res://Resources/AspectTemplates/Archer/Legendary/PerfectArcher.tres" id="22_6kpg7"]
+[ext_resource type="Resource" uid="uid://bo164d1kghyrm" path="res://Resources/AspectTemplates/Archer/Common/PaddedArrows.tres" id="22_6kpg7"]
 [ext_resource type="Resource" uid="uid://beqxt0enu774u" path="res://Resources/AspectTemplates/Mage/Legendary/MasterMage.tres" id="23_rb5a6"]
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="24_twhnw"]
 [ext_resource type="PackedScene" uid="uid://fxiie8iedav8" path="res://Scenes/UI/RewardMenu.tscn" id="37_r63x1"]
@@ -114,10 +114,8 @@ PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
 
 [node name="RangeDisplay" parent="Map/Towers/Tower" index="3"]
-borderWidth = 5.0
 rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
-rangeChangeRate = 1250.0
 
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
 position = Vector2(128, 47)
@@ -133,10 +131,8 @@ PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
 
 [node name="RangeDisplay" parent="Map/Towers/Tower2" index="3"]
-borderWidth = 5.0
 rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
-rangeChangeRate = 1250.0
 
 [node name="Tower3" parent="Map/Towers" index="2" instance=ExtResource("4_jbeyo")]
 position = Vector2(206, 653)
@@ -152,10 +148,8 @@ PoisonProjectileScene = ExtResource("10_u4oo0")
 ChainProjectileScene = ExtResource("11_6kpg7")
 
 [node name="RangeDisplay" parent="Map/Towers/Tower3" index="3"]
-borderWidth = 5.0
 rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
-rangeChangeRate = 1250.0
 
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
