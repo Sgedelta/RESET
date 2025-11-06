@@ -90,11 +90,11 @@ public partial class UI_TowerPullout : CanvasLayer
 	{
 		if (_active)
 		{
-            _tower.ShowOrHideRange(false);
-            ToggleActive();
+			_tower.ShowOrHideRange(false);
+			ToggleActive();
 			await ToSignal(this, SignalName.AnimationStateChanged);
 
-        }
+		}
 		_tower = tower;
 		RefreshUIs();
 		ToggleActive();

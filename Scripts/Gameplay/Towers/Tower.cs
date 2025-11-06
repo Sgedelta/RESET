@@ -288,12 +288,12 @@ public partial class Tower : Node2D
 
 		sb.AppendLine("[font_size=0][/font_size]"); //the first line breaks on fill. so this has to exist?
 
-        sb.AppendLine(FormatStatLine("Damage",               baseStats.Damage,            modifiedStats.Damage,            1));
-        sb.AppendLine(FormatStatLine("Range",                baseStats.Range,             modifiedStats.Range));
-        sb.AppendLine(FormatStatLine("Fire Rate",            baseStats.FireRate,          modifiedStats.FireRate,          1));
-        sb.AppendLine(FormatStatLine("Projectile Speed",     baseStats.ProjectileSpeed,   modifiedStats.ProjectileSpeed));
+		sb.AppendLine(FormatStatLine("Damage",               baseStats.Damage,            modifiedStats.Damage,            1));
+		sb.AppendLine(FormatStatLine("Range",                baseStats.Range,             modifiedStats.Range));
+		sb.AppendLine(FormatStatLine("Fire Rate",            baseStats.FireRate,          modifiedStats.FireRate,          1));
+		sb.AppendLine(FormatStatLine("Projectile Speed",     baseStats.ProjectileSpeed,   modifiedStats.ProjectileSpeed));
 
-        sb.AppendLine(FormatStatLine("Crit Chance",  baseStats.CritChance,        modifiedStats.CritChance,        2, showRealValue:true,  asPercent:true));
+		sb.AppendLine(FormatStatLine("Crit Chance",  baseStats.CritChance,        modifiedStats.CritChance,        2, showRealValue:true,  asPercent:true));
 		sb.AppendLine(FormatStatLine("Crit Multiplier", baseStats.CritMult,       modifiedStats.CritMult,          1));
 		sb.AppendLine(FormatStatLine("Shot Spread Angle",    baseStats.ShotSpread,        modifiedStats.ShotSpread,        1));
 		sb.AppendLine(FormatStatLine("Shot Spread",baseStats.ShotSpreadFalloff, modifiedStats.ShotSpreadFalloff, 2, showRealValue:true,  asPercent:true));
@@ -378,7 +378,7 @@ public partial class Tower : Node2D
 		int pad = RIGHT_COL_WIDTH - rightPlain.Length;
 		if (pad < 1) pad = 1; // at least one space
 
-        return $"[fill]{leftPadded} {rightColored}[/fill]";
+		return $"[fill]{leftPadded} {rightColored}[/fill]";
 	}
 
 

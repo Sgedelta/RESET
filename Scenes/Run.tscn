@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://b4tnp4tapoonn" path="res://Scripts/Gameplay/Projectiles/HomingProjectile.tscn" id="7_asn5m"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/BarToggle.tscn" id="7_hfefo"]
+[ext_resource type="PackedScene" uid="uid://bjakny67bkalp" path="res://Scenes/UI/BarToggle.tscn" id="7_hfefo"]
 [ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
 [ext_resource type="PackedScene" uid="uid://cl0og6r3uc6ax" path="res://Scripts/Gameplay/Projectiles/ExplodingProjectile.tscn" id="8_q06an"]
 [ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
@@ -39,17 +39,6 @@ RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 
 [node name="AspectSlot" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer" index="0"]
 custom_minimum_size = Vector2(50, 50)
-
-[node name="Label" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot" index="0"]
-layout_mode = 2
-mouse_filter = 1
-text = "+ "
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AspectHoverUI" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot" index="1"]
-layout_mode = 2
-mouse_filter = 1
 
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
 visible = false

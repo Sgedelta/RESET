@@ -8,6 +8,8 @@ public partial class GameManager : Node
 	[Export] public NodePath WaveDirectorPath;
 	[Export] public Path2D EnemiesRoot;
 	
+	[Export] public string StartScreenPath;
+	
 	// Folder containing Wave resource files
 	[Export(PropertyHint.Dir)] public string WaveFolderPath = "res://Resources/Waves";
 	
@@ -85,12 +87,12 @@ public partial class GameManager : Node
 
 			Wave randWave = WaveGenerator.GenerateWave(_currentWave * _currentWave);
 
-            GD.Print($"[GM] Starting wave {_currentWave}...");
-            _waveDirector.StartWave(randWave);
+			GD.Print($"[GM] Starting wave {_currentWave}...");
+			_waveDirector.StartWave(randWave);
 
-            _enemiesRemaining = randWave.WaveInfo.Count;
+			_enemiesRemaining = randWave.WaveInfo.Count;
 
-            return;
+			return;
 		}
 
 		Wave wave = ResourceLoader.Load<Wave>(wavePath);
@@ -123,6 +125,10 @@ public partial class GameManager : Node
 	{
 		_gameOverText.Visible = true;
 		GetTree().Paused = true;
+		GetTree().ChangeSceneToFile(StartScreenPath);
+		GetTree().Paused = false;
+
+
 	}
 
 	public Enemy GetNearestEnemyToPoint(Vector2 point, List<Enemy> exclude)

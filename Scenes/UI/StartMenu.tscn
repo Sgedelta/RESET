@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1a4exhcmv8rr"]
+
+[ext_resource type="Texture2D" uid="uid://c58rr0ixby3db" path="res://Scenes/UI/Main Menu (1).png" id="1_7sc2f"]
+[ext_resource type="Script" uid="uid://dvw35lolnitn8" path="res://Scenes/UI/StartMenu.cs" id="1_omsb3"]
+[ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="2_omsb3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k44vq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jeo11"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="StartMenu" type="Control" node_paths=PackedStringArray("StartButton", "QuitButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_omsb3")
+StartButton = NodePath("CenterContainer/VBoxContainer/Start")
+QuitButton = NodePath("CenterContainer/VBoxContainer/Quit")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7sc2f")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = 60.0
+offset_right = 300.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(600, 300)
+layout_mode = 2
+
+[node name="Start" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_omsb3")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = SubResource("StyleBoxFlat_k44vq")
+text = "Start"
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_omsb3")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = SubResource("StyleBoxFlat_jeo11")
+text = "Quit"
