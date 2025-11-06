@@ -11,6 +11,9 @@ radius = 40.0
 loop = false
 script = ExtResource("1_7kucs")
 MaxHp = 45.0
+AttackRate = null
+AttackDamage = null
+Speed = null
 _sprite = NodePath("AnimatedSprite2D")
 DamageIndicatorScene = ExtResource("2_qwcx1")
 

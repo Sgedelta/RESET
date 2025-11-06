@@ -39,7 +39,7 @@ public partial class Tower : Node2D
 	[Export] public float BaseDamage              = 5f;
 	[Export] public float BaseRange               = 500f;
 	[Export] public float BaseProjectileSpeed     = 1000f;
-	[Export] public float BaseCritChance          = 0f;
+	[Export] public float BaseCritChance          = 0.05f;
 	[Export] public float BaseCritMult            = 2f;
 	[Export] public float BaseShotSpread          = 0f;
 	[Export] public float BaseShotSpreadFalloff   = 0f;
@@ -286,7 +286,7 @@ public partial class Tower : Node2D
 		var sb = new System.Text.StringBuilder();
 		sb.Append("[code]");
 
-		sb.AppendLine("[font_size=0][/font_size]"); //the first line breaks on fill. so this has to exist?
+		sb.AppendLine(""); //the first line breaks on fill. so this has to exist?
 
 		sb.AppendLine(FormatStatLine("Damage",               baseStats.Damage,            modifiedStats.Damage,            1));
 		sb.AppendLine(FormatStatLine("Range",                baseStats.Range,             modifiedStats.Range));
@@ -332,9 +332,9 @@ public partial class Tower : Node2D
 		if (asPercent)
 		{
 			string pm = delta > 0 ? "+" : "";
-			deltaPlain = $"{pm}{delta.ToString(fmt)}%";
+			deltaPlain = $"{pm}{(delta * 100).ToString(fmt)}%";
 			if (showRealValue)
-				realPlain = $" ({real.ToString(fmt)}%)";
+				realPlain = $" ({(real * 100).ToString(fmt)}%)";
 		}
 		else
 		{
