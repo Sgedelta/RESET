@@ -54,7 +54,6 @@ _pullout = NodePath("../../..")
 
 [node name="AspectSlot" parent="ScrollContainer/GridContainer/AspectContainer" instance=ExtResource("4_tgmv1")]
 layout_mode = 2
-TokenScene = null
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/GridContainer"]
 layout_mode = 2

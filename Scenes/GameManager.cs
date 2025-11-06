@@ -42,9 +42,10 @@ public partial class GameManager : Node
 	public override void _Ready()
 	{
 		//Singleton
-		if(Instance != null)
+		if(Instance != null && Instance != this)
 		{
 			QueueFree();
+			return;
 		}
 
 		Instance = this;
@@ -80,8 +81,16 @@ public partial class GameManager : Node
 
 		if (!ResourceLoader.Exists(wavePath))
 		{
-			GD.Print($"[GM] No more waves");
-			return;
+			GD.Print($"[GM] No more waves: generating random!");
+
+			Wave randWave = WaveGenerator.GenerateWave(_currentWave * _currentWave);
+
+            GD.Print($"[GM] Starting wave {_currentWave}...");
+            _waveDirector.StartWave(randWave);
+
+            _enemiesRemaining = randWave.WaveInfo.Count;
+
+            return;
 		}
 
 		Wave wave = ResourceLoader.Load<Wave>(wavePath);

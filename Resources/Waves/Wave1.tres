@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b8ve75dhdxavr" path="res://Resources/Waves/Wave.cs" id="2_5i3aa"]
 [ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="3_l743t"]
-[ext_resource type="PackedScene" path="res://Scenes/Enemies/FastEnemy.tscn" id="4_tohge"]
+[ext_resource type="PackedScene" uid="uid://cdqc0wm6sinp2" path="res://Scenes/Enemies/FastEnemy.tscn" id="4_tohge"]
 
 [resource]
 script = ExtResource("2_5i3aa")
-ID = ""
+_id = "wave_1"
 selectionWeight = 0.0
 WaveInfo = Array[Array]([[ExtResource("4_tohge"), 1.0], [ExtResource("3_l743t"), 1.0], [ExtResource("3_l743t"), 0.0]])
