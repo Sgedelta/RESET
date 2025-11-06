@@ -42,7 +42,7 @@ public partial class Enemy : PathFollow2D
 	[Export] private float _kbScalar = 1; //serves as a float % of knockback resistance for this enemy - lower means more resistant, higher means more vulnerable
 
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 		HP = MaxHp;
 
@@ -89,7 +89,7 @@ public partial class Enemy : PathFollow2D
 		}
 	}
 
-	public void TakeDamage(float dmg, DamageType type)
+	public void TakeDamage(float dmg, bool wasCrit = false, DamageType type = DamageType.Normal)
 	{
 		HP -= dmg;
 		ShowDamageIndicator(dmg, type);
@@ -101,10 +101,6 @@ public partial class Enemy : PathFollow2D
 
 	}
 
-	public void TakeDamage(float dmg)
-	{
-		TakeDamage(dmg, DamageType.Normal);
-	}
 
 
 	private void ShowDamageIndicator(float dmg, DamageType type)
@@ -171,11 +167,11 @@ public partial class Enemy : PathFollow2D
 		}
 		else //otherwise apply slow
 		{
-            _slowPercent = percent;
+			_slowPercent = percent;
 
-            _slowDuration = duration;
-            _isSlowed = true;
-        }
+			_slowDuration = duration;
+			_isSlowed = true;
+		}
 
 
 		GD.Print($"[Enemy] Slowed by {percent * 100}% for {duration}s");

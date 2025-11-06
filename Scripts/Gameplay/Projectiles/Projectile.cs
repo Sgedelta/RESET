@@ -130,12 +130,14 @@ public partial class Projectile : Area2D
 
 		//check crit
 		float hitDamage = _damage;
-		if(GD.Randf() <= _critChance)
+		bool wasCrit = GD.Randf() <= _critChance;
+
+        if (wasCrit)
 		{
-			_damage *= _critMult;
+			hitDamage *= _critMult;
 		}
 
-		enemy.TakeDamage(_damage);
+		enemy.TakeDamage(hitDamage, wasCrit);
 
 		ApplyKnockback(enemy);
 		ApplySlow(enemy);
@@ -143,7 +145,7 @@ public partial class Projectile : Area2D
 
 		if(doSplash && _splashRadius > 0 && !_hasExploded)
 		{
-			ExplodeSplash();
+			ExplodeSplash(hitDamage);
 			//_hasExploded = true;
 		}
 
@@ -190,10 +192,11 @@ public partial class Projectile : Area2D
 		enemy.ApplyPoison(_poisonDamage * coef, Mathf.Max(1, (int)(_poisonTicks * coef)));
 	}
 
-	private void ExplodeSplash()
+	private void ExplodeSplash(float incomingDmg)
 	{
+
 		var enemies = GameManager.Instance.WaveDirector.ActiveEnemies;
-		for (int i = 0; i < enemies.Count; i++)
+		for (int i = 0; i < enemies.Count; i++) //Note: not using foreach because it was changing collection during run. I think it's enemies dying/being created, and I'm hoping that we're not missing enemies in this loop. No clue why things are being created in the middle of the process call though!
 		{
 			Enemy e = enemies[i];
 
@@ -207,7 +210,7 @@ public partial class Projectile : Area2D
 				if (_splashCoef > 0)
 					coef = Mathf.Clamp((1f - (dist / _splashRadius)) * _splashCoef, 0.01f, 1f);
 
-				e.TakeDamage(_damage * coef);
+				e.TakeDamage(incomingDmg * coef); //use incoming damage so we can splash crits properly
 
 				ApplyPoison(e, coef);
 				ApplySlow(e, coef);

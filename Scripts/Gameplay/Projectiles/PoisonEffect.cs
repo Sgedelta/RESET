@@ -30,7 +30,7 @@ public partial class PoisonEffect : Node
 
         if (_timeSinceTick >= _tickInterval)
         {
-            _enemy.TakeDamage(_damagePerTick, DamageType.Posion);
+            _enemy.TakeDamage(_damagePerTick, false, DamageType.Posion);
             _timeSinceTick = 0f;
             GD.Print("Taking DOT");
         }
