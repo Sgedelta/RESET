@@ -29,7 +29,6 @@ texture = ExtResource("4_g00a7")
 [node name="Area2D" type="Area2D" parent="TowerSprite"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TowerSprite/Area2D"]
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_lqxva")
 
 [node name="RangeDisplay" type="Node2D" parent="."]

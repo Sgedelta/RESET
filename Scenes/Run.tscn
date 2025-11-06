@@ -1,14 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=20 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
-[ext_resource type="PackedScene" uid="uid://bxdhdw8570td6" path="res://Scenes/Enemies/Enemy.tscn" id="2_0j08j"]
 [ext_resource type="Script" uid="uid://bvtxvt18atr23" path="res://Load/WaveDirector.cs" id="2_38uoo"]
 [ext_resource type="Script" uid="uid://6ls4nxdmluu3" path="res://Scenes/Map/PathVisualizer.cs" id="4_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://b4tnp4tapoonn" path="res://Scripts/Gameplay/Projectiles/HomingProjectile.tscn" id="7_asn5m"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/BarToggle.tscn" id="7_hfefo"]
+[ext_resource type="PackedScene" uid="uid://bjakny67bkalp" path="res://Scenes/UI/BarToggle.tscn" id="7_hfefo"]
 [ext_resource type="Script" uid="uid://bmmrhik3j107k" path="res://Scenes/GameManager.cs" id="7_xu74l"]
 [ext_resource type="PackedScene" uid="uid://cl0og6r3uc6ax" path="res://Scripts/Gameplay/Projectiles/ExplodingProjectile.tscn" id="8_q06an"]
 [ext_resource type="PackedScene" uid="uid://ckc33onu063q5" path="res://Scenes/Towers/AspectBar.tscn" id="9_kl2rs"]
@@ -27,8 +26,6 @@
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/EnemyPath")
-StartingWaveSize = 1
-StartingWaveDuration = 5.0
 AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
@@ -36,6 +33,9 @@ RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TowerPullout" parent="CanvasLayer" instance=ExtResource("1_hfefo")]
+
+[node name="AspectSlot" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer" index="0"]
+TokenScene = null
 
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
 visible = false
@@ -72,9 +72,7 @@ AspectBarPath = NodePath("../AspectBar")
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
-EnemyScene = ExtResource("2_0j08j")
 Path2DPath = NodePath("../Map/EnemyPath")
-SpawnEvery = 1.5
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
 
@@ -124,7 +122,7 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
 AspectTemplates = Array[Resource]([])
-TemplatesFilePathsFromRes = Array[String](["Mage", "Archer", "Tech"])
+TemplatesFilePathsFromRes = Array[String](["Archer", "Mage", "Tech"])
 
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("9_x3f4s")
