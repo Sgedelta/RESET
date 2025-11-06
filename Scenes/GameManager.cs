@@ -88,7 +88,7 @@ public partial class GameManager : Node
 				if (wave != null)
 				{
 					string key = wave.ID;
-					_waveLibrary[key] = wave;
+					_waveLibrary.Add(key, wave);
 					GD.Print($"[GM] Loaded wave: {key}");
 				}
 				else
@@ -108,19 +108,6 @@ public partial class GameManager : Node
 	{
 		_currentWave++;
 
-		if (_waveLibrary.Count == 0)
-		{
-			GD.Print($"[GM] No more waves: generating random!");
-
-			Wave randWave = WaveGenerator.GenerateWave(_currentWave * _currentWave);
-
-			GD.Print($"[GM] Starting wave {_currentWave}...");
-			_waveDirector.StartWave(randWave);
-
-			_enemiesRemaining = randWave.WaveInfo.Count;
-			return;
-		}
-
 		Wave wave = GetWave();
 		if (wave == null)
 		{
@@ -138,11 +125,15 @@ public partial class GameManager : Node
 	/// </summary>
 	public Wave GetWave()
 	{
-		if (_waveLibrary.Count == 0)
-			return null;
+		//if no waves, get random wave
+			//TODO for Build, put in wave count fallback as well, just so we don't keep getting easy waves
+		if (_waveLibrary.Count == 0 || _currentWave > 3)
+            return WaveGenerator.GenerateWave(_currentWave * _currentWave);
 
-		// compute total weight
-		float totalWeight = 0;
+		//TODO, switch to Godot's RandomNumberGenerator randWeighted
+
+        // compute total weight
+        float totalWeight = 0;
 		foreach (var wave in _waveLibrary.Values)
 			totalWeight += Mathf.Max(wave.SelectionWeight, 0.0f);
 
@@ -156,9 +147,10 @@ public partial class GameManager : Node
 				return wave;
 		}
 
-		// fallback
-		return _waveLibrary.Values.Last();
-	}
+		// fallback to random
+		return WaveGenerator.GenerateWave(_currentWave * _currentWave);
+    }
+
 
 
 	public void OnEnemyDied(Enemy enemy)

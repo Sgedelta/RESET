@@ -19,6 +19,7 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_kk8ba")
 TokenScene = ExtResource("2_16sq4")
+RowPath = null
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

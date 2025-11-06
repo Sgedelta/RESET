@@ -286,7 +286,7 @@ public partial class Tower : Node2D
 		var sb = new System.Text.StringBuilder();
 		sb.Append("[code]");
 
-		sb.AppendLine("[font_size=0][/font_size]"); //the first line breaks on fill. so this has to exist?
+		//sb.AppendLine(""); //the first line breaks on fill. so this has to exist?
 
 		sb.AppendLine(FormatStatLine("Damage",               baseStats.Damage,            modifiedStats.Damage,            1));
 		sb.AppendLine(FormatStatLine("Range",                baseStats.Range,             modifiedStats.Range));
@@ -334,9 +334,9 @@ public partial class Tower : Node2D
 		if (asPercent)
 		{
 			string pm = delta > 0 ? "+" : "";
-			deltaPlain = $"{pm}{delta.ToString(fmt)}%";
+			deltaPlain = $"{pm}{(delta * 100).ToString(fmt)}%";
 			if (showRealValue)
-				realPlain = $" ({real.ToString(fmt)}%)";
+				realPlain = $" ({(real * 100).ToString(fmt)}%)";
 		}
 		else
 		{

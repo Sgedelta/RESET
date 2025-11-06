@@ -9,7 +9,7 @@ public partial class Wave : Resource
 		get { return _id; }
 	}
 	[Export] float selectionWeight;
-	public float SelectionWeight { get { return selectionWeight; } };
+	public float SelectionWeight { get { return selectionWeight; } }
 
 	[Export] public Godot.Collections.Array<Godot.Collections.Array> WaveInfo;
 

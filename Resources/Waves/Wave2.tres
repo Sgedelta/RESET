@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("3_nlc01")
-ID = "wave2"
-SelectionWeight = 1.5
+_id = "wave_2"
+selectionWeight = 1.0
 WaveInfo = Array[Array]([[ExtResource("1_e5656"), 0.2], [ExtResource("1_e5656"), 0.2], [ExtResource("1_e5656"), 0.2], [ExtResource("1_e5656"), 0.2], [ExtResource("1_e5656"), 0.2]])
