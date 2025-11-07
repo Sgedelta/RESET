@@ -184,6 +184,7 @@ z_index = -180
 default_color = Color(1, 0, 0, 1)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("28_twhnw")
 autoplay = true
 
