@@ -187,6 +187,7 @@ default_color = Color(1, 0, 0, 1)
 process_mode = 3
 stream = ExtResource("28_twhnw")
 autoplay = true
+parameters/looping = true
 
 [editable path="CanvasLayer/TowerPullout"]
 [editable path="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
