@@ -10,6 +10,7 @@ font_size = 50
 script = ExtResource("1_xjv21")
 animFalloffExp = 0.3
 maxAnimTime = 2.0
+wobbleAmnt = 20.0
 minScaleDamage = Vector2(3, 15)
 maxScaleDamage = Vector2(50, 125)
 offsetSize = Vector2(75, 30)

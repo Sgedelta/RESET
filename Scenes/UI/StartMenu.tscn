@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1a4exhcmv8rr"]
+[gd_scene load_steps=7 format=3 uid="uid://b1a4exhcmv8rr"]
 
 [ext_resource type="Texture2D" uid="uid://c58rr0ixby3db" path="res://Scenes/UI/Main Menu (1).png" id="1_7sc2f"]
 [ext_resource type="Script" uid="uid://dvw35lolnitn8" path="res://Scenes/UI/StartMenu.cs" id="1_omsb3"]
 [ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="2_omsb3"]
+[ext_resource type="AudioStream" uid="uid://bk1uwoflu8jtt" path="res://Resources/Audio/mainthemetake1.mp3" id="4_k44vq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k44vq"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -63,3 +64,7 @@ theme_override_fonts/font = ExtResource("2_omsb3")
 theme_override_font_sizes/font_size = 70
 theme_override_styles/normal = SubResource("StyleBoxFlat_jeo11")
 text = "Quit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_k44vq")
+autoplay = true

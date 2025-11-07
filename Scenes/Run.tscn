@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=29 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
@@ -25,6 +25,7 @@
 [ext_resource type="Resource" uid="uid://bo164d1kghyrm" path="res://Resources/AspectTemplates/Archer/Common/PaddedArrows.tres" id="22_6kpg7"]
 [ext_resource type="Resource" uid="uid://beqxt0enu774u" path="res://Resources/AspectTemplates/Mage/Legendary/MasterMage.tres" id="23_rb5a6"]
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="24_twhnw"]
+[ext_resource type="AudioStream" uid="uid://bk1uwoflu8jtt" path="res://Resources/Audio/mainthemetake1.mp3" id="28_twhnw"]
 [ext_resource type="PackedScene" uid="uid://fxiie8iedav8" path="res://Scenes/UI/RewardMenu.tscn" id="37_r63x1"]
 [ext_resource type="PackedScene" uid="uid://duca7uphmawjk" path="res://Scenes/UI/AspectHoverMenu.tscn" id="37_utqwv"]
 
@@ -181,6 +182,10 @@ Line2DPath = NodePath("Line2D")
 [node name="Line2D" type="Line2D" parent="PathVis"]
 z_index = -180
 default_color = Color(1, 0, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("28_twhnw")
+autoplay = true
 
 [editable path="CanvasLayer/TowerPullout"]
 [editable path="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
