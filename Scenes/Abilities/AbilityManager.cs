@@ -4,10 +4,14 @@ public partial class AbilityManager : Node
 {
 	[Signal] public delegate void AbilitySelectedEventHandler(AbilityBase ability);
 	[Signal] public delegate void AbilityPlacedEventHandler(AbilityBase ability, Vector2 pos);
-
+	
+	
 	public static AbilityManager Instance { get; private set; }
 
 	public AbilityBase ArmedAbility { get; private set; }
+	
+		[Export] public Godot.Collections.Array<AbilityBase> AllAbilities { get; set; } = new();
+
 
 	public override void _EnterTree() => Instance = this;
 

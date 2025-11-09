@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmaovdspohrm"]
+
+[ext_resource type="Script" uid="uid://cggfproqbs8hd" path="res://Scenes/Abilities/WallObject.cs" id="1_8p5q1"]
+
+[node name="WallObject" type="Node2D"]
+script = ExtResource("1_8p5q1")

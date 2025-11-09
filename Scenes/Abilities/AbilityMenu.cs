@@ -2,8 +2,7 @@ using Godot;
 
 public partial class AbilityMenu : Control
 {
-	[Export] public PackedScene AbilityTokenScene;
-	[Export] public AbilityBase DefaultAbility;
+	[Export] public PackedScene TokenScene;
 	[Export] public NodePath RowPath;
 
 	private Control _row;
@@ -18,11 +17,12 @@ public partial class AbilityMenu : Control
 	{
 		foreach (var c in _row.GetChildren()) c.QueueFree();
 
-		for (int i = 0; i < 3; i++)
+		foreach (var ability in AbilityManager.Instance.AllAbilities)
 		{
-			var tok = AbilityTokenScene.Instantiate<AbilityToken>();
-			tok.Init(DefaultAbility);
-			_row.AddChild(tok);
+			if (ability == null) continue;
+			var token = TokenScene.Instantiate<AbilityToken>();
+			_row.AddChild(token);
+			token.Init(ability);
 		}
 	}
 }

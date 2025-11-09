@@ -39,5 +39,5 @@ offset_right = 8.0
 offset_bottom = 8.0
 text = "Progress"
 
-[connection signal="pressed" from="Button" to="Path2D/EnemyFollow" method="Progress"]
 [connection signal="pressed" from="Button" to="Path2D/EnemyFollow" method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="Path2D/EnemyFollow" method="Progress"]
