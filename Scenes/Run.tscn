@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=32 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="Script" uid="uid://bvtxvt18atr23" path="res://Load/WaveDirector.cs" id="2_38uoo"]
+[ext_resource type="PackedScene" uid="uid://ceob7lpsuladu" path="res://Scenes/Abilities/AbilityMenu.tscn" id="3_n7gbs"]
 [ext_resource type="Script" uid="uid://6ls4nxdmluu3" path="res://Scenes/Map/PathVisualizer.cs" id="4_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
@@ -20,12 +21,14 @@
 [ext_resource type="Script" uid="uid://bjlwqjh832hth" path="res://Scripts/Aspects/AspectLibrary.cs" id="10_j6cy0"]
 [ext_resource type="PackedScene" uid="uid://beqx0g5b4mpis" path="res://Scripts/Gameplay/Projectiles/PoisonProjectile.tscn" id="10_u4oo0"]
 [ext_resource type="PackedScene" uid="uid://cbk7hy24lf5h8" path="res://Scripts/Gameplay/Projectiles/ChainProjectile.tscn" id="11_6kpg7"]
+[ext_resource type="Script" uid="uid://bkyenql7l4b7j" path="res://Scenes/Abilities/AbilityManager.cs" id="11_nhc54"]
 [ext_resource type="PackedScene" uid="uid://cdqc0wm6sinp2" path="res://Scenes/Enemies/FastEnemy.tscn" id="11_q06an"]
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
 [ext_resource type="Resource" uid="uid://bo164d1kghyrm" path="res://Resources/AspectTemplates/Archer/Common/PaddedArrows.tres" id="22_6kpg7"]
 [ext_resource type="Resource" uid="uid://beqxt0enu774u" path="res://Resources/AspectTemplates/Mage/Legendary/MasterMage.tres" id="23_rb5a6"]
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="24_twhnw"]
 [ext_resource type="AudioStream" uid="uid://bk1uwoflu8jtt" path="res://Resources/Audio/mainthemetake1.mp3" id="28_twhnw"]
+[ext_resource type="Script" uid="uid://c3ic0mixxtbrd" path="res://Scenes/Abilities/AbilityHover.cs" id="32_vlm8s"]
 [ext_resource type="PackedScene" uid="uid://fxiie8iedav8" path="res://Scenes/UI/RewardMenu.tscn" id="37_r63x1"]
 [ext_resource type="PackedScene" uid="uid://duca7uphmawjk" path="res://Scenes/UI/AspectHoverMenu.tscn" id="37_utqwv"]
 
@@ -40,72 +43,9 @@ AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
 PauseMenuPath = NodePath("../CanvasLayer/PauseMenu")
-PauseButton = NodePath("../CanvasLayer/Button")
+PauseButton = NodePath("../CanvasLayer/Pause")
 ResumeButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Resume")
 MainMenuButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Main Menu")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="TowerPullout" parent="CanvasLayer" instance=ExtResource("1_hfefo")]
-
-[node name="AspectSlot" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer" index="0"]
-custom_minimum_size = Vector2(50, 50)
-
-[node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
-visible = false
-
-[node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
-visible = false
-
-[node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
-offset_right = 200.0
-offset_bottom = 200.0
-
-[node name="MarginContainer" parent="CanvasLayer/AspectHoverMenu/Panel" index="1"]
-theme_override_constants/margin_bottom = 20
-
-[node name="HealthUI" type="Label" parent="CanvasLayer"]
-offset_left = 3.0
-offset_top = 4.0
-offset_right = 103.0
-offset_bottom = 27.0
-theme_override_fonts/font = ExtResource("6_q06an")
-theme_override_font_sizes/font_size = 30
-text = "HP: 100 / 100"
-script = ExtResource("11_x3f4s")
-PlayerManagerPath = NodePath("../../PlayerManager")
-
-[node name="GameOverText" type="Label" parent="CanvasLayer"]
-visible = false
-offset_left = 534.0
-offset_top = 282.0
-offset_right = 626.0
-offset_bottom = 305.0
-text = "GAME OVER"
-
-[node name="BarToggle" parent="CanvasLayer" instance=ExtResource("7_hfefo")]
-theme_override_font_sizes/font_size = 40
-AspectBarPath = NodePath("../AspectBar")
-
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_u4oo0")]
-visible = false
-
-[node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 8.0
-offset_top = 63.0
-offset_right = 108.0
-offset_bottom = 94.0
-theme_override_fonts/font = ExtResource("6_q06an")
-theme_override_font_sizes/font_size = 25
-text = "Pause"
-
-[node name="WaveDirector" type="Node2D" parent="."]
-script = ExtResource("2_38uoo")
-Path2DPath = NodePath("../Map/EnemyPath")
-
-[node name="WaveGenerator" type="Node" parent="WaveDirector"]
-script = ExtResource("9_wyr6k")
-enemyWeights = Array[Array]([[1.0, ExtResource("10_asn5m")], [0.3, ExtResource("11_q06an")]])
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
 
@@ -164,6 +104,84 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AbilityHover" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("32_vlm8s")
+WaveDirectorPath = NodePath("../../WaveDirector")
+
+[node name="TowerPullout" parent="CanvasLayer" instance=ExtResource("1_hfefo")]
+
+[node name="AspectSlot" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer" index="0"]
+custom_minimum_size = Vector2(50, 50)
+
+[node name="AbilityMenu" parent="CanvasLayer" instance=ExtResource("3_n7gbs")]
+
+[node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
+visible = false
+
+[node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
+visible = false
+
+[node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
+offset_right = 200.0
+offset_bottom = 200.0
+
+[node name="MarginContainer" parent="CanvasLayer/AspectHoverMenu/Panel" index="1"]
+theme_override_constants/margin_bottom = 20
+
+[node name="HealthUI" type="Label" parent="CanvasLayer"]
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 103.0
+offset_bottom = 27.0
+theme_override_fonts/font = ExtResource("6_q06an")
+theme_override_font_sizes/font_size = 30
+text = "HP: 100 / 100"
+script = ExtResource("11_x3f4s")
+PlayerManagerPath = NodePath("../../PlayerManager")
+
+[node name="GameOverText" type="Label" parent="CanvasLayer"]
+visible = false
+offset_left = 534.0
+offset_top = 282.0
+offset_right = 626.0
+offset_bottom = 305.0
+text = "GAME OVER"
+
+[node name="BarToggle" parent="CanvasLayer" instance=ExtResource("7_hfefo")]
+theme_override_font_sizes/font_size = 40
+AspectBarPath = NodePath("../AspectBar")
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_u4oo0")]
+visible = false
+
+[node name="Pause" type="Button" parent="CanvasLayer"]
+offset_left = 8.0
+offset_top = 63.0
+offset_right = 108.0
+offset_bottom = 94.0
+theme_override_fonts/font = ExtResource("6_q06an")
+theme_override_font_sizes/font_size = 25
+text = "Pause"
+
+[node name="AbilityManager" type="Node" parent="."]
+script = ExtResource("11_nhc54")
+
+[node name="WaveDirector" type="Node2D" parent="."]
+script = ExtResource("2_38uoo")
+Path2DPath = NodePath("../Map/EnemyPath")
+
+[node name="WaveGenerator" type="Node" parent="WaveDirector"]
+script = ExtResource("9_wyr6k")
+enemyWeights = Array[Array]([[1.0, ExtResource("10_asn5m")], [0.3, ExtResource("11_q06an")]])
+
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
 AspectTemplates = Array[Resource]([ExtResource("22_6kpg7"), ExtResource("23_rb5a6"), ExtResource("24_twhnw")])
@@ -189,12 +207,12 @@ stream = ExtResource("28_twhnw")
 autoplay = true
 parameters/looping = true
 
+[editable path="Map"]
+[editable path="Map/Towers/Tower"]
+[editable path="Map/Towers/Tower2"]
+[editable path="Map/Towers/Tower3"]
 [editable path="CanvasLayer/TowerPullout"]
 [editable path="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
 [editable path="CanvasLayer/RewardMenu"]
 [editable path="CanvasLayer/AspectHoverMenu"]
 [editable path="CanvasLayer/PauseMenu"]
-[editable path="Map"]
-[editable path="Map/Towers/Tower"]
-[editable path="Map/Towers/Tower2"]
-[editable path="Map/Towers/Tower3"]

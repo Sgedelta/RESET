@@ -132,7 +132,7 @@ public partial class Projectile : Area2D
 		float hitDamage = _damage;
 		bool wasCrit = GD.Randf() <= _critChance;
 
-        if (wasCrit)
+		if (wasCrit)
 		{
 			hitDamage *= _critMult;
 		}

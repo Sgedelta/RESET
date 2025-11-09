@@ -1,0 +1,36 @@
+using Godot;
+using System.Threading.Tasks;
+
+[GlobalClass]
+public partial class LaserStrikeAbility : AbilityBase
+{
+	[Export] public float Damage = 150f;
+	[Export] public float Radius = 150f;
+	[Export] public PackedScene EffectScene;
+
+	public override void Execute(Vector2 worldPos)
+	{
+		if (EffectScene?.Instantiate() is LaserSFX fx)
+		{
+			fx.GlobalPosition = worldPos;
+			GameManager.Instance.AddChild(fx);
+
+			fx.Connect(LaserSFX.SignalName.ImpactStarted, Callable.From(() =>
+			{
+				DealDamage(worldPos);
+			}));
+		}
+	}
+		private void DealDamage(Vector2 worldPos)
+	{
+		var enemies = GameManager.Instance.WaveDirector.ActiveEnemies;
+		for (int i = enemies.Count - 1; i >= 0; i--)
+		{
+			var e = enemies[i];
+			if (!GodotObject.IsInstanceValid(e)) continue;
+
+			if (e.GlobalPosition.DistanceTo(worldPos) <= Radius)
+				e.TakeDamage(Damage);
+		}
+	}
+}

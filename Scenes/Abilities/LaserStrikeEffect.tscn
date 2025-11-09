@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://uotc2p62hnsn"]
+
+[ext_resource type="Script" uid="uid://bwo3at3q8stw3" path="res://Scenes/Abilities/LaserSFX.cs" id="1_wqohc"]
+
+[node name="LaserStrikeEffect" type="Node2D"]
+script = ExtResource("1_wqohc")

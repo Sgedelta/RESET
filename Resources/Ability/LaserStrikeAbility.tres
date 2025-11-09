@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LaserStrikeAbility" load_steps=4 format=3 uid="uid://cwwvrn71fjwf8"]
+
+[ext_resource type="PackedScene" uid="uid://uotc2p62hnsn" path="res://Scenes/Abilities/LaserStrikeEffect.tscn" id="1_f1ovf"]
+[ext_resource type="Script" uid="uid://cjj7qv0p7idd4" path="res://Scenes/Abilities/LaserStrikeAbility.cs" id="1_kfym7"]
+[ext_resource type="Texture2D" uid="uid://1dtyfqw3ear1" path="res://Scenes/UI/laser.png" id="2_cet0d"]
+
+[resource]
+script = ExtResource("1_kfym7")
+Damage = 150.0
+Radius = 96.0
+ImpactDelay = 1.5
+EffectScene = ExtResource("1_f1ovf")
+Icon = ExtResource("2_cet0d")
+AbilityName = "Ability"
+CooldownSeconds = 0.0
+MaxCharges = 0

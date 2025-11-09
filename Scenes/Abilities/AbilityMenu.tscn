@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceob7lpsuladu"]
+
+[ext_resource type="Script" uid="uid://buqjon5qfr8oc" path="res://Scenes/Abilities/AbilityMenu.cs" id="1_lnspd"]
+[ext_resource type="Resource" uid="uid://cwwvrn71fjwf8" path="res://Resources/Ability/LaserStrikeAbility.tres" id="2_5e4d3"]
+[ext_resource type="PackedScene" uid="uid://yu3enufb3vl3" path="res://Scenes/Abilities/AbilityToken.tscn" id="2_p42nh"]
+
+[node name="AbilityMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_lnspd")
+AbilityTokenScene = ExtResource("2_p42nh")
+DefaultAbility = ExtResource("2_5e4d3")
+RowPath = NodePath("Panel/HBoxContainer")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 1599.0
+offset_top = 769.0
+offset_right = 1915.0
+offset_bottom = 869.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

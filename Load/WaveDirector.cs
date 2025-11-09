@@ -14,6 +14,10 @@ public partial class WaveDirector : Node2D
 	private bool _isSpawning = false;
 
 	public List<Enemy> ActiveEnemies => _activeEnemies;
+	
+	public Path2D Path => _path2D;
+	public Curve2D Curve => _path2D?.Curve;
+
 
 	public override void _Ready()
 	{

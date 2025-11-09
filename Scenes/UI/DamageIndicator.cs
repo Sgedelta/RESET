@@ -40,58 +40,58 @@ public partial class DamageIndicator : Node2D
 
 	public void StartAnimation()
 	{
-        anim = GetTree().CreateTween();
+		anim = GetTree().CreateTween();
 		Tween sideAnim = GetTree().CreateTween();
 
 		int wobbleCount = (int)(animTime / wobbleSpeed);
 		int initialDir = GD.Randf() >= .5f ? 1 : -1;
 
-        //movement
-        anim.SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
+		//movement
+		anim.SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
 
 		anim.TweenProperty(this, "position:y", Position.Y + (-1 * moveSpeed * animTime), animTime);
 		anim.Parallel().TweenProperty(this, "scale", Vector2.Zero, animTime);
 
 		//side to side
 		sideAnim.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
-        sideAnim.TweenProperty(this, "position:x", Position.X + (initialDir * wobbleAmnt), animTime/wobbleCount);
-        
+		sideAnim.TweenProperty(this, "position:x", Position.X + (initialDir * wobbleAmnt), animTime/wobbleCount);
+		
 
 		for(int i = 1; i < wobbleCount; i++)
 		{
-            if (i %2 == 1)
+			if (i %2 == 1)
 			{
-                initialDir = initialDir == 1 ? -1 : 1;
-                sideAnim.SetEase(Tween.EaseType.Out);
+				initialDir = initialDir == 1 ? -1 : 1;
+				sideAnim.SetEase(Tween.EaseType.Out);
 				
-            } 
+			} 
 			else
 			{
-                sideAnim.SetEase(Tween.EaseType.In);
-            }
-            
+				sideAnim.SetEase(Tween.EaseType.In);
+			}
+			
 			sideAnim.TweenProperty(this, "position:x", Position.X + (initialDir * wobbleAmnt * 2), animTime / wobbleCount * 2);
-        }
+		}
 
-        //deletion
-        anim.TweenCallback(Callable.From(() => { QueueFree(); }));
-    }
+		//deletion
+		anim.TweenCallback(Callable.From(() => { QueueFree(); }));
+	}
 
 
 	public void SetDamage(float damage, Color color)
 	{
 		if (label != null)
 		{
-            label.Modulate = color;
-            label.Text = damage.ToString($"F2");
+			label.Modulate = color;
+			label.Text = damage.ToString($"F2");
 
 			//a float from 0-1 representing the position of damage between min and max, within min and max
 			float damageScale = (Mathf.Clamp( damage, minScaleDamage.X, maxScaleDamage.X ) - minScaleDamage.X) / (maxScaleDamage.X - minScaleDamage.X);
 			label.LabelSettings.FontSize = (int)Mathf.Lerp(minScaleDamage.Y, maxScaleDamage.Y, damageScale);
 
-            animTime = Mathf.Pow(damageScale, animFalloffExp) * maxAnimTime;
+			animTime = Mathf.Pow(damageScale, animFalloffExp) * maxAnimTime;
 
-            label.QueueRedraw();
+			label.QueueRedraw();
 		}
 
 

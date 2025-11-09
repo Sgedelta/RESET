@@ -13,7 +13,6 @@ public partial class AspectToken : Control
 
 	private TokenPlace _place = TokenPlace.Bar;
 
-	// NEW: expose placement for hover logic
 	public TokenPlace Place => _place;
 
 	public override void _Ready()
@@ -90,7 +89,6 @@ public partial class AspectToken : Control
 			{ "aspect_id", Aspect.ID }
 		};
 
-		// If we're living inside a slot, include tower + slot index
 		if (_place == TokenPlace.Slot)
 		{
 			AspectSlot slot = null;
