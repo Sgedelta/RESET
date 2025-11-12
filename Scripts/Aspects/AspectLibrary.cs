@@ -19,7 +19,7 @@ public partial class AspectLibrary : Node
 	{
 		{ Rarity.Common,    75 },
 		{ Rarity.Rare,       15 },
-		{ Rarity.Epic,       5 },
+		{ Rarity.Epic,       10 },
 		{ Rarity.Legendary,  1 }
 	};
 
@@ -63,7 +63,14 @@ public partial class AspectLibrary : Node
 			//load added files
 			foreach(string fullPath in files)
 			{
-				Resource loaded = ResourceLoader.Load(fullPath);
+				string fixedPath = fullPath;
+				//remove .remap if there (export issue)
+				if(fullPath.Contains(".remap"))
+				{
+					fixedPath = fullPath.TrimSuffix(".remap");
+				}
+
+				Resource loaded = ResourceLoader.Load(fixedPath);
 				if(loaded is not AspectTemplate)
 				{
 					continue;

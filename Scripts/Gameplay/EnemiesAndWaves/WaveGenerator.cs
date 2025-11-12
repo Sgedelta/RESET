@@ -16,15 +16,22 @@ public partial class WaveGenerator : Node
 
     private RandomNumberGenerator _rng;
 
-    public override void _Ready()
+    private bool _initialized = false;
+
+    public WaveGenerator()
     {
         //singleton
-        if(_instance != null && _instance != this)
+        if (_instance != null && _instance != this)
         {
             QueueFree();
             return;
         }
         _instance = this;
+    }
+
+    public override void _Ready()
+    {
+        
 
         _weights = new Godot.Collections.Array<float>();
         _enemies = new Godot.Collections.Array<PackedScene>();
@@ -36,6 +43,7 @@ public partial class WaveGenerator : Node
         }
 
         _rng = new RandomNumberGenerator();
+        _initialized = true;
     }
 
 
@@ -46,6 +54,12 @@ public partial class WaveGenerator : Node
     /// <returns></returns>
     public static Wave GenerateWave(float relativeDifficulty)
     {
+        if(!_instance._initialized)
+        {
+            GD.PushWarning("Skipping called wave generation because instance is not Initialized!");
+            return null;
+        }
+
         Wave wave = new Wave($"GeneratedWave_{generatedWaveCount}");
 
         //this is quick and dirty and should be improved with better generation!

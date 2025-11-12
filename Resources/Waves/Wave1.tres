@@ -7,5 +7,5 @@
 [resource]
 script = ExtResource("2_5i3aa")
 _id = "wave_1"
-selectionWeight = 0.0
+selectionWeight = 0.2
 WaveInfo = Array[Array]([[ExtResource("3_l743t"), 1.0], [ExtResource("3_l743t"), 0.0], [ExtResource("4_tohge"), 1.0]])
