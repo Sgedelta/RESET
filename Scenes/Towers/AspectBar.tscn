@@ -55,7 +55,6 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Scroll" type="ScrollContainer" parent="Panel/Margin"]
-clip_contents = false
 layout_mode = 2
 vertical_scroll_mode = 0
 

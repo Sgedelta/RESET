@@ -41,23 +41,23 @@ public partial class GameManager : Node
 
 	public GameManager()
 	{
-        //Singleton
-        if (Instance != null)
-        {
+		//Singleton
+		if (Instance != null)
+		{
 
-            QueueFree();
-            return;
-        }
+			QueueFree();
+			return;
+		}
 
-        Instance = this;
-    }
+		Instance = this;
+	}
 
 	public override void _Ready()
 	{
-        
+		
 		GetTree().Paused = false;
 
-        _gameOverText = GetNode<Label>(gameOverTextPath);
+		_gameOverText = GetNode<Label>(gameOverTextPath);
 		_gameOverText.Visible = false;
 
 		_waveDirector = GetNode<WaveDirector>(WaveDirectorPath);
@@ -74,46 +74,46 @@ public partial class GameManager : Node
 			_rewardMenu.ChoicePicked += OnAspectTemplatePicked;  // <-- SUBSCRIBE!
 			GD.Print($"[GM] Subscribed to RewardMenu at {_rewardMenu.GetPath()}");
 		}
-        _pauseMenu = GetNodeOrNull<PauseMenu>(PauseMenuPath);
+		_pauseMenu = GetNodeOrNull<PauseMenu>(PauseMenuPath);
 		ResumeButton.Pressed += OnGameResume;
 		MainMenuButton.Pressed  += OnMainMenu;
 		PauseButton.Pressed  += OnGamePaused;
 
 		_waveLibrary = new Godot.Collections.Dictionary<string, Wave>();
 
-        LoadAllWaves();
+		LoadAllWaves();
 
-        StartNextWave();
+		StartNextWave();
 
 
-    }
+	}
 
-    private void LoadAllWaves()
+	private void LoadAllWaves()
 	{
 
 		if (_waveLibrary.Count > 0)
 		{
-            _waveLibrary.Clear();
-        }
+			_waveLibrary.Clear();
+		}
 
-        var dir = DirAccess.Open(WaveFolderPath);
+		var dir = DirAccess.Open(WaveFolderPath);
 
 
 
-        if (dir == null)
+		if (dir == null)
 		{
-            GD.PrintErr($"[GM] Failed to open wave folder: {WaveFolderPath}");
-            return;
+			GD.PrintErr($"[GM] Failed to open wave folder: {WaveFolderPath}");
+			return;
 		}
 
 		dir.ListDirBegin();
 		string fileName = dir.GetNext();
-        while (!string.IsNullOrEmpty(fileName))
+		while (!string.IsNullOrEmpty(fileName))
 		{
-            if (!dir.CurrentIsDir() && (fileName.EndsWith(".tres") || fileName.EndsWith(".res")))
+			if (!dir.CurrentIsDir() && (fileName.EndsWith(".tres") || fileName.EndsWith(".res")))
 			{
 
-                string filePath = $"{WaveFolderPath}/{fileName}";
+				string filePath = $"{WaveFolderPath}/{fileName}";
 				var wave = ResourceLoader.Load<Wave>(filePath);
 				if (wave != null)
 				{
@@ -138,58 +138,58 @@ public partial class GameManager : Node
 	{
 		_currentWave++;
 
-        Wave wave = GetWave();
+		Wave wave = GetWave();
 		if (wave == null)
 		{
 			GD.PrintErr("[GM] Failed to select a wave, attempting again next frame");
 			StartWaveNextFrame();
-            return;
+			return;
 		}
 
-        GD.Print($"[GM] Starting wave {_currentWave}: {wave.ID}");
+		GD.Print($"[GM] Starting wave {_currentWave}: {wave.ID}");
 		_waveDirector.StartWave(wave);
 		_enemiesRemaining = wave.WaveInfo.Count;
 	}
 
 	private async void StartWaveNextFrame()
 	{
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		StartNextWave();
-    }
+	}
 
 	/// <summary>
 	/// returns a random Wave from the loaded wave library
 	/// </summary>
 	public Wave GetWave()
 	{
-        //if no waves, get random wave
-        //TODO for Build, put in wave count fallback as well, just so we don't keep getting easy waves
-        //if (_waveLibrary.Count == 0 || _currentWave > 3)
-        //return WaveGenerator.GenerateWave(_currentWave * _currentWave);
+		//if no waves, get random wave
+		//TODO for Build, put in wave count fallback as well, just so we don't keep getting easy waves
+		//if (_waveLibrary.Count == 0 || _currentWave > 3)
+		//return WaveGenerator.GenerateWave(_currentWave * _currentWave);
 
-        //TODO, switch to Godot's RandomNumberGenerator randWeighted
+		//TODO, switch to Godot's RandomNumberGenerator randWeighted
 
-        // compute total weight
-        float totalWeight = 0;
+		// compute total weight
+		float totalWeight = 0;
 		foreach (var wave in _waveLibrary.Values)
 		{
-            totalWeight += Mathf.Max(wave.SelectionWeight, 0.0f);
+			totalWeight += Mathf.Max(wave.SelectionWeight, 0.0f);
 
-        }
+		}
 
 
 
-        var rng = new RandomNumberGenerator();
+		var rng = new RandomNumberGenerator();
 		float choice = (float)(rng.Randf() * totalWeight);
 
-        foreach (var wave in _waveLibrary.Values)
+		foreach (var wave in _waveLibrary.Values)
 		{
 			choice -= Mathf.Max(wave.SelectionWeight, 0.0f);
-            if (choice <= 0)
+			if (choice <= 0)
 			{
 				return wave;
 
-            }
+			}
 		}
 
 		// fallback to random

@@ -48,25 +48,18 @@ public partial class AspectUIContainer : HFlowContainer
 
 		var destTower = _pullout.ActiveTower;
 
-		// Detach from current owner if needed
 		var currentOwner = inv.AttachedTo(aspect);
 		if (currentOwner != null && currentOwner != destTower)
 			inv.DetachFrom(aspect, currentOwner);
 
-		// Old aspect in destination slot?
 		var oldAspect = destTower.GetAspectInSlot(targetIndex);
-
-		// Ensure destination is free
 		inv.DetachFrom(targetIndex, destTower);
 
-		// Attach new aspect
 		if (!inv.AttachTo(aspect, destTower, targetIndex))
 		{
 			GD.PushWarning("[AspectUIContainer] AttachTo(dest) failed.");
 			return;
 		}
-
-		// Put old aspect back where new one came from (slot-origin only)
 		if (oldAspect != null && (string)data["origin"] == "slot" && sourceTower != null)
 		{
 			inv.AttachTo(oldAspect, sourceTower, sourceIndex);

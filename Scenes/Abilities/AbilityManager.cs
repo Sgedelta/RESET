@@ -10,10 +10,16 @@ public partial class AbilityManager : Node
 
 	public AbilityBase ArmedAbility { get; private set; }
 	
-		[Export] public Godot.Collections.Array<AbilityBase> AllAbilities { get; set; } = new();
+	[Export] public Godot.Collections.Array<AbilityBase> AllAbilities { get; set; } = new();
 
 
 	public override void _EnterTree() => Instance = this;
+
+	public override void _Process(double delta)
+	{
+		foreach (var ability in AllAbilities)
+			ability.TickCooldown((float)delta);
+	}
 
 	public void Arm(AbilityBase ability)
 	{
@@ -31,9 +37,14 @@ public partial class AbilityManager : Node
 
 	public void PlaceAt(Vector2 worldPos)
 	{
-		if (ArmedAbility == null) return;
+		if (ArmedAbility == null || ArmedAbility.IsOnCooldown)
+			return;
+
 		ArmedAbility.Execute(worldPos);
+		ArmedAbility.TriggerCooldown();
+
 		EmitSignal(SignalName.AbilityPlaced, ArmedAbility, worldPos);
 		Disarm();
 	}
+
 }

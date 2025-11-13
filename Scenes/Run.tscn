@@ -38,7 +38,7 @@
 
 [node name="Run" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot", "PauseButton", "ResumeButton", "MainMenuButton", "DEBUG_SPRITE")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot", "PauseButton", "ResumeButton", "MainMenuButton")]
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/EnemyPath")
@@ -50,7 +50,6 @@ PauseMenuPath = NodePath("../CanvasLayer/PauseMenu")
 PauseButton = NodePath("../CanvasLayer/Pause")
 ResumeButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Resume")
 MainMenuButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Main Menu")
-DEBUG_SPRITE = NodePath("")
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
 
@@ -178,7 +177,7 @@ text = "Pause"
 
 [node name="AbilityManager" type="Node" parent="."]
 script = ExtResource("11_nhc54")
-AllAbilities = Array[ExtResource("21_b2bcw")]([ExtResource("22_d7a38"), ExtResource("23_co2n6"), ExtResource("24_d7a38")])
+AllAbilities = Array[ExtResource("21_b2bcw")]([ExtResource("24_d7a38"), ExtResource("23_co2n6"), ExtResource("22_d7a38")])
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")

@@ -52,7 +52,7 @@ public partial class RewardMenu : Control
 			_icons[i].ExpandMode  = TextureRect.ExpandModeEnum.IgnoreSize;
 			_icons[i].Modulate    = Colors.White;
 		}
-
+		AddToGroup("reward_menu");
 		Hide();
 	}
 

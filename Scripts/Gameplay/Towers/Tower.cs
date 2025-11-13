@@ -257,24 +257,30 @@ public partial class Tower : Node2D
 		
 	}
 
-	public void OnTowerClicked(Node view, InputEvent input, int shapeIndex)
+public void OnTowerClicked(Node view, InputEvent input, int shapeIndex)
+{
+	if (input is not InputEventMouseButton buttonInput) return;
+	if (!buttonInput.Pressed || buttonInput.ButtonIndex != MouseButton.Left) return;
+
+	var pullout = Pullout;
+	if (pullout == null)
+		return;
+
+	// If this tower is already active, toggle the pullout
+	if (pullout.ActiveTower == this)
 	{
-		if (input is not InputEventMouseButton buttonInput) return;
-		if (!buttonInput.Pressed || buttonInput.ButtonIndex != MouseButton.Left) return;
-
-		if(Pullout.ActiveTower == this)
-		{
-			Pullout.ToggleActive();
-			rangeDisplay.Show = Pullout.Active;
-		} 
-		else
-		{
-			Pullout.ActiveTower = this;
-			rangeDisplay.Show = true;
-		}
-
-		
+		pullout.ToggleActive();
+		rangeDisplay.Show = pullout.Active;
 	}
+	else
+	{
+
+		pullout.ActiveTower = this;
+		rangeDisplay.Show = true;
+	}
+	GetViewport().SetInputAsHandled();
+}
+
 
 	public void ShowOrHideRange(bool state)
 	{

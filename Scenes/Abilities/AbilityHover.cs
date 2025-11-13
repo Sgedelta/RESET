@@ -8,6 +8,7 @@ public partial class AbilityHover : Control
 
 	private WaveDirector _wave;
 	private Line2D _line;
+	private RewardMenu _rewardMenu;
 
 	public override void _Ready()
 	{
@@ -29,11 +30,31 @@ public partial class AbilityHover : Control
 		AddToGroup("ability_hover");
 
 		AbilityManager.Instance.AbilitySelected += OnAbilitySelected;
+
+		var menus = GetTree().GetNodesInGroup("reward_menu");
+		if (menus.Count > 0 && menus[0] is RewardMenu rm)
+		{
+			_rewardMenu = rm;
+			_rewardMenu.VisibilityChanged += OnRewardMenuVisibilityChanged;
+		}
+	}
+
+	// If reward menu opens, turn the overlay off
+	private void OnRewardMenuVisibilityChanged()
+	{
+		if (_rewardMenu.Visible)
+		{
+			MouseFilter = MouseFilterEnum.Ignore;
+			_line.Visible = false;
+			if (AbilityManager.Instance.ArmedAbility != null)
+				AbilityManager.Instance.Disarm();
+		}
 	}
 
 	private void OnAbilitySelected(AbilityBase ability)
 	{
-		bool armed = ability != null;
+		// Don’t enable overlay if reward menu is open
+		bool armed = ability != null && (_rewardMenu == null || !_rewardMenu.Visible);
 		MouseFilter = armed ? MouseFilterEnum.Stop : MouseFilterEnum.Ignore;
 		_line.Visible = armed;
 		if (armed) RebuildHighlightFromPath();
@@ -42,17 +63,15 @@ public partial class AbilityHover : Control
 	private void RebuildHighlightFromPath()
 	{
 		_line.ClearPoints();
-
 		var curve = _wave?.Curve;
 		if (curve == null) return;
-
-		var baked = curve.GetBakedPoints();
-		foreach (var p in baked)
+		foreach (var p in curve.GetBakedPoints())
 			_line.AddPoint(p);
 	}
 
 	public override bool _CanDropData(Vector2 atPosition, Variant data)
 	{
+		if (_rewardMenu?.Visible == true) return false;
 		if (!IsAbilityDict(data, out _)) return false;
 		var worldPos = GetViewport().GetMousePosition();
 		return IsNearPath(worldPos);
@@ -60,16 +79,17 @@ public partial class AbilityHover : Control
 
 	public override void _DropData(Vector2 atPosition, Variant data)
 	{
-		if (!IsAbilityDict(data, out var ability)) return;
+		if (_rewardMenu?.Visible == true) return;
+		if (!IsAbilityDict(data, out var _)) return;
 
 		var worldPos = GetViewport().GetMousePosition();
 		if (IsNearPath(worldPos))
 			AbilityManager.Instance.PlaceAt(worldPos);
 	}
 
-
 	public override void _GuiInput(InputEvent e)
 	{
+		if (_rewardMenu?.Visible == true) return; // ignore while menu is up
 		if (AbilityManager.Instance.ArmedAbility == null) return;
 
 		if (e is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true })
@@ -82,14 +102,12 @@ public partial class AbilityHover : Control
 			AcceptEvent();
 		}
 
-		if (e is InputEventMouseButton { ButtonIndex: MouseButton.Right, Pressed: true }
-		 || e.IsActionPressed("ui_cancel"))
+		if (e is InputEventMouseButton { ButtonIndex: MouseButton.Right, Pressed: true } || e.IsActionPressed("ui_cancel"))
 		{
 			AbilityManager.Instance.Disarm();
 			AcceptEvent();
 		}
 	}
-
 
 	private bool IsAbilityDict(Variant data, out AbilityBase ability)
 	{
@@ -113,4 +131,5 @@ public partial class AbilityHover : Control
 		var closestWorld = path.ToGlobal(closestLocal);
 		return worldPos.DistanceTo(closestWorld) <= AllowedDistanceToPath;
 	}
+	
 }

@@ -52,7 +52,7 @@ public partial class UI_TowerPullout : CanvasLayer
 		AddToGroup("tower_pullout");
 
 		_active = false;
-		SetToActivePosition(); // don't tween
+		SetToActivePosition();
 
 		base._Ready();
 	}
@@ -104,7 +104,7 @@ public partial class UI_TowerPullout : CanvasLayer
 	{
 		GD.Print("Refreshing UIs");
 
-		DisplaySlots(); // ensures the right number are visible
+		DisplaySlots();
 
 		for (int i = 0; i < _container.GetChildCount(); i++)
 			if (_container.GetChild(i) is AspectSlot slot)
@@ -120,74 +120,65 @@ public partial class UI_TowerPullout : CanvasLayer
 	{
 		if (slot == null) return;
 
-		// Slot is the drop target
 		slot.MouseFilter = Control.MouseFilterEnum.Stop;
 
-		// Children should not intercept mouse
 		foreach (var ch in slot.GetChildren())
 			if (ch is Control cc)
 				cc.MouseFilter = Control.MouseFilterEnum.Ignore;
 
-		// NOTE: We no longer connect 'child_entered_tree' here.
-		// We set MouseFilter on the token itself when we create it in AspectSlot.RefreshVisual().
 	}
 
 	public void DisplaySlots(int count)
-{
-	if (count < 0) { GD.PushWarning("[UI_TowerPullout] DisplaySlots called with count < 0"); count = 0; }
-	if (AspectSlotScn == null) { GD.PushError("[UI_TowerPullout] AspectSlotScn not set!"); return; }
-
-	// Count existing slots
-	int slotsFound = 0;
-	for (int i = 0; i < _container.GetChildCount(); i++)
-		if (_container.GetChild(i) is AspectSlot) slotsFound++;
-
-	// Create missing
-	for (int need = slotsFound; need < count; need++)
 	{
-		var slot = AspectSlotScn.Instantiate<AspectSlot>();
-		// ensure usable hitbox before it’s added to the flow layout
-		slot.CustomMinimumSize = new Vector2(96, 96);
-		ConfigureSlotInput(slot);
-		_container.AddChild(slot);
-	}
+		if (count < 0) { GD.PushWarning("[UI_TowerPullout] DisplaySlots called with count < 0"); count = 0; }
+		if (AspectSlotScn == null) { GD.PushError("[UI_TowerPullout] AspectSlotScn not set!"); return; }
 
-	// Assign indices, visibility, and configure all
-	int logical = 0;
-	for (int i = 0; i < _container.GetChildCount(); i++)
-	{
-		if (_container.GetChild(i) is AspectSlot slot)
+		int slotsFound = 0;
+		for (int i = 0; i < _container.GetChildCount(); i++)
+			if (_container.GetChild(i) is AspectSlot) slotsFound++;
+
+		// Create missing
+		for (int need = slotsFound; need < count; need++)
 		{
-			slot.CustomMinimumSize = new Vector2(96, 96); // keep size on existing ones, too
+			var slot = AspectSlotScn.Instantiate<AspectSlot>();
+			slot.CustomMinimumSize = new Vector2(96, 96);
 			ConfigureSlotInput(slot);
-			slot.SetIndex(logical);
-			slot.Visible = logical < count;
-			logical++;
+			_container.AddChild(slot);
 		}
-	}
 
-	// Hide extras
-	int seen = 0;
-	for (int i = 0; i < _container.GetChildCount(); i++)
-	{
-		if (_container.GetChild(i) is AspectSlot slot)
+		int logical = 0;
+		for (int i = 0; i < _container.GetChildCount(); i++)
 		{
-			slot.Visible = seen < count;
-			seen++;
+			if (_container.GetChild(i) is AspectSlot slot)
+			{
+				slot.CustomMinimumSize = new Vector2(96, 96);
+				ConfigureSlotInput(slot);
+				slot.SetIndex(logical);
+				slot.Visible = logical < count;
+				logical++;
+			}
+		}
+
+		int seen = 0;
+		for (int i = 0; i < _container.GetChildCount(); i++)
+		{
+			if (_container.GetChild(i) is AspectSlot slot)
+			{
+				slot.Visible = seen < count;
+				seen++;
+			}
 		}
 	}
-}
-public override void _UnhandledInput(InputEvent e)
-{
-	if (!_active || animating) return;
-	if (e is InputEventMouseButton mb && mb.Pressed)
+	public override void _UnhandledInput(InputEvent e)
 	{
-		_tower.ShowOrHideRange(false);
-		ToggleActive();
-		GetViewport().SetInputAsHandled();
+		if (!_active || animating) return;
+		if (e is InputEventMouseButton mb && mb.Pressed)
+		{
+			_tower.ShowOrHideRange(false);
+			ToggleActive();
+			GetViewport().SetInputAsHandled();
+		}
 	}
-}
-
 
 	public void DisplaySlots()
 	{
