@@ -15,11 +15,6 @@ public partial class AbilityManager : Node
 
 	public override void _EnterTree() => Instance = this;
 
-	public override void _Process(double delta)
-	{
-		foreach (var ability in AllAbilities)
-			ability.TickCooldown((float)delta);
-	}
 
 	public void Arm(AbilityBase ability)
 	{
@@ -37,11 +32,18 @@ public partial class AbilityManager : Node
 
 	public void PlaceAt(Vector2 worldPos)
 	{
-		if (ArmedAbility == null || ArmedAbility.IsOnCooldown)
+		if (ArmedAbility == null)
 			return;
 
+		var gm = GameManager.Instance;
+		if (gm == null)
+			return;
+
+		if (!gm.TrySpendMana(ArmedAbility.ManaCost))
+			return;
+
+		// Execute ability
 		ArmedAbility.Execute(worldPos);
-		ArmedAbility.TriggerCooldown();
 
 		EmitSignal(SignalName.AbilityPlaced, ArmedAbility, worldPos);
 		Disarm();

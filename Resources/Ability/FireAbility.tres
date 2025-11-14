@@ -13,5 +13,4 @@ DamagePerTick = 8.0
 EffectScene = ExtResource("1_am3p1")
 Icon = ExtResource("2_7m165")
 AbilityName = "Inferno"
-CooldownSeconds = 30.0
-MaxCharges = 0
+ManaCost = 50

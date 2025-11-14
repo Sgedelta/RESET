@@ -38,7 +38,7 @@
 
 [node name="Run" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot", "PauseButton", "ResumeButton", "MainMenuButton")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot", "ManaLabel", "PauseButton", "ResumeButton", "MainMenuButton")]
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/EnemyPath")
@@ -46,6 +46,7 @@ StartScreenPath = "res://Scenes/UI/StartMenu.tscn"
 AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
+ManaLabel = NodePath("../CanvasLayer/Mana")
 PauseMenuPath = NodePath("../CanvasLayer/PauseMenu")
 PauseButton = NodePath("../CanvasLayer/Pause")
 ResumeButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Resume")
@@ -117,6 +118,15 @@ custom_minimum_size = Vector2(50, 50)
 
 [node name="AbilityMenu" parent="CanvasLayer" instance=ExtResource("3_n7gbs")]
 
+[node name="Panel" parent="CanvasLayer/AbilityMenu" index="0"]
+offset_left = 1530.0
+offset_top = 770.0
+offset_right = 1890.0
+offset_bottom = 870.0
+
+[node name="HBoxContainer" parent="CanvasLayer/AbilityMenu/Panel" index="0"]
+theme_override_constants/separation = 20
+
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
 visible = false
 
@@ -174,6 +184,14 @@ offset_bottom = 94.0
 theme_override_fonts/font = ExtResource("6_q06an")
 theme_override_font_sizes/font_size = 25
 text = "Pause"
+
+[node name="Mana" type="Label" parent="CanvasLayer"]
+offset_left = 1614.0
+offset_top = 703.0
+offset_right = 1654.0
+offset_bottom = 766.0
+theme_override_fonts/font = ExtResource("6_q06an")
+theme_override_font_sizes/font_size = 40
 
 [node name="AbilityManager" type="Node" parent="."]
 script = ExtResource("11_nhc54")

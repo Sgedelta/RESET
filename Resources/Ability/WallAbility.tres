@@ -7,9 +7,7 @@
 [resource]
 script = ExtResource("1_d0h30")
 DurationSeconds = 3.0
-BlockRadius = 64.0
 WallScene = ExtResource("2_g2lm2")
 Icon = ExtResource("1_lkv82")
 AbilityName = "Wall"
-CooldownSeconds = 45.0
-MaxCharges = 0
+ManaCost = 100

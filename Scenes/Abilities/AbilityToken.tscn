@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://yu3enufb3vl3"]
+[gd_scene load_steps=4 format=3 uid="uid://yu3enufb3vl3"]
 
 [ext_resource type="Script" uid="uid://bw1a08dlscvo2" path="res://Scenes/Abilities/AbilityToken.cs" id="1_d22pm"]
+[ext_resource type="Texture2D" uid="uid://b3vn51relq8kf" path="res://Scenes/UI/inferno.png" id="2_gx4l4"]
 [ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="2_v86ht"]
 
 [node name="AbilityToken" type="Control" node_paths=PackedStringArray("IconRect", "CooldownLabel")]
@@ -20,10 +21,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_gx4l4")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 12.0
+offset_top = 95.0
+offset_right = 82.0
+offset_bottom = 143.0
 theme_override_fonts/font = ExtResource("2_v86ht")
 theme_override_font_sizes/font_size = 30
+text = "wrv"

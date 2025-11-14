@@ -15,10 +15,14 @@ public partial class GameManager : Node
 	[Export] public NodePath gameOverTextPath;
 	[Export] public NodePath RewardMenuPath;
 
+
 	private AspectBar _aspectBar;
 	private Label _gameOverText;
 	private RewardMenu _rewardMenu; 
 	private WaveDirector _waveDirector;
+	
+	public int Mana { get; private set; } = 0;
+	[Export] public Label ManaLabel;
 
 	// Singleton
 	public static GameManager Instance;
@@ -56,6 +60,8 @@ public partial class GameManager : Node
 	{
 		
 		GetTree().Paused = false;
+		ManaLabel.Text = $"Mana: {Mana}";
+
 
 		_gameOverText = GetNode<Label>(gameOverTextPath);
 		_gameOverText.Visible = false;
@@ -200,6 +206,10 @@ public partial class GameManager : Node
 
 	public void OnEnemyDied(Enemy enemy)
 	{
+		 Mana += 10;
+		ManaLabel.Text = $"Mana: {Mana}";
+
+
 		_enemiesRemaining--;
 
 		if (_enemiesRemaining <= 0)
@@ -209,6 +219,16 @@ public partial class GameManager : Node
 		}
 
 		_waveDirector.RemoveActiveEnemy(enemy);
+	}
+	public bool TrySpendMana(int amount)
+	{
+		if (Mana < amount)
+			return false;
+
+		Mana -= amount;
+		ManaLabel.Text = $"Mana: {Mana}";
+
+		return true;
 	}
 
 	public void OnPlayerDefeated()
