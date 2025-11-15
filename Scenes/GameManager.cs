@@ -172,7 +172,10 @@ public partial class GameManager : Node
 		//TODO for Build, put in wave count fallback as well, just so we don't keep getting easy waves
 		//if (_waveLibrary.Count == 0 || _currentWave > 3)
 		//return WaveGenerator.GenerateWave(_currentWave * _currentWave);
-
+		if (_waveLibrary.Count == 0 || _currentWave > _waveLibrary.Count)
+		{
+			return WaveGenerator.GenerateWave(_currentWave * _currentWave);
+		}
 		//TODO, switch to Godot's RandomNumberGenerator randWeighted
 
 		// compute total weight
@@ -182,8 +185,6 @@ public partial class GameManager : Node
 			totalWeight += Mathf.Max(wave.SelectionWeight, 0.0f);
 
 		}
-
-
 
 		var rng = new RandomNumberGenerator();
 		float choice = (float)(rng.Randf() * totalWeight);

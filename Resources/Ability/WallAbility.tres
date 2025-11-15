@@ -10,4 +10,4 @@ DurationSeconds = 3.0
 WallScene = ExtResource("2_g2lm2")
 Icon = ExtResource("1_lkv82")
 AbilityName = "Wall"
-ManaCost = 100
+ManaCost = 1000

@@ -11,4 +11,4 @@ Radius = 150.0
 EffectScene = ExtResource("1_f1ovf")
 Icon = ExtResource("2_cet0d")
 AbilityName = "Ability"
-ManaCost = 300
+ManaCost = 3000

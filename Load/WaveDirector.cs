@@ -44,11 +44,17 @@ public partial class WaveDirector : Node2D
 
 		foreach (var info in wave.WaveInfo)
 		{
-			if ((bool)info[0] == false)
-				continue;
+			if (info == null || info.Count == 0)
+			continue;
 				
 			//grab the enemy to spawn
-			PackedScene enemyScene = (PackedScene)info[0];
+			var enemyScene = info[0].As<PackedScene>();
+			if (enemyScene == null)
+				continue;
+
+			float delay = 0.5f;
+			if (info.Count > 1)
+				delay = (float)info[1];
 			//create it
 			Enemy enemy = (Enemy)enemyScene.Instantiate();
 			//put it into the tree
@@ -64,7 +70,7 @@ public partial class WaveDirector : Node2D
 				enemy.EnemyDied += _gameManager.OnEnemyDied;
 			}
 
-			await ToSignal(GetTree().CreateTimer((float)info[1]), "timeout");
+			await ToSignal(GetTree().CreateTimer(delay), "timeout");
 		}
 
 		_isSpawning = false;
