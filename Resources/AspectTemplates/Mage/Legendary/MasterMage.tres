@@ -15,5 +15,4 @@ _id = "MasterMage"
 DisplayName = "Master Mage"
 AspectSprite = ExtResource("1_gqdd3")
 Modifiers = Array[Resource]([ExtResource("1_wnipi"), ExtResource("3_2440q"), ExtResource("4_6q12t"), ExtResource("5_gqdd3"), ExtResource("6_bpyi4"), ExtResource("7_2ofoi")])
-ProjectileType = 0
 Rarity = 3

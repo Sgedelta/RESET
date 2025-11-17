@@ -11,3 +11,5 @@ meanVal = 0.0
 stdDev = 0.0
 StatType = 1
 ModifierType = 0
+IncreaseOrDecrease = 0
+RelativeIncrease = 0

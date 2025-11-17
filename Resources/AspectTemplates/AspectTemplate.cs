@@ -16,7 +16,8 @@ public abstract partial class ModifierInfo : Resource
 	//see Aspect.cs for StatType and ModifierType declarations
 	[Export] public StatType StatType;
 	[Export] public ModifierType ModifierType;
-
+	[Export(PropertyHint.Enum, "Increase, Decrease")] public int IncreaseOrDecrease;
+	[Export(PropertyHint.Range, "0,10,1")] public int RelativeIncrease;
 
 
 	/// <summary>
@@ -30,6 +31,8 @@ public abstract partial class ModifierInfo : Resource
 }
 
 
+
+
 public partial class AspectTemplate : Resource
 {
 
@@ -40,8 +43,6 @@ public partial class AspectTemplate : Resource
 	//ToDo: add information/data/links to resources about sprites and such... once we have them.
 		//must be a Godot Array to be exported
 	[Export] public Godot.Collections.Array<ModifierInfo> Modifiers;
-
-	[Export] public ProjectileType ProjectileType = ProjectileType.Regular;
 	[Export] public Rarity Rarity = Rarity.Common;
 
 
