@@ -25,12 +25,16 @@ public partial class ModifierInfo : Resource
     /// <summary>
     /// The relative increase - 0 is a small increase, 9 is a very large increase
     /// </summary>
-    [Export(PropertyHint.Range, "0,9")] public int RelativeChange = 0;
+    [Export(PropertyHint.Range, "0,9,.1,or_greater")] public float RelativeChange = 0;
 
     /// <summary>
     /// If this stat should be slightly randomized. Most of the time, this should be true, but sometimes we want to set it to an exact value
     /// </summary>
     [Export] public bool AllowRandomization = true;
+    //a scalar value for randomization. will not allow the true multiplier to go below a certain value - a tenth of the value it is supposed to be.
+    //  this only has a chance of happening ~2-3 (depending on the inherent randomness of the stat) - so try to keep it below that value? but in theory you can go higher?
+    //  you'll get a lot more of the tenth of the value case the higher you go.
+    [Export] public float RandomizationStrength = 1; 
 
     // Sometimes (i.e. "setting spread to max") we need an exact value to set something to.
     //	Use this in that case, but USE SPARINGLY in general.
@@ -43,12 +47,12 @@ public partial class ModifierInfo : Resource
         //get the data
         Godot.Collections.Array<float> stats = StatValues[ModifiedStat];
         //calculate random things, we can throw them in when we return
-        float randomAmount = StatValues[ModifiedStat][11];
+        float randomAmount = StatValues[ModifiedStat][11] * RandomizationStrength;
         float randomMult = 1; //if we aren't doing stuff with random, this won't change
         if(AllowRandomization)
         {
             //randomize the multiplier
-            randomMult = modRNG.RandfRange(1 - randomAmount, 1 + randomAmount);
+            randomMult = Mathf.Max(0.1f, modRNG.RandfRange(1 - randomAmount, 1 + randomAmount));
         }
         //if we are using an exact value, use that exact value - including randomization
         if (UseExactValue)

@@ -1,13 +1,50 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bo164d1kghyrm"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://bo164d1kghyrm"]
 
-[ext_resource type="Resource" uid="uid://bkvckdop3hj4l" path="res://Resources/Modifiers/Damage/DMG_A-.tres" id="1_ealp2"]
-[ext_resource type="Resource" uid="uid://qodmcoy3w6b6" path="res://Resources/Modifiers/Knockback/KBA+.tres" id="3_5uy1r"]
-[ext_resource type="Resource" uid="uid://vtbji1rn05hm" path="res://Resources/Modifiers/Fire Rate/FR_A-.tres" id="3_ealp2"]
+[ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="1_r6wlj"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="5_cxoff"]
+
+[sub_resource type="Resource" id="Resource_ssofk"]
+script = ExtResource("1_r6wlj")
+ModifiedStat = 1
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = -1
+RelativeChange = 2.5
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_ealp2"]
+script = ExtResource("1_r6wlj")
+ModifiedStat = 1007
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 2.2
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_26cq5"]
+script = ExtResource("1_r6wlj")
+ModifiedStat = 2
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 0.5
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
 
 [resource]
 script = ExtResource("5_cxoff")
 _id = "PaddedArrows"
 DisplayName = "Padded Arrows"
-Modifiers = Array[Resource]([ExtResource("1_ealp2"), ExtResource("3_5uy1r"), ExtResource("3_ealp2")])
+Modifiers = Array[Resource]([SubResource("Resource_ssofk"), SubResource("Resource_ealp2"), SubResource("Resource_26cq5")])
 Rarity = 0
