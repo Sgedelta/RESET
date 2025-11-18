@@ -1,16 +1,65 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://caaoqyl7lc2pw"]
+[gd_resource type="Resource" load_steps=8 format=3 uid="uid://caaoqyl7lc2pw"]
 
 [ext_resource type="Texture2D" uid="uid://ctohjve31gt6o" path="res://Resources/AspectTemplates/TemplateIcons/steady hand.png" id="1_s2epg"]
-[ext_resource type="Resource" uid="uid://bwigsejsqqeqp" path="res://Resources/Modifiers/Accuracy/SPA_A-.tres" id="2_r44js"]
-[ext_resource type="Resource" uid="uid://xw5vbu6tsim" path="res://Resources/Modifiers/Damage/DMG_A+.tres" id="2_s2epg"]
-[ext_resource type="Resource" uid="uid://blqv4hsc082i8" path="res://Resources/Modifiers/Critical/CRC_A+.tres" id="3_4ehq2"]
-[ext_resource type="Resource" uid="uid://vtbji1rn05hm" path="res://Resources/Modifiers/Fire Rate/FR_A-.tres" id="4_3qavh"]
+[ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_04crg"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="5_qneh5"]
+
+[sub_resource type="Resource" id="Resource_onqil"]
+script = ExtResource("2_04crg")
+ModifiedStat = 1
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 1.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_m67q5"]
+script = ExtResource("2_04crg")
+ModifiedStat = 0
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = -1
+RelativeChange = 0.5
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_s2epg"]
+script = ExtResource("2_04crg")
+ModifiedStat = 3
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 1.5
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_4ehq2"]
+script = ExtResource("2_04crg")
+ModifiedStat = 5
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = -1
+RelativeChange = 2.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
 
 [resource]
 script = ExtResource("5_qneh5")
 _id = "SteadyHand"
 DisplayName = "Steady Hand"
 AspectSprite = ExtResource("1_s2epg")
-Modifiers = Array[Resource]([ExtResource("2_s2epg"), ExtResource("3_4ehq2"), ExtResource("4_3qavh"), ExtResource("2_r44js")])
+Modifiers = Array[Resource]([SubResource("Resource_onqil"), SubResource("Resource_m67q5"), SubResource("Resource_s2epg"), SubResource("Resource_4ehq2")])
 Rarity = 0
