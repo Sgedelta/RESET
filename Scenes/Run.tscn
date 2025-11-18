@@ -24,7 +24,7 @@
 [ext_resource type="Script" uid="uid://bkyenql7l4b7j" path="res://Scenes/Abilities/AbilityManager.cs" id="11_nhc54"]
 [ext_resource type="PackedScene" uid="uid://cdqc0wm6sinp2" path="res://Scenes/Enemies/FastEnemy.tscn" id="11_q06an"]
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
-[ext_resource type="Script" uid="uid://bblmgefgwfova" path="res://Scenes/Abilities/AbilityBase.cs" id="21_b2bcw"]
+[ext_resource type="Script" uid="uid://bblmgefgwfova" path="res://Scenes/Abilities/AbilityBase.cs" id="21_d7a38"]
 [ext_resource type="Resource" uid="uid://bo164d1kghyrm" path="res://Resources/AspectTemplates/Archer/Common/PaddedArrows.tres" id="22_6kpg7"]
 [ext_resource type="Resource" uid="uid://cwwvrn71fjwf8" path="res://Resources/Ability/LaserStrikeAbility.tres" id="22_d7a38"]
 [ext_resource type="Resource" uid="uid://dckpwxh6ic8eh" path="res://Resources/Ability/WallAbility.tres" id="23_co2n6"]
@@ -38,19 +38,13 @@
 
 [node name="Run" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot", "ManaLabel", "PauseButton", "ResumeButton", "MainMenuButton")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot")]
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/EnemyPath")
-StartScreenPath = "res://Scenes/UI/StartMenu.tscn"
 AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
-ManaLabel = NodePath("../CanvasLayer/Mana")
-PauseMenuPath = NodePath("../CanvasLayer/PauseMenu")
-PauseButton = NodePath("../CanvasLayer/Pause")
-ResumeButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Resume")
-MainMenuButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Main Menu")
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
 
@@ -132,10 +126,17 @@ visible = false
 
 [node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
 visible = false
+Btn0IconPath = NodePath("Panel/VBox/Row/Btn0/Icon")
+Btn1IconPath = NodePath("Panel/VBox/Row/Btn1/Icon")
+Btn2IconPath = NodePath("Panel/VBox/Row/Btn2/Icon")
 
 [node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
 offset_right = 200.0
 offset_bottom = 200.0
+CommonTexture = null
+RareTexture = null
+LegendaryTexture = null
+EpicTexture = null
 
 [node name="MarginContainer" parent="CanvasLayer/AspectHoverMenu/Panel" index="1"]
 theme_override_constants/margin_bottom = 20
@@ -195,7 +196,7 @@ theme_override_font_sizes/font_size = 40
 
 [node name="AbilityManager" type="Node" parent="."]
 script = ExtResource("11_nhc54")
-AllAbilities = Array[ExtResource("21_b2bcw")]([ExtResource("24_d7a38"), ExtResource("23_co2n6"), ExtResource("22_d7a38")])
+AllAbilities = Array[ExtResource("21_d7a38")]([ExtResource("24_d7a38"), ExtResource("23_co2n6"), ExtResource("22_d7a38")])
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
@@ -208,7 +209,6 @@ enemyWeights = Array[Array]([[1.0, ExtResource("10_asn5m")], [0.3, ExtResource("
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
 AspectTemplates = Array[Resource]([ExtResource("22_6kpg7"), ExtResource("23_rb5a6"), ExtResource("24_twhnw")])
-TemplatesFilePathsFromRes = Array[String](["Archer", "Mage", "Tech"])
 
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("9_x3f4s")
