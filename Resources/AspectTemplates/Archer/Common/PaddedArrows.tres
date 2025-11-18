@@ -10,5 +10,4 @@ script = ExtResource("5_cxoff")
 _id = "PaddedArrows"
 DisplayName = "Padded Arrows"
 Modifiers = Array[Resource]([ExtResource("1_ealp2"), ExtResource("3_5uy1r"), ExtResource("3_ealp2")])
-ProjectileType = 0
 Rarity = 0

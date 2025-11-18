@@ -9,7 +9,6 @@ public enum StatType
 		FireRate,
 		Damage,
 		Range,
-		Accuracy,
 		CritChance,
 		CritMult,
 		SpreadAngle,
@@ -36,7 +35,7 @@ public enum ModifierType
 {
 	Add,
 	Multiply,
-	Subtract
+	Set
 }
 public enum ProjectileType
 {
@@ -81,33 +80,22 @@ public class Aspect
 		{
 			switch (info)
 			{
-				case FloatModifierInfo fmi:
-					var f_unit = new FloatModifierUnit
+				case ModifierInfo modInfo:
+					ModifierUnit mUnit = new ModifierUnit
 					{
-						Stat = fmi.StatType,
-						Type = fmi.ModifierType,
-						Value = (float)fmi.GetStat()
+						Stat = modInfo.ModifiedStat,
+						Type = modInfo.ModifierType,
+						Value = modInfo.GetStat()
 					};
-					Modifiers.Add(f_unit);
-					break;
-
-				case IntModifierInfo imi:
-					var i_unit = new IntModifierUnit
-					{
-						Stat = imi.StatType,
-						Type = imi.ModifierType,
-						Value = (int)imi.GetStat()
-					};
-
-					Modifiers.Add(i_unit);
-					break;
+					Modifiers.Add(mUnit);
+				break;
 
 				case null:
 					GD.PushWarning($"ModifierInfo is null in {Template._id}");
 					break;
 
 				default:
-					GD.PushWarning($"ModifierInfo type not handled: {info?.StatType}, {info?.GetType().Name}");
+					GD.PushWarning($"ModifierInfo type not handled: {info?.ModifiedStat}, {info?.GetType().Name}");
 					break;
 			}
 		}
@@ -239,7 +227,7 @@ public class Aspect
 
 	static float ApplyFloat(float current, ModifierUnit unit)
 	{
-		float modVal = ((FloatModifierUnit)unit).Value;
+		float modVal = unit.Value;
 		switch (unit.Type)
 		{
 			case ModifierType.Add:
@@ -272,7 +260,7 @@ public class Aspect
 	}
 
 	static int ApplyInt(int current, ModifierUnit unit) {
-		int modVal = ((IntModifierUnit)unit).Value;
+		int modVal = (int)unit.Value;
 		return unit.Type switch
 		{
 			ModifierType.Add => current + modVal,

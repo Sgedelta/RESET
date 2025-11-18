@@ -12,5 +12,4 @@ _id = "PoisonDart"
 DisplayName = "Poison Dart"
 AspectSprite = ExtResource("1_nh3du")
 Modifiers = Array[Resource]([ExtResource("2_nh3du"), ExtResource("2_gvkbn"), ExtResource("4_mifxe")])
-ProjectileType = 0
 Rarity = 0

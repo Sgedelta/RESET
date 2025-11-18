@@ -179,7 +179,6 @@ private void ApplyRarityBackground(Rarity rarity)
 			StatType.FireRate        => "Fire Rate",
 			StatType.Damage          => "Damage",
 			StatType.Range           => "Range",
-			StatType.Accuracy        => "Accuracy",
 			StatType.CritChance      => "Crit Chance",
 			StatType.CritMult        => "Crit Mult",
 			StatType.SpreadAngle     => "Spread Angle",
@@ -201,15 +200,11 @@ private void ApplyRarityBackground(Rarity rarity)
 
 	private static string FormatModifier(string statName, ModifierUnit unit)
 	{
-		bool isInt = unit is IntModifierUnit;
-		double val = isInt
-			? ((IntModifierUnit)unit).Value
-			: ((FloatModifierUnit)unit).Value;
+		double val = unit.Value;
 
 		return unit.Type switch
 		{
 			ModifierType.Add      => $"{statName} + {Trim(val)}",
-			ModifierType.Subtract => $"{statName} - {Trim(val)}",
 			ModifierType.Multiply => $"{statName} X {Trim(val)}",
 			_ => null
 		};
