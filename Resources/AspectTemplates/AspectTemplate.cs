@@ -10,29 +10,6 @@ public enum Rarity
 	Legendary = 3
 }
 
-
-public abstract partial class ModifierInfo : Resource
-{
-	//see Aspect.cs for StatType and ModifierType declarations
-	[Export] public StatType StatType;
-	[Export] public ModifierType ModifierType;
-	[Export(PropertyHint.Enum, "Increase, Decrease")] public int IncreaseOrDecrease;
-	[Export(PropertyHint.Range, "0,10,1")] public int RelativeIncrease;
-
-
-	/// <summary>
-	/// A method to be implemented in all specfic modifier infos. 
-	/// Must return object, because each ModifierInfo exists because
-	/// we want them to return different types. 
-	/// </summary>
-	/// <returns></returns>
-	public abstract object GetStat();
-
-}
-
-
-
-
 public partial class AspectTemplate : Resource
 {
 

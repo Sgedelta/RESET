@@ -14,7 +14,7 @@ public partial class FloatModifierInfo : ModifierInfo
 	[Export] public float meanVal;
 	[Export] public float stdDev;
 
-	public override object GetStat()
+	public override float GetStat(float level)
 	{
 		RandomNumberGenerator rng = new RandomNumberGenerator();
 		//note: rng.Randomize(); could be used here to set a seed.

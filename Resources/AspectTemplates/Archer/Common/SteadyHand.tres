@@ -13,5 +13,4 @@ _id = "SteadyHand"
 DisplayName = "Steady Hand"
 AspectSprite = ExtResource("1_s2epg")
 Modifiers = Array[Resource]([ExtResource("2_s2epg"), ExtResource("3_4ehq2"), ExtResource("4_3qavh"), ExtResource("2_r44js")])
-ProjectileType = 0
 Rarity = 0

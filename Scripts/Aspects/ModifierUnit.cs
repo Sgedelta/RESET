@@ -1,22 +1,11 @@
 using Godot;
 using System;
 
-public abstract class ModifierUnit
+public class ModifierUnit
 {
 	public ModifierType Type;
 	public StatType Stat;
 
-
-
-}
-
-
-public class FloatModifierUnit : ModifierUnit
-{
 	public float Value;
-}
 
-public class IntModifierUnit : ModifierUnit
-{
-	public int Value;
 }
