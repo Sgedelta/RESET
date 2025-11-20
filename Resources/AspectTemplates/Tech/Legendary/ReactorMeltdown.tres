@@ -1,17 +1,27 @@
 [gd_resource type="Resource" load_steps=8 format=3 uid="uid://bce7t2qj88ub5"]
 
 [ext_resource type="Texture2D" uid="uid://cqblj2ye7kto" path="res://Resources/AspectTemplates/TemplateIcons/reactor meltdown.png" id="1_ncf5j"]
-[ext_resource type="Resource" uid="uid://ty4dk8lbawww" path="res://Resources/Modifiers/Range/RNG_A++.tres" id="2_elclx"]
-[ext_resource type="Resource" uid="uid://ccgooyr62jv7i" path="res://Resources/Modifiers/Splash/SLC_A+++.tres" id="3_bfw4r"]
-[ext_resource type="Resource" uid="uid://d0r5ef2y2utxn" path="res://Resources/Modifiers/Splash/SLR_A++.tres" id="4_cxmny"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_d83o6"]
-[ext_resource type="Resource" uid="uid://c6apm768mpb8u" path="res://Resources/Modifiers/Accuracy/SPA_A_MAX.tres" id="5_0u66b"]
-[ext_resource type="Resource" uid="uid://dr5s6vfgfq73b" path="res://Resources/Modifiers/Homing/HMS_A+.tres" id="6_elclx"]
+
+[sub_resource type="Resource" id="Resource_vkfmh"]
+metadata/__load_path__ = "res://Resources/Modifiers/Accuracy/SPA_A_MAX.tres"
+
+[sub_resource type="Resource" id="Resource_ge1wq"]
+metadata/__load_path__ = "res://Resources/Modifiers/Range/RNG_A++.tres"
+
+[sub_resource type="Resource" id="Resource_8eu0s"]
+metadata/__load_path__ = "res://Resources/Modifiers/Splash/SLC_A+++.tres"
+
+[sub_resource type="Resource" id="Resource_ncf5j"]
+metadata/__load_path__ = "res://Resources/Modifiers/Splash/SLR_A++.tres"
+
+[sub_resource type="Resource" id="Resource_8qrhj"]
+metadata/__load_path__ = "res://Resources/Modifiers/Homing/HMS_A+.tres"
 
 [resource]
 script = ExtResource("4_d83o6")
 _id = "ReactorMeltdown"
 DisplayName = "Reactor Meltdown"
 AspectSprite = ExtResource("1_ncf5j")
-Modifiers = Array[Resource]([ExtResource("5_0u66b"), ExtResource("2_elclx"), ExtResource("3_bfw4r"), ExtResource("4_cxmny"), ExtResource("6_elclx")])
+Modifiers = Array[Resource]([SubResource("Resource_vkfmh"), SubResource("Resource_ge1wq"), SubResource("Resource_8eu0s"), SubResource("Resource_ncf5j"), SubResource("Resource_8qrhj")])
 Rarity = 3

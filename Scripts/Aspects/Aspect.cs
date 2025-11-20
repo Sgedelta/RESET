@@ -6,29 +6,35 @@ using System.Diagnostics;
 public enum StatType
 {
 	//basic and advanced stats from 0 - 999
-		FireRate,
-		Damage,
-		Range,
-		CritChance,
-		CritMult,
-		SpreadAngle,
-		SpreadFalloff,
+	FireRate,
+	Damage,
+	Range,
+	CritChance,
+	CritMult,
+	SpreadAngle,
+	SpreadFalloff,
 
 
 
-		//TODO - detail better as specific stats
-		//unique stats and misc from 1000+ - there is almost no chance we need more than 1000 basic stats, and we can hardcode check value for < 1000 if needbe
-		SplashCoef = 1000,
-		SplashRadius,
-		PoisonDamage,
-		PoisonTicks,
-		ChainTargets,
-		ChainDistance,
-		PiercingAmount,
-		KnockbackAmount,
-		SlowdownPercent,
-		SlowdownLength,
-		HomingStrength
+	//TODO - detail better as specific stats
+	//unique stats and misc from 1000+ - there is almost no chance we need more than 1000 basic stats, and we can hardcode check value for < 1000 if needbe
+	SplashCoef = 1000,
+	SplashRadius,
+	PoisonDamage,
+	PoisonTicks,
+	ChainTargets,
+	ChainDistance,
+	PiercingAmount,
+	KnockbackAmount,
+	SlowdownPercent,
+	SlowdownLength,
+	HomingStrength,
+
+	//Super Special Zone
+	//	Used for internal use - such as RANDOM, which will never be directly on an aspect, but is used in ModifierInfo/AspectTemplates
+	//	using 10,000+, because there should never be more than that and it's less than int MaxVal
+	//	All of these should be ALL_CAPS_UNDERSCORES
+	RANDOM = 10000,
 }	
 
 public enum ModifierType

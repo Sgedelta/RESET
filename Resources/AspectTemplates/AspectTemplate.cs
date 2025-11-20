@@ -10,6 +10,7 @@ public enum Rarity
 	Legendary = 3
 }
 
+[GlobalClass]
 public partial class AspectTemplate : Resource
 {
 

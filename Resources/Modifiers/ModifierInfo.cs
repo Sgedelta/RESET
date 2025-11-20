@@ -44,10 +44,21 @@ public partial class ModifierInfo : Resource
 
     public virtual float GetStat(float level = 1)
     {
+        //choose random stat if we are doing that
+        StatType modifiedStatRandomFix = ModifiedStat;
+
+        while(modifiedStatRandomFix == StatType.RANDOM)
+        {
+            Array allStats = Enum.GetValues(typeof(StatType));
+            //-1 because currently (11/19/25) random is at the end of StatType. While loop just in case for future. this should be updated if StatType changes
+            modifiedStatRandomFix = (StatType)allStats.GetValue(modRNG.RandiRange(0, allStats.Length-1)); 
+              
+        }
+
         //get the data
-        Godot.Collections.Array<float> stats = StatValues[ModifiedStat];
+        Godot.Collections.Array<float> stats = StatValues[modifiedStatRandomFix];
         //calculate random things, we can throw them in when we return
-        float randomAmount = StatValues[ModifiedStat][11] * RandomizationStrength;
+        float randomAmount = StatValues[modifiedStatRandomFix][11] * RandomizationStrength;
         float randomMult = 1; //if we aren't doing stuff with random, this won't change
         if(AllowRandomization)
         {
@@ -113,27 +124,55 @@ public partial class ModifierInfo : Resource
             statVal *= Mathf.Pow(levelMult, level);
         }
 
+        statVal = statVal * randomMult;
+
+        //make sure increases increase and decreases decrease with randomness incorporated
+        if(ModifierType == ModifierType.Multiply )
+        {
+            if(IncreaseOrDecrease == 1)
+            {
+                statVal = Mathf.Max(1, statVal);
+            }
+            else if (IncreaseOrDecrease == -1)
+            {
+                statVal = Mathf.Clamp(statVal, 0, 1);
+            }
+
+        } 
+        //shouldn't have to fix the additive/set because it has the right sign inherently and randomMult is always positive
+
 
         //return the stat (times the random we calculated up top)
         if (SnapToInt)
         {
-            return (int)(statVal * randomMult);
+            //rounding away from 0 is typically what we want for int snaps
+            //  important so things like ChainTargets won't ever be 0
+            if(statVal > 0)
+            {
+                return Mathf.Ceil(statVal);
+            }
+            else
+            {
+                return Mathf.Floor(statVal);
+            }
+
         }
 
-        return statVal * randomMult;
+        return statVal;
     }
 
 
 
     public ModifierInfo()
     {
+        //=== INTERNAL SETUP ===
         if (modRNG == null)
         {
             modRNG = new RandomNumberGenerator();
         }
 
-
-        if(StatValues != null)
+        //=== STATIC SETUP ===
+        if (StatValues != null)
         {
             //no other setup needed, StatValues has been read and initialized. It does not change during the game
             return;
