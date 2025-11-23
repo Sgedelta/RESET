@@ -1,27 +1,91 @@
-[gd_resource type="Resource" load_steps=8 format=3 uid="uid://bce7t2qj88ub5"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=10 format=3 uid="uid://bce7t2qj88ub5"]
 
 [ext_resource type="Texture2D" uid="uid://cqblj2ye7kto" path="res://Resources/AspectTemplates/TemplateIcons/reactor meltdown.png" id="1_ncf5j"]
+[ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_ge1wq"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_d83o6"]
 
-[sub_resource type="Resource" id="Resource_vkfmh"]
-metadata/__load_path__ = "res://Resources/Modifiers/Accuracy/SPA_A_MAX.tres"
-
-[sub_resource type="Resource" id="Resource_ge1wq"]
-metadata/__load_path__ = "res://Resources/Modifiers/Range/RNG_A++.tres"
-
 [sub_resource type="Resource" id="Resource_8eu0s"]
-metadata/__load_path__ = "res://Resources/Modifiers/Splash/SLC_A+++.tres"
+script = ExtResource("2_ge1wq")
+ModifiedStat = 5
+ModifierType = 2
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 0.0
+AllowRandomization = false
+RandomizationStrength = 1.0
+UseExactValue = true
+ExactValue = 180.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
 
 [sub_resource type="Resource" id="Resource_ncf5j"]
-metadata/__load_path__ = "res://Resources/Modifiers/Splash/SLR_A++.tres"
+script = ExtResource("2_ge1wq")
+ModifiedStat = 1010
+ModifierType = 1
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 3.5
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
 
 [sub_resource type="Resource" id="Resource_8qrhj"]
-metadata/__load_path__ = "res://Resources/Modifiers/Homing/HMS_A+.tres"
+script = ExtResource("2_ge1wq")
+ModifiedStat = 1000
+ModifierType = 1
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 3.5
+AllowRandomization = true
+RandomizationStrength = 0.8
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_elclx"]
+script = ExtResource("2_ge1wq")
+ModifiedStat = 1001
+ModifierType = 1
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 3.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_bfw4r"]
+script = ExtResource("2_ge1wq")
+ModifiedStat = 1003
+ModifierType = 1
+SnapToInt = true
+IncreaseOrDecrease = 1
+RelativeChange = 4.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_cxmny"]
+script = ExtResource("2_ge1wq")
+ModifiedStat = 1002
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 1.5
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
 
 [resource]
 script = ExtResource("4_d83o6")
 _id = "ReactorMeltdown"
 DisplayName = "Reactor Meltdown"
 AspectSprite = ExtResource("1_ncf5j")
-Modifiers = Array[Resource]([SubResource("Resource_vkfmh"), SubResource("Resource_ge1wq"), SubResource("Resource_8eu0s"), SubResource("Resource_ncf5j"), SubResource("Resource_8qrhj")])
+Modifiers = Array[Resource]([SubResource("Resource_8eu0s"), SubResource("Resource_ncf5j"), SubResource("Resource_8qrhj"), SubResource("Resource_elclx"), SubResource("Resource_bfw4r"), SubResource("Resource_cxmny")])
 Rarity = 3

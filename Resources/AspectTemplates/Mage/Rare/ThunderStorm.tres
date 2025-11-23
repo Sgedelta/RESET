@@ -1,17 +1,65 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://bn4i6ll7heiqu"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=8 format=3 uid="uid://bn4i6ll7heiqu"]
 
-[ext_resource type="Resource" uid="uid://c5yfl7d1llaq7" path="res://Resources/Modifiers/Accuracy/SPA_A+.tres" id="1_j1rob"]
 [ext_resource type="Texture2D" uid="uid://cwt33i03ncc66" path="res://Resources/AspectTemplates/TemplateIcons/thunder storm.png" id="1_qr7ks"]
-[ext_resource type="Resource" uid="uid://b1nkwqm4jxu8a" path="res://Resources/Modifiers/Chain/CHD_A+.tres" id="2_ycggl"]
-[ext_resource type="Resource" uid="uid://bdv54wwj2pk2h" path="res://Resources/Modifiers/Chain/CHT_A+.tres" id="3_qr7ks"]
+[ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_4vojk"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_rqjvm"]
-[ext_resource type="Resource" uid="uid://xw5vbu6tsim" path="res://Resources/Modifiers/Damage/DMG_A+.tres" id="5_ycggl"]
+
+[sub_resource type="Resource" id="Resource_qnvdw"]
+script = ExtResource("2_4vojk")
+ModifiedStat = 1004
+ModifierType = 0
+SnapToInt = true
+IncreaseOrDecrease = 1
+RelativeChange = 2.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_nhk4i"]
+script = ExtResource("2_4vojk")
+ModifiedStat = 1005
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 3.5
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_ycggl"]
+script = ExtResource("2_4vojk")
+ModifiedStat = 5
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 3.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_qr7ks"]
+script = ExtResource("2_4vojk")
+ModifiedStat = 1
+ModifierType = 1
+SnapToInt = false
+IncreaseOrDecrease = -1
+RelativeChange = 3.5
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
 
 [resource]
 script = ExtResource("4_rqjvm")
 _id = "ThunderStorm"
 DisplayName = "Thunder Storm"
 AspectSprite = ExtResource("1_qr7ks")
-Modifiers = Array[Resource]([ExtResource("1_j1rob"), ExtResource("2_ycggl"), ExtResource("3_qr7ks"), ExtResource("5_ycggl")])
-ProjectileType = 0
+Modifiers = Array[Resource]([SubResource("Resource_qnvdw"), SubResource("Resource_nhk4i"), SubResource("Resource_ycggl"), SubResource("Resource_qr7ks")])
 Rarity = 1

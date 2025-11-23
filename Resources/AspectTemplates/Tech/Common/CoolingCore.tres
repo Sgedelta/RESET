@@ -1,19 +1,91 @@
-[gd_resource type="Resource" load_steps=9 format=3 uid="uid://nr2pc73u0gm2"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=10 format=3 uid="uid://nr2pc73u0gm2"]
 
 [ext_resource type="Texture2D" uid="uid://d4j2waabmmj2c" path="res://Resources/AspectTemplates/TemplateIcons/cooling core.png" id="1_ac7el"]
-[ext_resource type="Resource" uid="uid://kucl2205xlxa" path="res://Resources/Modifiers/Fire Rate/FR_M+.tres" id="1_r8ik0"]
-[ext_resource type="Resource" uid="uid://s14coybcugf3" path="res://Resources/Modifiers/Range/RNG_M-.tres" id="2_2qwfl"]
+[ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_le7ny"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="3_e1umv"]
-[ext_resource type="Resource" uid="uid://j5pw3jxa0otp" path="res://Resources/Modifiers/Slow/SDL_A+.tres" id="4_bnis6"]
-[ext_resource type="Resource" uid="uid://c8op3oj2lfmos" path="res://Resources/Modifiers/Slow/SDP_A+.tres" id="5_1gjx2"]
-[ext_resource type="Resource" path="res://Resources/Modifiers/Splash/SLC_A-.tres" id="6_vnyqm"]
-[ext_resource type="Resource" uid="uid://crcoh34wie8os" path="res://Resources/Modifiers/Splash/SLR_A-.tres" id="7_1gjx2"]
+
+[sub_resource type="Resource" id="Resource_ac7el"]
+script = ExtResource("2_le7ny")
+ModifiedStat = 0
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 2.7
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_aedhm"]
+script = ExtResource("2_le7ny")
+ModifiedStat = 1008
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 1.4
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_nce4h"]
+script = ExtResource("2_le7ny")
+ModifiedStat = 1009
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 0.7
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_bnis6"]
+script = ExtResource("2_le7ny")
+ModifiedStat = 2
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = -1
+RelativeChange = 1.8
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_1gjx2"]
+script = ExtResource("2_le7ny")
+ModifiedStat = 1000
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = -1
+RelativeChange = 3.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_vnyqm"]
+script = ExtResource("2_le7ny")
+ModifiedStat = 1001
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = -1
+RelativeChange = 3.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
 
 [resource]
 script = ExtResource("3_e1umv")
 _id = "CoolingCore"
 DisplayName = "Cooling Core"
 AspectSprite = ExtResource("1_ac7el")
-Modifiers = Array[Resource]([ExtResource("1_r8ik0"), ExtResource("2_2qwfl"), ExtResource("4_bnis6"), ExtResource("5_1gjx2"), ExtResource("6_vnyqm"), ExtResource("7_1gjx2")])
-ProjectileType = 0
+Modifiers = Array[Resource]([SubResource("Resource_ac7el"), SubResource("Resource_aedhm"), SubResource("Resource_nce4h"), SubResource("Resource_bnis6"), SubResource("Resource_1gjx2"), SubResource("Resource_vnyqm")])
 Rarity = 0

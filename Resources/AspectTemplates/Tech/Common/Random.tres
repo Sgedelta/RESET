@@ -1,16 +1,52 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://baqxccb6ckhks"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=7 format=3 uid="uid://baqxccb6ckhks"]
 
 [ext_resource type="Texture2D" uid="uid://crmoq6oaum7vp" path="res://Resources/AspectTemplates/TemplateIcons/random.png" id="1_dgt6o"]
-[ext_resource type="Resource" path="res://Resources/Modifiers/Critical/CRC_A++.tres" id="2_v5647"]
+[ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_5bsap"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="3_52slx"]
-[ext_resource type="Resource" uid="uid://bns3ruojs2e8q" path="res://Resources/Modifiers/Critical/CRM_A++.tres" id="3_cdyuo"]
-[ext_resource type="Resource" uid="uid://bnjwkt4sk1p5m" path="res://Resources/Modifiers/Accuracy/SPA_A++.tres" id="4_npqq5"]
+
+[sub_resource type="Resource" id="Resource_dgt6o"]
+script = ExtResource("2_5bsap")
+ModifiedStat = 10000
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 3.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_v5647"]
+script = ExtResource("2_5bsap")
+ModifiedStat = 10000
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 1.5
+AllowRandomization = true
+RandomizationStrength = 1.5
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_cdyuo"]
+script = ExtResource("2_5bsap")
+ModifiedStat = 10000
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = -1
+RelativeChange = 1.5
+AllowRandomization = true
+RandomizationStrength = 1.5
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
 
 [resource]
 script = ExtResource("3_52slx")
 _id = "Random"
 DisplayName = "Random"
 AspectSprite = ExtResource("1_dgt6o")
-Modifiers = Array[Resource]([ExtResource("2_v5647"), ExtResource("3_cdyuo"), ExtResource("4_npqq5")])
-ProjectileType = 0
+Modifiers = Array[Resource]([SubResource("Resource_dgt6o"), SubResource("Resource_v5647"), SubResource("Resource_cdyuo")])
 Rarity = 0

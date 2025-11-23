@@ -1,17 +1,78 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://7x7yxfrr566g"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=9 format=3 uid="uid://7x7yxfrr566g"]
 
-[ext_resource type="Resource" uid="uid://v3frhwf1nhgp" path="res://Resources/Modifiers/Homing/HMS_A++.tres" id="1_7cmmt"]
 [ext_resource type="Texture2D" uid="uid://d1j8dhq566ys6" path="res://Resources/AspectTemplates/TemplateIcons/missile launcher.png" id="1_yw66n"]
-[ext_resource type="Resource" uid="uid://c5yfl7d1llaq7" path="res://Resources/Modifiers/Accuracy/SPA_A+.tres" id="3_8e8gh"]
+[ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_uprsu"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="4_5rkix"]
-[ext_resource type="Resource" uid="uid://o6ir3mhx8s78" path="res://Resources/Modifiers/Splash/SLC_A++.tres" id="4_12jkl"]
-[ext_resource type="Resource" uid="uid://d0r5ef2y2utxn" path="res://Resources/Modifiers/Splash/SLR_A++.tres" id="5_vvtvy"]
+
+[sub_resource type="Resource" id="Resource_7cmmt"]
+script = ExtResource("2_uprsu")
+ModifiedStat = 1010
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 6.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_yw66n"]
+script = ExtResource("2_uprsu")
+ModifiedStat = 5
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 3.5
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_8e8gh"]
+script = ExtResource("2_uprsu")
+ModifiedStat = 6
+ModifierType = 1
+SnapToInt = false
+IncreaseOrDecrease = -1
+RelativeChange = 5.0
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_12jkl"]
+script = ExtResource("2_uprsu")
+ModifiedStat = 1001
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 3.5
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
+
+[sub_resource type="Resource" id="Resource_vvtvy"]
+script = ExtResource("2_uprsu")
+ModifiedStat = 1000
+ModifierType = 0
+SnapToInt = false
+IncreaseOrDecrease = 1
+RelativeChange = 1.4
+AllowRandomization = true
+RandomizationStrength = 1.0
+UseExactValue = false
+ExactValue = 0.0
+metadata/_custom_type_script = "uid://b1ju3yp8d2ide"
 
 [resource]
 script = ExtResource("4_5rkix")
 _id = "MissileLauncher"
 DisplayName = "Missile Launcher"
 AspectSprite = ExtResource("1_yw66n")
-Modifiers = Array[Resource]([ExtResource("1_7cmmt"), ExtResource("3_8e8gh"), ExtResource("4_12jkl"), ExtResource("5_vvtvy")])
-ProjectileType = 0
+Modifiers = Array[Resource]([SubResource("Resource_7cmmt"), SubResource("Resource_yw66n"), SubResource("Resource_8e8gh"), SubResource("Resource_12jkl"), SubResource("Resource_vvtvy")])
 Rarity = 1
