@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 [GlobalClass]
 public partial class ModifierInfo : Resource
@@ -58,7 +59,7 @@ public partial class ModifierInfo : Resource
         //get the data
         Godot.Collections.Array<float> stats = StatValues[modifiedStatRandomFix];
         //calculate random things, we can throw them in when we return
-        float randomAmount = StatValues[modifiedStatRandomFix][11] * RandomizationStrength;
+        float randomAmount = StatValues[modifiedStatRandomFix][13] * RandomizationStrength;
         float randomMult = 1; //if we aren't doing stuff with random, this won't change
         if(AllowRandomization)
         {
@@ -79,6 +80,7 @@ public partial class ModifierInfo : Resource
         float minVal = 0; //to be replaced
         float maxVal = 0; //to be replaced
         float levelMult = 1; //to be replaced, except in mult cases
+        float preChangeRelativeChange = RelativeChange;
 
         //multiply only uses min and max - does not scale with level
         //  this is because that would be an exponential increase on a multiplicitive effect on a stat that has 
@@ -90,12 +92,22 @@ public partial class ModifierInfo : Resource
             {
                 minVal = stats[7];
                 maxVal = stats[8];
+                RelativeChange = RelativeChange + stats[9] * level;
+                
             }
             else if(IncreaseOrDecrease == -1)
             {
-                minVal = stats[9];
-                maxVal = stats[10];
+                minVal = stats[10];
+                maxVal = stats[11];
+                RelativeChange = RelativeChange + stats[12] * level;
             }
+            //if the relative change was less than or equal to 9, we can clamp to 9 so we stay within bounds.
+            // if it wasn't it was likely set to a value on purpose (but not using exact value, for some reason) so we'll operate as if it's right.
+            if (preChangeRelativeChange <= 9)
+            {
+                RelativeChange = Mathf.Clamp(RelativeChange, 0, 9);
+            }
+
         }
         else //setting or additive but commonly setting uses exactValue
         {
@@ -269,10 +281,10 @@ public partial class ModifierInfo : Resource
                 data[1].ToFloat(), data[2].ToFloat(), data[3].ToFloat(), //positives
                 data[4].ToFloat(), data[5].ToFloat(), data[6].ToFloat(), //negatives
                 //multiplicative
-                data[7].ToFloat(), data[8].ToFloat(), //positives 
-                data[9].ToFloat(), data[10].ToFloat(),//negatives
+                data[7].ToFloat(), data[8].ToFloat(), data[9].ToFloat(),//positives 
+                data[10].ToFloat(), data[11].ToFloat(), data[12].ToFloat(),//negatives
                 //random
-                data[11].ToFloat()
+                data[13].ToFloat()
             });
         }
 
