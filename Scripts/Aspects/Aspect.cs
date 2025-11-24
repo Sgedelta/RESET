@@ -276,7 +276,7 @@ public class Aspect
 		{
 			ModifierType.Add => current + modVal,
 			ModifierType.Multiply => current * modVal,
-			ModifierType.Set => modVal,
+			ModifierType.Set =>  modVal,
 			_ => current
 		};
 	}

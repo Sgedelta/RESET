@@ -59,7 +59,7 @@ public partial class ModifierInfo : Resource
         //get the data
         Godot.Collections.Array<float> stats = StatValues[modifiedStatRandomFix];
         //calculate random things, we can throw them in when we return
-        float randomAmount = StatValues[modifiedStatRandomFix][13] * RandomizationStrength;
+        float randomAmount = stats[12] * RandomizationStrength;
         float randomMult = 1; //if we aren't doing stuff with random, this won't change
         if(AllowRandomization)
         {
@@ -90,16 +90,16 @@ public partial class ModifierInfo : Resource
         {
             if (IncreaseOrDecrease == 1)
             {
-                minVal = stats[7];
-                maxVal = stats[8];
-                RelativeChange = RelativeChange + stats[9] * level;
+                minVal = stats[6];
+                maxVal = stats[7];
+                RelativeChange = RelativeChange + stats[8] * level;
                 
             }
             else if(IncreaseOrDecrease == -1)
             {
-                minVal = stats[10];
-                maxVal = stats[11];
-                RelativeChange = RelativeChange + stats[12] * level;
+                minVal = stats[9];
+                maxVal = stats[10];
+                RelativeChange = RelativeChange + stats[11] * level;
             }
             //if the relative change was less than or equal to 9, we can clamp to 9 so we stay within bounds.
             // if it wasn't it was likely set to a value on purpose (but not using exact value, for some reason) so we'll operate as if it's right.
@@ -113,15 +113,15 @@ public partial class ModifierInfo : Resource
         {
             if (IncreaseOrDecrease == 1)
             {
-                minVal = stats[1];
-                maxVal = stats[2];
-                levelMult = stats[3];
+                minVal = stats[0];
+                maxVal = stats[1];
+                levelMult = stats[2];
             }
             else if (IncreaseOrDecrease == -1)
             {
-                minVal = -stats[4]; //these need to be told to be negative
-                maxVal = -stats[5]; //above
-                levelMult = stats[6];
+                minVal = -stats[3]; //these need to be told to be negative
+                maxVal = -stats[4]; //above
+                levelMult = stats[5];
             }
         }
 
@@ -187,6 +187,7 @@ public partial class ModifierInfo : Resource
         if (StatValues != null)
         {
             //no other setup needed, StatValues has been read and initialized. It does not change during the game
+            GD.Print("Stat Values exists already!");
             return;
         }
 
