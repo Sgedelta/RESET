@@ -260,7 +260,12 @@ public class Aspect
 				}
 				current = current * modVal;
 				break;
-			
+
+			case ModifierType.Set:
+				//just set to the value, ignoring the old value.
+				current = modVal;
+				break;
+
 		};
 		return current;
 	}
@@ -271,6 +276,7 @@ public class Aspect
 		{
 			ModifierType.Add => current + modVal,
 			ModifierType.Multiply => current * modVal,
+			ModifierType.Set => modVal,
 			_ => current
 		};
 	}
