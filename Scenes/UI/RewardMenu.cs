@@ -127,10 +127,10 @@ public partial class RewardMenu : Control
 		return list.Count > 0 ? list[0] as AspectHoverMenu : null;
 	}
 
-private Aspect BuildTempAspect(AspectTemplate t)
-{
-
-	return new Aspect(t);
-}
+	private Aspect BuildTempAspect(AspectTemplate t)
+	{
+		//TODO: Replace these with the real one to send so stats are accurate
+		return new Aspect(t, 1);
+	}
 
 }

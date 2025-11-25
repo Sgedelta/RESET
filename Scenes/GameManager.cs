@@ -172,9 +172,9 @@ public partial class GameManager : Node
 		//TODO for Build, put in wave count fallback as well, just so we don't keep getting easy waves
 		//if (_waveLibrary.Count == 0 || _currentWave > 3)
 		//return WaveGenerator.GenerateWave(_currentWave * _currentWave);
-		if (_waveLibrary.Count == 0 || _currentWave > _waveLibrary.Count)
+		if (_waveLibrary.Count == 0 || _currentWave > _waveLibrary.Count*2)
 		{
-			return WaveGenerator.GenerateWave(_currentWave * _currentWave);
+			return WaveGenerator.GenerateWave(_currentWave * _currentWave * .5f);
 		}
 		//TODO, switch to Godot's RandomNumberGenerator randWeighted
 
@@ -207,11 +207,13 @@ public partial class GameManager : Node
 
 	public void OnEnemyDied(Enemy enemy)
 	{
-		 Mana += 10;
+		Mana += 10;
 		ManaLabel.Text = $"Mana: {Mana}";
 
 
 		_enemiesRemaining--;
+
+		GD.Print($"[GM] Enemy Died. {_enemiesRemaining} enemies are left in this wave.");
 
 		if (_enemiesRemaining <= 0)
 		{
@@ -304,7 +306,7 @@ public partial class GameManager : Node
 	{
 		GD.Print($"[GM] Picked {pickedTemplate?._id}");
 
-		var instance = Inventory.AcquireFromTemplate(pickedTemplate);
+		var instance = Inventory.AcquireFromTemplate(pickedTemplate, 1 + _currentWave/5f); 
 		GD.Print($"[GM] Inventory now has {Inventory.BagAspects().Count()} aspects total");
 
 		_aspectBar?.Refresh(); 

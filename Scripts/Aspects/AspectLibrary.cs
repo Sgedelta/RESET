@@ -125,7 +125,7 @@ public partial class AspectLibrary : Node
 		string.IsNullOrEmpty(id) ? null :
 		(TemplatesById.TryGetValue(id, out var t) ? t : null);
 		
-			private static Rarity RollRarity()
+	private static Rarity RollRarity()
 	{
 		int total = 0;
 		foreach (var kv in RarityWeights) total += kv.Value;

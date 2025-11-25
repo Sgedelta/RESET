@@ -34,6 +34,7 @@ public partial class WaveDirector : Node2D
 		_activeEnemies.Remove(enemy);
 	}
 
+	private int TEMP_waves_started = 0;
 	public async void StartWave(Wave wave)
 	{
 		if (wave == null || _isSpawning)
@@ -41,6 +42,8 @@ public partial class WaveDirector : Node2D
 
 		CurrentWave = wave;
 		_isSpawning = true;
+
+		TEMP_waves_started++; //TEMP!!! For playtest scaling...
 
 		foreach (var info in wave.WaveInfo)
 		{
@@ -60,6 +63,12 @@ public partial class WaveDirector : Node2D
 			//put it into the tree
 			GameManager.Instance.EnemiesRoot.AddChild(enemy);
 			enemy.SetPathAndCurve(_path2D);
+
+			//TODO: REMOVE AND REPLACE WITH BETTER SCALING!!!
+			enemy.MaxHp *= TEMP_waves_started * TEMP_waves_started / 10f;
+			enemy.HP *= TEMP_waves_started * TEMP_waves_started / 10f;
+			//TEMPORARY!! TEMPORARY!!! ABOVE IS TEMP!!!!
+
 
 			//enemy.ModifyStats(info.HealthMultiplier, info.SpeedMultiplier);
 

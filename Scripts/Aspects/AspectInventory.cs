@@ -20,10 +20,10 @@ public class AspectInventory
 		return true;
 	}
 
-	public Aspect AcquireFromTemplate(AspectTemplate t)
+	public Aspect AcquireFromTemplate(AspectTemplate t, float level)
 	{
 		if (t == null) return null;
-		var instance = new Aspect(t);
+		var instance = new Aspect(t, level);
 		_bag.Add(instance);
 		GD.Print($"[Inventory] +1 {t._id} (total now {_bag.Count})");
 		return instance;

@@ -94,8 +94,6 @@ public partial class WaveGenerator : Node
 
 		int index = (int)_rng.RandWeighted(_weights.ToArray());
 
-		GD.Print("Enemy Selected for Wave is: " + index);
-
 		return _enemies[index];
 
 

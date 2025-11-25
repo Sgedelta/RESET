@@ -22,6 +22,7 @@ public partial class Enemy : PathFollow2D
 
 	public float HP;
 	private Timer attackTimer;
+	private bool died = false; //used to make sure we don't call EnemyDied twice if it takes damage twice in the same frame
 
 	[Export] private AnimatedSprite2D _sprite;
 
@@ -40,6 +41,8 @@ public partial class Enemy : PathFollow2D
 	private const float KNOCKBACK_SCALE = 100; //number in pixels/sec that 1 unit of knockback applies to a enemy of mass 1
 	[Export] private float _mass = 1; //serves as a divisor for knockback calculations
 	[Export] private float _kbScalar = 1; //serves as a float % of knockback resistance for this enemy - lower means more resistant, higher means more vulnerable
+
+	[Export] private float _poisonDamageInterval = .66f;
 
 
 	public override void _Ready()
@@ -93,10 +96,11 @@ public partial class Enemy : PathFollow2D
 	{
 		HP -= dmg;
 		ShowDamageIndicator(dmg, type);
-		if (HP <= 0f) 
+		if (HP <= 0f && !died) 
 		{
 			EmitSignal(SignalName.EnemyDied, this);
 			QueueFree();
+			died = true;
 		}
 
 	}
@@ -134,7 +138,7 @@ public partial class Enemy : PathFollow2D
 	private void OnAttackTimeout()
 	{
 		EmitSignal(SignalName.EnemyAttacked, this, AttackDamage);
-		GD.Print("Attack Timeout!");
+		//GD.Print("Attack Timeout!");
 	}
 
 	public void ApplyDamageOverTime(float damagePerTick, float duration, float tickInterval)
@@ -174,7 +178,7 @@ public partial class Enemy : PathFollow2D
 		}
 
 
-		GD.Print($"[Enemy] Slowed by {percent * 100}% for {duration}s");
+		//GD.Print($"[Enemy] Slowed by {percent * 100}% for {duration}s");
 	}
 
 	private void ResetSlow()
@@ -193,18 +197,18 @@ public partial class Enemy : PathFollow2D
 	public void ApplyKnockback(Vector2 direction, float force)
 	{
 		_knockbackVelocity = -(force * KNOCKBACK_SCALE) * _kbScalar / _mass;
-		GD.Print($"[Enemy] Knocked back by {force}px");
+		//GD.Print($"[Enemy] Knocked back by {force}px");
 	}
 
 	public void ApplyPoison(float damagePerTick, int ticks)
 	{
 		if (damagePerTick <= 0f || ticks <= 0) return;
 
-		float tickInterval = 1f; // 1 second per tick we can adjust this later 
-		float duration = tickInterval * ticks;
 
-		GD.Print($"[Enemy] Poison applied for {ticks} ticks at {damagePerTick} dmg/tick");
-		AddChild(new PoisonEffect(this, damagePerTick, duration, tickInterval));
+		float duration = _poisonDamageInterval * ticks;
+
+		//GD.Print($"[Enemy] Poison applied for {ticks} ticks at {damagePerTick} dmg/tick");
+		AddChild(new PoisonEffect(this, damagePerTick, duration, _poisonDamageInterval));
 	}
 
 	/// <summary>

@@ -43,8 +43,8 @@ public partial class Projectile : Area2D
 
 	//Internal stats 
 	private HashSet<Enemy> _hitEnemies = new(); //For chain projectiles and exploding 
-	private bool _hasExploded = false;
-	private float _homingTurnSpeed; 
+	private float _homingTurnSpeed;
+	private bool _allowFurtherHits = true;
 
 	/// <summary>
 	/// Initializes a Projectile so that it fires correctly
@@ -124,17 +124,31 @@ public partial class Projectile : Area2D
 		{
 			return;
 		}
+
+		if(!_allowFurtherHits)
+		{
+			return;
+		}
 			
 
 		_hitEnemies.Add(enemy);
 
 		//check crit
 		float hitDamage = _damage;
-		bool wasCrit = GD.Randf() <= _critChance;
+		bool wasCrit = false;
+		int critTriggers = 0;
+		float multiCritChance = _critChance;
 
-		if (wasCrit)
+		while(multiCritChance > 0)
 		{
-			hitDamage *= _critMult;
+			critTriggers += GD.Randf() <= multiCritChance ? 1 : 0;
+			multiCritChance -= 1;
+		}
+
+		if (critTriggers != 0)
+		{
+			hitDamage *= _critMult * critTriggers;
+			wasCrit = true;
 		}
 
 		enemy.TakeDamage(hitDamage, wasCrit);
@@ -143,10 +157,9 @@ public partial class Projectile : Area2D
 		ApplySlow(enemy);
 		ApplyPoison(enemy);
 
-		if(doSplash && _splashRadius > 0 && !_hasExploded)
+		if(doSplash && _splashRadius > 0)
 		{
 			ExplodeSplash(hitDamage);
-			//_hasExploded = true;
 		}
 
 		if(doChain && _chainTargets > 0)
@@ -161,6 +174,7 @@ public partial class Projectile : Area2D
 		if (allowDestroy && _piercingAmount <= 0)
 		{
 			QueueFree();
+			_allowFurtherHits = false;
 		}
 
 	}
@@ -205,16 +219,12 @@ public partial class Projectile : Area2D
 			float dist = GlobalPosition.DistanceTo(e.GlobalPosition);
 			if (dist <= _splashRadius)
 			{
-				float coef = 1f;
-				//linear falloff
-				if (_splashCoef > 0)
-					coef = Mathf.Clamp((1f - (dist / _splashRadius)) * _splashCoef, 0.01f, 1f);
 
-				e.TakeDamage(incomingDmg * coef); //use incoming damage so we can splash crits properly
+				e.TakeDamage(incomingDmg * _splashCoef); //use incoming damage so we can splash crits properly
 
-				ApplyPoison(e, coef);
-				ApplySlow(e, coef);
-				ApplyKnockback(e, coef);
+				ApplyPoison(e, _splashCoef);
+				ApplySlow(e, _splashCoef);
+				ApplyKnockback(e, _splashCoef);
 
 			}
 		}

@@ -72,12 +72,16 @@ public class Aspect
 
 	private RandomNumberGenerator rng;
 
+	private float level; //level is a float because... why not? like we can just round down to display, it's all lerping stuff anyway.
+	public float Level { get { return level; } }
+
 	//TODO: redefine to be able to effect multiple stats
 	//       and take an AspectTemplate and create self based on data within?
 	//       can likely use ModifierInfo class (or slightly modified version
-	public Aspect( AspectTemplate template)
+	public Aspect(AspectTemplate template, float aspectLevel)
 	{
 		Template = template ?? throw new ArgumentNullException(nameof(template));
+		level = aspectLevel;	
         rng = new RandomNumberGenerator();
         BuildFromTemplate();
 	}
@@ -109,7 +113,7 @@ public class Aspect
 						Stat = modifiedStatRandomFix,
 						Type = modInfo.ModifierType,
 						//TODO: Fix the level part of this!
-						Value = modInfo.GetStat(1, modifiedStatRandomFix)
+						Value = modInfo.GetStat(level, modifiedStatRandomFix)
 					};
 					Modifiers.Add(mUnit);
 				break;
