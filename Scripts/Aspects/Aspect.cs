@@ -35,6 +35,7 @@ public enum StatType
 	//	using 10,000+, because there should never be more than that and it's less than int MaxVal
 	//	All of these should be ALL_CAPS_UNDERSCORES
 	RANDOM = 10000,
+	NONE
 }	
 
 public enum ModifierType
@@ -69,13 +70,16 @@ public class Aspect
 	// prevent build from happening twice
 	private bool _initializedFromTemplate = false;
 
+	private RandomNumberGenerator rng;
+
 	//TODO: redefine to be able to effect multiple stats
 	//       and take an AspectTemplate and create self based on data within?
 	//       can likely use ModifierInfo class (or slightly modified version
 	public Aspect( AspectTemplate template)
 	{
-		 Template = template ?? throw new ArgumentNullException(nameof(template));
-		BuildFromTemplate();
+		Template = template ?? throw new ArgumentNullException(nameof(template));
+        rng = new RandomNumberGenerator();
+        BuildFromTemplate();
 	}
 	
 	private void BuildFromTemplate()
@@ -87,11 +91,25 @@ public class Aspect
 			switch (info)
 			{
 				case ModifierInfo modInfo:
-					ModifierUnit mUnit = new ModifierUnit
+
+                    //choose random stat if we are doing that
+                    StatType modifiedStatRandomFix = modInfo.ModifiedStat;
+
+                    while (modifiedStatRandomFix >= StatType.RANDOM)
+                    {
+                        Array allStats = Enum.GetValues(typeof(StatType));
+                        //-2 because currently (11/19/25) is 2nd to the end of StatType. While loop just in case for future. this should be updated if StatType changes
+                        modifiedStatRandomFix = (StatType)allStats.GetValue(rng.RandiRange(0, allStats.Length - 2));
+
+                    }
+
+
+                    ModifierUnit mUnit = new ModifierUnit
 					{
-						Stat = modInfo.ModifiedStat,
+						Stat = modifiedStatRandomFix,
 						Type = modInfo.ModifierType,
-						Value = modInfo.GetStat()
+						//TODO: Fix the level part of this!
+						Value = modInfo.GetStat(1, modifiedStatRandomFix)
 					};
 					Modifiers.Add(mUnit);
 				break;

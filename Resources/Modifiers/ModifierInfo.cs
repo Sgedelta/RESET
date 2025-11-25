@@ -43,21 +43,18 @@ public partial class ModifierInfo : Resource
     [Export] public bool UseExactValue = false;
     [Export] public float ExactValue = 0;
 
-    public virtual float GetStat(float level = 1)
+    public virtual float GetStat(float level = 1, StatType overwriteStat = StatType.NONE)
     {
-        //choose random stat if we are doing that
-        StatType modifiedStatRandomFix = ModifiedStat;
+        
+        StatType statToUse = ModifiedStat;
 
-        while(modifiedStatRandomFix == StatType.RANDOM)
+        if(overwriteStat < StatType.RANDOM)
         {
-            Array allStats = Enum.GetValues(typeof(StatType));
-            //-1 because currently (11/19/25) random is at the end of StatType. While loop just in case for future. this should be updated if StatType changes
-            modifiedStatRandomFix = (StatType)allStats.GetValue(modRNG.RandiRange(0, allStats.Length-1)); 
-              
+            statToUse = overwriteStat;
         }
 
         //get the data
-        Godot.Collections.Array<float> stats = StatValues[modifiedStatRandomFix];
+        Godot.Collections.Array<float> stats = StatValues[statToUse];
         //calculate random things, we can throw them in when we return
         float randomAmount = stats[12] * RandomizationStrength;
         float randomMult = 1; //if we aren't doing stuff with random, this won't change
@@ -81,6 +78,7 @@ public partial class ModifierInfo : Resource
         float maxVal = 0; //to be replaced
         float levelMult = 1; //to be replaced, except in mult cases
         float preChangeRelativeChange = RelativeChange;
+        float changedRelativeChange = RelativeChange;
 
         //multiply only uses min and max - does not scale with level
         //  this is because that would be an exponential increase on a multiplicitive effect on a stat that has 
@@ -92,20 +90,20 @@ public partial class ModifierInfo : Resource
             {
                 minVal = stats[6];
                 maxVal = stats[7];
-                RelativeChange = RelativeChange + stats[8] * level;
+                changedRelativeChange = RelativeChange + stats[8] * level;
                 
             }
             else if(IncreaseOrDecrease == -1)
             {
                 minVal = stats[9];
                 maxVal = stats[10];
-                RelativeChange = RelativeChange + stats[11] * level;
+                changedRelativeChange = RelativeChange + stats[11] * level;
             }
             //if the relative change was less than or equal to 9, we can clamp to 9 so we stay within bounds.
             // if it wasn't it was likely set to a value on purpose (but not using exact value, for some reason) so we'll operate as if it's right.
             if (preChangeRelativeChange <= 9)
             {
-                RelativeChange = Mathf.Clamp(RelativeChange, 0, 9);
+                changedRelativeChange = Mathf.Clamp(changedRelativeChange, 0, 9);
             }
 
         }
@@ -128,7 +126,7 @@ public partial class ModifierInfo : Resource
 
         //actually calculate!
             //get base value by lerping between
-        float statVal = Mathf.Lerp(minVal, maxVal, RelativeChange/9);
+        float statVal = Mathf.Lerp(minVal, maxVal, changedRelativeChange/9);
 
             //scale with level, if we do that.
         if(levelMult != 1)

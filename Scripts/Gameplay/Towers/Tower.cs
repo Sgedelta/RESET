@@ -196,6 +196,8 @@ public partial class Tower : Node2D
 		result.ShotSpreadFalloff	= Mathf.Max(0.1f, result.ShotSpreadFalloff);
 		result.Range				= Mathf.Max(0, result.Range);
 		result.Damage				= Mathf.Max(0f, result.Damage);
+		result.CritChance			= Mathf.Max(0f, result.CritChance);
+		result.CritMult				= Mathf.Max(0f, result.CritMult);
 		return result;
 	}
 	

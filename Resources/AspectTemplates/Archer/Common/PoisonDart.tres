@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://cd3hvo4bsqtmm"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=7 format=3 uid="uid://cd3hvo4bsqtmm"]
 
 [ext_resource type="Texture2D" uid="uid://beko0p27ocrxm" path="res://Resources/AspectTemplates/TemplateIcons/poison dart.png" id="1_nh3du"]
 [ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_v2jds"]

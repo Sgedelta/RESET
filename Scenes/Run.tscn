@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=37 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
@@ -33,6 +33,7 @@
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="24_twhnw"]
 [ext_resource type="AudioStream" uid="uid://bk1uwoflu8jtt" path="res://Resources/Audio/mainthemetake1.mp3" id="28_twhnw"]
 [ext_resource type="Script" uid="uid://c3ic0mixxtbrd" path="res://Scenes/Abilities/AbilityHover.cs" id="32_vlm8s"]
+[ext_resource type="Resource" uid="uid://baqxccb6ckhks" path="res://Resources/AspectTemplates/Tech/Common/Random.tres" id="33_co2n6"]
 [ext_resource type="PackedScene" uid="uid://fxiie8iedav8" path="res://Scenes/UI/RewardMenu.tscn" id="37_r63x1"]
 [ext_resource type="PackedScene" uid="uid://duca7uphmawjk" path="res://Scenes/UI/AspectHoverMenu.tscn" id="37_utqwv"]
 
@@ -145,6 +146,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1139.0
+offset_top = -319.0
+offset_right = 1139.0
+offset_bottom = -319.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("32_vlm8s")
@@ -207,7 +212,7 @@ enemyWeights = Array[Array]([[1.0, ExtResource("10_asn5m")], [0.3, ExtResource("
 
 [node name="AspectLib" type="Node" parent="."]
 script = ExtResource("10_j6cy0")
-AspectTemplates = Array[Resource]([ExtResource("22_6kpg7"), ExtResource("23_rb5a6"), ExtResource("24_twhnw")])
+AspectTemplates = Array[Resource]([ExtResource("22_6kpg7"), ExtResource("23_rb5a6"), ExtResource("24_twhnw"), ExtResource("33_co2n6")])
 TemplatesFilePathsFromRes = Array[String](["Archer", "Mage", "Tech"])
 
 [node name="PlayerManager" type="Node" parent="."]

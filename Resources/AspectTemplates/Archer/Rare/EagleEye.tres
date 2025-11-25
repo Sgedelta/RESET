@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=3 uid="uid://drc6c8hgqqt2"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=8 format=3 uid="uid://drc6c8hgqqt2"]
 
 [ext_resource type="Texture2D" uid="uid://brpt0w5064ix2" path="res://Resources/AspectTemplates/TemplateIcons/eagle eye.png" id="1_8gvwe"]
 [ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_tnw7s"]
