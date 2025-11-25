@@ -306,7 +306,7 @@ public partial class GameManager : Node
 	{
 		GD.Print($"[GM] Picked {pickedTemplate?._id}");
 
-		var instance = Inventory.AcquireFromTemplate(pickedTemplate, 1 + _currentWave/5f); 
+		var instance = Inventory.AcquireFromTemplate(pickedTemplate, 1 + _currentWave/3f); 
 		GD.Print($"[GM] Inventory now has {Inventory.BagAspects().Count()} aspects total");
 
 		_aspectBar?.Refresh(); 

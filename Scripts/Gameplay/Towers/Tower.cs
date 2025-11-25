@@ -192,8 +192,8 @@ public partial class Tower : Node2D
 
 		result.FireRate				= Mathf.Max(0.05f, result.FireRate);
 		result.ProjectileSpeed		= Mathf.Max(0f, result.ProjectileSpeed);
-		result.ShotSpread			= Mathf.Max(0.5f, result.ShotSpread);
-		result.ShotSpreadFalloff	= Mathf.Max(0.1f, result.ShotSpreadFalloff);
+		result.ShotSpread			= Mathf.Max(0.1f, result.ShotSpread);
+		result.ShotSpreadFalloff	= Mathf.Max(0.01f, result.ShotSpreadFalloff);
 		result.Range				= Mathf.Max(0, result.Range);
 		result.Damage				= Mathf.Max(0f, result.Damage);
 		result.CritChance			= Mathf.Max(0f, result.CritChance);
@@ -309,7 +309,7 @@ public void OnTowerClicked(Node view, InputEvent input, int shapeIndex)
 		AppendIfDiff(sb, "Chain Targets",            baseStats.ChainTargets,    modifiedStats.ChainTargets,    0, showRealValue:false);
 		AppendIfDiff(sb, "Chain Distance",           baseStats.ChainDistance,   modifiedStats.ChainDistance,   0, showRealValue:false);
 		AppendIfDiff(sb, "Splash Radius",     baseStats.SplashRadius,    modifiedStats.SplashRadius,    0, showRealValue:false);
-		AppendIfDiff(sb, "Splash Damage", baseStats.SplashCoef,   modifiedStats.SplashCoef,      2, showRealValue:true,  asPercent:true);
+		AppendIfDiff(sb, "Splash Effectiveness ", baseStats.SplashCoef,   modifiedStats.SplashCoef,      2, showRealValue:true,  asPercent:true);
 		AppendIfDiff(sb, "Poison Damage",            baseStats.PoisonDamage,    modifiedStats.PoisonDamage,    1, showRealValue:false);
 		AppendIfDiff(sb, "Poison Ticks",             baseStats.PoisonTicks,     modifiedStats.PoisonTicks,     0, showRealValue:false);
 		AppendIfDiff(sb, "Piercing Amount",          baseStats.PiercingAmount,  modifiedStats.PiercingAmount,  0, showRealValue:false);

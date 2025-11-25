@@ -11,6 +11,8 @@ size = Vector2(1024, 1024)
 
 [node name="Tower" type="Node2D"]
 script = ExtResource("1_8ivuq")
+BaseShotSpread = 0.1
+BaseShotSpreadFalloff = 0.01
 
 [node name="TargetingComponent" type="Node2D" parent="."]
 script = ExtResource("2_g00a7")

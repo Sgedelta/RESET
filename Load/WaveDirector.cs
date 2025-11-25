@@ -65,8 +65,8 @@ public partial class WaveDirector : Node2D
 			enemy.SetPathAndCurve(_path2D);
 
 			//TODO: REMOVE AND REPLACE WITH BETTER SCALING!!!
-			enemy.MaxHp *= TEMP_waves_started * TEMP_waves_started / 10f;
-			enemy.HP *= TEMP_waves_started * TEMP_waves_started / 10f;
+			enemy.MaxHp *= .5f + TEMP_waves_started * TEMP_waves_started / 15f;
+			enemy.HP *= .5f + TEMP_waves_started * TEMP_waves_started / 15f;
 			//TEMPORARY!! TEMPORARY!!! ABOVE IS TEMP!!!!
 
 
