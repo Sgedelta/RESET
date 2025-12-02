@@ -131,23 +131,50 @@ public partial class GameManager : Node
 		if (_waveLibrary.Count == 0)
 			return null;
 
-		// compute total weight
-		float totalWeight = 0;
-		foreach (var wave in _waveLibrary.Values)
-			totalWeight += Mathf.Max(wave.SelectionWeight, 0.0f);
+		var targetDifficulty = GetTargetDifficulty();
+
+		// filter library to difficulty
+		var candidates = _waveLibrary.Values
+			.Where(w => w.WaveDifficulty == targetDifficulty)
+			.ToList();
+
+		// no matches, fall back to anything
+		if (candidates.Count == 0)
+		{
+			GD.PrintErr($"[GM] No waves with difficulty {targetDifficulty}");
+			candidates = _waveLibrary.Values.ToList();
+		}
+
+		float totalWeight = 0f;
+		foreach (var wave in candidates)
+			totalWeight += Mathf.Max(wave.SelectionWeight, 0f);
+
+		if (totalWeight <= 0f)
+			return candidates.Last(); // fallback
 
 		var rng = new Random();
 		float choice = (float)(rng.NextDouble() * totalWeight);
 
-		foreach (var wave in _waveLibrary.Values)
+		foreach (var wave in candidates)
 		{
-			choice -= Mathf.Max(wave.SelectionWeight, 0.0f);
+			choice -= Mathf.Max(wave.SelectionWeight, 0f);
 			if (choice <= 0)
 				return wave;
 		}
 
-		// fallback
-		return _waveLibrary.Values.Last();
+		return candidates.Last();
+	}
+
+
+	// helper function -- placeholder, will later be based on map graph
+	private Wave.Difficulty GetTargetDifficulty()
+	{
+		if (_currentWave < 3)
+			return Wave.Difficulty.Easy;
+		else if (_currentWave < 6)
+			return Wave.Difficulty.Medium;
+		else
+			return Wave.Difficulty.Hard;
 	}
 
 
