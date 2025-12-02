@@ -89,5 +89,3 @@ DisplayName = "Reactor Meltdown"
 AspectSprite = ExtResource("1_ncf5j")
 Modifiers = Array[Resource]([SubResource("Resource_8eu0s"), SubResource("Resource_ncf5j"), SubResource("Resource_8qrhj"), SubResource("Resource_elclx"), SubResource("Resource_bfw4r"), SubResource("Resource_cxmny")])
 Rarity = 3
-ScrapAmount = 6000
-ManaAmount = 0

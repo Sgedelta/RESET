@@ -62,7 +62,6 @@ position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
 position = Vector2(-347, 207)
-BaseAspectSlots = 6
 BaseRange = 600.0
 BaseProjectileSpeed = 750.0
 
@@ -116,8 +115,21 @@ rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
 
 [node name="TowerPullout" parent="CanvasLayer" instance=ExtResource("1_hfefo")]
 
+[node name="TextureRect" parent="CanvasLayer/TowerPullout" index="0"]
+offset_right = 20.0
+
+[node name="ScrollContainer" parent="CanvasLayer/TowerPullout" index="1"]
+offset_right = 20.0
+mouse_filter = 0
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
 [node name="AspectSlot" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer" index="0"]
 custom_minimum_size = Vector2(50, 50)
+
+[node name="RichTextLabel" parent="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/MarginContainer2" index="0"]
+fit_content = true
 
 [node name="AbilityMenu" parent="CanvasLayer" instance=ExtResource("3_n7gbs")]
 
@@ -178,10 +190,10 @@ AspectBarPath = NodePath("../AspectBar")
 visible = false
 
 [node name="Pause" type="Button" parent="CanvasLayer"]
-offset_left = 650.0
-offset_top = 422.0
-offset_right = 750.0
-offset_bottom = 470.0
+offset_left = 68.0
+offset_top = 191.0
+offset_right = 168.0
+offset_bottom = 239.0
 theme_override_fonts/font = ExtResource("6_q06an")
 theme_override_font_sizes/font_size = 25
 text = "Pause"
