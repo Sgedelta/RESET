@@ -115,3 +115,5 @@ DisplayName = "Perfect Archer"
 AspectSprite = ExtResource("1_hwh7e")
 Modifiers = Array[Resource]([SubResource("Resource_gn52k"), SubResource("Resource_hwh7e"), SubResource("Resource_spml8"), SubResource("Resource_gabqs"), SubResource("Resource_i8sln"), SubResource("Resource_7x6d2"), SubResource("Resource_cfb2l"), SubResource("Resource_7jrsu")])
 Rarity = 3
+ScrapAmount = 3000
+ManaAmount = 3000

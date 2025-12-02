@@ -76,3 +76,5 @@ DisplayName = "Magic Pulse"
 AspectSprite = ExtResource("1_87vsc")
 Modifiers = Array[Resource]([SubResource("Resource_uomx4"), SubResource("Resource_f8705"), SubResource("Resource_87vsc"), SubResource("Resource_ar2dr"), SubResource("Resource_dtkkj")])
 Rarity = 0
+ScrapAmount = 0
+ManaAmount = 200

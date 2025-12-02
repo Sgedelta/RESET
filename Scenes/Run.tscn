@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=38 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://bkyenql7l4b7j" path="res://Scenes/Abilities/AbilityManager.cs" id="11_nhc54"]
 [ext_resource type="PackedScene" uid="uid://cdqc0wm6sinp2" path="res://Scenes/Enemies/FastEnemy.tscn" id="11_q06an"]
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
+[ext_resource type="PackedScene" uid="uid://dayxbdlsn0nc8" path="res://Scenes/UI/ScrapBox.tscn" id="20_mw8f7"]
 [ext_resource type="Script" uid="uid://bblmgefgwfova" path="res://Scenes/Abilities/AbilityBase.cs" id="21_b2bcw"]
 [ext_resource type="Resource" uid="uid://bo164d1kghyrm" path="res://Resources/AspectTemplates/Archer/Common/PaddedArrows.tres" id="22_6kpg7"]
 [ext_resource type="Resource" uid="uid://cwwvrn71fjwf8" path="res://Resources/Ability/LaserStrikeAbility.tres" id="22_d7a38"]
@@ -39,7 +40,7 @@
 
 [node name="Run" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot", "ManaLabel", "PauseButton", "ResumeButton", "MainMenuButton")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("EnemiesRoot", "ScrapLabel", "ManaLabel", "PauseButton", "ResumeButton", "MainMenuButton")]
 script = ExtResource("7_xu74l")
 WaveDirectorPath = NodePath("../WaveDirector")
 EnemiesRoot = NodePath("../Map/EnemyPath")
@@ -47,6 +48,7 @@ StartScreenPath = "res://Scenes/UI/StartMenu.tscn"
 AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
+ScrapLabel = NodePath("../CanvasLayer/Scrap")
 ManaLabel = NodePath("../CanvasLayer/Mana")
 PauseMenuPath = NodePath("../CanvasLayer/PauseMenu")
 PauseButton = NodePath("../CanvasLayer/Pause")
@@ -152,10 +154,8 @@ script = ExtResource("32_vlm8s")
 WaveDirectorPath = NodePath("../../WaveDirector")
 
 [node name="HealthUI" type="Label" parent="CanvasLayer"]
-offset_left = 3.0
-offset_top = 4.0
-offset_right = 103.0
-offset_bottom = 27.0
+offset_right = 211.0
+offset_bottom = 60.0
 theme_override_fonts/font = ExtResource("6_q06an")
 theme_override_font_sizes/font_size = 30
 text = "HP: 100 / 100"
@@ -178,21 +178,35 @@ AspectBarPath = NodePath("../AspectBar")
 visible = false
 
 [node name="Pause" type="Button" parent="CanvasLayer"]
-offset_left = 8.0
-offset_top = 63.0
-offset_right = 108.0
-offset_bottom = 94.0
+offset_left = 650.0
+offset_top = 422.0
+offset_right = 750.0
+offset_bottom = 470.0
 theme_override_fonts/font = ExtResource("6_q06an")
 theme_override_font_sizes/font_size = 25
 text = "Pause"
 
-[node name="Mana" type="Label" parent="CanvasLayer"]
-offset_left = 1614.0
-offset_top = 703.0
-offset_right = 1654.0
-offset_bottom = 766.0
+[node name="Scrap" type="Label" parent="CanvasLayer"]
+offset_top = 57.0
+offset_right = 290.0
+offset_bottom = 120.0
 theme_override_fonts/font = ExtResource("6_q06an")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
+text = "Scrap: 10000"
+
+[node name="Mana" type="Label" parent="CanvasLayer"]
+offset_top = 112.0
+offset_right = 228.0
+offset_bottom = 175.0
+theme_override_fonts/font = ExtResource("6_q06an")
+theme_override_font_sizes/font_size = 30
+text = "Mana:100000"
+
+[node name="ScrapBox" parent="CanvasLayer" instance=ExtResource("20_mw8f7")]
+offset_left = 1799.0
+offset_top = 633.0
+offset_right = 1899.0
+offset_bottom = 733.0
 
 [node name="AbilityManager" type="Node" parent="."]
 script = ExtResource("11_nhc54")

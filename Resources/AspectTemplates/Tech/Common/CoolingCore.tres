@@ -89,3 +89,5 @@ DisplayName = "Cooling Core"
 AspectSprite = ExtResource("1_ac7el")
 Modifiers = Array[Resource]([SubResource("Resource_ac7el"), SubResource("Resource_aedhm"), SubResource("Resource_nce4h"), SubResource("Resource_bnis6"), SubResource("Resource_1gjx2"), SubResource("Resource_vnyqm")])
 Rarity = 0
+ScrapAmount = 200
+ManaAmount = 0

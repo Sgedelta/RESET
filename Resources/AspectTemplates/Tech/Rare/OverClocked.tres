@@ -50,3 +50,5 @@ DisplayName = "Over Clocked"
 AspectSprite = ExtResource("1_g1tck")
 Modifiers = Array[Resource]([SubResource("Resource_mdhk6"), SubResource("Resource_g1tck"), SubResource("Resource_7tymd")])
 Rarity = 1
+ScrapAmount = 1000
+ManaAmount = 0

@@ -8,7 +8,7 @@ public partial class AspectSlot : PanelContainer
 	private UI_TowerPullout _pullout;
 	public UI_TowerPullout Pullout => _pullout;
 
-	public Label Label;
+	private Control _labelControl;
 	private AspectToken _token;
 
 	private const string TokenSceneFallbackPath = "res://Scenes/Towers/AspectToken.tscn";
@@ -21,8 +21,7 @@ public partial class AspectSlot : PanelContainer
 		while (n != null && n is not UI_TowerPullout) n = n.GetParent();
 		_pullout = n as UI_TowerPullout;
 
-		Label = GetNodeOrNull<Label>("RichTextLabel") ?? GetNodeOrNull<Label>("Label");
-
+		_labelControl = GetNodeOrNull<Control>("MarginContainer/RichTextLabel");
 
 		CustomMinimumSize = MinSlotSize;
 
@@ -37,20 +36,43 @@ public partial class AspectSlot : PanelContainer
 		base._Ready();
 	}
 
+	private void SetLabelVisible(bool v)
+	{
+		if (_labelControl != null)
+			_labelControl.Visible = v;
+	}
+
+	private void SetLabelText(string text)
+	{
+		if (_labelControl is Label lbl)
+			lbl.Text = text;
+		else if (_labelControl is RichTextLabel rtl)
+			rtl.Text = text;
+	}
+
 	public void SetIndex(int i)
 	{
 		Index = i;
-		// keep the minimum size when indices change
 		CustomMinimumSize = MinSlotSize;
 		RefreshVisual();
 	}
 
 	public void RefreshVisual()
 	{
+		// Determine if this is a buy slot
+		bool isBuySlot = false;
+		if (HasMeta("buy_slot"))
+		{
+			var meta = GetMeta("buy_slot");
+			if (meta.VariantType == Variant.Type.Bool)
+				isBuySlot = (bool)meta;
+		}
+
 		var aspect = _pullout?.ActiveTower?.GetAspectInSlot(Index);
 
 		if (aspect != null)
 		{
+			// Ensure token exists and is set up
 			if (_token == null)
 			{
 				if (TokenScene == null)
@@ -65,7 +87,8 @@ public partial class AspectSlot : PanelContainer
 
 				_token.AnchorLeft = 0;  _token.AnchorTop = 0;
 				_token.AnchorRight = 1; _token.AnchorBottom = 1;
-				_token.OffsetLeft = _token.OffsetTop = _token.OffsetRight = _token.OffsetBottom = 0;
+				_token.OffsetLeft = _token.OffsetTop =
+					_token.OffsetRight = _token.OffsetBottom = 0;
 
 				AddChild(_token);
 				_token.ZIndex = 100;
@@ -74,19 +97,37 @@ public partial class AspectSlot : PanelContainer
 
 			_token.Init(aspect, TokenPlace.Slot);
 
-			if (Label != null) Label.Visible = false;
+			// Hide label when an aspect is present
+			SetLabelVisible(false);
 		}
 		else
 		{
+			// No aspect in this slot
 			if (_token != null)
 			{
 				_token.QueueFree();
 				_token = null;
 			}
-			if (Label != null)
+
+			// Show appropriate label text
+			if (_labelControl != null)
 			{
-				Label.Visible = true;
-				if (string.IsNullOrEmpty(Label.Text)) Label.Text = "Empty\nSlot";
+				SetLabelVisible(true);
+
+				if (isBuySlot)
+				{
+					// Use GameManager cost if available, else hard-code 1000
+					int cost = 1000;
+					if (GameManager.Instance != null)
+						cost = GameManager.Instance.SlotScrapBaseCost;
+
+					SetLabelText($"Buy slot {cost}");
+				}
+				else
+				{
+					// Human-friendly 1-based display
+					SetLabelText($"{Index + 1}");
+				}
 			}
 		}
 	}

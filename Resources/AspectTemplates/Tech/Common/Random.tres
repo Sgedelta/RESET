@@ -50,3 +50,5 @@ DisplayName = "Random"
 AspectSprite = ExtResource("1_dgt6o")
 Modifiers = Array[Resource]([SubResource("Resource_dgt6o"), SubResource("Resource_v5647"), SubResource("Resource_cdyuo")])
 Rarity = 0
+ScrapAmount = 200
+ManaAmount = 0

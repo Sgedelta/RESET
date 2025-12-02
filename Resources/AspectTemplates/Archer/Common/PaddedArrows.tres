@@ -48,3 +48,5 @@ _id = "PaddedArrows"
 DisplayName = "Padded Arrows"
 Modifiers = Array[Resource]([SubResource("Resource_ssofk"), SubResource("Resource_ealp2"), SubResource("Resource_26cq5")])
 Rarity = 0
+ScrapAmount = 100
+ManaAmount = 100

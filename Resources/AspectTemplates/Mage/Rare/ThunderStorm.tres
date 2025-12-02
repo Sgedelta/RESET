@@ -63,3 +63,5 @@ DisplayName = "Thunder Storm"
 AspectSprite = ExtResource("1_qr7ks")
 Modifiers = Array[Resource]([SubResource("Resource_qnvdw"), SubResource("Resource_nhk4i"), SubResource("Resource_ycggl"), SubResource("Resource_qr7ks")])
 Rarity = 1
+ScrapAmount = 0
+ManaAmount = 1000

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dayxbdlsn0nc8"]
+
+[ext_resource type="Script" uid="uid://534ggpfkqrq5" path="res://Scenes/UI/ScrapBox.cs" id="1_vs8ns"]
+[ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="2_uqbap"]
+
+[node name="ScrapBox" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 100)
+script = ExtResource("1_vs8ns")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_uqbap")
+theme_override_font_sizes/font_size = 20
+text = "Scrap
+Aspect"
+horizontal_alignment = 1

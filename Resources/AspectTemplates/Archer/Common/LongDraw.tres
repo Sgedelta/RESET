@@ -76,3 +76,5 @@ DisplayName = "Long Draw"
 AspectSprite = ExtResource("1_d3mo6")
 Modifiers = Array[Resource]([SubResource("Resource_i0r8x"), SubResource("Resource_d3mo6"), SubResource("Resource_0ysws"), SubResource("Resource_ik2bm"), SubResource("Resource_044st")])
 Rarity = 0
+ScrapAmount = 100
+ManaAmount = 100

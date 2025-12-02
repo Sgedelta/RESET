@@ -50,3 +50,5 @@ DisplayName = "Poison Dart"
 AspectSprite = ExtResource("1_nh3du")
 Modifiers = Array[Resource]([SubResource("Resource_kmvun"), SubResource("Resource_nh3du"), SubResource("Resource_mifxe")])
 Rarity = 0
+ScrapAmount = 100
+ManaAmount = 100

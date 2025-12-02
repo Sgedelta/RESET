@@ -82,8 +82,8 @@ public class Aspect
 	{
 		Template = template ?? throw new ArgumentNullException(nameof(template));
 		level = aspectLevel;	
-        rng = new RandomNumberGenerator();
-        BuildFromTemplate();
+		rng = new RandomNumberGenerator();
+		BuildFromTemplate();
 	}
 	
 	private void BuildFromTemplate()
@@ -96,19 +96,19 @@ public class Aspect
 			{
 				case ModifierInfo modInfo:
 
-                    //choose random stat if we are doing that
-                    StatType modifiedStatRandomFix = modInfo.ModifiedStat;
+					//choose random stat if we are doing that
+					StatType modifiedStatRandomFix = modInfo.ModifiedStat;
 
-                    while (modifiedStatRandomFix >= StatType.RANDOM)
-                    {
-                        Array allStats = Enum.GetValues(typeof(StatType));
-                        //-2 because currently (11/19/25) is 2nd to the end of StatType. While loop just in case for future. this should be updated if StatType changes
-                        modifiedStatRandomFix = (StatType)allStats.GetValue(rng.RandiRange(0, allStats.Length - 2));
+					while (modifiedStatRandomFix >= StatType.RANDOM)
+					{
+						Array allStats = Enum.GetValues(typeof(StatType));
+						//-2 because currently (11/19/25) is 2nd to the end of StatType. While loop just in case for future. this should be updated if StatType changes
+						modifiedStatRandomFix = (StatType)allStats.GetValue(rng.RandiRange(0, allStats.Length - 2));
 
-                    }
+					}
 
 
-                    ModifierUnit mUnit = new ModifierUnit
+					ModifierUnit mUnit = new ModifierUnit
 					{
 						Stat = modifiedStatRandomFix,
 						Type = modInfo.ModifierType,

@@ -50,3 +50,5 @@ DisplayName = "Tuned Gears"
 AspectSprite = ExtResource("1_wbcdg")
 Modifiers = Array[Resource]([SubResource("Resource_vw42r"), SubResource("Resource_wbcdg"), SubResource("Resource_he5ug")])
 Rarity = 0
+ScrapAmount = 200
+ManaAmount = 0

@@ -89,3 +89,5 @@ DisplayName = "Strong Mage"
 AspectSprite = ExtResource("1_y36l7")
 Modifiers = Array[Resource]([SubResource("Resource_86eyd"), SubResource("Resource_y36l7"), SubResource("Resource_y2b04"), SubResource("Resource_0hu0a"), SubResource("Resource_k5o6y"), SubResource("Resource_fiaga")])
 Rarity = 2
+ScrapAmount = 0
+ManaAmount = 2000

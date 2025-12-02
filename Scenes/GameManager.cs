@@ -21,8 +21,12 @@ public partial class GameManager : Node
 	private RewardMenu _rewardMenu; 
 	private WaveDirector _waveDirector;
 	
+	public int Scrap { get; private set; } = 0;
 	public int Mana { get; private set; } = 0;
+	[Export] public Label ScrapLabel;
 	[Export] public Label ManaLabel;
+	[Export] public int SlotScrapBaseCost = 1000;
+
 
 	// Singleton
 	public static GameManager Instance;
@@ -61,8 +65,9 @@ public partial class GameManager : Node
 		
 		GetTree().Paused = false;
 		ManaLabel.Text = $"Mana: {Mana}";
+		ScrapLabel.Text = $"Scrap: {Scrap}";
 
-
+	
 		_gameOverText = GetNode<Label>(gameOverTextPath);
 		_gameOverText.Visible = false;
 
@@ -162,6 +167,53 @@ public partial class GameManager : Node
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		StartNextWave();
 	}
+	public bool TryBuyTowerSlot(Tower tower)
+	{
+		var cost = SlotScrapBaseCost;
+
+		if (Scrap < cost)
+		{
+			return false;
+		}
+		AddScrap(-cost);
+		tower.AddAspectSlot(1);
+	
+
+		foreach (var n in GetTree().GetNodesInGroup("tower_pullout"))
+		{
+			if (n is UI_TowerPullout p && p.ActiveTower == tower)
+				p.RefreshUIs();
+		}
+
+		return true;
+	}
+
+	private void UpdateManaLabel()
+	{
+		if (ManaLabel != null)
+			ManaLabel.Text = $"Mana: {Mana}";
+	}
+
+	private void UpdateScrapLabel()
+	{
+		if (ScrapLabel != null)
+			ScrapLabel.Text = $"Scrap: {Scrap}";
+	}
+
+	public void AddMana(int amount)
+	{
+		Mana += amount;
+		if (Mana < 0) Mana = 0;
+		UpdateManaLabel();
+	}
+
+	public void AddScrap(int amount)
+	{
+		Scrap += amount;
+		if (Scrap < 0) Scrap = 0;
+		UpdateScrapLabel();
+	}
+
 
 	/// <summary>
 	/// returns a random Wave from the loaded wave library
@@ -207,10 +259,6 @@ public partial class GameManager : Node
 
 	public void OnEnemyDied(Enemy enemy)
 	{
-		Mana += 10;
-		ManaLabel.Text = $"Mana: {Mana}";
-
-
 		_enemiesRemaining--;
 
 		GD.Print($"[GM] Enemy Died. {_enemiesRemaining} enemies are left in this wave.");

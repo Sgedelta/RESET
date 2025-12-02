@@ -76,3 +76,5 @@ DisplayName = "Poison Veil"
 AspectSprite = ExtResource("1_j2dhm")
 Modifiers = Array[Resource]([SubResource("Resource_ajgtv"), SubResource("Resource_j2dhm"), SubResource("Resource_ijr4k"), SubResource("Resource_nk7rm"), SubResource("Resource_typa8")])
 Rarity = 1
+ScrapAmount = 0
+ManaAmount = 1000

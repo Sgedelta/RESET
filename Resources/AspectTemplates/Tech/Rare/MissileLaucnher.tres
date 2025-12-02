@@ -76,3 +76,5 @@ DisplayName = "Missile Launcher"
 AspectSprite = ExtResource("1_yw66n")
 Modifiers = Array[Resource]([SubResource("Resource_7cmmt"), SubResource("Resource_yw66n"), SubResource("Resource_8e8gh"), SubResource("Resource_12jkl"), SubResource("Resource_vvtvy")])
 Rarity = 1
+ScrapAmount = 1000
+ManaAmount = 0

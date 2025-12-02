@@ -10,10 +10,20 @@ public partial class UI_TowerPullout : CanvasLayer
 	public bool Animating
 	{
 		get => animating;
-		set { animating = value; EmitSignal(SignalName.AnimationStateChanged, value); }
+		set
+		{
+			if (animating == value)
+				return;
+			animating = value;
+			if (!animating)
+				EmitSignal(SignalName.AnimationStateChanged, value);
+		}
 	}
 
 	private ScrollContainer i_ScrollContainer;
+	private bool _changingTower = false;
+
+	private const string BuySlotMetaKey = "buy_slot";
 
 	[Export] float SlideTime = .5f;
 
@@ -59,6 +69,9 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	public void ToggleActive()
 	{
+		if (Animating)
+			return;
+
 		_active = !_active;
 		TweenToActivePosition();
 	}
@@ -70,14 +83,19 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	public void TweenToActivePosition()
 	{
-		if (animating) return;
-
 		Animating = true;
+
 		var slideAnim = CreateTween();
-		slideAnim.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Cubic);
-		slideAnim.TweenProperty(this, "offset",
+		slideAnim.SetEase(Tween.EaseType.InOut)
+				 .SetTrans(Tween.TransitionType.Cubic);
+
+		slideAnim.TweenProperty(
+			this,
+			"offset",
 			new Vector2((_active ? 0 : i_ScrollContainer.Size.X), 0),
-			SlideTime);
+			SlideTime
+		);
+
 		slideAnim.TweenCallback(Callable.From(() => { Animating = false; }));
 	}
 
@@ -88,16 +106,36 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	private async void ChangeActiveTower(Tower tower)
 	{
+		if (_changingTower)
+			return;
+
+		_changingTower = true;
+
+		if (Animating)
+		{
+			await ToSignal(this, SignalName.AnimationStateChanged);
+		}
+
 		if (_active)
 		{
-			_tower.ShowOrHideRange(false);
-			ToggleActive();
-			await ToSignal(this, SignalName.AnimationStateChanged);
+			_tower?.ShowOrHideRange(false);
+			_active = false;
+			TweenToActivePosition();
 
+			if (Animating)
+				await ToSignal(this, SignalName.AnimationStateChanged);
 		}
+
 		_tower = tower;
 		RefreshUIs();
-		ToggleActive();
+
+		if (!_active)
+		{
+			_active = true;
+			TweenToActivePosition();
+		}
+
+		_changingTower = false;
 	}
 
 	public void RefreshUIs()
@@ -110,7 +148,8 @@ public partial class UI_TowerPullout : CanvasLayer
 			if (_container.GetChild(i) is AspectSlot slot)
 				slot.RefreshVisual();
 
-	_statDisplay.Text = ActiveTower.StatDisplayBBCode();
+		if (ActiveTower != null)
+			_statDisplay.Text = ActiveTower.StatDisplayBBCode();
 
 		if (AspectBar.Instance != null)
 			AspectBar.Instance.Refresh();
@@ -125,26 +164,102 @@ public partial class UI_TowerPullout : CanvasLayer
 		foreach (var ch in slot.GetChildren())
 			if (ch is Control cc)
 				cc.MouseFilter = Control.MouseFilterEnum.Ignore;
+	}
+
+	/// <summary>
+	/// Attach a single GuiInput handler to a slot that knows how to
+	/// react when the slot is currently marked as a "buy slot".
+	/// Whether the slot is a buy slot or not is controlled via metadata.
+	/// </summary>
+	private void SetupBuySlotHandler(AspectSlot slot)
+	{
+		slot.SetMeta(BuySlotMetaKey, false);
+
+		slot.GuiInput += (InputEvent ev) =>
+		{
+			if (ev is InputEventMouseButton mb &&
+				mb.Pressed &&
+				mb.ButtonIndex == MouseButton.Left)
+			{
+				var meta = slot.GetMeta(BuySlotMetaKey);
+				if (meta.VariantType == Variant.Type.Bool && (bool)meta)
+				{
+					OnBuySlotClicked();
+					GetViewport()?.SetInputAsHandled();
+				}
+			}
+		};
+	}
+
+	private void OnBuySlotClicked()
+	{
+		if (ActiveTower == null)
+		{
+			GD.PushWarning("[UI_TowerPullout] Buy slot clicked but no ActiveTower.");
+			return;
+		}
+
+		var gm = GameManager.Instance;
+		if (gm == null)
+		{
+			GD.PushError("[UI_TowerPullout] GameManager.Instance is null.");
+			return;
+		}
+
+		bool success = gm.TryBuyTowerSlot(ActiveTower);
+
+		if (!success)
+		{
+			// TODO: Hook in some feedback ("Not enough scrap") when you add a toast/pop-up system
+		}
+		// GameManager.TryBuyTowerSlot already refreshes pullouts, so we don't strictly need
+		// RefreshUIs() here, but calling again is harmless if you want to be explicit.
+	}
+
+	private void ConfigureBuySlotVisual(AspectSlot slot)
+	{
+		var gm = GameManager.Instance;
+		int cost = gm != null ? gm.SlotScrapBaseCost : 0;
 
 	}
 
-	public void DisplaySlots(int count)
+	private void ConfigureRealSlotVisual(AspectSlot slot)
 	{
-		if (count < 0) { GD.PushWarning("[UI_TowerPullout] DisplaySlots called with count < 0"); count = 0; }
-		if (AspectSlotScn == null) { GD.PushError("[UI_TowerPullout] AspectSlotScn not set!"); return; }
+		// Reset any visual hints for normal slots
+		// slot.Modulate = Colors.White; // If you change Modulate above, reset it here
+	}
 
+	public void DisplaySlots(int totalCount)
+	{
+		if (totalCount < 0)
+		{
+			GD.PushWarning("[UI_TowerPullout] DisplaySlots called with count < 0");
+			totalCount = 0;
+		}
+		if (AspectSlotScn == null)
+		{
+			GD.PushError("[UI_TowerPullout] AspectSlotScn not set!");
+			return;
+		}
+
+		// Count existing AspectSlots
 		int slotsFound = 0;
 		for (int i = 0; i < _container.GetChildCount(); i++)
-			if (_container.GetChild(i) is AspectSlot) slotsFound++;
+			if (_container.GetChild(i) is AspectSlot)
+				slotsFound++;
 
-		// Create missing
-		for (int need = slotsFound; need < count; need++)
+		// Create missing slots up to totalCount
+		for (int need = slotsFound; need < totalCount; need++)
 		{
 			var slot = AspectSlotScn.Instantiate<AspectSlot>();
 			slot.CustomMinimumSize = new Vector2(96, 96);
 			ConfigureSlotInput(slot);
+			SetupBuySlotHandler(slot);
 			_container.AddChild(slot);
 		}
+		int realSlots = AvailableSlots;
+		if (realSlots < 0)
+			realSlots = 0;
 
 		int logical = 0;
 		for (int i = 0; i < _container.GetChildCount(); i++)
@@ -154,21 +269,25 @@ public partial class UI_TowerPullout : CanvasLayer
 				slot.CustomMinimumSize = new Vector2(96, 96);
 				ConfigureSlotInput(slot);
 				slot.SetIndex(logical);
-				slot.Visible = logical < count;
+
+				bool isReal = logical < realSlots;
+				bool isBuy  = logical == realSlots;
+				bool visible = logical < realSlots + 1;  // show all real + one buy slot
+
+				slot.Visible = visible;
+
+				slot.SetMeta(BuySlotMetaKey, isBuy);
+
+				if (isBuy)
+					ConfigureBuySlotVisual(slot);
+				else
+					ConfigureRealSlotVisual(slot);
+
 				logical++;
 			}
 		}
-
-		int seen = 0;
-		for (int i = 0; i < _container.GetChildCount(); i++)
-		{
-			if (_container.GetChild(i) is AspectSlot slot)
-			{
-				slot.Visible = seen < count;
-				seen++;
-			}
-		}
 	}
+
 	public override void _UnhandledInput(InputEvent e)
 	{
 		if (!_active || animating) return;
@@ -182,6 +301,11 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	public void DisplaySlots()
 	{
-		DisplaySlots(AvailableSlots);
+		int realSlots = AvailableSlots;
+		if (realSlots < 0)
+			realSlots = 0;
+
+		// Always display one extra "buy slot"
+		DisplaySlots(realSlots + 1);
 	}
 }

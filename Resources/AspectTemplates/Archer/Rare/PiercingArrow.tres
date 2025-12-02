@@ -37,3 +37,5 @@ DisplayName = "Piercing Arrow"
 AspectSprite = ExtResource("1_aipvs")
 Modifiers = Array[Resource]([SubResource("Resource_aipvs"), SubResource("Resource_24d6n")])
 Rarity = 1
+ScrapAmount = 500
+ManaAmount = 500

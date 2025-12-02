@@ -63,3 +63,5 @@ DisplayName = "Eagle Eye"
 AspectSprite = ExtResource("1_8gvwe")
 Modifiers = Array[Resource]([SubResource("Resource_w6oop"), SubResource("Resource_8gvwe"), SubResource("Resource_o7brr"), SubResource("Resource_p6pu4")])
 Rarity = 1
+ScrapAmount = 500
+ManaAmount = 500

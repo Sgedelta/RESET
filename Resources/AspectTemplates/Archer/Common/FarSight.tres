@@ -35,4 +35,6 @@ _id = "FarSight"
 DisplayName = "Far Sight"
 Modifiers = Array[Object]([SubResource("Resource_3j5l2"), SubResource("Resource_y4kxm")])
 Rarity = 0
+ScrapAmount = 100
+ManaAmount = 100
 metadata/_custom_type_script = "uid://tyvs2avibhhu"

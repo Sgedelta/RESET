@@ -37,3 +37,5 @@ DisplayName = "Mana Surge"
 AspectSprite = ExtResource("1_upy2d")
 Modifiers = Array[Resource]([SubResource("Resource_upy2d"), SubResource("Resource_0le7a")])
 Rarity = 0
+ScrapAmount = 0
+ManaAmount = 200

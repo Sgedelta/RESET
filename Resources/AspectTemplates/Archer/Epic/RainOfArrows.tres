@@ -37,3 +37,5 @@ DisplayName = "Rain Of Arrows"
 AspectSprite = ExtResource("1_33k5o")
 Modifiers = Array[Resource]([SubResource("Resource_33k5o"), SubResource("Resource_n6p4f")])
 Rarity = 2
+ScrapAmount = 1000
+ManaAmount = 1000

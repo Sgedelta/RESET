@@ -169,6 +169,16 @@ public partial class Tower : Node2D
 		modifiedStats = CalculateModifiedStats();
 		ApplyStatsToComponents();
 	}
+	public void AddAspectSlot(int amount = 1)
+	{
+		if (amount <= 0)
+			return;
+		baseStats.AspectSlots += amount;
+		BaseAspectSlots = baseStats.AspectSlots;
+
+		Recompute();
+	}
+
 
 	public void UpdateModifiedStats() => modifiedStats = CalculateModifiedStats();
 
@@ -259,30 +269,127 @@ public partial class Tower : Node2D
 		
 	}
 
-public void OnTowerClicked(Node view, InputEvent input, int shapeIndex)
-{
-	if (input is not InputEventMouseButton buttonInput) return;
-	if (!buttonInput.Pressed || buttonInput.ButtonIndex != MouseButton.Left) return;
+	public void OnTowerClicked(Node view, InputEvent input, int shapeIndex)
+	{
+		if (input is not InputEventMouseButton buttonInput)
+			return;
+		if (!buttonInput.Pressed && buttonInput.ButtonIndex == MouseButton.Left)
+		{
+			HandleAspectDropOnTower();
+			return;
+		}
+		if (!buttonInput.Pressed || buttonInput.ButtonIndex != MouseButton.Left)
+			return;
 
-	var pullout = Pullout;
-	if (pullout == null)
+		var pullout = Pullout;
+		if (pullout == null)
+			return;
+		if (pullout.ActiveTower == this)
+		{
+			pullout.ToggleActive();
+			rangeDisplay.Show = pullout.Active;
+		}
+		else
+		{
+			pullout.ActiveTower = this;
+			rangeDisplay.Show = true;
+		}
+		GetViewport().SetInputAsHandled();
+	}
+	private void HandleAspectDropOnTower()
+{
+	var vp = GetViewport();
+	if (vp == null || !vp.GuiIsDragging())
 		return;
 
-	// If this tower is already active, toggle the pullout
-	if (pullout.ActiveTower == this)
-	{
-		pullout.ToggleActive();
-		rangeDisplay.Show = pullout.Active;
-	}
-	else
-	{
+	var dragData = vp.GuiGetDragData();
+	if (dragData.VariantType != Variant.Type.Dictionary)
+		return;
 
-		pullout.ActiveTower = this;
-		rangeDisplay.Show = true;
-	}
-	GetViewport().SetInputAsHandled();
+	var dict = (Godot.Collections.Dictionary)dragData;
+
+	if (!dict.TryGetValue("type", out var t) || (string)t != "aspect_token")
+		return;
+
+	AttachAspectFromDragData(dict);
 }
 
+
+	public void AttachAspectFromDragData(Godot.Collections.Dictionary data)
+	{
+		var inv = GameManager.Instance.Inventory;
+
+		// ---- Resolve aspect instance ----
+		Aspect aspect = null;
+		if (data.ContainsKey("aspect_id"))
+			aspect = inv.GetByID((string)data["aspect_id"]);
+
+		Tower sourceTower = null;
+		int sourceIndex = -1;
+
+		if (data.TryGetValue("origin", out var o) && (string)o == "slot")
+		{
+			var towerPath = (string)data["tower_path"];
+			sourceIndex = (int)data["slot_index"];
+			sourceTower = GetNode<Tower>(towerPath);
+
+			if (aspect == null && sourceTower != null)
+				aspect = sourceTower.GetAspectInSlot(sourceIndex);
+		}
+
+		if (aspect == null)
+		{
+			GD.PushWarning("[Tower] Drop ignored: aspect was null.");
+			return;
+		}
+
+		var destTower = this;
+
+		// Find first open slot on this tower
+		int targetIndex = destTower.LowestOpenSlot;
+		if (targetIndex == -1)
+		{
+			GD.PushWarning("[Tower] Drop ignored: no empty slots on destination tower.");
+			return;
+		}
+
+		// If aspect is currently attached somewhere else, detach first
+		var currentOwner = inv.AttachedTo(aspect);
+		if (currentOwner != null && currentOwner != destTower)
+			inv.DetachFrom(aspect, currentOwner);
+
+		// Should be empty, but be defensive
+		var oldAspect = destTower.GetAspectInSlot(targetIndex);
+		inv.DetachFrom(targetIndex, destTower);
+
+		if (!inv.AttachTo(aspect, destTower, targetIndex))
+		{
+			GD.PushWarning("[Tower] AttachTo(destTower) failed.");
+			return;
+		}
+
+		// In theory LowestOpenSlot guarantees oldAspect==null, but leave this for future-proofing
+		if (oldAspect != null && data.TryGetValue("origin", out o) && (string)o == "slot" && sourceTower != null)
+		{
+			inv.AttachTo(oldAspect, sourceTower, sourceIndex);
+		}
+
+		destTower.Recompute();
+		AspectBar.Instance?.Refresh();
+		RefreshPulloutsAfterAspectChange(sourceTower, destTower);
+	}
+
+	private void RefreshPulloutsAfterAspectChange(Tower sourceTower, Tower destTower)
+	{
+		foreach (var n in GetTree().GetNodesInGroup("tower_pullout"))
+		{
+			if (n is UI_TowerPullout p)
+			{
+				if (p.ActiveTower == sourceTower || p.ActiveTower == destTower)
+					p.RefreshUIs();
+			}
+		}
+	}
 
 	public void ShowOrHideRange(bool state)
 	{

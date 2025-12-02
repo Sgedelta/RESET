@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=3 uid="uid://caaoqyl7lc2pw"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=8 format=3 uid="uid://caaoqyl7lc2pw"]
 
 [ext_resource type="Texture2D" uid="uid://ctohjve31gt6o" path="res://Resources/AspectTemplates/TemplateIcons/steady hand.png" id="1_s2epg"]
 [ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_04crg"]
@@ -63,3 +63,5 @@ DisplayName = "Steady Hand"
 AspectSprite = ExtResource("1_s2epg")
 Modifiers = Array[Resource]([SubResource("Resource_onqil"), SubResource("Resource_m67q5"), SubResource("Resource_s2epg"), SubResource("Resource_4ehq2")])
 Rarity = 0
+ScrapAmount = 100
+ManaAmount = 100

@@ -63,3 +63,5 @@ DisplayName = "Sludge Cannon"
 AspectSprite = ExtResource("1_t21n4")
 Modifiers = Array[Resource]([SubResource("Resource_t21n4"), SubResource("Resource_d03xm"), SubResource("Resource_u3cnj"), SubResource("Resource_1y467")])
 Rarity = 0
+ScrapAmount = 0
+ManaAmount = 200

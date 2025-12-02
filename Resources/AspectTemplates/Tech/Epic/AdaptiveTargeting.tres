@@ -50,3 +50,5 @@ DisplayName = "Adaptive Targeting"
 AspectSprite = ExtResource("1_8jy1x")
 Modifiers = Array[Resource]([SubResource("Resource_8e4x2"), SubResource("Resource_bk76u"), SubResource("Resource_jlkls")])
 Rarity = 2
+ScrapAmount = 2000
+ManaAmount = 0
