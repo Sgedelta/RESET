@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b54ks2lks65pw"]
+[gd_scene load_steps=10 format=3 uid="uid://b54ks2lks65pw"]
 
 [ext_resource type="Texture2D" uid="uid://vamychrvqww1" path="res://Resources/Sprites/Background/bush_1.png" id="1_eo4jh"]
+[ext_resource type="Texture2D" uid="uid://cf4efubnfwlfh" path="res://Resources/Sprites/RESET_bg_OJA_v01.png" id="1_owb21"]
 [ext_resource type="Texture2D" uid="uid://btpflt45pl5hu" path="res://Resources/Sprites/Background/rock_1.png" id="2_owb21"]
 [ext_resource type="Texture2D" uid="uid://dvaia2qaavyb5" path="res://Resources/Sprites/Background/rock_2.png" id="3_8xir4"]
 [ext_resource type="Texture2D" uid="uid://bqovaapdpsbls" path="res://Resources/Sprites/Background/splat_1.png" id="4_2brea"]
@@ -10,7 +11,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_edo5e"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1291.13, 39.6738, 0, 0, 0, 0, 358.236, 41.6738, 0, 0, 0, 0, 353.511, 444.674, 0, 0, 0, 0, 69.0115, 445.674, 0, 0, 0, 0, 58.6146, 989.674, 0, 0, 0, 0, 464.097, 982.674, 0, 0, 0, 0, 461.261, 626.674, 0, 0, 0, 0, 945.193, 629.674, 0, 0, 0, 0, 943.303, 1032.67, 0, 0, 0, 0, 1534.04, 1018.67, 0, 0, 0, 0, 1524.59, 372.674)
+"points": PackedVector2Array(0, 0, 0, 0, 1299.01, 109.674, 0, 0, 0, 0, 354.014, 112.674, 0, 0, 0, 0, 356.014, 476.674, 0, 0, 0, 0, 55.0142, 474.674, 0, 0, 0, 0, 58.0142, 980.674, 0, 0, 0, 0, 464.097, 982.674, 0, 0, 0, 0, 461.261, 626.674, 0, 0, 0, 0, 945.193, 629.674, 0, 0, 0, 0, 949.014, 1011.67, 0, 0, 0, 0, 1521.01, 1002.67, 0, 0, 0, 0, 1524.59, 372.674)
 }
 point_count = 11
 
@@ -24,6 +25,368 @@ curve = SubResource("Curve2D_edo5e")
 position = Vector2(591, 130)
 
 [node name="BackgroundParent" type="Node2D" parent="."]
+
+[node name="ForestBG" type="Sprite2D" parent="BackgroundParent"]
+z_index = -10
+position = Vector2(960, 540)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_owb21")
+
+[node name="BorderElements" type="Node2D" parent="BackgroundParent"]
+
+[node name="Splat1" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1704, 242)
+rotation = 1.08103
+scale = Vector2(0.312846, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Splat2" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1706, 387)
+rotation = 1.33434
+scale = Vector2(0.312846, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Splat3" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1713, 677)
+rotation = 1.68643
+scale = Vector2(0.312846, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Splat8" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(670, -32)
+rotation = 3.94769
+scale = Vector2(0.312846, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Splat9" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1288, -19)
+rotation = 5.56453
+scale = Vector2(0.312846, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Splat10" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(921, -14)
+rotation = 2.92694
+scale = Vector2(0.312846, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Splat11" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1077, -16)
+rotation = 6.58407
+scale = Vector2(0.312846, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Splat6" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(368, -4)
+rotation = 3.03488
+scale = Vector2(0.578933, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Splat7" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1435, -11)
+rotation = 3.40195
+scale = Vector2(0.578933, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Splat4" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1567, 1041)
+rotation = 2.28904
+scale = Vector2(0.312846, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Splat5" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(857, 1034)
+rotation = 3.82248
+scale = Vector2(0.312846, 0.312846)
+texture = ExtResource("4_2brea")
+
+[node name="Bush1" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1730, 180)
+rotation = 0.629579
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush2" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1764, 625)
+rotation = 0.629579
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush7" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(202, 149)
+rotation = 0.629579
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush8" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(116, 296)
+rotation = 1.7408
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush9" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(120, 1079)
+rotation = 3.81252
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush10" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(358, 1070)
+rotation = 2.59558
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush11" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(957, 1098)
+rotation = 3.25792
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush12" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1104, 1117)
+rotation = 0.537263
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush13" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1532, 1113)
+rotation = 0.537263
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush14" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1324, 1109)
+rotation = -1.68586
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush15" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1211, 1104)
+rotation = -0.563336
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush16" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1430, 1105)
+rotation = 0.533847
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush3" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1653, 893)
+rotation = 2.10777
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush4" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1747, 763)
+rotation = 1.79671
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush17" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1022, -21)
+rotation = 3.01756
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush20" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(666, -6.99998)
+rotation = 3.91657
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush21" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(361, 9.99999)
+rotation = 5.71042
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush18" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1464, 36)
+rotation = 3.01756
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush22" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(-24.9999, 477)
+rotation = 4.51942
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush23" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(-21, 940)
+rotation = 4.51942
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush24" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(-34, 716)
+rotation = 5.41725
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush25" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(-49, 587)
+rotation = 4.12638
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush26" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(-42, 815)
+rotation = 7.63153
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush19" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1339, 9.00008)
+rotation = 3.51206
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush5" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1749, 343)
+rotation = 1.29855
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Bush6" type="Sprite2D" parent="BackgroundParent/BorderElements"]
+position = Vector2(1736, 465)
+rotation = 3.01009
+scale = Vector2(0.347089, 0.347089)
+texture = ExtResource("1_eo4jh")
+
+[node name="Trees" type="Node2D" parent="BackgroundParent/BorderElements"]
+
+[node name="Tree5" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1862, 90)
+scale = Vector2(0.763951, 0.763951)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree12" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1633, 65)
+rotation = 1.51029
+scale = Vector2(0.763951, 0.763951)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree6" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1903, 231)
+scale = Vector2(0.544932, 0.544932)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree13" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1665, 1038)
+rotation = 1.61946
+scale = Vector2(0.544932, 0.544932)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree23" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(527, -40)
+rotation = 3.15961
+scale = Vector2(0.544932, 0.544932)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree7" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1868.21, 404.895)
+rotation = 0.281138
+scale = Vector2(0.763951, 0.763951)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree16" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(91, 212)
+rotation = -0.679336
+scale = Vector2(0.763951, 0.763951)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree9" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1875, 698)
+rotation = -1.17611
+scale = Vector2(0.544932, 0.544932)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree11" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1847, 1050)
+rotation = 0.0484312
+scale = Vector2(0.544932, 0.544932)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree8" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1858, 545)
+rotation = 0.281138
+scale = Vector2(0.544932, 0.544932)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree17" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(-7.00002, 342)
+rotation = 0.797248
+scale = Vector2(0.544932, 0.544932)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree24" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1192, -49)
+rotation = 2.98063
+scale = Vector2(0.544932, 0.544932)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree18" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(17, 1065)
+rotation = 0.797248
+scale = Vector2(0.394621, 0.394621)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree20" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(831, 1078)
+rotation = 0.797248
+scale = Vector2(0.394621, 0.394621)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree21" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(475, 1080)
+rotation = -0.00333935
+scale = Vector2(0.453171, 0.453171)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree22" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(254, 1099)
+rotation = 0.735292
+scale = Vector2(0.453171, 0.453171)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree15" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(229, 48)
+rotation = 1.14869
+scale = Vector2(0.544932, 0.544932)
+texture = ExtResource("6_3geo5")
+
+[node name="Tree10" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1881, 923)
+rotation = 0.281138
+scale = Vector2(0.970037, 0.970037)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree14" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(79, 57.0001)
+rotation = 0.281138
+scale = Vector2(0.970037, 0.970037)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree25" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(860, -54)
+rotation = 0.281138
+scale = Vector2(0.970037, 0.970037)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree26" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(1435, 114)
+rotation = 0.281138
+scale = Vector2(0.970037, 0.970037)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree19" type="Sprite2D" parent="BackgroundParent/BorderElements/Trees"]
+position = Vector2(626, 1093)
+rotation = 1.56833
+scale = Vector2(0.970037, 0.970037)
+texture = ExtResource("7_alfaa")
 
 [node name="Bush1" type="Sprite2D" parent="BackgroundParent"]
 position = Vector2(905, 254)
@@ -55,6 +418,12 @@ rotation = 0.16545
 scale = Vector2(0.452341, 0.452341)
 texture = ExtResource("3_8xir4")
 
+[node name="Rock7" type="Sprite2D" parent="BackgroundParent"]
+position = Vector2(1284, 464)
+rotation = 1.39845
+scale = Vector2(0.452341, 0.452341)
+texture = ExtResource("3_8xir4")
+
 [node name="Splat2" type="Sprite2D" parent="BackgroundParent"]
 z_index = -1
 position = Vector2(836, 311)
@@ -71,11 +440,6 @@ position = Vector2(444, 512)
 scale = Vector2(0.26, 0.26)
 texture = ExtResource("6_3geo5")
 
-[node name="Tree2" type="Sprite2D" parent="BackgroundParent"]
-position = Vector2(1252, 525)
-scale = Vector2(0.339998, 0.339998)
-texture = ExtResource("7_alfaa")
-
 [node name="Tree3" type="Sprite2D" parent="BackgroundParent"]
 position = Vector2(790, 895)
 scale = Vector2(0.339998, 0.339998)
@@ -86,3 +450,54 @@ position = Vector2(1129, 552)
 rotation = 2.30538
 scale = Vector2(0.2562, 0.2562)
 texture = ExtResource("1_eo4jh")
+
+[node name="Rock5" type="Sprite2D" parent="BackgroundParent"]
+position = Vector2(888, 351)
+rotation = -2.17262
+scale = Vector2(0.342247, 0.352544)
+texture = ExtResource("2_owb21")
+
+[node name="Bush3" type="Sprite2D" parent="BackgroundParent"]
+position = Vector2(961, 328)
+rotation = 2.39213
+scale = Vector2(0.221394, 0.221394)
+texture = ExtResource("1_eo4jh")
+
+[node name="Splat3" type="Sprite2D" parent="BackgroundParent"]
+position = Vector2(216, 852)
+rotation = -1.23264
+scale = Vector2(0.253057, 0.253057)
+texture = ExtResource("4_2brea")
+
+[node name="Tree2" type="Sprite2D" parent="BackgroundParent"]
+position = Vector2(1236, 536)
+scale = Vector2(0.339998, 0.339998)
+texture = ExtResource("7_alfaa")
+
+[node name="Rock6" type="Sprite2D" parent="BackgroundParent"]
+position = Vector2(261, 781)
+rotation = -1.54049
+scale = Vector2(0.325275, 0.325275)
+texture = ExtResource("3_8xir4")
+
+[node name="Tree4" type="Sprite2D" parent="BackgroundParent"]
+position = Vector2(205, 774)
+scale = Vector2(0.49464, 0.49464)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree5" type="Sprite2D" parent="BackgroundParent"]
+position = Vector2(1124, 445)
+scale = Vector2(0.947818, 0.947818)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree6" type="Sprite2D" parent="BackgroundParent"]
+position = Vector2(1244, 781)
+rotation = 1.71496
+scale = Vector2(0.947818, 0.947818)
+texture = ExtResource("7_alfaa")
+
+[node name="Tree7" type="Sprite2D" parent="BackgroundParent"]
+position = Vector2(1084, 658)
+rotation = 1.97493
+scale = Vector2(0.476384, 0.476384)
+texture = ExtResource("6_3geo5")

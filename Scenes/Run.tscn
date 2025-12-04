@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="Script" uid="uid://bvtxvt18atr23" path="res://Load/WaveDirector.cs" id="2_38uoo"]
-[ext_resource type="Texture2D" uid="uid://cf4efubnfwlfh" path="res://Resources/Sprites/RESET_bg_OJA_v01.png" id="3_hdemd"]
 [ext_resource type="PackedScene" uid="uid://ceob7lpsuladu" path="res://Scenes/Abilities/AbilityMenu.tscn" id="3_n7gbs"]
 [ext_resource type="Script" uid="uid://6ls4nxdmluu3" path="res://Scenes/Map/PathVisualizer.cs" id="4_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
@@ -32,6 +31,7 @@
 [ext_resource type="Resource" uid="uid://dckpwxh6ic8eh" path="res://Resources/Ability/WallAbility.tres" id="23_co2n6"]
 [ext_resource type="Resource" uid="uid://beqxt0enu774u" path="res://Resources/AspectTemplates/Mage/Legendary/MasterMage.tres" id="23_rb5a6"]
 [ext_resource type="Resource" uid="uid://c3onv57d1ohgl" path="res://Resources/Ability/FireAbility.tres" id="24_d7a38"]
+[ext_resource type="Script" uid="uid://bblmgefgwfova" path="res://Scenes/Abilities/AbilityBase.cs" id="24_hdemd"]
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="24_twhnw"]
 [ext_resource type="AudioStream" uid="uid://bk1uwoflu8jtt" path="res://Resources/Audio/mainthemetake1.mp3" id="28_twhnw"]
 [ext_resource type="Script" uid="uid://c3ic0mixxtbrd" path="res://Scenes/Abilities/AbilityHover.cs" id="32_vlm8s"]
@@ -58,23 +58,11 @@ MainMenuButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Ma
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
 
-[node name="PathVis" type="Node" parent="Map"]
-script = ExtResource("4_ixfg1")
-Path2DPath = NodePath("../EnemyPath")
-Line2DPath = NodePath("Line2D")
-Width = 64.0
-
-[node name="Line2D" type="Line2D" parent="Map/PathVis"]
-z_index = -9
-texture_repeat = 2
-texture = ExtResource("5_r63x1")
-texture_mode = 1
-
-[node name="Towers" parent="Map" index="2"]
+[node name="Towers" parent="Map" index="1"]
 position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
-position = Vector2(-347, 207)
+position = Vector2(-349, 191)
 BaseRange = 600.0
 BaseProjectileSpeed = 750.0
 
@@ -91,7 +79,7 @@ rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
 
 [node name="Tower2" parent="Map/Towers" index="1" instance=ExtResource("4_jbeyo")]
-position = Vector2(128, 47)
+position = Vector2(90, 76)
 BaseRange = 600.0
 BaseProjectileSpeed = 750.0
 
@@ -108,7 +96,7 @@ rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
 
 [node name="Tower3" parent="Map/Towers" index="2" instance=ExtResource("4_jbeyo")]
-position = Vector2(206, 653)
+position = Vector2(162, 640)
 BaseRange = 600.0
 BaseProjectileSpeed = 750.0
 
@@ -124,11 +112,24 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
 
-[node name="ForestBG" type="Sprite2D" parent="Map/BackgroundParent" index="0"]
-z_index = -10
-position = Vector2(960, 540)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("3_hdemd")
+[node name="Splat2" parent="Map/BackgroundParent" index="8"]
+position = Vector2(847, 323)
+rotation = -0.447161
+
+[node name="Bush2" parent="Map/BackgroundParent" index="12"]
+position = Vector2(1129, 553)
+
+[node name="PathVis" type="Node" parent="Map"]
+script = ExtResource("4_ixfg1")
+Path2DPath = NodePath("../EnemyPath")
+Line2DPath = NodePath("Line2D")
+Width = 64.0
+
+[node name="Line2D" type="Line2D" parent="Map/PathVis"]
+z_index = -9
+texture_repeat = 2
+texture = ExtResource("5_r63x1")
+texture_mode = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -241,7 +242,7 @@ offset_bottom = 733.0
 
 [node name="AbilityManager" type="Node" parent="."]
 script = ExtResource("11_nhc54")
-AllAbilities = [ExtResource("24_d7a38"), ExtResource("23_co2n6"), ExtResource("22_d7a38")]
+AllAbilities = Array[ExtResource("24_hdemd")]([ExtResource("24_d7a38"), ExtResource("23_co2n6"), ExtResource("22_d7a38")])
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
