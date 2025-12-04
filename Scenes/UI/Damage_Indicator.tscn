@@ -8,6 +8,7 @@ font_size = 50
 
 [node name="DamageIndicator" type="Node2D"]
 script = ExtResource("1_xjv21")
+animFalloffExp = 0.4
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8

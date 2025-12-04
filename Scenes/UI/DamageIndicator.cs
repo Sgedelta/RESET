@@ -7,16 +7,16 @@ public partial class DamageIndicator : Node2D
 {
 
 	[Export] public float moveSpeed = 30;
-	[Export] public float animFalloffExp = 3;
-	[Export] private float maxAnimTime = 1.5f;
+	[Export] public float animFalloffExp = .5f;
+	[Export] private float maxAnimTime = 5;
 	[Export] private float wobbleSpeed = .3f;
 	[Export] private float wobbleAmnt = 15;
 
 	// two vec2s representing a damage value in X and a font size associated with it in Y. interpolated between for scaling
-	[Export] private Vector2 minScaleDamage;
-	[Export] private Vector2 maxScaleDamage;
+	[Export] private Vector2 minScaleDamage = new Vector2(1, 30);
+	[Export] private Vector2 maxScaleDamage = new Vector2(250, 200);
 
-	[Export] private Vector2 offsetSize;
+	[Export] private Vector2 offsetSize = new Vector2(33, 25);
 
 	private float animTime = 0;
 
