@@ -112,6 +112,27 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
 
+[node name="Tower4" parent="Map/Towers" index="3" instance=ExtResource("4_jbeyo")]
+position = Vector2(947, 189)
+BaseAspectSlots = 1
+BaseRange = 200.0
+BaseProjectileSpeed = 750.0
+
+[node name="ShooterComponent" parent="Map/Towers/Tower4" index="1"]
+ProjectileScene = ExtResource("5_ixfg1")
+HomingProjectileScene = ExtResource("7_asn5m")
+ExplosiveProjectileScene = ExtResource("8_q06an")
+PiercingProjectileScene = ExtResource("9_s2nua")
+PoisonProjectileScene = ExtResource("10_u4oo0")
+ChainProjectileScene = ExtResource("11_6kpg7")
+
+[node name="TowerSprite" parent="Map/Towers/Tower4" index="2"]
+scale = Vector2(0.0584194, 0.0640781)
+
+[node name="RangeDisplay" parent="Map/Towers/Tower4" index="3"]
+rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
+rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
+
 [node name="Splat2" parent="Map/BackgroundParent" index="8"]
 position = Vector2(847, 323)
 rotation = -0.447161
@@ -272,6 +293,7 @@ parameters/looping = true
 [editable path="Map/Towers/Tower"]
 [editable path="Map/Towers/Tower2"]
 [editable path="Map/Towers/Tower3"]
+[editable path="Map/Towers/Tower4"]
 [editable path="CanvasLayer/TowerPullout"]
 [editable path="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
 [editable path="CanvasLayer/AbilityMenu"]
