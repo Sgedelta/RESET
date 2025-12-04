@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=11 format=3 uid="uid://beqxt0enu774u"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=11 format=3 uid="uid://beqxt0enu774u"]
 
 [ext_resource type="Texture2D" uid="uid://dj55ojwqph8d2" path="res://Resources/AspectTemplates/TemplateIcons/master mage.png" id="1_gqdd3"]
 [ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_uf51s"]
@@ -102,3 +102,5 @@ DisplayName = "Master Mage"
 AspectSprite = ExtResource("1_gqdd3")
 Modifiers = Array[Resource]([SubResource("Resource_j013b"), SubResource("Resource_yl0k0"), SubResource("Resource_7dxac"), SubResource("Resource_n30h3"), SubResource("Resource_2440q"), SubResource("Resource_gqdd3"), SubResource("Resource_eko7c")])
 Rarity = 3
+ScrapAmount = 0
+ManaAmount = 0

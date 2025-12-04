@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://bo164d1kghyrm"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=6 format=3 uid="uid://bo164d1kghyrm"]
 
 [ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="1_r6wlj"]
 [ext_resource type="Script" uid="uid://tyvs2avibhhu" path="res://Resources/AspectTemplates/AspectTemplate.cs" id="5_cxoff"]
@@ -48,3 +48,5 @@ _id = "PaddedArrows"
 DisplayName = "Padded Arrows"
 Modifiers = Array[Resource]([SubResource("Resource_ssofk"), SubResource("Resource_ealp2"), SubResource("Resource_26cq5")])
 Rarity = 0
+ScrapAmount = 0
+ManaAmount = 0

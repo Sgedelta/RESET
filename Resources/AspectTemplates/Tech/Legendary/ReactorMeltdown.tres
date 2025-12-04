@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=10 format=3 uid="uid://bce7t2qj88ub5"]
+[gd_resource type="Resource" script_class="AspectTemplate" load_steps=10 format=3 uid="uid://bce7t2qj88ub5"]
 
 [ext_resource type="Texture2D" uid="uid://cqblj2ye7kto" path="res://Resources/AspectTemplates/TemplateIcons/reactor meltdown.png" id="1_ncf5j"]
 [ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_ge1wq"]
@@ -89,3 +89,5 @@ DisplayName = "Reactor Meltdown"
 AspectSprite = ExtResource("1_ncf5j")
 Modifiers = Array[Resource]([SubResource("Resource_8eu0s"), SubResource("Resource_ncf5j"), SubResource("Resource_8qrhj"), SubResource("Resource_elclx"), SubResource("Resource_bfw4r"), SubResource("Resource_cxmny")])
 Rarity = 3
+ScrapAmount = 0
+ManaAmount = 0
