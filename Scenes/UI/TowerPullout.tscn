@@ -10,10 +10,11 @@
 
 [sub_resource type="Theme" id="Theme_2usos"]
 
-[node name="TowerPullout" type="CanvasLayer" node_paths=PackedStringArray("_container", "_statDisplay")]
+[node name="TowerPullout" type="CanvasLayer" node_paths=PackedStringArray("_container", "_statDisplay", "_firingModeButton")]
 script = ExtResource("1_nqjej")
 _container = NodePath("ScrollContainer/GridContainer/AspectContainer")
 _statDisplay = NodePath("ScrollContainer/GridContainer/MarginContainer2/RichTextLabel")
+_firingModeButton = NodePath("ScrollContainer/GridContainer/OptionButton")
 AspectSlotScn = ExtResource("4_tgmv1")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -55,6 +56,32 @@ _pullout = NodePath("../../..")
 [node name="AspectSlot" parent="ScrollContainer/GridContainer/AspectContainer" instance=ExtResource("4_tgmv1")]
 layout_mode = 2
 
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_nn1wt")
+theme_override_font_sizes/font_size = 24
+selected = 0
+item_count = 9
+popup/item_0/text = "First"
+popup/item_0/id = 2
+popup/item_1/text = "Last"
+popup/item_1/id = 3
+popup/item_2/text = "Closest"
+popup/item_2/id = 0
+popup/item_3/text = "Farthest"
+popup/item_3/id = 1
+popup/item_4/text = "Strongest"
+popup/item_4/id = 4
+popup/item_5/text = "Weakest"
+popup/item_5/id = 5
+popup/item_6/text = "Fastest"
+popup/item_6/id = 6
+popup/item_7/text = "Slowest"
+popup/item_7/id = 7
+popup/item_8/text = "Dangerous"
+popup/item_8/id = 8
+
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/GridContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -84,5 +111,7 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 scroll_active = false
 autowrap_mode = 0
+
+[connection signal="item_selected" from="ScrollContainer/GridContainer/OptionButton" to="." method="SetTowerTargetingMode"]
 
 [editable path="ScrollContainer/GridContainer/AspectContainer/AspectSlot"]

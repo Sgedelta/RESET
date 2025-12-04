@@ -59,16 +59,7 @@ public partial class ShooterComponent : Node2D
 
 	private PackedScene GetProjectileScene()
 	{
-		/*return _projectileType switch
-		{
-			ProjectileType.Regular  => ProjectileScene,
-			ProjectileType.Homing   => HomingProjectileScene,
-			ProjectileType.Explosive=> ExplosiveProjectileScene,
-			ProjectileType.Piercing => PiercingProjectileScene,
-			ProjectileType.Poison   => PoisonProjectileScene,
-			ProjectileType.Chain    => ChainProjectileScene,
-			_ => ProjectileScene
-		};*/
+	
 		return ProjectileScene;
 	}
 

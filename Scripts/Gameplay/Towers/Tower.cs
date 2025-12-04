@@ -105,6 +105,11 @@ public partial class Tower : Node2D
 		ApplyStatsToComponents();
 	}
 
+	public void SetTargetingMode(TargetingMode newMode)
+	{
+		Targeting.Mode = newMode;
+	}
+
 	public bool AttachAspect(Aspect a, int slotIndex = -1)
 	{
 		GD.Print("Trying to add Aspect");
@@ -297,22 +302,22 @@ public partial class Tower : Node2D
 		GetViewport().SetInputAsHandled();
 	}
 	private void HandleAspectDropOnTower()
-{
-	var vp = GetViewport();
-	if (vp == null || !vp.GuiIsDragging())
-		return;
+	{
+		var vp = GetViewport();
+		if (vp == null || !vp.GuiIsDragging())
+			return;
 
-	var dragData = vp.GuiGetDragData();
-	if (dragData.VariantType != Variant.Type.Dictionary)
-		return;
+		var dragData = vp.GuiGetDragData();
+		if (dragData.VariantType != Variant.Type.Dictionary)
+			return;
 
-	var dict = (Godot.Collections.Dictionary)dragData;
+		var dict = (Godot.Collections.Dictionary)dragData;
 
-	if (!dict.TryGetValue("type", out var t) || (string)t != "aspect_token")
-		return;
+		if (!dict.TryGetValue("type", out var t) || (string)t != "aspect_token")
+			return;
 
-	AttachAspectFromDragData(dict);
-}
+		AttachAspectFromDragData(dict);
+	}
 
 
 	public void AttachAspectFromDragData(Godot.Collections.Dictionary data)

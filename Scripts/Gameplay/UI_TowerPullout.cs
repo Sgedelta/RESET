@@ -40,6 +40,7 @@ public partial class UI_TowerPullout : CanvasLayer
 	[Signal] public delegate void AnimationStateChangedEventHandler(bool AnimState);
 
 	[Export] private RichTextLabel _statDisplay;
+	[Export] private OptionButton _firingModeButton;
 
 	public int AvailableSlots
 	{
@@ -140,7 +141,7 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	public void RefreshUIs()
 	{
-		GD.Print("Refreshing UIs");
+		GD.Print("Refreshing Tower Pullout UIs");
 
 		DisplaySlots();
 
@@ -149,9 +150,14 @@ public partial class UI_TowerPullout : CanvasLayer
 				slot.RefreshVisual();
 
 		if (ActiveTower != null)
-			_statDisplay.Text = ActiveTower.StatDisplayBBCode();
+		{
+            _statDisplay.Text = ActiveTower.StatDisplayBBCode();
 
-		if (AspectBar.Instance != null)
+			_firingModeButton.Selected = (int)ActiveTower.Targeting.Mode;
+
+        }
+
+        if (AspectBar.Instance != null)
 			AspectBar.Instance.Refresh();
 	}
 
@@ -286,6 +292,18 @@ public partial class UI_TowerPullout : CanvasLayer
 				logical++;
 			}
 		}
+	}
+
+	public void SetTowerTargetingMode(int TargetingModeIndex)
+	{
+		if(ActiveTower == null)
+		{
+			GD.PushError("No Active Tower!");
+			return;
+		}
+
+		ActiveTower.SetTargetingMode((TargetingMode)TargetingModeIndex);
+
 	}
 
 	public override void _UnhandledInput(InputEvent e)
