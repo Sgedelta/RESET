@@ -1,12 +1,14 @@
-[gd_scene load_steps=38 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=39 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
 [ext_resource type="Script" uid="uid://bvtxvt18atr23" path="res://Load/WaveDirector.cs" id="2_38uoo"]
+[ext_resource type="Texture2D" uid="uid://cf4efubnfwlfh" path="res://Resources/Sprites/RESET_bg_OJA_v01.png" id="3_hdemd"]
 [ext_resource type="PackedScene" uid="uid://ceob7lpsuladu" path="res://Scenes/Abilities/AbilityMenu.tscn" id="3_n7gbs"]
 [ext_resource type="Script" uid="uid://6ls4nxdmluu3" path="res://Scenes/Map/PathVisualizer.cs" id="4_ixfg1"]
 [ext_resource type="PackedScene" uid="uid://ci33ppfhyllf" path="res://Scenes/Towers/Tower.tscn" id="4_jbeyo"]
 [ext_resource type="PackedScene" uid="uid://beq0wrl3nh46k" path="res://Scenes/Towers/Projectile.tscn" id="5_ixfg1"]
+[ext_resource type="Texture2D" uid="uid://u81chvsvmhok" path="res://Resources/Sprites/RESET_pathFlat_OJA_v01.png" id="5_r63x1"]
 [ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="6_q06an"]
 [ext_resource type="PackedScene" uid="uid://b4tnp4tapoonn" path="res://Scripts/Gameplay/Projectiles/HomingProjectile.tscn" id="7_asn5m"]
 [ext_resource type="PackedScene" uid="uid://bjakny67bkalp" path="res://Scenes/UI/BarToggle.tscn" id="7_hfefo"]
@@ -25,7 +27,6 @@
 [ext_resource type="PackedScene" uid="uid://cdqc0wm6sinp2" path="res://Scenes/Enemies/FastEnemy.tscn" id="11_q06an"]
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
 [ext_resource type="PackedScene" uid="uid://dayxbdlsn0nc8" path="res://Scenes/UI/ScrapBox.tscn" id="20_mw8f7"]
-[ext_resource type="Script" uid="uid://bblmgefgwfova" path="res://Scenes/Abilities/AbilityBase.cs" id="21_b2bcw"]
 [ext_resource type="Resource" uid="uid://bo164d1kghyrm" path="res://Resources/AspectTemplates/Archer/Common/PaddedArrows.tres" id="22_6kpg7"]
 [ext_resource type="Resource" uid="uid://cwwvrn71fjwf8" path="res://Resources/Ability/LaserStrikeAbility.tres" id="22_d7a38"]
 [ext_resource type="Resource" uid="uid://dckpwxh6ic8eh" path="res://Resources/Ability/WallAbility.tres" id="23_co2n6"]
@@ -57,7 +58,19 @@ MainMenuButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Ma
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
 
-[node name="Towers" parent="Map" index="1"]
+[node name="PathVis" type="Node" parent="Map"]
+script = ExtResource("4_ixfg1")
+Path2DPath = NodePath("../EnemyPath")
+Line2DPath = NodePath("Line2D")
+Width = 64.0
+
+[node name="Line2D" type="Line2D" parent="Map/PathVis"]
+z_index = -9
+texture_repeat = 2
+texture = ExtResource("5_r63x1")
+texture_mode = 1
+
+[node name="Towers" parent="Map" index="2"]
 position = Vector2(572, 135)
 
 [node name="Tower" parent="Map/Towers" index="0" instance=ExtResource("4_jbeyo")]
@@ -110,6 +123,12 @@ ChainProjectileScene = ExtResource("11_6kpg7")
 [node name="RangeDisplay" parent="Map/Towers/Tower3" index="3"]
 rangeColor = Color(0.364706, 0.741176, 0.807843, 0.568627)
 rangeInteriorColor = Color(0.364706, 0.741176, 0.807843, 0.172549)
+
+[node name="ForestBG" type="Sprite2D" parent="Map/BackgroundParent" index="0"]
+z_index = -10
+position = Vector2(960, 540)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_hdemd")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -222,7 +241,7 @@ offset_bottom = 733.0
 
 [node name="AbilityManager" type="Node" parent="."]
 script = ExtResource("11_nhc54")
-AllAbilities = Array[ExtResource("21_b2bcw")]([ExtResource("24_d7a38"), ExtResource("23_co2n6"), ExtResource("22_d7a38")])
+AllAbilities = [ExtResource("24_d7a38"), ExtResource("23_co2n6"), ExtResource("22_d7a38")]
 
 [node name="WaveDirector" type="Node2D" parent="."]
 script = ExtResource("2_38uoo")
@@ -241,15 +260,6 @@ TemplatesFilePathsFromRes = Array[String](["Archer", "Mage", "Tech"])
 script = ExtResource("9_x3f4s")
 GameManagerPath = NodePath("../GameManager")
 EnemiesRootPath = NodePath("../Map/EnemyPath")
-
-[node name="PathVis" type="Node" parent="."]
-script = ExtResource("4_ixfg1")
-Path2DPath = NodePath("../Map/EnemyPath")
-Line2DPath = NodePath("Line2D")
-
-[node name="Line2D" type="Line2D" parent="PathVis"]
-z_index = -180
-default_color = Color(1, 0, 0, 1)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3

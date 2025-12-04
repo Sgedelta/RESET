@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AspectTemplate" load_steps=7 format=3 uid="uid://baqxccb6ckhks"]
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://baqxccb6ckhks"]
 
 [ext_resource type="Texture2D" uid="uid://crmoq6oaum7vp" path="res://Resources/AspectTemplates/TemplateIcons/random.png" id="1_dgt6o"]
 [ext_resource type="Script" uid="uid://b1ju3yp8d2ide" path="res://Resources/Modifiers/ModifierInfo.cs" id="2_5bsap"]
