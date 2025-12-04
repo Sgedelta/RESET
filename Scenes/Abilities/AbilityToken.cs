@@ -19,12 +19,41 @@ public partial class AbilityToken : Control
 		IconRect?.Set("mouse_filter", (int)MouseFilterEnum.Ignore);
 
 		UpdateManaVisual();
+
+		MouseEntered += OnMouseEntered;
+		MouseExited  += OnMouseExited;
+	}
+
+	private void OnMouseEntered()
+	{
+		if (_ability == null) return;
+
+		var menu = AbilityHoverMenu.Instance;
+		if (menu != null)
+		{
+			menu.OnTokenMouseEntered(_ability, this);
+		}
+	}
+
+	private void OnMouseExited()
+	{
+		var menu = AbilityHoverMenu.Instance;
+		if (menu != null)
+		{
+			menu.OnTokenMouseExited();
+		}
 	}
 
 	public override void _Process(double delta)
 	{
 		if (_ability == null) return;
 		UpdateManaVisual();
+	}
+
+	public void RefreshFromAbility()
+	{
+		UpdateManaVisual();
+		QueueRedraw();
 	}
 
 	private void UpdateManaVisual()
@@ -48,7 +77,6 @@ public partial class AbilityToken : Control
 
 		bool canAfford = currentMana >= cost;
 
-		// Clickable only if you can afford it
 		MouseFilter = canAfford ? MouseFilterEnum.Pass : MouseFilterEnum.Ignore;
 
 		Color enabledColor  = new Color(1f, 1f, 1f, 1f);
@@ -59,10 +87,7 @@ public partial class AbilityToken : Control
 
 		if (CooldownLabel != null)
 			CooldownLabel.Modulate = canAfford ? enabledColor : disabledColor;
-
-		QueueRedraw();
 	}
-
 
 	public override void _GuiInput(InputEvent e)
 	{
@@ -127,7 +152,6 @@ public partial class AbilityToken : Control
 
 		DrawArc(center, radius, startAngle, startAngle + sweepAngle, steps, fillColor, 4f, true);
 	}
-
 
 	private static Color LerpRedToGreen(float t)
 	{

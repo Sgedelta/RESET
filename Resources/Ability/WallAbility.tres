@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="WallAbility" load_steps=4 format=3 uid="uid://dckpwxh6ic8eh"]
+[gd_resource type="Resource" script_class="WallAbility" load_steps=5 format=3 uid="uid://dckpwxh6ic8eh"]
 
 [ext_resource type="Script" uid="uid://csxmxuh0na8eb" path="res://Scenes/Abilities/WallAbility.cs" id="1_d0h30"]
-[ext_resource type="Texture2D" uid="uid://dcrxqwx64k5dg" path="res://Scenes/UI/wall.png" id="1_lkv82"]
+[ext_resource type="Texture2D" uid="uid://cdhh58wtpycf6" path="res://Scenes/Abilities/barricade ability hover (1).png" id="1_g2lm2"]
+[ext_resource type="Texture2D" uid="uid://bs7g7y6f55i8a" path="res://Resources/Ability/barricade.png" id="2_bklga"]
 [ext_resource type="PackedScene" uid="uid://cmaovdspohrm" path="res://Scenes/Abilities/WallObject.tscn" id="2_g2lm2"]
 
 [resource]
 script = ExtResource("1_d0h30")
 DurationSeconds = 3.0
 WallScene = ExtResource("2_g2lm2")
-Icon = ExtResource("1_lkv82")
+Icon = ExtResource("2_bklga")
 AbilityName = "Wall"
-ManaCost = 1000
+BaseManaCost = 1000
+CurrentLevel = 1
+MaxLevel = 10
+HoverBackground = ExtResource("1_g2lm2")

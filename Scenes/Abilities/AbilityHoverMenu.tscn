@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://by54jkhqjd7mp"]
+
+[ext_resource type="Script" uid="uid://cnihgdmhx2smd" path="res://Scenes/Abilities/AbilityHoverMenu.cs" id="1_amtgo"]
+[ext_resource type="Texture2D" uid="uid://drunsidjbwn2d" path="res://Scenes/Abilities/railgun ability hover.png" id="2_8hcb8"]
+[ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="3_xi4wn"]
+
+[node name="AbilityHoverMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_amtgo")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 200.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8hcb8")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_xi4wn")
+theme_override_font_sizes/font_size = 50
+
+[node name="Level" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_xi4wn")
+
+[node name="Cost" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_xi4wn")
+
+[node name="UpgradeButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Upgrade"
