@@ -91,10 +91,11 @@ public partial class GameManager : Node
 
 		StartNextWave();
 
+        GetNode<MapGeneration>("MapGenerator").Generate();
+		GD.Print("Map Generated");
+    }
 
-	}
-
-	private void LoadAllWaves()
+    private void LoadAllWaves()
 	{
 
 		if (_waveLibrary.Count > 0)

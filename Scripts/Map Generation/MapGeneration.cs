@@ -3,33 +3,44 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class MapGenerator : Node
+public partial class MapGeneration : Node2D
 {
+    // ----- Grid / area -----
     [ExportCategory("Grid Settings")]
     [Export] public int Columns = 12;
     [Export] public int Rows = 8;
-    [Export] public Rect2 WorldRect = new Rect2(-600, -400, 1200, 800);
+    [Export] public Rect2 WorldRect = new Rect2(-0, -0, 1200, 800);
 
+    // ----- Path settings -----
     [ExportCategory("Path Settings")]
     [Export(PropertyHint.Range, "1,10,1")]
     public int PathLengthParam { get; set; } = 5;
     [Export] public int MaxWaypoints = 16;
     [Export] public bool AllowDiagonalPath = true;
-    [Export] public PackedScene PathPointMarkerScene; // optional debug marker
+    [Export] public PackedScene PathPointMarkerScene; 
 
+    // ----- Tower settings -----
     [ExportCategory("Tower Settings")]
     [Export] public PackedScene TowerScene; // your tower tscn
     [Export] public NodePath TowersRootPath; // where to parent towers (optional)
-    [Export] public float TowerCandidateAltitudeT = 0.5f; 
-    [Export] public float MinDistanceToPath = 48f; 
-    [Export] public float MinDistanceBetweenTowers = 96f; 
+    [Export] public float TowerCandidateAltitudeT = 0.5f; // 0..1 position on altitude line
+    [Export] public float MinDistanceToPath = 48f; // px
+    [Export] public float MinDistanceBetweenTowers = 96f; // px
 
+    // ----- Slots / density -----
+    [ExportCategory("Slots / density")]
+    [Export] public int TotalAspectSlotsBudget = 20; // total slots to distribute
+    [Export] public float SlotDensity = 0.5f; // probability factor when creating towers slots
+
+    // ----- Misc -----
     [ExportCategory("Misc")]
     [Export] public bool DebugDraw = true;
 
+    // runtime
     private Vector2 cellSize;
     private RandomNumberGenerator rng = new RandomNumberGenerator();
 
+    // minimum number of waypoints (was missing in your file)
     private const int MinWaypoints = 3;
 
     public override void _Ready()
@@ -44,7 +55,6 @@ public partial class MapGenerator : Node
             GD.PrintErr("Invalid grid or world rect.");
             return;
         }
-
         cellSize = new Vector2(WorldRect.Size.X / Columns, WorldRect.Size.Y / Rows);
 
         var gridPathPoints = CreatePathGridPoints();
@@ -60,6 +70,7 @@ public partial class MapGenerator : Node
 
         var placedTowers = PlaceTowersFromCandidates(towerCandidates);
 
+        DistributeSlotsToTowers(placedTowers);
 
         GD.Print($"MapGenerator: Generated path with {gridPathPoints.Count} waypoints, placed {placedTowers.Count} towers.");
     }
@@ -135,30 +146,41 @@ public partial class MapGenerator : Node
 
     private Path2D CreatePath2DFromGrid(List<Vector2> pathPoints)
     {
-        var path = new Path2D();
+        //var path = new Path2D();
+        // var curve = new Curve2D();
+        //  curve.BakeInterval = 4f;
+        /*  for (int i = 0; i < pathPoints.Count; i++)
+          {
+              curve.AddPoint(pathPoints[i]);
+          }*/
+
+        // Use the new Path2D that you created manually!
+        var path = GetNode<Path2D>("new Enemy Path");  // <-- IMPORTANT
+
         var curve = new Curve2D();
         curve.BakeInterval = 4f;
-        for (int i = 0; i < pathPoints.Count; i++)
-        {
-            curve.AddPoint(pathPoints[i]);
-        }
+
+
         path.Curve = curve;
-        AddChild(path);
-
+         AddChild(path);
+      
         if (DebugDraw)
-        {
-            for (int i = 0; i < pathPoints.Count; i++)
-            {
-                if (PathPointMarkerScene != null)
-                {
-                    var m = (Node2D)PathPointMarkerScene.Instantiate();
-                    m.GlobalPosition = pathPoints[i];
-                    AddChild(m);
-                }
-            }
-        }
+         {
+             // optional visual markers
+             for (int i = 0; i < pathPoints.Count; i++)
+             {
+                 if (PathPointMarkerScene != null)
+                 {
+                     var m = (Node2D)PathPointMarkerScene.Instantiate();
+                     m.GlobalPosition = pathPoints[i];
+                     path.AddChild(m);
+                 }
+             }
+         }
 
-        return path;
+         return path;
+
+       
     }
 
     private List<Vector2> ComputeTowerCandidates(List<Vector2> pathPoints)
@@ -233,6 +255,45 @@ public partial class MapGenerator : Node
 
         if (DebugDraw) DrawPlacedTowersDebug(placed);
         return placed;
+    }
+
+
+    private void DistributeSlotsToTowers(List<Node2D> placedTowers)
+    {
+        if (placedTowers.Count == 0 || TotalAspectSlotsBudget <= 0) return;
+
+        int remainingBudget = TotalAspectSlotsBudget;
+        foreach (var t in placedTowers)
+        {
+            int give = 0;
+            if (rng.Randf() < SlotDensity)
+            {
+                give = rng.RandiRange(1, Math.Max(1, remainingBudget));
+            }
+
+            t.SetMeta("AspectSlots", give);
+            remainingBudget = Math.Max(0, remainingBudget - give);
+            if (remainingBudget == 0) break;
+        }
+
+        int idx = 0;
+        while (remainingBudget > 0 && placedTowers.Count > 0)
+        {
+            var t = placedTowers[idx % placedTowers.Count];
+            int cur = t.HasMeta("AspectSlots") ? (int)t.GetMeta("AspectSlots") : 0;
+            t.SetMeta("AspectSlots", cur + 1);
+            remainingBudget--;
+            idx++;
+        }
+
+        foreach (var t in placedTowers)
+        {
+            if (t.HasMethod("ApplyGeneratedAspectSlots"))
+            {
+                int slots = t.HasMeta("AspectSlots") ? (int)t.GetMeta("AspectSlots") : 0;
+                t.Call("ApplyGeneratedAspectSlots", slots);
+            }
+        }
     }
 
 
