@@ -10,9 +10,7 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_amtgo")
-CostPath = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/Cost")
-CostRowLabelPath = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/Cost")
-CostRowIconPath = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/CostIcon")
+CostPath = NodePath("Panel/MarginContainer/VBoxContainer/CostRow/Cost")
 ScrapIcon = ExtResource("4_jfy6j")
 ManaIcon = ExtResource("3_vkjxo")
 
@@ -57,16 +55,16 @@ theme_override_fonts/font = ExtResource("3_xi4wn")
 theme_override_font_sizes/font_size = 25
 text = "Level 1"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="CostRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Cost" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Cost" type="Label" parent="Panel/MarginContainer/VBoxContainer/CostRow"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_xi4wn")
 theme_override_font_sizes/font_size = 25
 text = "Cast 50000"
 
-[node name="CostIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CostIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/CostRow"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_vertical = 4

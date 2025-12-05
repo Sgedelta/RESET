@@ -21,8 +21,8 @@ public partial class GameManager : Node
 	private RewardMenu _rewardMenu; 
 	private WaveDirector _waveDirector;
 	
-	public int Scrap { get; private set; } = 0;
-	public int Mana { get; private set; } = 0;
+	public int Scrap { get; private set; } = 100000;
+	public int Mana { get; private set; } = 100000;
 	[Export] public Label ScrapLabel;
 	[Export] public Label ManaLabel;
 	[Export] public int SlotScrapBaseCost = 1000;

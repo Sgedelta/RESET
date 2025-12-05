@@ -18,6 +18,7 @@ point_count = 11
 [node name="Map" type="Node2D"]
 
 [node name="EnemyPath" type="Path2D" parent="."]
+visible = false
 position = Vector2(-6.01419, -9.67376)
 curve = SubResource("Curve2D_edo5e")
 
