@@ -7,7 +7,14 @@ public partial class LaserSFX : Node2D
 	private enum Phase { Growing, Flashing, Holding, Fading }
 	private Phase _phase = Phase.Growing;
 
+	// --- NEW: Exposed so the ability can set the scaled radius ---
 	private float _radius = 150f;
+	public float Radius
+	{
+		get => _radius;
+		set => _radius = value;
+	}
+
 	private float _currentRadius = 1f;
 	private float _growSpeed = 180f; // pixels per second
 	private float _outlineAlpha = 0f;
@@ -40,13 +47,14 @@ public partial class LaserSFX : Node2D
 		{
 			case Phase.Growing:
 				_currentRadius += _growSpeed * delta;
+
+				// Clamp to scaled radius
 				if (_currentRadius >= _radius)
 				{
 					_currentRadius = _radius;
 					_phase = Phase.Flashing;
 					_finalFlashIndex = 0;
 					_flashTimer = 0.08f;
-					
 					break;
 				}
 
@@ -55,6 +63,7 @@ public partial class LaserSFX : Node2D
 				{
 					_flashOn = !_flashOn;
 					_flashTimer = 0.08f;
+
 					if (!_flashOn)
 					{
 						_outlineAlpha = Mathf.Clamp(_outlineAlpha + 0.08f, 0f, 0.7f);
@@ -70,6 +79,7 @@ public partial class LaserSFX : Node2D
 				{
 					_flashOn = !_flashOn;
 					_flashTimer = 0.06f;
+
 					if (!_flashOn)
 					{
 						_outlineAlpha = Mathf.Clamp(_outlineAlpha + 0.05f, 0f, 1f);
@@ -77,11 +87,10 @@ public partial class LaserSFX : Node2D
 						_finalFlashIndex++;
 					}
 				}
+
 				if (_finalFlashIndex >= _finalFlashCount * 2)
 				{
-
 					EmitSignal(SignalName.ImpactStarted);
-				
 					_phase = Phase.Holding;
 					_holdTimer = 1.0f;
 					_flashOn = true;
@@ -102,6 +111,7 @@ public partial class LaserSFX : Node2D
 				_alpha = Mathf.Clamp(_fadeTimer / 1.0f, 0f, 1f);
 				_outlineColor.A = _outlineAlpha * _alpha;
 				_whiteColor.A = _alpha;
+
 				if (_fadeTimer <= 0f)
 					QueueFree();
 				break;
@@ -110,15 +120,14 @@ public partial class LaserSFX : Node2D
 		QueueRedraw();
 	}
 
-public override void _Draw()
-{
-	for (int i = 0; i < 3; i++)
+	public override void _Draw()
 	{
-		DrawCircle(Vector2.Zero, _currentRadius + 2f + i * 2f, _outlineColor);
+		for (int i = 0; i < 3; i++)
+		{
+			DrawCircle(Vector2.Zero, _currentRadius + 2f + i * 2f, _outlineColor);
+		}
+
+		if (_flashOn)
+			DrawCircle(Vector2.Zero, _currentRadius, _whiteColor);
 	}
-
-	if (_flashOn)
-		DrawCircle(Vector2.Zero, _currentRadius, _whiteColor);
-}
-
 }

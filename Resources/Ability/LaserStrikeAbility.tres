@@ -1,18 +1,27 @@
-[gd_resource type="Resource" script_class="LaserStrikeAbility" load_steps=5 format=3 uid="uid://cwwvrn71fjwf8"]
+[gd_resource type="Resource" script_class="LaserStrikeAbility" load_steps=9 format=3 uid="uid://cwwvrn71fjwf8"]
 
 [ext_resource type="PackedScene" uid="uid://uotc2p62hnsn" path="res://Scenes/Abilities/LaserStrikeEffect.tscn" id="1_f1ovf"]
 [ext_resource type="Script" uid="uid://cjj7qv0p7idd4" path="res://Scenes/Abilities/LaserStrikeAbility.cs" id="1_kfym7"]
 [ext_resource type="Texture2D" uid="uid://drunsidjbwn2d" path="res://Scenes/Abilities/railgun ability hover.png" id="2_qaim7"]
-[ext_resource type="Texture2D" uid="uid://b65sm4axb3vyw" path="res://Resources/Ability/railgun.png" id="3_qaim7"]
+[ext_resource type="Texture2D" uid="uid://byeu7wj3ge31o" path="res://Resources/Ability/AbilityIcons/railgun1.png" id="3_158ss"]
+[ext_resource type="Texture2D" uid="uid://b65sm4axb3vyw" path="res://Resources/Ability/AbilityIcons/railgun.png" id="4_opgdd"]
+[ext_resource type="Texture2D" uid="uid://bim4fuyhnskpn" path="res://Resources/Ability/AbilityIcons/railgunlocked1.png" id="5_jmukn"]
+[ext_resource type="Texture2D" uid="uid://bnyggaccu6g1g" path="res://Resources/Ability/AbilityIcons/railgunlocked.png" id="6_uop20"]
+[ext_resource type="Texture2D" uid="uid://bmaixuk4h0ssh" path="res://Resources/Ability/AbilityIcons/railgunselected.png" id="7_jfofa"]
 
 [resource]
 script = ExtResource("1_kfym7")
 Damage = 150.0
 Radius = 150.0
 EffectScene = ExtResource("1_f1ovf")
-Icon = ExtResource("3_qaim7")
+LockedIcon1 = ExtResource("5_jmukn")
+LockedIcon2 = ExtResource("6_uop20")
+Icon1 = ExtResource("3_158ss")
+Icon2 = ExtResource("4_opgdd")
+SelectedIcon = ExtResource("7_jfofa")
 AbilityName = "Railgun"
 BaseManaCost = 3000
-CurrentLevel = 1
+CurrentLevel = 0
 MaxLevel = 10
+ScrapUnlockCost = 250
 HoverBackground = ExtResource("2_qaim7")

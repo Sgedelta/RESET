@@ -156,6 +156,8 @@ texture_mode = 1
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TowerPullout" parent="CanvasLayer" instance=ExtResource("1_hfefo")]
+offset = Vector2(-17.295, 0)
+transform = Transform2D(1, 0, 0, 1, -17.295, 0)
 
 [node name="TextureRect" parent="CanvasLayer/TowerPullout" index="0"]
 offset_right = 20.0
@@ -196,8 +198,6 @@ offset_bottom = 200.0
 
 [node name="MarginContainer" parent="CanvasLayer/AspectHoverMenu/Panel" index="1"]
 theme_override_constants/margin_bottom = 20
-
-[node name="AbilityHoverMenu" parent="CanvasLayer" instance=ExtResource("23_r63x1")]
 
 [node name="AbilityHover" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -264,6 +264,8 @@ offset_top = 633.0
 offset_right = 1899.0
 offset_bottom = 733.0
 
+[node name="AbilityHoverMenu" parent="CanvasLayer" instance=ExtResource("23_r63x1")]
+
 [node name="AbilityManager" type="Node" parent="."]
 script = ExtResource("11_nhc54")
 AllAbilities = Array[ExtResource("24_hdemd")]([ExtResource("24_d7a38"), ExtResource("23_co2n6"), ExtResource("22_d7a38")])
@@ -302,5 +304,5 @@ parameters/looping = true
 [editable path="CanvasLayer/AbilityMenu"]
 [editable path="CanvasLayer/RewardMenu"]
 [editable path="CanvasLayer/AspectHoverMenu"]
-[editable path="CanvasLayer/AbilityHoverMenu"]
 [editable path="CanvasLayer/PauseMenu"]
+[editable path="CanvasLayer/AbilityHoverMenu"]

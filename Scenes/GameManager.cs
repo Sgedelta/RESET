@@ -22,7 +22,7 @@ public partial class GameManager : Node
 	private WaveDirector _waveDirector;
 	
 	public int Scrap { get; private set; } = 0;
-	public int Mana { get; private set; } = 100000;
+	public int Mana { get; private set; } = 0;
 	[Export] public Label ScrapLabel;
 	[Export] public Label ManaLabel;
 	[Export] public int SlotScrapBaseCost = 1000;
@@ -260,6 +260,7 @@ public partial class GameManager : Node
 	public void OnEnemyDied(Enemy enemy)
 	{
 		_enemiesRemaining--;
+		AddMana(10);
 
 		GD.Print($"[GM] Enemy Died. {_enemiesRemaining} enemies are left in this wave.");
 
@@ -277,10 +278,20 @@ public partial class GameManager : Node
 			return false;
 
 		Mana -= amount;
-		ManaLabel.Text = $"Mana: {Mana}";
-
+		UpdateManaLabel();
 		return true;
 	}
+
+	public bool TrySpendScrap(int amount)
+	{
+		if (Scrap < amount)
+			return false;
+
+		Scrap -= amount;
+		UpdateScrapLabel();
+		return true;
+	}
+
 
 	public void OnPlayerDefeated()
 	{

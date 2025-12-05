@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b65sm4axb3vyw"
-path="res://.godot/imported/railgun.png-8946926e817496bf98637dc589444a75.ctex"
+uid="uid://bmaixuk4h0ssh"
+path="res://.godot/imported/railgunselected.png-7abffe1830de0ad8c52f08bbfb28573d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Ability/railgun.png"
-dest_files=["res://.godot/imported/railgun.png-8946926e817496bf98637dc589444a75.ctex"]
+source_file="res://Resources/Ability/AbilityIcons/railgunselected.png"
+dest_files=["res://.godot/imported/railgunselected.png-7abffe1830de0ad8c52f08bbfb28573d.ctex"]
 
 [params]
 

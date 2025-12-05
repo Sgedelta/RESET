@@ -151,13 +151,13 @@ public partial class UI_TowerPullout : CanvasLayer
 
 		if (ActiveTower != null)
 		{
-            _statDisplay.Text = ActiveTower.StatDisplayBBCode();
+			_statDisplay.Text = ActiveTower.StatDisplayBBCode();
 
 			_firingModeButton.Selected = (int)ActiveTower.Targeting.Mode;
 
-        }
+		}
 
-        if (AspectBar.Instance != null)
+		if (AspectBar.Instance != null)
 			AspectBar.Instance.Refresh();
 	}
 

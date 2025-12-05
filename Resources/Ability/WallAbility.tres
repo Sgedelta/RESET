@@ -1,17 +1,26 @@
-[gd_resource type="Resource" script_class="WallAbility" load_steps=5 format=3 uid="uid://dckpwxh6ic8eh"]
+[gd_resource type="Resource" script_class="WallAbility" load_steps=9 format=3 uid="uid://dckpwxh6ic8eh"]
 
 [ext_resource type="Script" uid="uid://csxmxuh0na8eb" path="res://Scenes/Abilities/WallAbility.cs" id="1_d0h30"]
 [ext_resource type="Texture2D" uid="uid://cdhh58wtpycf6" path="res://Scenes/Abilities/barricade ability hover (1).png" id="1_g2lm2"]
-[ext_resource type="Texture2D" uid="uid://bs7g7y6f55i8a" path="res://Resources/Ability/barricade.png" id="2_bklga"]
+[ext_resource type="Texture2D" uid="uid://ddbtlv17q141t" path="res://Resources/Ability/AbilityIcons/barricade1.png" id="2_a8cpx"]
 [ext_resource type="PackedScene" uid="uid://cmaovdspohrm" path="res://Scenes/Abilities/WallObject.tscn" id="2_g2lm2"]
+[ext_resource type="Texture2D" uid="uid://bs7g7y6f55i8a" path="res://Resources/Ability/AbilityIcons/barricade.png" id="3_1eg6x"]
+[ext_resource type="Texture2D" uid="uid://cf62dvs3yqj3d" path="res://Resources/Ability/AbilityIcons/barricadelocked1.png" id="4_bucsc"]
+[ext_resource type="Texture2D" uid="uid://c72sp4b88i7dq" path="res://Resources/Ability/AbilityIcons/barricadelocked.png" id="5_v67mn"]
+[ext_resource type="Texture2D" uid="uid://do0uxycya7m22" path="res://Resources/Ability/AbilityIcons/barricadeselected.png" id="6_fklcl"]
 
 [resource]
 script = ExtResource("1_d0h30")
 DurationSeconds = 3.0
 WallScene = ExtResource("2_g2lm2")
-Icon = ExtResource("2_bklga")
+LockedIcon1 = ExtResource("4_bucsc")
+LockedIcon2 = ExtResource("5_v67mn")
+Icon1 = ExtResource("2_a8cpx")
+Icon2 = ExtResource("3_1eg6x")
+SelectedIcon = ExtResource("6_fklcl")
 AbilityName = "Wall"
 BaseManaCost = 1000
-CurrentLevel = 1
+CurrentLevel = 0
 MaxLevel = 10
+ScrapUnlockCost = 250
 HoverBackground = ExtResource("1_g2lm2")

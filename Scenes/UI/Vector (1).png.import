@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs7g7y6f55i8a"
-path="res://.godot/imported/barricade.png-897e2c6c9d8f80c08a634ac8cdc30e06.ctex"
+uid="uid://dtoyb0e2a238j"
+path="res://.godot/imported/Vector (1).png-927940d51c334eaeb246974218170ec0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Ability/barricade.png"
-dest_files=["res://.godot/imported/barricade.png-897e2c6c9d8f80c08a634ac8cdc30e06.ctex"]
+source_file="res://Scenes/UI/Vector (1).png"
+dest_files=["res://.godot/imported/Vector (1).png-927940d51c334eaeb246974218170ec0.ctex"]
 
 [params]
 

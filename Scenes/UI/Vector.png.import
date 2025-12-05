@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brdfvtyngxxfa"
-path="res://.godot/imported/inferno.png-9292702bbbc51b0cd3ce29a3102651a9.ctex"
+uid="uid://duuucmgvcpbny"
+path="res://.godot/imported/Vector.png-3c73f587ca5360993a000d29267cbb74.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Ability/inferno.png"
-dest_files=["res://.godot/imported/inferno.png-9292702bbbc51b0cd3ce29a3102651a9.ctex"]
+source_file="res://Scenes/UI/Vector.png"
+dest_files=["res://.godot/imported/Vector.png-3c73f587ca5360993a000d29267cbb74.ctex"]
 
 [params]
 

@@ -8,6 +8,19 @@ public partial class AbilityHoverMenu : Control
 	[Export] public NodePath UpgradeButtonPath = "Panel/MarginContainer/VBoxContainer/UpgradeButton";
 	[Export] public NodePath BackgroundPath    = "Panel/TextureRect";
 	[Export] public NodePath PanelPath         = "Panel";
+	[Export] public NodePath CostRowLabelPath   = "Panel/MarginContainer/VBoxContainer/CostRow/Cost";
+	[Export] public NodePath CostRowIconPath    = "Panel/MarginContainer/VBoxContainer/CostRow/CostIcon";
+	[Export] public NodePath UpgradeTextPath    = "Panel/MarginContainer/VBoxContainer/UpgradeButton/HBoxContainer/UpgradeText";
+	[Export] public NodePath UpgradeIconPath    = "Panel/MarginContainer/VBoxContainer/UpgradeButton/HBoxContainer/UpgradeIcon";
+
+	[Export] public Texture2D ScrapIcon;
+	[Export] public Texture2D ManaIcon;
+
+	private Label _costRowLabel;
+	private TextureRect _costRowIcon;
+	private Label _upgradeText;
+	private TextureRect _upgradeIcon;
+
 
 	[Export] public Vector2 MouseOffset = new Vector2(0, 0);
 	[Export] public float ClampPadding  = 8f;
@@ -41,15 +54,21 @@ public partial class AbilityHoverMenu : Control
 
 		_name          = GetNode<Label>(NamePath);
 		_level         = GetNode<Label>(LevelPath);
-		_cost          = GetNode<Label>(CostPath);
+		_cost          = GetNode<Label>(CostPath); // you can stop using this if you want
 		_upgradeButton = GetNode<Button>(UpgradeButtonPath);
 		_bg            = GetNodeOrNull<TextureRect>(BackgroundPath);
 		_panel         = GetNodeOrNull<Control>(PanelPath);
+
+		_costRowLabel  = GetNode<Label>(CostRowLabelPath);
+		_costRowIcon   = GetNode<TextureRect>(CostRowIconPath);
+		_upgradeText   = GetNode<Label>(UpgradeTextPath);
+		_upgradeIcon   = GetNode<TextureRect>(UpgradeIconPath);
 
 		_upgradeButton.Pressed += OnUpgradePressed;
 
 		Visible = false;
 		AddToGroup("AbilityTooltip");
+
 		if (_panel != null)
 		{
 			_panel.MouseEntered += OnMenuMouseEntered;
@@ -68,7 +87,6 @@ public partial class AbilityHoverMenu : Control
 
 		SetProcess(true);
 	}
-
 
 	public override void _Process(double delta)
 	{
@@ -93,7 +111,6 @@ public partial class AbilityHoverMenu : Control
 		_hoveringMenu = true;
 		_pendingHide = false;
 	}
-
 
 	private void OnMenuMouseExited()
 	{
@@ -150,37 +167,70 @@ public partial class AbilityHoverMenu : Control
 		ScheduleHide();
 	}
 
-	private void RefreshText()
+private void RefreshText()
+{
+	if (_ability == null)
+		return;
+
+	var gm = GameManager.Instance;
+
+	_name.Text  = _ability.AbilityName;
+	_level.Text = $"Level {_ability.CurrentLevel}/{_ability.MaxLevel}";
+
+	_cost.Text = "";
+
+
+	if (!_ability.IsUnlocked)
 	{
-		if (_ability == null)
-			return;
-
-		var gm = GameManager.Instance;
-
-		_name.Text  = _ability.AbilityName;
-		_level.Text = $"Level {_ability.CurrentLevel}/{_ability.MaxLevel}";
-
-		int manaCost = _ability.ManaCost;
-		_cost.Text = $"Cast cost: {manaCost} mana";
-
-		if (gm != null && _ability.CanUpgrade(gm))
-		{
-			int nextLevel   = _ability.CurrentLevel + 1;
-			int upgradeCost = _ability.GetUpgradeCost(nextLevel);
-
-			_cost.Text += $"\nUpgrade: {upgradeCost} mana";
-
-			bool canAffordUpgrade = gm.Mana >= upgradeCost;
-			_upgradeButton.Disabled = !canAffordUpgrade;
-		}
-		else
-		{
-			_cost.Text += "\nMax level reached";
-			_upgradeButton.Disabled = true;
-		}
+		int scrapCost = _ability.ScrapUnlockCost;
+		_costRowLabel.Text = $"Unlock: {scrapCost}";
+		_costRowIcon.Texture = ScrapIcon;
+		
+		_costRowIcon.Visible = true;
+		_upgradeButton.Visible  = false;
+		_upgradeButton.Disabled = true;
 
 		ApplyAbilityBackground();
+		return;
 	}
+
+	int manaCost = _ability.ManaCost;
+
+	_costRowLabel.Text = $"Cast: {manaCost}";
+
+	if (_costRowIcon != null && ManaIcon != null)
+	{
+		_costRowIcon.Texture = ManaIcon;
+		_costRowIcon.Visible = true;
+	}
+
+	if (gm != null && _ability.CanUpgrade(gm))
+	{
+		int nextLevel   = _ability.CurrentLevel + 1;
+		int upgradeCost = _ability.GetUpgradeCost(nextLevel);
+		bool canAffordUpgrade = gm.Mana >= upgradeCost;
+
+		_upgradeButton.Visible  = true;
+		_upgradeButton.Disabled = !canAffordUpgrade;
+
+		if (_upgradeText != null)
+			_upgradeText.Text = $" Upgrade     {upgradeCost}";
+
+		if (_upgradeIcon != null && ManaIcon != null)
+		{
+			_upgradeIcon.Texture = ManaIcon;
+			_upgradeIcon.Visible = true;
+		}
+	}
+	else
+	{
+		_upgradeButton.Visible  = false;
+		_upgradeButton.Disabled = true;
+	}
+
+	ApplyAbilityBackground();
+}
+
 
 	private void ApplyAbilityBackground()
 	{
@@ -200,10 +250,10 @@ public partial class AbilityHoverMenu : Control
 		if (target == null) return;
 
 		var targetRect = target.GetGlobalRect();
-		const float verticalOffset = -200f;
+		const float verticalOffset = -300f;
 
 		Vector2 desired = new Vector2(
-			targetRect.Position.X - 50f,
+			targetRect.Position.X - 100f,
 			targetRect.Position.Y + verticalOffset
 		);
 

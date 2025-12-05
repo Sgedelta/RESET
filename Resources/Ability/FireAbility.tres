@@ -1,9 +1,13 @@
-[gd_resource type="Resource" script_class="FireAbility" load_steps=5 format=3 uid="uid://c3onv57d1ohgl"]
+[gd_resource type="Resource" script_class="FireAbility" load_steps=9 format=3 uid="uid://c3onv57d1ohgl"]
 
 [ext_resource type="PackedScene" uid="uid://c3q1l637ptm46" path="res://Scenes/Abilities/FireEffect.tscn" id="1_am3p1"]
 [ext_resource type="Script" uid="uid://bgqa6uitt401h" path="res://Scenes/Abilities/FireAbility.cs" id="1_x070y"]
 [ext_resource type="Texture2D" uid="uid://dcbv4mdvxrwht" path="res://Scenes/Abilities/inferno ability hover (2).png" id="2_0mbk1"]
-[ext_resource type="Texture2D" uid="uid://brdfvtyngxxfa" path="res://Resources/Ability/inferno.png" id="3_7m165"]
+[ext_resource type="Texture2D" uid="uid://cj4w7axqaqhws" path="res://Resources/Ability/AbilityIcons/inferno1.png" id="3_q77av"]
+[ext_resource type="Texture2D" uid="uid://brdfvtyngxxfa" path="res://Resources/Ability/AbilityIcons/inferno.png" id="4_m8egr"]
+[ext_resource type="Texture2D" uid="uid://cf5nocittmecm" path="res://Resources/Ability/AbilityIcons/infernolocked1.png" id="5_hffct"]
+[ext_resource type="Texture2D" uid="uid://ces2syqtef3gc" path="res://Resources/Ability/AbilityIcons/infernolocked.png" id="6_0c7ih"]
+[ext_resource type="Texture2D" uid="uid://cahvwxpqkdl8l" path="res://Resources/Ability/AbilityIcons/infernoselected.png" id="7_88dmb"]
 
 [resource]
 script = ExtResource("1_x070y")
@@ -12,9 +16,14 @@ DurationSeconds = 4.0
 TickInterval = 0.25
 DamagePerTick = 8.0
 EffectScene = ExtResource("1_am3p1")
-Icon = ExtResource("3_7m165")
+LockedIcon1 = ExtResource("5_hffct")
+LockedIcon2 = ExtResource("6_0c7ih")
+Icon1 = ExtResource("3_q77av")
+Icon2 = ExtResource("4_m8egr")
+SelectedIcon = ExtResource("7_88dmb")
 AbilityName = "Inferno"
 BaseManaCost = 500
-CurrentLevel = 1
+CurrentLevel = 0
 MaxLevel = 10
+ScrapUnlockCost = 250
 HoverBackground = ExtResource("2_0mbk1")

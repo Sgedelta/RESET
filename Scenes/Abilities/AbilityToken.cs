@@ -3,26 +3,33 @@ using Godot;
 public partial class AbilityToken : Control
 {
 	[Export] public TextureRect IconRect;
-	[Export] public Label CooldownLabel;
+
+	[Export] public NodePath PriceLabelPath;
+	[Export] public NodePath PriceIconPath;
+
+	[Export] public Texture2D ScrapIcon;
+	[Export] public Texture2D ManaIcon;
+
+	private Label _priceLabel;
+	private TextureRect _priceIcon;
 
 	private AbilityBase _ability;
-
-	private float _manaFill01 = 0f;
 
 	public void Init(AbilityBase ability)
 	{
 		_ability = ability;
 
-		if (IconRect != null)
-			IconRect.Texture = ability?.Icon;
-
 		IconRect?.Set("mouse_filter", (int)MouseFilterEnum.Ignore);
 
-		UpdateManaVisual();
+		_priceLabel = GetNode<Label>(PriceLabelPath);
+		_priceIcon  = GetNode<TextureRect>(PriceIconPath);
+
+		UpdateVisual();
 
 		MouseEntered += OnMouseEntered;
 		MouseExited  += OnMouseExited;
 	}
+
 
 	private void OnMouseEntered()
 	{
@@ -47,47 +54,75 @@ public partial class AbilityToken : Control
 	public override void _Process(double delta)
 	{
 		if (_ability == null) return;
-		UpdateManaVisual();
+		UpdateVisual();
 	}
 
 	public void RefreshFromAbility()
 	{
-		UpdateManaVisual();
+		UpdateVisual();
 		QueueRedraw();
 	}
 
-	private void UpdateManaVisual()
+private void UpdateVisual()
+{
+	if (_ability == null) return;
+
+	var gm = GameManager.Instance;
+	if (gm == null) return;
+
+	bool isUnlocked = _ability.IsUnlocked;
+
+	int manaCost  = _ability.ManaCost;
+	int scrapCost = _ability.ScrapUnlockCost;
+
+	bool canAffordMana  = gm.Mana  >= manaCost;
+	bool canAffordScrap = gm.Scrap >= scrapCost;
+
+	bool isSelected = AbilityManager.Instance != null &&
+					  AbilityManager.Instance.ArmedAbility == _ability;
+
+	Texture2D iconTex = null;
+
+	if (isSelected && _ability.SelectedIcon != null)
+		iconTex = _ability.SelectedIcon;
+	else if (!isUnlocked)
+		iconTex = canAffordScrap ? (_ability.LockedIcon2 ?? _ability.LockedIcon1)
+								 : (_ability.LockedIcon1 ?? _ability.LockedIcon2);
+	else
+		iconTex = canAffordMana ? (_ability.Icon2 ?? _ability.Icon1)
+								: (_ability.Icon1 ?? _ability.Icon2);
+
+	if (IconRect != null && iconTex != null)
+		IconRect.Texture = iconTex;
+
+	if (!isUnlocked)
 	{
-		if (_ability == null) return;
+		if (_priceLabel != null)
+			_priceLabel.Text = scrapCost.ToString();
 
-		var gm = GameManager.Instance;
-		if (gm == null) return;
-
-		int currentMana = gm.Mana;
-		int cost        = Mathf.Max(_ability.ManaCost, 1);
-
-		float ratio = (float)currentMana / cost;
-		_manaFill01 = Mathf.Clamp(ratio, 0f, 1f);
-
-		if (CooldownLabel != null)
+		if (_priceIcon != null && ScrapIcon != null)
 		{
-			CooldownLabel.Visible = true;
-			CooldownLabel.Text    = cost.ToString();
+			_priceIcon.Texture = ScrapIcon;
+			_priceIcon.Visible = true;
 		}
-
-		bool canAfford = currentMana >= cost;
-
-		MouseFilter = canAfford ? MouseFilterEnum.Pass : MouseFilterEnum.Ignore;
-
-		Color enabledColor  = new Color(1f, 1f, 1f, 1f);
-		Color disabledColor = new Color(1f, 1f, 1f, 0.4f);
-
-		if (IconRect != null)
-			IconRect.Modulate = canAfford ? enabledColor : disabledColor;
-
-		if (CooldownLabel != null)
-			CooldownLabel.Modulate = canAfford ? enabledColor : disabledColor;
 	}
+	else
+	{
+		if (_priceLabel != null)
+			_priceLabel.Text = manaCost.ToString();
+
+		if (_priceIcon != null && ManaIcon != null)
+		{
+			_priceIcon.Texture = ManaIcon;
+			_priceIcon.Visible = true;
+		}
+	}
+
+	bool clickable = !isUnlocked ? canAffordScrap : canAffordMana;
+	MouseFilter = clickable ? MouseFilterEnum.Pass : MouseFilterEnum.Ignore;
+
+}
+
 
 	public override void _GuiInput(InputEvent e)
 	{
@@ -98,14 +133,25 @@ public partial class AbilityToken : Control
 		if (gm == null)
 			return;
 
+		if (e is not InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true })
+			return;
+
+		bool isUnlocked = _ability.IsUnlocked;
+
+		if (!isUnlocked)
+		{
+			if (_ability.TryUnlock(gm))
+				RefreshFromAbility();
+
+			AcceptEvent();
+			return;
+		}
+
 		if (gm.Mana < _ability.ManaCost)
 			return;
 
-		if (e is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true })
-		{
-			AbilityManager.Instance.Arm(_ability);
-			AcceptEvent();
-		}
+		AbilityManager.Instance.Arm(_ability);
+		AcceptEvent();
 	}
 
 	public override Variant _GetDragData(Vector2 atPosition)
@@ -113,7 +159,13 @@ public partial class AbilityToken : Control
 		if (_ability == null) return default;
 
 		var gm = GameManager.Instance;
-		if (gm == null || gm.Mana < _ability.ManaCost)
+		if (gm == null)
+			return default;
+
+		if (!_ability.IsUnlocked)
+			return default;
+
+		if (gm.Mana < _ability.ManaCost)
 			return default;
 
 		AbilityManager.Instance.Arm(_ability);
@@ -127,37 +179,5 @@ public partial class AbilityToken : Control
 			{ "type", "ability_token" },
 			{ "ability", _ability }
 		};
-	}
-
-	public override void _Draw()
-	{
-		var rect   = GetRect();
-		var center = rect.Size / 2f;
-
-		float baseRadius = Mathf.Min(rect.Size.X, rect.Size.Y) * 0.5f;
-
-		float radius = baseRadius * 1.2f;
-		int steps = 64;
-		Color outlineColor = new Color(0f, 0f, 0f, 1f);
-		DrawArc(center, radius, 0f, Mathf.Tau, steps, outlineColor, 2f, true);
-
-		if (_manaFill01 <= 0.001f)
-			return;
-
-		float startAngle = -Mathf.Pi / 2f;
-		float sweepAngle = Mathf.Tau * _manaFill01;
-
-		Color fillColor = LerpRedToGreen(_manaFill01);
-		fillColor.A = 1.0f;
-
-		DrawArc(center, radius, startAngle, startAngle + sweepAngle, steps, fillColor, 4f, true);
-	}
-
-	private static Color LerpRedToGreen(float t)
-	{
-		t = Mathf.Clamp(t, 0f, 1f);
-		float r = 1f - t;
-		float g = t;
-		return new Color(r, g, 0f);
 	}
 }
