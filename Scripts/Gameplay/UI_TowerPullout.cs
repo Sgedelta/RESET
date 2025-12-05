@@ -22,6 +22,7 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	private ScrollContainer i_ScrollContainer;
 	private bool _changingTower = false;
+	private TextureRect i_TextRect;
 
 	private const string BuySlotMetaKey = "buy_slot";
 
@@ -59,6 +60,7 @@ public partial class UI_TowerPullout : CanvasLayer
 	{
 		i_ScrollContainer = GetChild<ScrollContainer>(1);
 		i_ScrollContainer.MouseFilter = Control.MouseFilterEnum.Pass;
+		i_TextRect = GetChild<TextureRect>(0);
 
 		AddToGroup("tower_pullout");
 
@@ -93,7 +95,7 @@ public partial class UI_TowerPullout : CanvasLayer
 		slideAnim.TweenProperty(
 			this,
 			"offset",
-			new Vector2((_active ? 0 : i_ScrollContainer.Size.X), 0),
+			new Vector2((_active ? 0 : i_TextRect.Size.X), 0),
 			SlideTime
 		);
 
@@ -102,7 +104,7 @@ public partial class UI_TowerPullout : CanvasLayer
 
 	public void SetToActivePosition()
 	{
-		Offset = new Vector2((_active ? 0 : i_ScrollContainer.Size.X), 0);
+		Offset = new Vector2((_active ? 0 : i_TextRect.Size.X), 0);
 	}
 
 	private async void ChangeActiveTower(Tower tower)

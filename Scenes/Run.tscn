@@ -166,7 +166,6 @@ transform = Transform2D(1, 0, 0, 1, -17.295, 0)
 offset_right = 20.0
 
 [node name="ScrollContainer" parent="CanvasLayer/TowerPullout" index="1"]
-offset_right = 20.0
 mouse_filter = 0
 follow_focus = true
 horizontal_scroll_mode = 0
@@ -237,6 +236,10 @@ offset_bottom = 733.0
 
 [node name="AbilityHoverMenu" parent="CanvasLayer" instance=ExtResource("23_r63x1")]
 visible = false
+CostRowLabelPath = NodePath("Panel/MarginContainer/VBoxContainer/CostRow/Cost")
+CostRowIconPath = NodePath("Panel/MarginContainer/VBoxContainer/CostRow/CostIcon")
+ScrapIcon = null
+ManaIcon = null
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
 offset_right = 40.0
