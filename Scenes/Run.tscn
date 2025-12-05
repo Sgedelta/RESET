@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cqogid51gx2q8"]
+[gd_scene load_steps=43 format=3 uid="uid://cqogid51gx2q8"]
 
 [ext_resource type="PackedScene" uid="uid://ds07h7pge8rnw" path="res://Scenes/UI/TowerPullout.tscn" id="1_hfefo"]
 [ext_resource type="PackedScene" uid="uid://b54ks2lks65pw" path="res://Scenes/Map/Map.tscn" id="1_wyxvx"]
@@ -31,9 +31,12 @@
 [ext_resource type="Resource" uid="uid://dckpwxh6ic8eh" path="res://Resources/Ability/WallAbility.tres" id="23_co2n6"]
 [ext_resource type="PackedScene" uid="uid://by54jkhqjd7mp" path="res://Scenes/Abilities/AbilityHoverMenu.tscn" id="23_r63x1"]
 [ext_resource type="Resource" uid="uid://beqxt0enu774u" path="res://Resources/AspectTemplates/Mage/Legendary/MasterMage.tres" id="23_rb5a6"]
+[ext_resource type="Texture2D" uid="uid://dqhfalblkykro" path="res://Scenes/UI/Vector (2).png" id="23_ygtc6"]
 [ext_resource type="Resource" uid="uid://c3onv57d1ohgl" path="res://Resources/Ability/FireAbility.tres" id="24_d7a38"]
 [ext_resource type="Script" uid="uid://bblmgefgwfova" path="res://Scenes/Abilities/AbilityBase.cs" id="24_hdemd"]
+[ext_resource type="Texture2D" uid="uid://duuucmgvcpbny" path="res://Scenes/UI/Vector.png" id="24_hfefo"]
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="24_twhnw"]
+[ext_resource type="Texture2D" uid="uid://dtoyb0e2a238j" path="res://Scenes/UI/Vector (1).png" id="25_ygtc6"]
 [ext_resource type="AudioStream" uid="uid://bk1uwoflu8jtt" path="res://Resources/Audio/mainthemetake1.mp3" id="28_twhnw"]
 [ext_resource type="Script" uid="uid://c3ic0mixxtbrd" path="res://Scenes/Abilities/AbilityHover.cs" id="32_vlm8s"]
 [ext_resource type="Resource" uid="uid://baqxccb6ckhks" path="res://Resources/AspectTemplates/Tech/Common/Random.tres" id="33_co2n6"]
@@ -50,10 +53,10 @@ StartScreenPath = "res://Scenes/UI/StartMenu.tscn"
 AspectBarPath = NodePath("../CanvasLayer/AspectBar")
 gameOverTextPath = NodePath("../CanvasLayer/GameOverText")
 RewardMenuPath = NodePath("../CanvasLayer/RewardMenu")
-ScrapLabel = NodePath("../CanvasLayer/Scrap")
-ManaLabel = NodePath("../CanvasLayer/Mana")
+ScrapLabel = NodePath("../CanvasLayer/HBoxContainer/HBoxContainer/Scrap")
+ManaLabel = NodePath("../CanvasLayer/HBoxContainer/HBoxContainer2/Mana")
 PauseMenuPath = NodePath("../CanvasLayer/PauseMenu")
-PauseButton = NodePath("../CanvasLayer/Pause")
+PauseButton = NodePath("../CanvasLayer/HBoxContainer/Pause")
 ResumeButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Resume")
 MainMenuButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Main Menu")
 
@@ -193,6 +196,7 @@ visible = false
 visible = false
 
 [node name="AspectHoverMenu" parent="CanvasLayer" instance=ExtResource("37_utqwv")]
+visible = false
 offset_right = 200.0
 offset_bottom = 200.0
 
@@ -200,6 +204,7 @@ offset_bottom = 200.0
 theme_override_constants/margin_bottom = 20
 
 [node name="AbilityHover" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -208,15 +213,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("32_vlm8s")
 WaveDirectorPath = NodePath("../../WaveDirector")
-
-[node name="HealthUI" type="Label" parent="CanvasLayer"]
-offset_right = 211.0
-offset_bottom = 60.0
-theme_override_fonts/font = ExtResource("6_q06an")
-theme_override_font_sizes/font_size = 30
-text = "HP: 100 / 100"
-script = ExtResource("11_x3f4s")
-PlayerManagerPath = NodePath("../../PlayerManager")
 
 [node name="GameOverText" type="Label" parent="CanvasLayer"]
 visible = false
@@ -233,31 +229,6 @@ AspectBarPath = NodePath("../AspectBar")
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_u4oo0")]
 visible = false
 
-[node name="Pause" type="Button" parent="CanvasLayer"]
-offset_left = 68.0
-offset_top = 191.0
-offset_right = 168.0
-offset_bottom = 239.0
-theme_override_fonts/font = ExtResource("6_q06an")
-theme_override_font_sizes/font_size = 25
-text = "Pause"
-
-[node name="Scrap" type="Label" parent="CanvasLayer"]
-offset_top = 57.0
-offset_right = 290.0
-offset_bottom = 120.0
-theme_override_fonts/font = ExtResource("6_q06an")
-theme_override_font_sizes/font_size = 30
-text = "Scrap: 10000"
-
-[node name="Mana" type="Label" parent="CanvasLayer"]
-offset_top = 112.0
-offset_right = 228.0
-offset_bottom = 175.0
-theme_override_fonts/font = ExtResource("6_q06an")
-theme_override_font_sizes/font_size = 30
-text = "Mana:100000"
-
 [node name="ScrapBox" parent="CanvasLayer" instance=ExtResource("20_mw8f7")]
 offset_left = 1799.0
 offset_top = 633.0
@@ -265,6 +236,60 @@ offset_right = 1899.0
 offset_bottom = 733.0
 
 [node name="AbilityHoverMenu" parent="CanvasLayer" instance=ExtResource("23_r63x1")]
+visible = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 25
+
+[node name="Pause" type="Button" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_q06an")
+theme_override_font_sizes/font_size = 25
+text = "Pause"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HealthIcon" type="TextureRect" parent="CanvasLayer/HBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+texture = ExtResource("23_ygtc6")
+
+[node name="HealthUI" type="Label" parent="CanvasLayer/HBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_q06an")
+theme_override_font_sizes/font_size = 30
+text = "100 / 100"
+script = ExtResource("11_x3f4s")
+PlayerManagerPath = NodePath("../../../../PlayerManager")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ScrapIcon" type="TextureRect" parent="CanvasLayer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("24_hfefo")
+
+[node name="Scrap" type="Label" parent="CanvasLayer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_q06an")
+theme_override_font_sizes/font_size = 30
+text = "10000"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ManaIcon" type="TextureRect" parent="CanvasLayer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("25_ygtc6")
+
+[node name="Mana" type="Label" parent="CanvasLayer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_q06an")
+theme_override_font_sizes/font_size = 30
+text = "100000"
 
 [node name="AbilityManager" type="Node" parent="."]
 script = ExtResource("11_nhc54")

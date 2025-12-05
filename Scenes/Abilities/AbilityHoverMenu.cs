@@ -213,14 +213,9 @@ private void RefreshText()
 		_upgradeButton.Visible  = true;
 		_upgradeButton.Disabled = !canAffordUpgrade;
 
-		if (_upgradeText != null)
-			_upgradeText.Text = $" Upgrade     {upgradeCost}";
-
-		if (_upgradeIcon != null && ManaIcon != null)
-		{
-			_upgradeIcon.Texture = ManaIcon;
-			_upgradeIcon.Visible = true;
-		}
+		_upgradeText.Text = $" Upgrade     {upgradeCost}";
+		_upgradeIcon.Texture = ScrapIcon;
+		_upgradeIcon.Visible = true;
 	}
 	else
 	{

@@ -191,13 +191,13 @@ public partial class GameManager : Node
 	private void UpdateManaLabel()
 	{
 		if (ManaLabel != null)
-			ManaLabel.Text = $"Mana: {Mana}";
+			ManaLabel.Text = $"{Mana}";
 	}
 
 	private void UpdateScrapLabel()
 	{
 		if (ScrapLabel != null)
-			ScrapLabel.Text = $"Scrap: {Scrap}";
+			ScrapLabel.Text = $"{Scrap}";
 	}
 
 	public void AddMana(int amount)
@@ -260,7 +260,7 @@ public partial class GameManager : Node
 	public void OnEnemyDied(Enemy enemy)
 	{
 		_enemiesRemaining--;
-		AddMana(10);
+		AddMana(5);
 
 		GD.Print($"[GM] Enemy Died. {_enemiesRemaining} enemies are left in this wave.");
 
@@ -358,6 +358,7 @@ public partial class GameManager : Node
 		}
 
 		_rewardMenu.ShowChoices(_currentWave, choices);
+		AddScrap(100);
 		GetTree().Paused = true;
 	}
 
