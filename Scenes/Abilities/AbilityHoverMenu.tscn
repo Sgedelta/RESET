@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cnihgdmhx2smd" path="res://Scenes/Abilities/AbilityHoverMenu.cs" id="1_amtgo"]
 [ext_resource type="Texture2D" uid="uid://drunsidjbwn2d" path="res://Scenes/Abilities/railgun ability hover.png" id="2_8hcb8"]
-[ext_resource type="Texture2D" uid="uid://dtoyb0e2a238j" path="res://Scenes/UI/Vector (1).png" id="3_vkjxo"]
+[ext_resource type="Texture2D" uid="uid://dtoyb0e2a238j" path="res://Scenes/UI/Mana.png" id="3_vkjxo"]
 [ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="3_xi4wn"]
-[ext_resource type="Texture2D" uid="uid://duuucmgvcpbny" path="res://Scenes/UI/Vector.png" id="4_jfy6j"]
+[ext_resource type="Texture2D" uid="uid://duuucmgvcpbny" path="res://Scenes/UI/Scrap.png" id="4_jfy6j"]
 
 [node name="AbilityHoverMenu" type="Control"]
 layout_mode = 3

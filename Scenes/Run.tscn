@@ -25,18 +25,18 @@
 [ext_resource type="Script" uid="uid://bkyenql7l4b7j" path="res://Scenes/Abilities/AbilityManager.cs" id="11_nhc54"]
 [ext_resource type="PackedScene" uid="uid://cdqc0wm6sinp2" path="res://Scenes/Enemies/FastEnemy.tscn" id="11_q06an"]
 [ext_resource type="Script" uid="uid://dk5vs25jqqb6v" path="res://Scenes/HealthUi.cs" id="11_x3f4s"]
-[ext_resource type="PackedScene" uid="uid://dayxbdlsn0nc8" path="res://Scenes/UI/ScrapBox.tscn" id="20_mw8f7"]
 [ext_resource type="Resource" uid="uid://bo164d1kghyrm" path="res://Resources/AspectTemplates/Archer/Common/PaddedArrows.tres" id="22_6kpg7"]
 [ext_resource type="Resource" uid="uid://cwwvrn71fjwf8" path="res://Resources/Ability/LaserStrikeAbility.tres" id="22_d7a38"]
 [ext_resource type="Resource" uid="uid://dckpwxh6ic8eh" path="res://Resources/Ability/WallAbility.tres" id="23_co2n6"]
 [ext_resource type="PackedScene" uid="uid://by54jkhqjd7mp" path="res://Scenes/Abilities/AbilityHoverMenu.tscn" id="23_r63x1"]
 [ext_resource type="Resource" uid="uid://beqxt0enu774u" path="res://Resources/AspectTemplates/Mage/Legendary/MasterMage.tres" id="23_rb5a6"]
-[ext_resource type="Texture2D" uid="uid://dqhfalblkykro" path="res://Scenes/UI/Vector (2).png" id="23_ygtc6"]
+[ext_resource type="Texture2D" uid="uid://dqhfalblkykro" path="res://Scenes/UI/Hearts.png" id="23_ygtc6"]
 [ext_resource type="Resource" uid="uid://c3onv57d1ohgl" path="res://Resources/Ability/FireAbility.tres" id="24_d7a38"]
 [ext_resource type="Script" uid="uid://bblmgefgwfova" path="res://Scenes/Abilities/AbilityBase.cs" id="24_hdemd"]
-[ext_resource type="Texture2D" uid="uid://duuucmgvcpbny" path="res://Scenes/UI/Vector.png" id="24_hfefo"]
+[ext_resource type="Texture2D" uid="uid://duuucmgvcpbny" path="res://Scenes/UI/Scrap.png" id="24_hfefo"]
 [ext_resource type="Resource" uid="uid://bce7t2qj88ub5" path="res://Resources/AspectTemplates/Tech/Legendary/ReactorMeltdown.tres" id="24_twhnw"]
-[ext_resource type="Texture2D" uid="uid://dtoyb0e2a238j" path="res://Scenes/UI/Vector (1).png" id="25_ygtc6"]
+[ext_resource type="Texture2D" uid="uid://dtoyb0e2a238j" path="res://Scenes/UI/Mana.png" id="25_ygtc6"]
+[ext_resource type="PackedScene" uid="uid://bpfbcfyc6c0r6" path="res://Scenes/UI/ScrapConfirmMenu.tscn" id="26_ygtc6"]
 [ext_resource type="AudioStream" uid="uid://bk1uwoflu8jtt" path="res://Resources/Audio/mainthemetake1.mp3" id="28_twhnw"]
 [ext_resource type="Script" uid="uid://c3ic0mixxtbrd" path="res://Scenes/Abilities/AbilityHover.cs" id="32_vlm8s"]
 [ext_resource type="Resource" uid="uid://baqxccb6ckhks" path="res://Resources/AspectTemplates/Tech/Common/Random.tres" id="33_co2n6"]
@@ -61,6 +61,9 @@ ResumeButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Resu
 MainMenuButton = NodePath("../CanvasLayer/PauseMenu/TextureRect/VBoxContainer/Main Menu")
 
 [node name="Map" parent="." instance=ExtResource("1_wyxvx")]
+
+[node name="EnemyPath" parent="Map" index="0"]
+visible = true
 
 [node name="Towers" parent="Map" index="1"]
 position = Vector2(572, 135)
@@ -188,8 +191,12 @@ offset_bottom = 870.0
 [node name="HBoxContainer" parent="CanvasLayer/AbilityMenu/Panel" index="0"]
 theme_override_constants/separation = 20
 
+[node name="ScrapConfirmMenu" parent="CanvasLayer" instance=ExtResource("26_ygtc6")]
+
 [node name="AspectBar" parent="CanvasLayer" instance=ExtResource("9_kl2rs")]
-visible = false
+
+[node name="ScrapBox" parent="CanvasLayer/AspectBar" index="2" node_paths=PackedStringArray("_scrapMenu")]
+_scrapMenu = NodePath("../../ScrapConfirmMenu")
 
 [node name="RewardMenu" parent="CanvasLayer" instance=ExtResource("37_r63x1")]
 visible = false
@@ -228,16 +235,8 @@ AspectBarPath = NodePath("../AspectBar")
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_u4oo0")]
 visible = false
 
-[node name="ScrapBox" parent="CanvasLayer" instance=ExtResource("20_mw8f7")]
-offset_left = 1799.0
-offset_top = 633.0
-offset_right = 1899.0
-offset_bottom = 733.0
-
 [node name="AbilityHoverMenu" parent="CanvasLayer" instance=ExtResource("23_r63x1")]
 visible = false
-CostRowLabelPath = NodePath("Panel/MarginContainer/VBoxContainer/CostRow/Cost")
-CostRowIconPath = NodePath("Panel/MarginContainer/VBoxContainer/CostRow/CostIcon")
 ScrapIcon = null
 ManaIcon = null
 
@@ -330,6 +329,7 @@ parameters/looping = true
 [editable path="CanvasLayer/TowerPullout"]
 [editable path="CanvasLayer/TowerPullout/ScrollContainer/GridContainer/AspectContainer/AspectSlot"]
 [editable path="CanvasLayer/AbilityMenu"]
+[editable path="CanvasLayer/AspectBar"]
 [editable path="CanvasLayer/RewardMenu"]
 [editable path="CanvasLayer/AspectHoverMenu"]
 [editable path="CanvasLayer/PauseMenu"]

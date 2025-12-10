@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://bpfbcfyc6c0r6"]
+
+[ext_resource type="Texture2D" uid="uid://dx7e5wkeapi5k" path="res://Scenes/UI/Scrap Menu.png" id="1_b02wn"]
+[ext_resource type="Script" uid="uid://doxhman7fdjv2" path="res://Scenes/UI/ScrapConfirmMenu.cs" id="1_o6mtb"]
+[ext_resource type="Texture2D" uid="uid://duuucmgvcpbny" path="res://Scenes/UI/Scrap.png" id="2_o6mtb"]
+[ext_resource type="Texture2D" uid="uid://dtoyb0e2a238j" path="res://Scenes/UI/Mana.png" id="3_oa1pe"]
+[ext_resource type="Texture2D" uid="uid://c0kyjx0lxmvwc" path="res://Scenes/UI/upgrade button.png" id="4_54y4v"]
+[ext_resource type="Texture2D" uid="uid://8pcr7wmybyb1" path="res://Scenes/UI/upgrade button (4).png" id="6_oa1pe"]
+
+[node name="ScrapConfirmMenu" type="Control" node_paths=PackedStringArray("_nameLabel", "_rarityLabel", "_rewardsContainer", "_scrapRow", "_scrapValueLabel", "_manaRow", "_manaValueLabel", "_confirmButton", "_cancelButton")]
+z_index = 5
+custom_minimum_size = Vector2(285, 230)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1627.0
+offset_top = 639.0
+offset_right = 1912.0
+offset_bottom = 869.0
+script = ExtResource("1_o6mtb")
+_nameLabel = NodePath("PanelContainer/MarginContainer/VBoxContainer/Name")
+_rarityLabel = NodePath("PanelContainer/MarginContainer/VBoxContainer/Rarity")
+_rewardsContainer = NodePath("PanelContainer/MarginContainer/VBoxContainer/RewardContainer")
+_scrapRow = NodePath("PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ScrapRow")
+_scrapValueLabel = NodePath("PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ScrapRow/ScrapText")
+_manaRow = NodePath("PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ManaRow")
+_manaValueLabel = NodePath("PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ManaRow/ManaText")
+_confirmButton = NodePath("PanelContainer/MarginContainer/VBoxContainer/RewardContainer/Confrim")
+_cancelButton = NodePath("PanelContainer/MarginContainer/VBoxContainer/RewardContainer/Cancel")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_b02wn")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Perfect Archer"
+
+[node name="Rarity" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Legendary"
+
+[node name="RewardContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrapRow" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer"]
+layout_mode = 2
+
+[node name="ScrapText" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ScrapRow"]
+layout_mode = 2
+text = "h6h6h6h6"
+
+[node name="ScrapIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ScrapRow"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = ExtResource("2_o6mtb")
+expand_mode = 1
+
+[node name="ManaRow" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer"]
+layout_mode = 2
+
+[node name="ManaText" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ManaRow"]
+layout_mode = 2
+text = "ethtehrh"
+
+[node name="ManaIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ManaRow"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = ExtResource("3_oa1pe")
+expand_mode = 1
+
+[node name="Cancel" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer"]
+layout_mode = 2
+icon = ExtResource("4_54y4v")
+icon_alignment = 1
+
+[node name="Confrim" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer"]
+layout_mode = 2
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+icon = ExtResource("6_oa1pe")
+clip_text = true
+icon_alignment = 1

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duuucmgvcpbny"
-path="res://.godot/imported/Vector.png-3c73f587ca5360993a000d29267cbb74.ctex"
+uid="uid://c0kyjx0lxmvwc"
+path="res://.godot/imported/upgrade button.png-5806e3fe3fda5a52e82a47388e89978b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/UI/Vector.png"
-dest_files=["res://.godot/imported/Vector.png-3c73f587ca5360993a000d29267cbb74.ctex"]
+source_file="res://Scenes/UI/upgrade button.png"
+dest_files=["res://.godot/imported/upgrade button.png-5806e3fe3fda5a52e82a47388e89978b.ctex"]
 
 [params]
 

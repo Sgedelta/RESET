@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://bw1a08dlscvo2" path="res://Scenes/Abilities/AbilityToken.cs" id="1_d22pm"]
 [ext_resource type="Texture2D" uid="uid://b65sm4axb3vyw" path="res://Resources/Ability/AbilityIcons/railgun.png" id="2_gx4l4"]
 [ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="2_v86ht"]
-[ext_resource type="Texture2D" uid="uid://duuucmgvcpbny" path="res://Scenes/UI/Vector.png" id="2_wroxr"]
-[ext_resource type="Texture2D" uid="uid://dtoyb0e2a238j" path="res://Scenes/UI/Vector (1).png" id="4_d71sq"]
+[ext_resource type="Texture2D" uid="uid://duuucmgvcpbny" path="res://Scenes/UI/Scrap.png" id="2_wroxr"]
+[ext_resource type="Texture2D" uid="uid://dtoyb0e2a238j" path="res://Scenes/UI/Mana.png" id="4_d71sq"]
 
 [node name="AbilityToken" type="Control" node_paths=PackedStringArray("IconRect")]
 custom_minimum_size = Vector2(50, 50)

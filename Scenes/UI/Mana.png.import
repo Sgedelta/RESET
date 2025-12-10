@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqhfalblkykro"
-path="res://.godot/imported/Vector (2).png-384a112935cc95ccc695a9ddbe2b1ab9.ctex"
+uid="uid://dtoyb0e2a238j"
+path="res://.godot/imported/Mana.png-a80ab3c34770f4f0d1ec797ac9c83193.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/UI/Vector (2).png"
-dest_files=["res://.godot/imported/Vector (2).png-384a112935cc95ccc695a9ddbe2b1ab9.ctex"]
+source_file="res://Scenes/UI/Mana.png"
+dest_files=["res://.godot/imported/Mana.png-a80ab3c34770f4f0d1ec797ac9c83193.ctex"]
 
 [params]
 

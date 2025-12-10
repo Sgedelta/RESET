@@ -1,16 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://dayxbdlsn0nc8"]
+[gd_scene load_steps=5 format=3 uid="uid://dayxbdlsn0nc8"]
 
 [ext_resource type="Script" uid="uid://534ggpfkqrq5" path="res://Scenes/UI/ScrapBox.cs" id="1_vs8ns"]
-[ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="2_uqbap"]
+[ext_resource type="Texture2D" uid="uid://dtoyb0e2a238j" path="res://Scenes/UI/Mana.png" id="2_v4uon"]
+[ext_resource type="Texture2D" uid="uid://duuucmgvcpbny" path="res://Scenes/UI/Scrap.png" id="3_dlsb2"]
+[ext_resource type="Texture2D" uid="uid://rjmrq1ftl7vv" path="res://Scenes/UI/Scrap Bin (1).png" id="4_26goc"]
 
 [node name="ScrapBox" type="PanelContainer"]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(120, 120)
 script = ExtResource("1_vs8ns")
 
-[node name="Label" type="Label" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_uqbap")
-theme_override_font_sizes/font_size = 20
-text = "Scrap
-Aspect"
-horizontal_alignment = 1
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 27)
+layout_mode = 2
+texture = ExtResource("2_v4uon")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 27)
+layout_mode = 2
+texture = ExtResource("3_dlsb2")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("4_26goc")
+expand_mode = 1
