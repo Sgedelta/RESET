@@ -5,15 +5,25 @@ public partial class AspectBar : Control
 	[Export] public PackedScene TokenScene;
 	[Export] public NodePath RowPath = "Panel/Margin/Scroll/Row";
 	private HBoxContainer _row;
-	public static AspectBar Instance;
+
+	public static AspectBar Instance { get; private set; }
+
+	public override void _EnterTree()
+	{
+		if (Instance != null && Instance != this)
+			GD.PushWarning("[AspectBar] Replacing existing Instance");
+
+		Instance = this;
+	}
+
+	public override void _ExitTree()
+	{
+		if (Instance == this)
+			Instance = null;
+	}
 
 	public override void _Ready()
 	{
-		if (Instance != null && Instance != this)
-			QueueFree();
-		else
-			Instance = this;
-
 		_row = GetNode<HBoxContainer>(RowPath);
 		Refresh();
 	}
@@ -21,11 +31,27 @@ public partial class AspectBar : Control
 	public void Refresh()
 	{
 		GD.Print("Refreshing Bar");
-		foreach (Node child in _row.GetChildren()) child.QueueFree();
 
-		foreach (var aspect in GameManager.Instance.Inventory.BagAspects())
+		if (_row == null)
 		{
-			if (GameManager.Instance.Inventory.IsAttached(aspect)) continue;
+			GD.PushWarning("[AspectBar] _row is null in Refresh()");
+			return;
+		}
+
+		foreach (Node child in _row.GetChildren())
+			child.QueueFree();
+
+		var gm = GameManager.Instance;
+		if (gm == null || gm.Inventory == null)
+		{
+			GD.PushWarning("[AspectBar] GameManager or Inventory is null in Refresh()");
+			return;
+		}
+
+		foreach (var aspect in gm.Inventory.BagAspects())
+		{
+			if (gm.Inventory.IsAttached(aspect)) 
+				continue;
 
 			var token = TokenScene.Instantiate<AspectToken>();
 			token.Init(aspect, TokenPlace.Bar);

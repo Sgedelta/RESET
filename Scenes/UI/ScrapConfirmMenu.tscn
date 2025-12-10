@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpfbcfyc6c0r6"]
+[gd_scene load_steps=8 format=3 uid="uid://bpfbcfyc6c0r6"]
 
 [ext_resource type="Texture2D" uid="uid://dx7e5wkeapi5k" path="res://Scenes/UI/Scrap Menu.png" id="1_b02wn"]
 [ext_resource type="Script" uid="uid://doxhman7fdjv2" path="res://Scenes/UI/ScrapConfirmMenu.cs" id="1_o6mtb"]
 [ext_resource type="Texture2D" uid="uid://duuucmgvcpbny" path="res://Scenes/UI/Scrap.png" id="2_o6mtb"]
+[ext_resource type="FontFile" uid="uid://tj5hq6eqap7n" path="res://Rieven Uncial Regular.ttf" id="3_54y4v"]
 [ext_resource type="Texture2D" uid="uid://dtoyb0e2a238j" path="res://Scenes/UI/Mana.png" id="3_oa1pe"]
 [ext_resource type="Texture2D" uid="uid://c0kyjx0lxmvwc" path="res://Scenes/UI/upgrade button.png" id="4_54y4v"]
 [ext_resource type="Texture2D" uid="uid://8pcr7wmybyb1" path="res://Scenes/UI/upgrade button (4).png" id="6_oa1pe"]
@@ -56,10 +57,13 @@ layout_mode = 2
 
 [node name="Name" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_54y4v")
+theme_override_font_sizes/font_size = 20
 text = "Perfect Archer"
 
 [node name="Rarity" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_54y4v")
 text = "Legendary"
 
 [node name="RewardContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
@@ -70,6 +74,7 @@ layout_mode = 2
 
 [node name="ScrapText" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ScrapRow"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_54y4v")
 text = "h6h6h6h6"
 
 [node name="ScrapIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ScrapRow"]
@@ -83,6 +88,7 @@ layout_mode = 2
 
 [node name="ManaText" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ManaRow"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_54y4v")
 text = "ethtehrh"
 
 [node name="ManaIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/RewardContainer/ManaRow"]

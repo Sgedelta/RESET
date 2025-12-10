@@ -21,8 +21,8 @@ public partial class GameManager : Node
 	private RewardMenu _rewardMenu; 
 	private WaveDirector _waveDirector;
 	
-	public int Scrap { get; private set; } = 100000;
-	public int Mana { get; private set; } = 100000;
+	public int Scrap { get; private set; } = 0;
+	public int Mana { get; private set; } = 0;
 	[Export] public Label ScrapLabel;
 	[Export] public Label ManaLabel;
 	[Export] public int SlotScrapBaseCost = 1000;
@@ -44,28 +44,39 @@ public partial class GameManager : Node
 	[Export] public Button PauseButton;
 	[Export] public Button ResumeButton;
 	[Export] public Button MainMenuButton;
+	[Export] public Button SpeedButton;
 
 	private HashSet<Aspect> _lastOffered = new();
+	
+	private bool fast = false;
 
-	public GameManager()
+	public override void _EnterTree()
 	{
-		//Singleton
-		if (Instance != null)
+		if (Instance != null && Instance != this)
 		{
-
-			QueueFree();
-			return;
+			GD.PushWarning("[GM] Replacing existing GameManager singleton instance.");
 		}
 
 		Instance = this;
 	}
 
+	public override void _ExitTree()
+	{
+		if (Instance == this)
+			Instance = null;
+	}
+	
 	public override void _Ready()
 	{
 		
 		GetTree().Paused = false;
-		ManaLabel.Text = $"Mana: {Mana}";
-		ScrapLabel.Text = $"Scrap: {Scrap}";
+		
+		ResetRunState();
+
+		ManaLabel.Text = $"{Mana}";
+		ScrapLabel.Text = $"{Scrap}";
+		
+		SpeedButton.Pressed += OnSpeedButtonPressed;
 
 	
 		_gameOverText = GetNode<Label>(gameOverTextPath);
@@ -80,9 +91,9 @@ public partial class GameManager : Node
 		_rewardMenu = GetNodeOrNull<RewardMenu>(RewardMenuPath);
 		if (_rewardMenu != null)
 		{
-			_rewardMenu.ProcessMode = Node.ProcessModeEnum.WhenPaused; // Godot 4
+			_rewardMenu.ProcessMode = Node.ProcessModeEnum.WhenPaused;
 			_rewardMenu.Hide();
-			_rewardMenu.ChoicePicked += OnAspectTemplatePicked;  // <-- SUBSCRIBE!
+			_rewardMenu.ChoicePicked += OnAspectTemplatePicked;
 			GD.Print($"[GM] Subscribed to RewardMenu at {_rewardMenu.GetPath()}");
 		}
 		_pauseMenu = GetNodeOrNull<PauseMenu>(PauseMenuPath);
@@ -98,6 +109,33 @@ public partial class GameManager : Node
 
 
 	}
+	private void ResetRunState()
+{
+	// Core run stats
+	Scrap = 0;
+	Mana  = 0;
+
+	_currentWave      = 0;
+	_enemiesRemaining = 0;
+	_duration         = 0f;
+
+	_lastOffered.Clear();
+
+	// Fresh inventory each run
+	Inventory = new AspectInventory();
+
+	// Wave library will be reloaded after this
+	_waveLibrary = new Godot.Collections.Dictionary<string, Wave>();
+
+	// UI reset (labels will be updated below)
+	UpdateManaLabel();
+	UpdateScrapLabel();
+
+	// Game over text & reward menu state are handled in _Ready,
+	// but you can be explicit if you want:
+	// if (_gameOverText != null) _gameOverText.Visible = false;
+	// if (_rewardMenu != null) _rewardMenu.Hide();
+}
 
 	private void LoadAllWaves()
 	{
@@ -167,6 +205,16 @@ public partial class GameManager : Node
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		StartNextWave();
 	}
+
+	private void OnSpeedButtonPressed()
+	{
+		fast = !fast;
+		Engine.TimeScale = fast ? 2.0 : 1.0;
+
+		// Optional UI feedback
+		SpeedButton.Text = fast ? "2x" : "1x";
+	}
+
 	public bool TryBuyTowerSlot(Tower tower)
 	{
 		var cost = SlotScrapBaseCost;
