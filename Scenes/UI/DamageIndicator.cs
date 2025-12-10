@@ -18,7 +18,7 @@ public partial class DamageIndicator : Node2D
 	private float animTime = 0;
 
 	private Label label;
-	private LabelSettings _baseSettings;   // <<-- NEW
+	private LabelSettings _baseSettings;
 
 	Tween anim;
 
@@ -26,18 +26,15 @@ public partial class DamageIndicator : Node2D
 	{
 		label = GetNode<Label>("Label");
 
-		// Grab existing settings (including any outline you set in the inspector),
-		// or create new ones if none exist
+
 		_baseSettings = label.LabelSettings as LabelSettings ?? new LabelSettings();
 
-		// Make sure we have an outline (if you want to enforce it from code)
 		if (_baseSettings.OutlineSize <= 0)
 		{
 			_baseSettings.OutlineSize = 2;
 			_baseSettings.OutlineColor = Colors.Black;
 		}
 
-		// Apply the base settings back to the label
 		label.LabelSettings = _baseSettings;
 
 		Position += new Vector2(
