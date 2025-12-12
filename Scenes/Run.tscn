@@ -238,8 +238,6 @@ visible = false
 
 [node name="AbilityHoverMenu" parent="CanvasLayer" instance=ExtResource("23_r63x1")]
 visible = false
-ScrapIcon = null
-ManaIcon = null
 
 [node name="TopMenuContainer" type="MarginContainer" parent="CanvasLayer"]
 offset_left = 2.0

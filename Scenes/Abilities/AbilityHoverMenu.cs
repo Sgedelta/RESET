@@ -245,10 +245,10 @@ private void RefreshText()
 		if (target == null) return;
 
 		var targetRect = target.GetGlobalRect();
-		const float verticalOffset = -300f;
+		const float verticalOffset = -250f;
 
 		Vector2 desired = new Vector2(
-			targetRect.Position.X - 100f,
+			targetRect.Position.X - 120f,
 			targetRect.Position.Y + verticalOffset
 		);
 

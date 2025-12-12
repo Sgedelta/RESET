@@ -112,8 +112,8 @@ public partial class GameManager : Node
 	private void ResetRunState()
 {
 	// Core run stats
-	Scrap = 0;
-	Mana  = 0;
+	Scrap = 100000;
+	Mana  = 100000;
 
 	_currentWave      = 0;
 	_enemiesRemaining = 0;
@@ -225,6 +225,7 @@ public partial class GameManager : Node
 		}
 		AddScrap(-cost);
 		tower.AddAspectSlot(1);
+		SlotScrapBaseCost += 500;
 	
 
 		foreach (var n in GetTree().GetNodesInGroup("tower_pullout"))

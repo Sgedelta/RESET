@@ -23,5 +23,5 @@ AbilityName = "Railgun"
 BaseManaCost = 3000
 CurrentLevel = 0
 MaxLevel = 10
-ScrapUnlockCost = 250
+ScrapUnlockCost = 300
 HoverBackground = ExtResource("2_qaim7")

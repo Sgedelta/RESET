@@ -20,18 +20,17 @@ public partial class DamageIndicator : Node2D
 	private Label label;
 	private LabelSettings _baseSettings;
 
-	Tween anim;
+	private Tween anim;
 
 	public override void _Ready()
 	{
 		label = GetNode<Label>("Label");
 
-
 		_baseSettings = label.LabelSettings as LabelSettings ?? new LabelSettings();
 
 		if (_baseSettings.OutlineSize <= 0)
 		{
-			_baseSettings.OutlineSize = 2;
+			_baseSettings.OutlineSize = 4;
 			_baseSettings.OutlineColor = Colors.Black;
 		}
 
@@ -47,20 +46,37 @@ public partial class DamageIndicator : Node2D
 
 	public void StartAnimation()
 	{
-		anim = GetTree().CreateTween();
-		Tween sideAnim = GetTree().CreateTween();
+		// If we're not in the scene tree anymore, don't try to animate
+		if (!IsInsideTree() || !IsInstanceValid(this))
+			return;
 
-		int wobbleCount = (int)(animTime / wobbleSpeed);
+		// If somehow animTime is tiny or zero, just free immediately
+		if (animTime <= 0.01f)
+		{
+			QueueFree();
+			return;
+		}
+
+		// Kill any previous tween on this node
+		anim?.Kill();
+
+		anim = CreateTween();             // Node-bound tween
+		var sideAnim = CreateTween();     // Also bound to this node
+
+		int wobbleCount = Mathf.Max(1, (int)(animTime / wobbleSpeed));
 		int initialDir = GD.Randf() >= .5f ? 1 : -1;
 
 		// movement
-		anim.SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
+		anim.SetEase(Tween.EaseType.Out)
+			.SetTrans(Tween.TransitionType.Sine);
 
 		anim.TweenProperty(this, "position:y", Position.Y + (-1 * moveSpeed * animTime), animTime);
 		anim.Parallel().TweenProperty(this, "scale", Vector2.Zero, animTime);
 
 		// side to side
-		sideAnim.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+		sideAnim.SetTrans(Tween.TransitionType.Sine)
+				.SetEase(Tween.EaseType.InOut);
+
 		sideAnim.TweenProperty(this, "position:x", Position.X + (initialDir * wobbleAmnt), animTime / wobbleCount);
 
 		for (int i = 1; i < wobbleCount; i++)
@@ -75,29 +91,42 @@ public partial class DamageIndicator : Node2D
 				sideAnim.SetEase(Tween.EaseType.In);
 			}
 
-			sideAnim.TweenProperty(this, "position:x", Position.X + (initialDir * wobbleAmnt * 2), animTime / wobbleCount * 2);
+			sideAnim.TweenProperty(
+				this,
+				"position:x",
+				Position.X + (initialDir * wobbleAmnt * 2),
+				(animTime / wobbleCount) * 2
+			);
 		}
 
 		// deletion
-		anim.TweenCallback(Callable.From(() => { QueueFree(); }));
+		anim.TweenCallback(Callable.From(() =>
+		{
+			if (IsInsideTree())
+				QueueFree();
+		}));
 	}
 
-	public void SetDamage(float damage, Color color)
+	public void SetDamage(float damage, Color color, bool isCrit = false)
 	{
 		if (label != null)
 		{
-			label.Modulate = color;
-			label.Text = damage.ToString("F2");
+			// Crit overrides color to blue
+			if (isCrit)
+				label.Modulate = Colors.SkyBlue;
+			else
+				label.Modulate = color;
 
-			// a float from 0-1 representing the position of damage between min and max
+			// No decimals
+			label.Text = Mathf.RoundToInt(damage).ToString();
+
+			// 0-1 scale for damage between min and max
 			float damageScale = (Mathf.Clamp(damage, minScaleDamage.X, maxScaleDamage.X) - minScaleDamage.X)
 								/ (maxScaleDamage.X - minScaleDamage.X);
 
-			// Duplicate our base settings so outline / font / etc. are preserved
 			var settings = _baseSettings.Duplicate() as LabelSettings;
 			settings.FontSize = (int)Mathf.Lerp(minScaleDamage.Y, maxScaleDamage.Y, damageScale);
 
-			// Apply to the label
 			label.LabelSettings = settings;
 
 			// Animation time based on damage
@@ -106,6 +135,6 @@ public partial class DamageIndicator : Node2D
 			label.QueueRedraw();
 		}
 
-		StartAnimation();
+		StartAnimation(); // only once
 	}
 }

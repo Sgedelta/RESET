@@ -25,5 +25,5 @@ AbilityName = "Inferno"
 BaseManaCost = 500
 CurrentLevel = 0
 MaxLevel = 10
-ScrapUnlockCost = 250
+ScrapUnlockCost = 100
 HoverBackground = ExtResource("2_0mbk1")

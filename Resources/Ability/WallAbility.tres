@@ -22,5 +22,5 @@ AbilityName = "Wall"
 BaseManaCost = 1000
 CurrentLevel = 0
 MaxLevel = 10
-ScrapUnlockCost = 250
+ScrapUnlockCost = 200
 HoverBackground = ExtResource("1_g2lm2")

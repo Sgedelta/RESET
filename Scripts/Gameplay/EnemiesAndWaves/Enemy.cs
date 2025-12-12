@@ -92,53 +92,55 @@ public partial class Enemy : PathFollow2D
 		}
 	}
 
-	public void TakeDamage(float dmg, bool wasCrit = false, DamageType type = DamageType.Normal)
-	{
-		HP -= dmg;
-		ShowDamageIndicator(dmg, type);
-		if (HP <= 0f && !died) 
-		{
-			EmitSignal(SignalName.EnemyDied, this);
-			QueueFree();
-			died = true;
-		}
+public void TakeDamage(float dmg, bool wasCrit = false, DamageType type = DamageType.Normal)
+{
+	HP -= dmg;
+	ShowDamageIndicator(dmg, wasCrit, type);
 
+	if (HP <= 0f && !died) 
+	{
+		EmitSignal(SignalName.EnemyDied, this);
+		QueueFree();
+		died = true;
+	}
+}
+
+private void ShowDamageIndicator(float dmg, bool wasCrit, DamageType type)
+{
+	if (DamageIndicatorScene == null)
+	{
+		GD.PushWarning("Damage indicator failed due to scene being null. Took " + dmg + " damage.");
+		return;
 	}
 
-
-
-	private void ShowDamageIndicator(float dmg, DamageType type)
+	if (wasCrit)
 	{
-		//Make Damage Type enum - set indicator color off damage type?
-		if (DamageIndicatorScene == null)
+		damageColor = Colors.SkyBlue;
+	}
+	else
+	{
+		if (type == DamageType.Posion)
 		{
-			GD.PushWarning("Damage indicator failed due to scene being null. Took " + dmg + " damage.");
-			return;
-		}
-
-		if(type == DamageType.Posion)
-		{
-			damageColor = new Color(0.0f, 1.0f,0.0f);
+			damageColor = new Color(0.0f, 1.0f, 0.0f);
 		}
 		else
 		{
 			damageColor = new Color(1.0f, 0.7f, 0.0f);
 		}
-			
-		var indicator = (DamageIndicator)DamageIndicatorScene.Instantiate();
-		GetTree().CurrentScene.AddChild(indicator);
-
-		
-		indicator.GlobalPosition = GlobalPosition + new Vector2(0, -20);
-		indicator.SetDamage(dmg, damageColor);
-
-
 	}
+
+	var indicator = (DamageIndicator)DamageIndicatorScene.Instantiate();
+	GetTree().CurrentScene.AddChild(indicator);
+
+	indicator.GlobalPosition = GlobalPosition + new Vector2(0, -20);
+
+	indicator.SetDamage(dmg, damageColor, wasCrit);
+}
+
 
 	private void OnAttackTimeout()
 	{
 		EmitSignal(SignalName.EnemyAttacked, this, AttackDamage);
-		//GD.Print("Attack Timeout!");
 	}
 
 	public void ApplyDamageOverTime(float damagePerTick, float duration, float tickInterval)

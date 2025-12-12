@@ -48,7 +48,12 @@ public partial class UI_TowerPullout : CanvasLayer
 		get
 		{
 			if (ActiveTower != null)
-				return ActiveTower.ModifiedStats.AspectSlots;
+			{
+				// Clamp tower slots to max 9 in the UI
+				int slots = ActiveTower.ModifiedStats.AspectSlots;
+				return Mathf.Clamp(slots, 0, 9);
+			}
+
 			GD.PushError("No Active Tower to Get Slots From!");
 			return -1;
 		}
@@ -154,9 +159,7 @@ public partial class UI_TowerPullout : CanvasLayer
 		if (ActiveTower != null)
 		{
 			_statDisplay.Text = ActiveTower.StatDisplayBBCode();
-
 			_firingModeButton.Selected = (int)ActiveTower.Targeting.Mode;
-
 		}
 
 		if (AspectBar.Instance != null)
@@ -174,11 +177,6 @@ public partial class UI_TowerPullout : CanvasLayer
 				cc.MouseFilter = Control.MouseFilterEnum.Ignore;
 	}
 
-	/// <summary>
-	/// Attach a single GuiInput handler to a slot that knows how to
-	/// react when the slot is currently marked as a "buy slot".
-	/// Whether the slot is a buy slot or not is controlled via metadata.
-	/// </summary>
 	private void SetupBuySlotHandler(AspectSlot slot)
 	{
 		slot.SetMeta(BuySlotMetaKey, false);
@@ -218,10 +216,8 @@ public partial class UI_TowerPullout : CanvasLayer
 
 		if (!success)
 		{
-			// TODO: Hook in some feedback ("Not enough scrap") when you add a toast/pop-up system
+			// TODO: Show feedback to player (not enough scrap, etc.)
 		}
-		// GameManager.TryBuyTowerSlot already refreshes pullouts, so we don't strictly need
-		// RefreshUIs() here, but calling again is harmless if you want to be explicit.
 	}
 
 	private void ConfigureBuySlotVisual(AspectSlot slot)
@@ -229,12 +225,12 @@ public partial class UI_TowerPullout : CanvasLayer
 		var gm = GameManager.Instance;
 		int cost = gm != null ? gm.SlotScrapBaseCost : 0;
 
+		// TODO: Set label text / color based on cost if desired
 	}
 
 	private void ConfigureRealSlotVisual(AspectSlot slot)
 	{
 		// Reset any visual hints for normal slots
-		// slot.Modulate = Colors.White; // If you change Modulate above, reset it here
 	}
 
 	public void DisplaySlots(int totalCount)
@@ -265,6 +261,7 @@ public partial class UI_TowerPullout : CanvasLayer
 			SetupBuySlotHandler(slot);
 			_container.AddChild(slot);
 		}
+
 		int realSlots = AvailableSlots;
 		if (realSlots < 0)
 			realSlots = 0;
@@ -278,12 +275,11 @@ public partial class UI_TowerPullout : CanvasLayer
 				ConfigureSlotInput(slot);
 				slot.SetIndex(logical);
 
-				bool isReal = logical < realSlots;
-				bool isBuy  = logical == realSlots;
-				bool visible = logical < realSlots + 1;  // show all real + one buy slot
+				bool isReal   = logical < realSlots;
+				bool isBuy    = logical == realSlots && realSlots < 9;   // only one buy slot, and only if < 9
+				bool visible  = logical < totalCount;                    // show up to requested count
 
 				slot.Visible = visible;
-
 				slot.SetMeta(BuySlotMetaKey, isBuy);
 
 				if (isBuy)
@@ -305,13 +301,14 @@ public partial class UI_TowerPullout : CanvasLayer
 		}
 
 		ActiveTower.SetTargetingMode((TargetingMode)TargetingModeIndex);
-
 	}
 
 	public override void _UnhandledInput(InputEvent e)
 	{
 		if (!_active || animating) return;
-		if (e is InputEventMouseButton mb && mb.Pressed)
+
+		// Only close on left-click, not scroll wheel or other buttons
+		if (e is InputEventMouseButton mb && mb.Pressed && mb.ButtonIndex == MouseButton.Left)
 		{
 			_tower.ShowOrHideRange(false);
 			ToggleActive();
@@ -325,7 +322,10 @@ public partial class UI_TowerPullout : CanvasLayer
 		if (realSlots < 0)
 			realSlots = 0;
 
-		// Always display one extra "buy slot"
-		DisplaySlots(realSlots + 1);
+		// If under 9, show one extra as a buy slot.
+		// If at 9, no more buy slot.
+		int totalToDisplay = realSlots < 9 ? realSlots + 1 : realSlots;
+
+		DisplaySlots(totalToDisplay);
 	}
 }
